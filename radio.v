@@ -1,0 +1,56 @@
+module mui
+
+import gx
+
+pub fn add_radio(mut app &Window, list []string, group_id string, x string|int, y string|int, wh string|int, selected int, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent){
+	app.objects << {
+		"type": WindowData{str:"hidden"},
+		"realT":WindowData{str:"radio"},
+		"id":   WindowData{str:group_id}
+		"len":	WindowData{num:list.len}
+		"x":    WindowData{num:0},
+		"y":    WindowData{num:0},
+		"w":    WindowData{num:0},
+		"h":    WindowData{num:0},
+		"s":	WindowData{num:selected}
+		"bg":   WindowData{clr:bg},
+		"bfg":	WindowData{clr:bfg},
+		"fg":   WindowData{clr:fg},
+		"hi":	WindowData{bol:hi}
+		"fnchg":WindowData{fun:fnchg}
+	}
+	for which_item,item in list {
+		app.objects << {
+			"type": WindowData{str:"radio"},
+			"id":   WindowData{str:group_id+"_"+which_item.str()}
+			"text": WindowData{str:item},
+			"x":    WindowData{num:0},
+			"y":    WindowData{num:0},
+			"w":    WindowData{num:0},
+			"h":    WindowData{num:0},
+			"x_raw":WindowData{str: match x{ int{ x.str() } string{ x } } },
+			"y_raw":WindowData{str: match y{ int{ (y+((match wh{int{wh}string{0}}+5)*which_item)).str() } string{ print("Anchors couldn't be used in Y of radio buttons.\n") "0" } } },
+			"w_raw":WindowData{str: match wh{ int{ wh.str() } string{ print("Anchors couldn't be used in size of radio buttons.\n") "0" } } },
+			"h_raw":WindowData{str: match wh{ int{ wh.str() } string{ print("Anchors couldn't be used in size of radio buttons.\n") "0" } } },
+			"c":	WindowData{bol:selected==which_item}
+			"hi":	WindowData{bol:hi}
+		}
+	}
+}
+
+[unsafe]
+fn draw_radio(app &Window, object map[string]WindowData){
+	unsafe{
+		group:=get_object_by_id(app, object["id"].str.split("_")#[0..-1].join("_"))
+		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["w"].num, group["bg"].clr)
+		if object["c"].bol{
+			app.gg.draw_rect_filled(object["x"].num+2, object["y"].num+2, object["w"].num-4, object["w"].num-4, group["bfg"].clr)
+		}
+		app.gg.draw_text(object["x"].num+object["w"].num+4, object["y"].num+object["h"].num/2, object["text"].str, gx.TextCfg{
+			color: group["fg"].clr
+			size: 20
+			align: .left
+			vertical_align: .middle
+		})
+	}
+}
