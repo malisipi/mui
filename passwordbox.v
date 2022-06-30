@@ -30,11 +30,11 @@ pub fn add_password(mut app &Window, text string, hider_char string, id string, 
 fn draw_password(app &Window, object map[string]WindowData){
 	unsafe{
 		mut hidden_text:=""
-		for _ in 0..object["text"].str.split("\0")[0].len{
+		for _ in 0..object["text"].str.split("\0")[0].runes().len{
 			hidden_text+=object["hc"].str
 		}
 		hidden_text+="\0"
-		for _ in 0..object["text"].str.split("\0")[1].len{
+		for _ in 0..object["text"].str.split("\0")[1].runes().len{
 			hidden_text+=object["hc"].str
 		}
 

@@ -74,6 +74,8 @@ fn frame_fn(app &Window) {
 						draw_image(app, object)
 					}"table"{
 						draw_table(app, object)
+					}"line_graph"{
+						draw_line_graph(app, object)
 					}else {}
 				}
 			}

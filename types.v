@@ -19,6 +19,8 @@ pub mut:
     fun OnEvent
     img gg.Image
     tbl [][]string
+	dat [][]int
+	lcr []gx.Color
 }
 
 pub struct WindowConfig {
@@ -72,6 +74,11 @@ pub struct Widget {
 	onclick			OnEvent			= empty_fn
 	onunclick		OnEvent			= empty_fn
 	link_underline	bool			= true
+	graph_title		string			= "Graph"
+	graph_label		[]string		= ["","",""]
+	graph_data		[][]int			= [[0,0,0]]
+	graph_names		[]string		= [""]
+	graph_color		[]gx.Color		= [gx.Color{r: 255, g: 255, b: 255}]
 	background		gx.Color		= gx.Color{r: 127, g: 127, b: 127}
 }
 

@@ -58,6 +58,7 @@ You can find more examples in `./examples/` folder.
 
 ## To-Do List
 
+- [x] Line Graph
 - [ ] Menubar Support
 - [ ] Tabs
 - [ ] Treeview
@@ -82,6 +83,11 @@ You can find more examples in `./examples/` folder.
 - [ ] Load UI from External XML/JSON File
 - [ ] Improve Documentation
 - [ ] Context Menu
+- [ ] Bar Chart
+- [ ] Pie Chart
+- [ ] Column Chart
+- [ ] Gauge chart
+- [ ] Area Graph
 
 ## Installation
 
