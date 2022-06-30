@@ -2,7 +2,9 @@
 
 ![MUI Demo](./pictures/MUI_Demo.gif "MUI Demo")
 
-### **Supports Windows & Linux**. *No support for MacOS*.
+> **Supports Windows & Linux**. *No support for MacOS<sup>1</sup>.*
+
+1: Should work on MacOS. But themes won't work, and could be include MacOS-only bug.
 
 ## Example
 
@@ -79,6 +81,7 @@ You can find more examples in `./examples/` folder.
 - [ ] Hot Code Reloading
 - [ ] Load UI from External XML/JSON File
 - [ ] Improve Documentation
+- [ ] Context Menu
 
 ## Installation
 
@@ -90,7 +93,7 @@ You can find more examples in `./examples/` folder.
 
 * Slider scrolling bug when `width`<`(maxValue-MinValue)/Step`
 * Anchor system won't works correctly with radio button.
-* All keys (of keyboard) not supported now. _Works a-z, A-Z, 0-9, Arrow keys, also other important keys (like escape, space, enter, shift)_
+* ~~All keys (of keyboard) not supported now. _Works a-z, A-Z, 0-9, Arrow keys, also other important keys (like escape, space, enter, shift)_~~
 
 ## License
 

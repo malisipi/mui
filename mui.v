@@ -17,6 +17,7 @@ pub fn create(args &WindowConfig)	 &Window{
 		bg_color: app.color_scheme[0]
 		frame_fn: frame_fn
 		click_fn: click_fn
+		char_fn: char_fn
 		keydown_fn: keydown_fn
 		user_data: app
 		window_title: args.title
@@ -195,47 +196,63 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 }
 
 [unsafe]
-fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
+fn char_fn(chr u32, mut app &Window){
+	unsafe {
+		keyboard_fn(chr, mut app)
+	}
+}
+
+[unsafe]
+fn keyboard_fn(chr u32|string, mut app &Window){
 	unsafe{
 		if app.focus!="" {
 			mut object:=get_object_by_id(app,app.focus)
-			key:=parse_key(c, m)
-			if key.to_lower()=="escape"{
+
+			mut key:=""
+			match chr{
+				u32{
+					key=utf32_to_str(chr)
+				} string {
+					key=chr
+				}
+			}
+
+			if key=="escape"{
 				app.focus=""
 			}
 			match object["type"].str {
 				"textbox","password" {
-					if key.len==1{
+					if key.runes().len<2{
 						the_text:=object["text"].str
 						the_text_part1,the_text_part2:=the_text.split("\0")[0],the_text.split("\0")[1]
 						if key!="\b" {
 							object["text"]=WindowData{str:the_text_part1+key+"\0"+the_text_part2}
 						} else {
-							object["text"]=WindowData{str:the_text_part1#[0..-1]+"\0"+the_text_part2}
+							object["text"]=WindowData{str:the_text_part1.runes()#[0..-1].string()+"\0"+the_text_part2}
 						}
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["text"].str},mut app, mut app.app_data)
-					} else if key.to_lower()=="right" || key.to_lower()=="left"{
+					} else if key=="right" || key.to_lower()=="left"{
 						the_text:=object["text"].str
-						the_text_part1,the_text_part2:=the_text.split("\0")[0],the_text.split("\0")[1]
+						the_text_part1,the_text_part2:=the_text.split("\0")[0].runes(),the_text.split("\0")[1].runes()
 						if key.to_lower()=="right" {
 							if the_text_part2.len==0 { return }
-							object["text"]=WindowData{str:the_text_part1+the_text_part2[0..1]+"\0"+the_text_part2[1..the_text_part2.len]}
+							object["text"]=WindowData{str:the_text_part1.string()+the_text_part2[0..1].string()+"\0"+the_text_part2[1..the_text_part2.len].string()}
 						} else {
 							if the_text_part1.len==0 { return }
-							object["text"]=WindowData{str:the_text_part1#[0..-1]+"\0"+the_text_part1[the_text_part1.len-1..the_text_part1.len]+the_text_part2}
+							object["text"]=WindowData{str:the_text_part1#[0..-1].string()+"\0"+the_text_part1[the_text_part1.len-1..the_text_part1.len].string()+the_text_part2.string()}
 						}
 					}
 				} "button" {
-					if key.to_lower()=="enter" || key==" " {
+					if key=="enter" || key==" " {
 						object["fn"].fun(EventDetails{event:"keypress",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
 					}
 				} "checkbox" {
-					if key.to_lower()=="enter" || key==" " {
+					if key=="enter" || key==" " {
 						object["c"]=WindowData{bol:!object["c"].bol}
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["c"].bol.str()},mut app, mut app.app_data)
 					}
 				} "slider" {
-					if key.to_lower()=="left" {
+					if key=="left" {
 						object["val"]=WindowData{num:math.max(object["vlMin"].num,object["val"].num-object["vStep"].num)}
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
 					} else if key.to_lower()=="right" {
@@ -243,12 +260,12 @@ fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
 					}
 				} "radio" {
-					if key.to_lower()=="up" || key.to_lower()=="down" {
+					if key=="__up" || key=="down" {
 						group_id:=object["id"].str.split("_")#[0..-1].join("_")
 						group:=get_object_by_id(app,group_id)
 						radio_list_len:=group["len"].num
 						mut which_item:=object["id"].str.replace(group_id+"_","").int()
-						if key.to_lower()=="up"{
+						if key=="__up"{
 							which_item-=1
 							if which_item==-1{
 								which_item=radio_list_len-1
@@ -267,10 +284,10 @@ fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
 						group["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:group_id+"_"+which_item.str(),value:which_item.str()},mut app, mut app.app_data)
 					}
 				} "selectbox" {
-					if key.to_lower()=="up" || key.to_lower()=="down" {
+					if key=="__up" || key=="down" {
 						list:=object["list"].str.split("\0")
 						which_item:=object["s"].num
-						if key.to_lower()=="up"{
+						if key=="__up"{
 							which_item-=1
 							if which_item==-1{
 								which_item=list.len-1
@@ -291,6 +308,26 @@ fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
 					}
 				} else {}
 			}
+		}
+	}
+}
+
+[unsafe]
+fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
+	mut key:=""
+	match c{
+		.menu  { key="menu" }
+		.right { key="right"}
+		.left  { key="left" }
+		.down  { key="down" }
+		.up    { key="__up" }
+		.escape{key="escape"}
+		.backspace{ key="\b"}
+		else {}
+	}
+	if key!=""{
+		unsafe {
+			keyboard_fn(key,mut app)
 		}
 	}
 }
