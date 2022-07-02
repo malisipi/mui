@@ -26,13 +26,14 @@ pub fn add_table(mut app &Window, table [][]string, id string, x string|int, y s
 [unsafe]
 fn draw_table(app &Window, object map[string]WindowData){
 	unsafe{
-		//app.gg.draw_rect_empty(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["fg"].clr)
-		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
 
 		table:=object["table"].tbl
 		table_y:=table.len
 		table_x:=table[0].len
 		per_cell:=[object["w"].num/table_x,object["h"].num/table_y]
+
+		app.gg.draw_rect_filled(object["x"].num, object["y"].num, per_cell[0]*table_x, per_cell[1]*table_y, object["bg"].clr)
+
 		for wy,y_ in table{
 			for wx,x_ in y_{
 				app.gg.draw_rect_empty(object["x"].num+per_cell[0]*wx, object["y"].num+per_cell[1]*wy, per_cell[0], per_cell[1], object["bfg"].clr)

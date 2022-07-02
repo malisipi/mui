@@ -227,10 +227,12 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 					if key.runes().len<2{
 						the_text:=object["text"].str
 						the_text_part1,the_text_part2:=the_text.split("\0")[0],the_text.split("\0")[1]
-						if key!="\b" {
+						if key!="\b" && key!="\1" {
 							object["text"]=WindowData{str:the_text_part1+key+"\0"+the_text_part2}
-						} else {
+						} else if key=="\b" {
 							object["text"]=WindowData{str:the_text_part1.runes()#[0..-1].string()+"\0"+the_text_part2}
+						} else {
+							object["text"]=WindowData{str:the_text_part1+"\0"+the_text_part2.runes()#[1..].string()}
 						}
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["text"].str},mut app, mut app.app_data)
 					} else if key=="right" || key.to_lower()=="left"{
@@ -316,15 +318,30 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 
 [unsafe]
 fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
+	//super := m == .super
+	shift := m == .shift
+	//alt   := m == .alt
+	//ctrl  := m == .ctrl
 	mut key:=""
 	match c{
+		.tab {
+			unsafe {
+				if shift {
+					app.focus=app.get_previous_object_by_id(app.focus)[0]["id"].str
+				} else {
+					app.focus=app.get_next_object_by_id(app.focus)[0]["id"].str
+				}
+			}
+		}
 		.menu  { key="menu" }
 		.right { key="right"}
 		.left  { key="left" }
 		.down  { key="down" }
 		.up    { key="__up" }
+		.enter { key="enter"}
 		.escape{key="escape"}
 		.backspace{ key="\b"}
+		.delete{key="\1"}
 		else {}
 	}
 	if key!=""{

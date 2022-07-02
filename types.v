@@ -5,7 +5,7 @@ import gx
 import os.font
 
 const (
-	null_object={"null":WindowData{str:"null"}}
+	null_object={"id":WindowData{str:""}}
 )
 
 pub type OnEvent=fn(EventDetails, mut Window, voidptr)

@@ -49,7 +49,7 @@ fn draw_password(app &Window, object map[string]WindowData){
 				vertical_align: .middle
 			})
 		} else {
-			app.gg.draw_text(object["x"].num+4, object["y"].num+object["h"].num/2, hidden_text.replace("\0","|"), gx.TextCfg{
+			app.gg.draw_text(object["x"].num+4, object["y"].num+object["h"].num/2, hidden_text.replace("\0",text_cursor), gx.TextCfg{
 				color: object["fg"].clr
 				size: 20
 				align: .left
