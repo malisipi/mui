@@ -10,6 +10,10 @@ mut:
     music       ma.Sound
 }
 
+fn map_play_time(time int) string{
+    return (time/60).str()+":"+(time%60).str()
+}
+
 fn move_play_slider(mut app &mui.Window, mut app_data &AppData){
     if app_data.music.audio_buffer==voidptr(0) { return }
     if app_data.music.audio_buffer.playing{
@@ -85,8 +89,8 @@ fn main(){
 
     app.button(mui.Widget{ id:"load_button", x: 10, y:"# 10", width:"25", height:"25" text:"O", onclick:load_music_button})
     app.button(mui.Widget{ id:"play_button", x: 40, y:"# 10", width:"25", height:"25" text:"P", onclick:toggle_music})
-    app.slider(mui.Widget{ id:"volume_slider", x: "# 30", y:"# 10", width:"60", height:25, value:100, value_max:100, step:10, onunclick:change_vol })
-    app.slider(mui.Widget{ id:"play_slider", x: 70, y:"# 10", width:"100%x -180", height:25, value_max:1, onunclick:seek_to_time })
+    app.slider(mui.Widget{ id:"volume_slider", x: "# 40", y:"# 10", width:"60", height:25, value:100, value_max:100, step:10, onunclick:change_vol })
+    app.slider(mui.Widget{ id:"play_slider", x: 70, y:"# 10", width:"100%x -220", height:25, value_max:1, onunclick:seek_to_time, value_map:map_play_time })
     app.label(mui.Widget{ id:"now_playing" x: 10, y:10, width: "100%x -20", height:"100%y -55", text:"No Song Playing"})
 
     go update_play_slider(mut app, mut &app_data)

@@ -3,13 +3,14 @@ module mui
 import gg
 import gx
 
-pub fn add_slider(mut app &Window, val int, min int, max int, step int, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent){
+pub fn add_slider(mut app &Window, val int, min int, max int, step int, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, value_map ValueMap){
 	    app.objects << {
         "type": WindowData{str:"slider"},
         "id":   WindowData{str:id},
         "val":  WindowData{num:val-(val-min)%step},
         "vlMin":WindowData{num:min},
         "vlMax":WindowData{num:max-(max-min)%step},
+        "vlMap":WindowData{vmp:value_map},
         "vStep":WindowData{num:step},
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},
@@ -36,7 +37,7 @@ fn draw_slider(app &Window, object map[string]WindowData){
 		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
 		width_of_thumb:=int(f32(object["w"].num)/((object["vlMax"].num-object["vlMin"].num)/object["vStep"].num)*((object["val"].num-object["vlMin"].num)/object["vStep"].num))-3
 		app.gg.draw_rect_filled(object["x"].num+width_of_thumb, object["y"].num, 6, object["h"].num, object["bfg"].clr)
-		app.gg.draw_text(object["x"].num+object["w"].num+6, object["y"].num+object["h"].num/2, object["val"].num.str(), gx.TextCfg{
+		app.gg.draw_text(object["x"].num+object["w"].num+6, object["y"].num+object["h"].num/2, object["vlMap"].vmp(object["val"].num), gx.TextCfg{
 			color: object["fg"].clr
 			size: 20
 			align: .left

@@ -53,7 +53,7 @@ pub fn (mut app Window) selectbox ( args Widget ){
 }
 
 pub fn (mut app Window) slider ( args Widget ){
-	add_slider(mut app, args.value, args.value_min, args.value_max, args.step, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onclick, args.onchange, args.onunclick)
+	add_slider(mut app, args.value, args.value_min, args.value_max, args.step, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onclick, args.onchange, args.onunclick, args.value_map)
 }
 
 pub fn (mut app Window) link ( args Widget ){

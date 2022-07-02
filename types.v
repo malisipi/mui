@@ -9,6 +9,7 @@ const (
 )
 
 pub type OnEvent=fn(EventDetails, mut Window, voidptr)
+pub type ValueMap=fn(int) string
 
 pub union WindowData {
 pub mut:
@@ -21,6 +22,7 @@ pub mut:
     tbl [][]string
 	dat [][]int
 	lcr []gx.Color
+	vmp ValueMap
 }
 
 pub struct WindowConfig {
@@ -81,6 +83,8 @@ pub struct Widget {
 	graph_names		[]string		= [""]
 	graph_color		[]gx.Color		= [gx.Color{r: 255, g: 255, b: 255}]
 	background		gx.Color		= gx.Color{r: 127, g: 127, b: 127}
+	value_map		ValueMap		= no_map
 }
 
 pub fn empty_fn(event_details EventDetails, mut app &Window, app_data voidptr){}
+pub fn no_map(val int) string { return val.str() }
