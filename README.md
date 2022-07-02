@@ -8,7 +8,7 @@
 
 ## Example
 
-```javascript
+```v
 import mui as m
 
 fn increase_count(event_details m.EventDetails,mut app &m.Window, app_data voidptr){
@@ -46,6 +46,7 @@ You can find more examples in `./examples/` folder.
     * Link
     * Selectbox
     * Table
+    * Graphs
 * Dialogs
     * Messagebox
     * Inputbox
@@ -103,7 +104,7 @@ You can find more examples in `./examples/` folder.
 
 ## License
 
-* This project licensed by [Apache License 2.0](./LICENSE).
+* **This project licensed by [Apache License 2.0](./LICENSE).**
 * [Tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/) (`./tinyfiledialogs/`) licensed by Zlib License.
 * [V-logo](https://github.com/vlang/v-logo) (`./examples/v-logo.png`) licensed by MIT license.
 

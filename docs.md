@@ -2,7 +2,7 @@
 
 ## Structs
 
-```javascript
+```v
 struct Window {
 pub mut:
         objects      []map[string]WindowData
@@ -81,14 +81,14 @@ struct Widget {
 
 ## Functions about Window
 
-```javascript
+```v
 fn create(args &WindowConfig) &Window
 fn run(mut app Window)
 ```
 
 ## Functions about Dialogs
 
-```javascript
+```v
 fn beep()
 fn colorchooser(title string, default_color string) string
 fn inputbox(title string, text string, default_text string) string
@@ -102,7 +102,7 @@ fn selectfolderdialog(title string) string
 
 ## Functions that manage widgets
 
-```javascript
+```v
 fn (mut app Window) button(args Widget)
 fn (mut app Window) checkbox(args Widget)
 fn (mut app Window) group(args Widget)

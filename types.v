@@ -33,6 +33,7 @@ pub mut:
 }
 
 pub struct EventDetails{
+pub mut:
 	event			string		// click, value_change, unclick, keypress
 	trigger			string		// mouse_left, mouse_right, mouse_middle, keyboard
 	value			string
