@@ -87,11 +87,11 @@ fn main(){
 
     mut app:=mui.create(mui.WindowConfig{ title:"MPlayer - MUI Example", height: 100, width:600, app_data:&app_data})
 
+    app.label(mui.Widget{ id:"now_playing" x: 10, y:10, width: "100%x -20", height:"100%y -55", text:"No Song Playing"})
     app.button(mui.Widget{ id:"load_button", x: 10, y:"# 10", width:"25", height:"25" text:"O", onclick:load_music_button})
     app.button(mui.Widget{ id:"play_button", x: 40, y:"# 10", width:"25", height:"25" text:"P", onclick:toggle_music})
-    app.slider(mui.Widget{ id:"volume_slider", x: "# 40", y:"# 10", width:"60", height:25, value:100, value_max:100, step:10, onunclick:change_vol })
     app.slider(mui.Widget{ id:"play_slider", x: 70, y:"# 10", width:"100%x -220", height:25, value_max:1, onunclick:seek_to_time, value_map:map_play_time })
-    app.label(mui.Widget{ id:"now_playing" x: 10, y:10, width: "100%x -20", height:"100%y -55", text:"No Song Playing"})
+    app.slider(mui.Widget{ id:"volume_slider", x: "# 40", y:"# 10", width:"60", height:25, value:100, value_max:100, step:10, onunclick:change_vol })
 
     go update_play_slider(mut app, mut &app_data)
     mui.run(mut app)

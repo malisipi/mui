@@ -80,6 +80,7 @@ fn frame_fn(app &Window) {
 				}
 			}
 		}
+		draw_focus(mut app)
 		app.gg.end()
 	}
 }

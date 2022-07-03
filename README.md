@@ -73,7 +73,7 @@ You can find more examples in `./examples/` folder.
 - [ ] Spin Button
 - [ ] Editable Label
 - [ ] Switch
-- [ ] Removable Widgets
+- [x] Removable Widgets
 - [ ] Disable Status (for Buttons, Checkboxs, Selectboxs, etc.)
 - [ ] Manuel Accent Color and Manuel Dark/Light Mode Support
 - [ ] Custom Colors for Widgets (except Themes)
@@ -89,6 +89,7 @@ You can find more examples in `./examples/` folder.
 - [ ] Column Chart
 - [ ] Gauge chart
 - [ ] Area Graph
+- [ ] Screen Reader Support
 
 ## Installation
 

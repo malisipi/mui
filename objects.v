@@ -20,6 +20,19 @@ pub fn (mut app Window) get_object_by_id(id string) []map[string]WindowData{
 }
 
 [unsafe]
+pub fn (mut app Window) remove_object_by_id(id string){
+	unsafe{
+		app_objects:=[]map[string]WindowData{}
+		for object in app.objects{
+			if object["id"].str!=id{
+				app_objects << object
+			}
+		}
+		app.objects=app_objects
+	}
+}
+
+[unsafe]
 fn clear_values(mut app Window, id string){
 	unsafe{
 		mut object:=app.get_object_by_id(id)[0]
@@ -59,6 +72,9 @@ fn get_previous_object_by_id(app &Window, _id string) map[string]WindowData{
 		mut previous_object:=null_object.clone()
 		for object in app.objects{
 			if object["id"].str==id {
+				if previous_object["realT"].str=="radio"{
+					return app.get_object_by_id(previous_object["id"].str+"_"+previous_object["s"].num.str())[0]
+				}
 				return previous_object
 			}
 
@@ -66,6 +82,7 @@ fn get_previous_object_by_id(app &Window, _id string) map[string]WindowData{
 				previous_object=object.move()
 			}
 		}
+
 		if previous_object["realT"].str=="radio"{
 			return app.get_object_by_id(previous_object["id"].str+"_"+previous_object["s"].num.str())[0]
 		}

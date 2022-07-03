@@ -8,6 +8,7 @@ pub fn add_link(mut app &Window, text string, id string, x string|int, y string|
         "type": WindowData{str:"link"},
         "id":   WindowData{str:id}
         "text": WindowData{str:text},
+        "unlin": WindowData{str:text},
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},
         "w":    WindowData{num:0},
@@ -33,6 +34,8 @@ fn draw_link(app &Window, object map[string]WindowData){
 			align: .center
 			vertical_align: .middle
 		})
-		app.gg.draw_rect_filled(object["x"].num+object["w"].num/2-w/2, object["y"].num+object["h"].num/2+h/2-2,w,2,object["fg"].clr)
+		if object["unlin"].bol{
+			app.gg.draw_rect_filled(object["x"].num+object["w"].num/2-w/2, object["y"].num+object["h"].num/2+h/2-2,w,2,object["fg"].clr)
+		}
 	}
 }
