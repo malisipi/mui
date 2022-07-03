@@ -11,6 +11,7 @@ pub fn create(args &WindowConfig)	 &Window{
         color_scheme: create_gx_color_from_color_scheme()
         gg: 0
         app_data: args.app_data
+        screen_reader: if args.screen_reader { check_screen_reader() } else { false }
     }
 
     app.gg = gg.new_context(
@@ -287,6 +288,8 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 						app.focus=group_id+"_"+which_item.str()
 						group["s"].num=which_item
 						group["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:group_id+"_"+which_item.str(),value:which_item.str()},mut app, mut app.app_data)
+
+						if app.screen_reader { screen_reader_read(app.screen_reader_parse_text(app.focus)) }
 					}
 				} "selectbox" {
 					if key=="__up" || key=="down" {
@@ -294,7 +297,7 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 						which_item:=object["s"].num
 						if key=="__up"{
 							which_item-=1
-							if which_item==-1{
+							if which_item<=-1{
 								which_item=list.len-1
 							}
 						} else {
@@ -306,6 +309,8 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 						object["s"].num=which_item
 						object["text"].str=list[which_item]
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",value:object["text"].str,target_type:object["type"].str,target_id:object["id"].str},mut app, mut app.app_data)
+
+						if app.screen_reader { screen_reader_read(app.screen_reader_parse_text(app.focus)) }
 					}
 				} "image" {
 					if key.to_lower()=="enter" || key==" " {
@@ -329,8 +334,10 @@ fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
 			unsafe {
 				if shift {
 					app.focus=app.get_previous_object_by_id(app.focus)[0]["id"].str
+					if app.screen_reader { screen_reader_read(app.screen_reader_parse_text(app.focus)) }
 				} else {
 					app.focus=app.get_next_object_by_id(app.focus)[0]["id"].str
+					if app.screen_reader { screen_reader_read(app.screen_reader_parse_text(app.focus)) }
 				}
 			}
 		}

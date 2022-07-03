@@ -32,6 +32,7 @@ pub mut:
 	height			int			= 600
 	font			string		= font.default()
     app_data		voidptr
+    screen_reader	bool		= true
 }
 
 pub struct EventDetails{
@@ -50,6 +51,7 @@ pub mut:
     color_scheme	[]gx.Color
     app_data		voidptr
     gg          	&gg.Context
+    screen_reader	bool
 }
 
 pub struct Widget {

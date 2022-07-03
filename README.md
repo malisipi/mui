@@ -4,7 +4,7 @@
 
 > **Supports Windows & Linux**. *No support for MacOS<sup>1</sup>.*
 
-1: Should work on MacOS. But themes won't work, and could be include MacOS-only bug.
+1: Should work on MacOS. But themes and screen reader won't work, and could be include MacOS-only bug.
 
 ## Example
 
@@ -47,6 +47,7 @@ You can find more examples in `./examples/` folder.
     * Selectbox
     * Table
     * Graphs
+    * Screen Reader Support (Experimental)
 * Dialogs
     * Messagebox
     * Inputbox
@@ -89,7 +90,7 @@ You can find more examples in `./examples/` folder.
 - [ ] Column Chart
 - [ ] Gauge chart
 - [ ] Area Graph
-- [ ] Screen Reader Support
+- [x] Screen Reader Support
 
 ## Installation
 
