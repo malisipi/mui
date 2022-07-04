@@ -47,6 +47,7 @@ You can find more examples in `./examples/` folder.
     * Selectbox
     * Table
     * Graphs
+    * Menubar
     * Screen Reader Support (Experimental)
 * Dialogs
     * Messagebox
@@ -61,7 +62,7 @@ You can find more examples in `./examples/` folder.
 ## To-Do List
 
 - [x] Line Graph
-- [ ] Menubar Support
+- [x] Menubar Support
 - [ ] Tabs
 - [ ] Treeview
 - [ ] Textfield

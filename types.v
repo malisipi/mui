@@ -23,16 +23,20 @@ pub mut:
 	dat [][]int
 	lcr []gx.Color
 	vmp ValueMap
+	lst []map[string]WindowData
 }
 
 pub struct WindowConfig {
 pub mut:
-	title			string		//= ""
-	width			int			= 800
-	height			int			= 600
-	font			string		= font.default()
+	title			string							//= ""
+	width			int								= 800
+	height			int								= 600
+	font			string							= font.default()
     app_data		voidptr
-    screen_reader	bool		= true
+    screen_reader	bool							= true
+    menubar			[]map[string]WindowData			= []map[string]WindowData{}
+    x_offset		int								// 0
+	y_offset		int								//=0
 }
 
 pub struct EventDetails{
@@ -52,6 +56,9 @@ pub mut:
     app_data		voidptr
     gg          	&gg.Context
     screen_reader	bool
+    menubar			[]map[string]WindowData
+    x_offset		int
+	y_offset		int
 }
 
 pub struct Widget {

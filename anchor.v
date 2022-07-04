@@ -1,20 +1,18 @@
 module mui
 
-import gg
-
-fn calc_get_percent(window_size &gg.Size, percent string) int {
+fn calc_get_percent(window_size []int, percent string) int {
 	mut x:=0
 	match percent.split("%")[1]{
 		"x"{
-			x=window_size.width
+			x=window_size[0]
 		} "y"{
-			x=window_size.height
+			x=window_size[1]
 		} else {}
 	}
 	return percent.split("%")[0].int()*x/100
 }
 
-fn calc_size(window_size &gg.Size, w int|string, h int|string) (int, int){
+fn calc_size(window_size []int, w int|string, h int|string) (int, int){
 	mut data:=[]int{}
 	for x in [w,h]{
 		match x{
@@ -41,7 +39,7 @@ fn calc_size(window_size &gg.Size, w int|string, h int|string) (int, int){
 	return data[0], data[1]
 }
 
-fn calc_x_y(window_size &gg.Size, x int|string, y int|string, size []int) (int, int){
+fn calc_x_y(window_size []int, x int|string, y int|string, size []int) (int, int){
 	mut data:=[]int{}
 	for w, q in [x,y].clone(){
 		match q{
@@ -50,7 +48,7 @@ fn calc_x_y(window_size &gg.Size, x int|string, y int|string, size []int) (int, 
 			} string {
 				if q.starts_with("#"){
 					params:=q.replace("# ","").split(" ")
-					offset:=if w==0{window_size.width} else {window_size.height}-size[w]
+					offset:=if w==0{window_size[0]} else {window_size[1]}-size[w]
 					match params.len{
 						1 {
 							if params[0].split("%").len==1{
@@ -86,7 +84,7 @@ fn calc_x_y(window_size &gg.Size, x int|string, y int|string, size []int) (int, 
 	return data[0], data[1]
 }
 
-fn calc_points(window_size &gg.Size, x int|string, y int|string, w int|string, h int|string) []int{
+fn calc_points(window_size []int, x int|string, y int|string, w int|string, h int|string) []int{
 	calc_width,calc_height:=calc_size(window_size, w, h)
 	x_,y_:=calc_x_y(window_size, x, y, [calc_width, calc_height])
 	return [x_,y_,calc_width, calc_height]

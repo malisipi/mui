@@ -10,6 +10,9 @@ pub fn create(args &WindowConfig)	 &Window{
         focus: ""
         color_scheme: create_gx_color_from_color_scheme()
         gg: 0
+        menubar: args.menubar
+        x_offset: 0
+        y_offset: if args.menubar!=[]map["string"]WindowData{} { menubar_height } else { 0 }
         app_data: args.app_data
         screen_reader: if args.screen_reader { check_screen_reader() } else { false }
     }
@@ -39,13 +42,15 @@ fn frame_fn(app &Window) {
 		app.gg.begin()
 		mut objects:=app.objects.clone()
 		if app.focus!="" { objects << get_object_by_id(app, app.focus) }
-		window_size:=app.gg.window_size()
+		real_size:=app.gg.window_size()
+		window_size:=[real_size.width,real_size.height-app.y_offset]
 		for object in objects{
 			if !object["hi"].bol && object["type"].str!="hidden"{
 				points:=calc_points(window_size,object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
-				for w,attr in ["x","y","w","h"]{
-					object[attr]=WindowData{num:points[w]}
-				}
+				object["x"]=WindowData{num:points[0]}
+				object["y"]=WindowData{num:points[1]+app.y_offset}
+				object["w"]=WindowData{num:points[2]}
+				object["h"]=WindowData{num:points[3]}
 				match object["type"].str{
 					"rect"{
 						draw_rect(app, object)
@@ -82,6 +87,9 @@ fn frame_fn(app &Window) {
 			}
 		}
 		draw_focus(mut app)
+		if app.menubar!=[]map["string"]WindowData{} {
+			draw_menubar(mut app, real_size)
+		}
 		app.gg.end()
 	}
 }
@@ -90,9 +98,9 @@ fn frame_fn(app &Window) {
 fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 	unsafe{
 		if app.focus!="" {
-			mut old_focused_object:=get_object_by_id(app, app.focus)
-			app.focus=""
-			if old_focused_object["type"].str=="selectbox" {
+			if get_object_by_id(app, app.focus)["type"].str=="selectbox" {
+				mut old_focused_object:=get_object_by_id(app, app.focus)
+				app.focus=""
 				total_items:=old_focused_object["list"].str.split("\0").len
 				list_x:=old_focused_object["x"].num
 				list_y:=old_focused_object["y"].num+old_focused_object["h"].num
@@ -106,9 +114,27 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 						return
 					}
 				}
+			}else if app.focus.starts_with("@menubar#") {
+				selected_item:=app.focus.replace("@menubar#","").int()
+				if x>=menubar_width*selected_item && x<=menubar_width*selected_item+menubar_sub_width {
+					menubar_sub_items_len:=app.menubar[selected_item]["items"].lst.len
+					if y>=menubar_height && y<=menubar_height*(menubar_sub_items_len+1){
+						app.menubar[selected_item]["items"].lst[int(y-menubar_height)/menubar_height]["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",value:"true",target_type:"menubar",target_id:"menubar"},mut app, mut app.app_data)
+					}
+				}
+				app.focus=""
+				return
 			}
-		} else {
-			app.focus=""
+
+		}
+		app.focus=""
+
+		if y<=menubar_height && app.menubar!=[]map["string"]WindowData{}{
+			menu_items:=app.menubar.len
+			if x<menu_items*menubar_width{
+				app.focus="@menubar#"+(x/menubar_width).str()
+				return
+			}
 		}
 
 		if mb==gg.MouseButton.left{
