@@ -93,6 +93,9 @@ pub struct Widget {
 	graph_color		[]gx.Color		= [gx.Color{r: 255, g: 255, b: 255}]		//g_clr
 	background		gx.Color		= gx.Color{r: 127, g: 127, b: 127}			//bg
 	value_map		ValueMap		= no_map									//vlMap
+	latitude		f64				= 48.856613									//- => image
+	longitude		f64				= 2.352222									//- => image
+	zoom			int				= 10										//- => image
 }
 
 pub fn empty_fn(event_details EventDetails, mut app &Window, app_data voidptr){}

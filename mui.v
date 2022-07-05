@@ -82,6 +82,8 @@ fn frame_fn(app &Window) {
 						draw_table(app, object)
 					}"line_graph"{
 						draw_line_graph(app, object)
+					}"map"{
+						draw_map(app, object)
 					}else {}
 				}
 			}
@@ -184,8 +186,8 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									}
 									group["s"].num=which_item
 									group["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:which_item.str()},mut app, mut app.app_data)
-								} "image" {
-									object["fnclk"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:true.str()},mut app, mut app.app_data)
+								} "image", "map" {
+									object["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
 								}else {}
 							}
 							break
@@ -338,7 +340,7 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 
 						if app.screen_reader { screen_reader_read(app.screen_reader_parse_text(app.focus)) }
 					}
-				} "image" {
+				} "image", "map" {
 					if key.to_lower()=="enter" || key==" " {
 						object["fn"].fun(EventDetails{event:"keypress",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
 					}

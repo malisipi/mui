@@ -28,6 +28,10 @@ pub fn (mut app Window) image ( args Widget ){
 	add_image (mut app, args.path, args.id, args.x, args.y, args.width, args.height, args.hidden, args.onclick)
 }
 
+pub fn (mut app Window) map ( args Widget ){
+	add_map (mut app, args.zoom, args.latitude, args.longitude, args.id, args.x, args.y, args.width, args.height, args.hidden, args.onclick)
+}
+
 pub fn (mut app Window) progress ( args Widget ){
 	add_progress (mut app, args.percent, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[2],  app.color_scheme[3])
 }

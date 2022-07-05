@@ -7,3 +7,4 @@ mui
 *.dylib
 *.dll
 vls.log
+gui_builder/

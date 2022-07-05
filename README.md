@@ -48,6 +48,7 @@ You can find more examples in `./examples/` folder.
     * Table
     * Graphs
     * Menubar
+    * Map
     * Screen Reader Support (Experimental)
 * Dialogs
     * Messagebox
@@ -61,37 +62,33 @@ You can find more examples in `./examples/` folder.
 
 ## To-Do List
 
-- [x] Line Graph
-- [x] Menubar Support
-- [ ] Tabs
-- [ ] Treeview
-- [ ] Textfield
-- [ ] Codefield
-- [ ] System Icon Support
-- [ ] Scrollbars
-- [ ] Status Bar
-- [ ] Spinner
-- [ ] Vertical Slider
-- [ ] Spin Button
-- [ ] Editable Label
-- [ ] Switch
-- [x] Removable Widgets
-- [ ] Disable Status (for Buttons, Checkboxs, Selectboxs, etc.)
-- [ ] Manuel Accent Color and Manuel Dark/Light Mode Support
-- [ ] Custom Colors for Widgets (except Themes)
-- [ ] Handle Appearance Preferences (like Background Color, Text Color)
-- [ ] Improve Light Theme
-- [ ] GUI Builder
-- [ ] Hot Code Reloading
-- [ ] Load UI from External XML/JSON File
-- [ ] Improve Documentation
-- [ ] Context Menu
-- [ ] Bar Chart
-- [ ] Pie Chart
-- [ ] Column Chart
-- [ ] Gauge chart
-- [ ] Area Graph
-- [x] Screen Reader Support
+* Tabs
+* Treeview
+* Textfield
+* Codefield
+* System Icon Support
+* Scrollbars
+* Status Bar
+* Spinner
+* Vertical Slider
+* Spin Button
+* Editable Label
+* Switch
+* Disable Status (for Buttons, Checkboxs, Selectboxs, etc.)
+* Manuel Accent Color and Manuel Dark/Light Mode Support
+* Custom Colors for Widgets (except Themes)
+* Handle Appearance Preferences (like Background Color, Text Color)
+* Improve Light Theme
+* GUI Builder
+* Hot Code Reloading
+* Load UI from External XML/JSON File
+* Improve Documentation
+* Context Menu
+* Bar Chart
+* Pie Chart
+* Column Chart
+* Gauge chart
+* Area Graph
 
 ## Installation
 
