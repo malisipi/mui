@@ -8,7 +8,7 @@ pub fn create(args &WindowConfig)	 &Window{
     mut app := &Window{
         objects: []
         focus: ""
-        color_scheme: create_gx_color_from_color_scheme()
+        color_scheme: if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
         gg: 0
         menubar: args.menubar
         x_offset: 0

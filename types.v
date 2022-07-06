@@ -37,6 +37,7 @@ pub mut:
     menubar			[]map[string]WindowData			= []map[string]WindowData{}
     x_offset		int								// 0
 	y_offset		int								//=0
+	color			[]int							= [-1,-1,-1]
 }
 
 pub struct EventDetails{

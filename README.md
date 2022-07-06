@@ -75,7 +75,6 @@ You can find more examples in `./examples/` folder.
 * Editable Label
 * Switch
 * Disable Status (for Buttons, Checkboxs, Selectboxs, etc.)
-* Manuel Accent Color and Manuel Dark/Light Mode Support
 * Custom Colors for Widgets (except Themes)
 * Handle Appearance Preferences (like Background Color, Text Color)
 * Improve Light Theme
