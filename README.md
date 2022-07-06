@@ -97,7 +97,7 @@ You can find more examples in `./examples/` folder.
 
 ## Known Bugs
 
-* Slider scrolling bug when `width`<`(maxValue-MinValue)/Step`
+* ~~Slider scrolling bug when `width`<`(maxValue-MinValue)/Step`~~
 * Anchor system won't works correctly with radio button.
 * ~~All keys (of keyboard) not supported now. _Works a-z, A-Z, 0-9, Arrow keys, also other important keys (like escape, space, enter, shift)_~~
 
