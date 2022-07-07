@@ -35,9 +35,13 @@ pub mut:
     app_data		voidptr
     screen_reader	bool							= true
     menubar			[]map[string]WindowData			= []map[string]WindowData{}
-    x_offset		int								// 0
+    x_offset		int								//=0
 	y_offset		int								//=0
+	xn_offset		int								//=0
+	yn_offset		int								//=0
 	color			[]int							= [-1,-1,-1]
+	scrollbar		bool							//= false
+	view_area		[]int							= [-1,-1]
 }
 
 pub struct EventDetails{
@@ -60,6 +64,11 @@ pub mut:
     menubar			[]map[string]WindowData
     x_offset		int
 	y_offset		int
+	xn_offset		int
+	yn_offset		int
+	scrollbar		bool
+	scroll_x		int
+	scroll_y		int
 }
 
 pub struct Widget {
@@ -74,6 +83,7 @@ pub struct Widget {
 	value			int				//= 0										//val
 	value_max		int				= 10										//vlMax
 	value_min		int				//= 0										//vlMin
+	size_thumb		int				= 6											//sThum
 	checked			bool			//= false									//c
 	step			int				= 1											//vStep
 	hider_char		string			= "*"										//hc
@@ -97,6 +107,7 @@ pub struct Widget {
 	latitude		f64				= 48.856613									//- => image
 	longitude		f64				= 2.352222									//- => image
 	zoom			int				= 10										//- => image
+	vertical		bool			//=false									//vert
 }
 
 pub fn empty_fn(event_details EventDetails, mut app &Window, app_data voidptr){}

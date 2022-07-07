@@ -32,7 +32,7 @@ You can find more examples in `./examples/` folder.
 * Theme from system accent color, _If couldn't found accent color, use dark/light theme preference. If couldn't found dark/light theme preference, choose light theme_
 ![Themes](./pictures/Themes.png "Themes")
 * Widgets
-    * Slider
+    * Slider (Verical & Horizontal)
     * Button
     * Label
     * Textbox
@@ -49,7 +49,8 @@ You can find more examples in `./examples/` folder.
     * Graphs
     * Menubar
     * Map
-    * Screen Reader Support (Experimental)
+    * Scrollbar
+* Screen Reader Support (Experimental)
 * Dialogs
     * Messagebox
     * Inputbox
@@ -67,10 +68,8 @@ You can find more examples in `./examples/` folder.
 * Textfield
 * Codefield
 * System Icon Support
-* Scrollbars
 * Status Bar
 * Spinner
-* Vertical Slider
 * Spin Button
 * Editable Label
 * Switch

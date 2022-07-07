@@ -11,8 +11,11 @@ pub fn create(args &WindowConfig)	 &Window{
         color_scheme: if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
         gg: 0
         menubar: args.menubar
+        scrollbar: args.scrollbar
         x_offset: 0
+        xn_offset: if args.scrollbar { scrollbar_size } else { 0 }
         y_offset: if args.menubar!=[]map["string"]WindowData{} { menubar_height } else { 0 }
+        yn_offset: if args.scrollbar { scrollbar_size } else { 0 }
         app_data: args.app_data
         screen_reader: if args.screen_reader { check_screen_reader() } else { false }
     }
@@ -27,11 +30,17 @@ pub fn create(args &WindowConfig)	 &Window{
 		window_title: args.title
 		move_fn: move_fn
 		unclick_fn: unclick_fn
+		resized_fn: resized_fn
 		font_path: args.font
 		width: args.width
 		height: args.height
 		create_window: true
 	)
+
+	if args.scrollbar{
+		app.scrollbar(mui.Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:args.view_area[0], size_thumb:args.width, onchange: update_scroll_hor})
+		app.scrollbar(mui.Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1], size_thumb:args.height, onchange: update_scroll_ver, vertical:true})
+	}
 
 	return app
 }
@@ -43,10 +52,10 @@ fn frame_fn(app &Window) {
 		mut objects:=app.objects.clone()
 		if app.focus!="" { objects << get_object_by_id(app, app.focus) }
 		real_size:=app.gg.window_size()
-		window_size:=[real_size.width,real_size.height-app.y_offset]
+		window_info:=[real_size.width-app.x_offset-app.xn_offset,real_size.height-app.y_offset-app.yn_offset,real_size.width,real_size.height,app.scroll_x,app.scroll_y].clone()
 		for object in objects{
 			if !object["hi"].bol && object["type"].str!="hidden"{
-				points:=calc_points(window_size,object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
+				points:=calc_points(window_info,object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
 				object["x"]=WindowData{num:points[0]}
 				object["y"]=WindowData{num:points[1]+app.y_offset}
 				object["w"]=WindowData{num:points[2]}
@@ -84,6 +93,8 @@ fn frame_fn(app &Window) {
 						draw_line_graph(app, object)
 					}"map"{
 						draw_map(app, object)
+					}"scrollbar"{
+						draw_scrollbar(app, object)
 					}else {}
 				}
 			}
@@ -153,8 +164,12 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 								} "checkbox" {
 									object["c"]=WindowData{bol:!object["c"].bol}
 									object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["c"].bol.str()},mut app, mut app.app_data)
-								} "slider" {
-									object["val"]=WindowData{num:math.min(int(math.round(f32(x-object["x"].num)/f32(object["w"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
+								} "slider", "scrollbar" {
+									if !object["vert"].bol {
+										object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(x-object["x"].num,0),object["w"].num))/f32(object["w"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
+									} else {
+										object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
+									}
 									object["click"]=WindowData{bol:true}
 									object["fnclk"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()}, mut app, mut app.app_data)
 									object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()}, mut app, mut app.app_data)
@@ -204,9 +219,13 @@ fn move_fn(x f32, y f32, mut app &Window){
 	unsafe{
 		if !(app.focus==""){
 			object:=get_object_by_id(app, app.focus)
-			if object["type"].str=="slider"{
+			if object["type"].str=="slider" || object["type"].str=="scrollbar"{
 				if object["click"].bol {
-					object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(x-object["x"].num,0),object["w"].num))/f32(object["w"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
+					if !object["vert"].bol {
+						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(x-object["x"].num,0),object["w"].num))/f32(object["w"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
+					} else {
+						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
+					}
 					object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
 				}
 			}
@@ -219,7 +238,7 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 	unsafe{
 		if !(app.focus==""){
 			object:=get_object_by_id(app, app.focus)
-			if object["type"].str=="slider"{
+			if object["type"].str=="slider" || object["type"].str=="scrollbar"{
 				object["click"]=WindowData{bol:false}
 				object["fnucl"].fun(EventDetails{event:"unclick",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()},mut app, mut app.app_data)
 			}
@@ -285,7 +304,7 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 						object["c"]=WindowData{bol:!object["c"].bol}
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["c"].bol.str()},mut app, mut app.app_data)
 					}
-				} "slider" {
+				} "slider","scrollbar" {
 					if key=="left" {
 						object["val"]=WindowData{num:math.max(object["vlMin"].num,object["val"].num-object["vStep"].num)}
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
@@ -347,6 +366,14 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 				} else {}
 			}
 		}
+	}
+}
+
+[unsafe]
+fn resized_fn(event &gg.Event, mut app &Window){
+	unsafe{
+		app.get_object_by_id("@scrollbar:horizontal")[0]["sThum"].num=event.window_width
+		app.get_object_by_id("@scrollbar:vertical")[0]["sThum"].num=event.window_height
 	}
 }
 
