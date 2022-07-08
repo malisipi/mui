@@ -61,6 +61,7 @@ You can find more examples in `./examples/` folder.
     * Folder Open Dialog
     * Notification Support
 * Anchor System
+* Transition Animations (Supports Anchors)
 
 ## To-Do List
 
@@ -87,7 +88,6 @@ You can find more examples in `./examples/` folder.
 * Column Chart
 * Gauge chart
 * Area Graph
-* Transition Animations
 
 ## Installation
 
