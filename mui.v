@@ -20,6 +20,14 @@ pub fn create(args &WindowConfig)	 &Window{
         screen_reader: if args.screen_reader { check_screen_reader() } else { false }
     }
 
+    mut emoji_font:=args.font
+    $if no_emoji? {
+	} $else {
+		noto_emoji_font:=$embed_file("noto_emoji_font/NotoEmoji.ttf")
+		emoji_font=os.temp_dir()+"/noto_emoji_font.ttf"
+		os.write_file(emoji_font, noto_emoji_font.to_string()) or {}
+	}
+
     app.gg = gg.new_context(
 		bg_color: app.color_scheme[0]
 		frame_fn: frame_fn
@@ -32,6 +40,7 @@ pub fn create(args &WindowConfig)	 &Window{
 		unclick_fn: unclick_fn
 		resized_fn: resized_fn
 		font_path: args.font
+		custom_bold_font_path: emoji_font
 		width: args.width
 		height: args.height
 		create_window: true

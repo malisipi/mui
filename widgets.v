@@ -21,7 +21,7 @@ pub fn (mut app Window) label ( args Widget ){
 }
 
 pub fn (mut app Window) button ( args Widget ){
-	add_button (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[3], args.onclick)
+	add_button (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[3], args.onclick, args.icon)
 }
 
 pub fn (mut app Window) image ( args Widget ){

@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_button(mut app &Window, text string, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color, fg gx.Color, fun OnEvent){
+pub fn add_button(mut app &Window, text string, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color, fg gx.Color, fun OnEvent, icon bool){
     app.objects << {
         "type": WindowData{str:"button"},
         "id":   WindowData{str:id}
@@ -19,7 +19,8 @@ pub fn add_button(mut app &Window, text string, id string, x string|int, y strin
         "hi":	WindowData{bol:hi},
         "bg":   WindowData{clr:bg},
         "fg":   WindowData{clr:fg},
-        "fn":   WindowData{fun:fun}
+        "fn":   WindowData{fun:fun},
+        "icon": WindowData{bol:icon}
     }
 }
 
@@ -32,6 +33,7 @@ fn draw_button(app &Window, object map[string]WindowData){
 			size: 20
 			align: .center
 			vertical_align: .middle
+			bold: object["icon"].bol
 		})
 	}
 }

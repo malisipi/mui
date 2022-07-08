@@ -108,6 +108,7 @@ pub struct Widget {
 	longitude		f64				= 2.352222									//- => image
 	zoom			int				= 10										//- => image
 	vertical		bool			//=false									//vert
+	icon			bool			//=false									//icon
 }
 
 pub fn empty_fn(event_details EventDetails, mut app &Window, app_data voidptr){}

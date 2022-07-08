@@ -3,6 +3,12 @@ import malisipi.miniaudio as ma // v install https://github.com/malisipi/miniaud
 import math
 import time
 
+const (
+    open_file_emoji="⤵"
+    play_emoji="▶️"
+    pause_emoji="⏸️"
+)
+
 struct AppData{
 mut:
     file        string
@@ -45,6 +51,7 @@ fn load_music(mut app &mui.Window, mut app_data &AppData){
         app_data.device.add("",app_data.music)
         app_data.music.play()
         unsafe {
+            app.get_object_by_id("play_button")[0]["text"].str=pause_emoji
             app.get_object_by_id("play_slider")[0]["vlMax"].num=int(app_data.music.length()/1000)
             app.get_object_by_id("play_slider")[0]["val"].num=0
             app.get_object_by_id("volume_slider")[0]["val"].num=100
@@ -64,6 +71,9 @@ fn seek_to_time(event_details mui.EventDetails, mut app &mui.Window, mut app_dat
     app_data.music.pause()
     app_data.music.seek(event_details.value.int()*1000)
     app_data.music.play()
+    unsafe {
+        app.get_object_by_id("play_button")[0]["text"].str=pause_emoji
+    }
 }
 
 fn change_vol(event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
@@ -75,8 +85,14 @@ fn toggle_music(event_details mui.EventDetails, mut app &mui.Window, mut app_dat
     if app_data.music.audio_buffer==voidptr(0) { mui.messagebox("MPlayer","Open a music file","ok","warning") return }
     if app_data.music.audio_buffer.playing{
         app_data.music.pause()
+        unsafe {
+            app.get_object_by_id("play_button")[0]["text"].str=play_emoji
+        }
     } else {
         app_data.music.play()
+        unsafe {
+            app.get_object_by_id("play_button")[0]["text"].str=pause_emoji
+        }
     }
 }
 
@@ -88,8 +104,8 @@ fn main(){
     mut app:=mui.create(mui.WindowConfig{ title:"MPlayer - MUI Example", height: 100, width:600, app_data:&app_data})
 
     app.label(mui.Widget{ id:"now_playing" x: 10, y:10, width: "100%x -20", height:"100%y -55", text:"No Song Playing"})
-    app.button(mui.Widget{ id:"load_button", x: 10, y:"# 10", width:"25", height:"25" text:"O", onclick:load_music_button})
-    app.button(mui.Widget{ id:"play_button", x: 40, y:"# 10", width:"25", height:"25" text:"P", onclick:toggle_music})
+    app.button(mui.Widget{ id:"load_button", x: 10, y:"# 10", width:"25", height:"25" text:open_file_emoji, onclick:load_music_button, icon:true})
+    app.button(mui.Widget{ id:"play_button", x: 40, y:"# 10", width:"25", height:"25" text:play_emoji, onclick:toggle_music, icon:true})
     app.slider(mui.Widget{ id:"play_slider", x: 70, y:"# 10", width:"100%x -220", height:25, value_max:1, onunclick:seek_to_time, value_map:map_play_time })
     app.slider(mui.Widget{ id:"volume_slider", x: "# 40", y:"# 10", width:"60", height:25, value:100, value_max:100, step:10, onunclick:change_vol })
 

@@ -51,6 +51,7 @@ You can find more examples in `./examples/` folder.
     * Map
     * Scrollbar
 * Screen Reader Support (Experimental)
+* Emoji Icon Support
 * Dialogs
     * Messagebox
     * Inputbox
@@ -67,7 +68,6 @@ You can find more examples in `./examples/` folder.
 * Treeview
 * Textfield
 * Codefield
-* System Icon Support
 * Status Bar
 * Spinner
 * Spin Button
@@ -87,12 +87,19 @@ You can find more examples in `./examples/` folder.
 * Column Chart
 * Gauge chart
 * Area Graph
+* Transition Animations
 
 ## Installation
 
 > To install, run `v install https://github.com/malisipi/mui`
 
 > To remove, run `v remove malisipi.mui`
+
+# Compile-Time Flags
+
+| Flags       | Description                              |
+|-------------|------------------------------------------|
+| -d no_emoji | Disable emoji support and font embedding |
 
 ## Known Bugs
 
@@ -104,6 +111,7 @@ You can find more examples in `./examples/` folder.
 
 * **This project licensed by [Apache License 2.0](./LICENSE).**
 * [Tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/) (`./tinyfiledialogs/`) licensed by Zlib License.
+* [Noto Emoji Font](https://fonts.google.com/noto/specimen/Noto+Emoji) (`./noto_emoji_font/`) licensed by OFL License.
 * [V-logo](https://github.com/vlang/v-logo) (`./examples/v-logo.png`) licensed by MIT license.
 
 ## Documentation
