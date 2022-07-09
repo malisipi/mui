@@ -39,6 +39,7 @@ pub fn create(args &WindowConfig)	 &Window{
 		move_fn: move_fn
 		unclick_fn: unclick_fn
 		resized_fn: resized_fn
+		scroll_fn: scroll_fn
 		font_path: args.font
 		custom_bold_font_path: emoji_font
 		width: args.width
@@ -251,6 +252,22 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 				object["click"]=WindowData{bol:false}
 				object["fnucl"].fun(EventDetails{event:"unclick",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()},mut app, mut app.app_data)
 			}
+		}
+	}
+}
+
+[unsafe]
+fn scroll_fn(event &gg.Event, mut app &Window){
+	unsafe{
+		shift_press:=event.modifiers&1<<0==1
+		if event.scroll_x!=0 || shift_press {
+			mut scrollbar_horizontal:=app.get_object_by_id("@scrollbar:horizontal")[0]
+			app.scroll_x=math.max(math.min(int(scrollbar_horizontal["val"].num+if !shift_press {event.scroll_x} else {event.scroll_y}*-50),scrollbar_horizontal["vlMax"].num), scrollbar_horizontal["vlMin"].num)
+			scrollbar_horizontal["val"].num=app.scroll_x
+		} else {
+			mut scrollbar_vertical:=app.get_object_by_id("@scrollbar:vertical")[0]
+			app.scroll_y=math.max(math.min(int(scrollbar_vertical["val"].num+event.scroll_y*-50),scrollbar_vertical["vlMax"].num), scrollbar_vertical["vlMin"].num)
+			scrollbar_vertical["val"].num=app.scroll_y
 		}
 	}
 }
