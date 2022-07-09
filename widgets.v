@@ -37,7 +37,7 @@ pub fn (mut app Window) progress ( args Widget ){
 }
 
 pub fn (mut app Window) textbox ( args Widget ){
-	add_textbox (mut app, args.text, args.id, args.placeholder, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange)
+	add_textbox (mut app, args.text, args.id, args.placeholder, args.ph_as_text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange)
 }
 
 pub fn (mut app Window) password ( args Widget ){

@@ -12,10 +12,10 @@ pub fn create(args &WindowConfig)	 &Window{
         gg: 0
         menubar: args.menubar
         scrollbar: args.scrollbar
-        x_offset: 0
-        xn_offset: if args.scrollbar { scrollbar_size } else { 0 }
-        y_offset: if args.menubar!=[]map["string"]WindowData{} { menubar_height } else { 0 }
-        yn_offset: if args.scrollbar { scrollbar_size } else { 0 }
+        x_offset: 0 + args.x_offset
+        xn_offset: if args.scrollbar { scrollbar_size } else { 0 } + args.xn_offset
+        y_offset: if args.menubar!=[]map["string"]WindowData{} { menubar_height } else { 0 } + args.y_offset
+        yn_offset: if args.scrollbar { scrollbar_size } else { 0 } + args.yn_offset
         app_data: args.app_data
         screen_reader: if args.screen_reader { check_screen_reader() } else { false }
     }
@@ -67,8 +67,8 @@ fn frame_fn(app &Window) {
 		for object in objects{
 			if !object["hi"].bol && object["type"].str!="hidden"{
 				points:=calc_points(window_info,object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
-				object["x"]=WindowData{num:points[0]}
-				object["y"]=WindowData{num:points[1]+app.y_offset}
+				object["x"]=WindowData{num:points[0]+ if !object["x_raw"].str.starts_with("!") {app.x_offset} else {0} }
+				object["y"]=WindowData{num:points[1]+ if !object["y_raw"].str.starts_with("!") {app.y_offset} else {0} }
 				object["w"]=WindowData{num:points[2]}
 				object["h"]=WindowData{num:points[3]}
 				match object["type"].str{

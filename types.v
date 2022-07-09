@@ -76,6 +76,7 @@ pub struct Widget {
 	path			string			//= ""										//- => image
 	text			string			//= ""										//text
 	placeholder		string			//= ""										//ph
+	ph_as_text		bool			//= 0										//phsa //show placeholder as text
 	table			[][]string		= [[""]]									//table
 	id				string			//= ""										//id
 	link			string			//= ""										//link

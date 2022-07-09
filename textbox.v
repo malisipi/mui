@@ -3,12 +3,13 @@ module mui
 import gg
 import gx
 
-pub fn add_textbox(mut app &Window, text string, id string, placeholder string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent){
+pub fn add_textbox(mut app &Window, text string, id string, placeholder string, phsa bool, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent){
     app.objects << {
         "type": WindowData{str:"textbox"},
         "id":   WindowData{str:id},
         "text": WindowData{str:text+"\0"},
 		"ph":	WindowData{str:placeholder},
+		"phsa": WindowData{bol:phsa},
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},
         "w":    WindowData{num:0},
@@ -31,7 +32,11 @@ fn draw_textbox(app &Window, object map[string]WindowData){
 		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
 		app.gg.draw_rect_filled(object["x"].num+2, object["y"].num+2, object["w"].num-4, object["h"].num-4, object["bfg"].clr)
 		if app.focus!=object["id"].str{
-			app.gg.draw_text(object["x"].num+4, object["y"].num+object["h"].num/2, object["text"].str.replace("\0",""), gx.TextCfg{
+			mut the_text:=object["text"].str.replace("\0","")
+			if object["phsa"].bol {
+				the_text=object["ph"].str
+			}
+			app.gg.draw_text(object["x"].num+4, object["y"].num+object["h"].num/2, the_text, gx.TextCfg{
 				color: object["fg"].clr
 				size: 20
 				align: .left
@@ -46,7 +51,7 @@ fn draw_textbox(app &Window, object map[string]WindowData){
 			})
 		}
 
-		if object["text"].str.len<2{
+		if object["text"].str.len<2 && !object["phsa"].bol{
 			app.gg.draw_text(object["x"].num+4, object["y"].num+object["h"].num/2, "  "+object["ph"].str, gx.TextCfg{
 				color: object["bg"].clr
 				size: 20
