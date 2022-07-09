@@ -48,8 +48,9 @@ pub fn create(args &WindowConfig)	 &Window{
 	)
 
 	if args.scrollbar{
-		app.scrollbar(mui.Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:args.view_area[0], size_thumb:args.width, onchange: update_scroll_hor})
-		app.scrollbar(mui.Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1], size_thumb:args.height, onchange: update_scroll_ver, vertical:true})
+		app.scrollbar(Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:args.view_area[0]+app.x_offset+app.xn_offset, size_thumb:args.width, onchange: update_scroll_hor})
+		app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true})
+		app.rect(Widget{ id:"@scrollbar:extra", x:"!&# 0", y:"!&# 0", width:"15", height:"15", background: app.color_scheme[1]})
 	}
 
 	return app
@@ -113,6 +114,11 @@ fn frame_fn(app &Window) {
 		if app.menubar!=[]map["string"]WindowData{} {
 			draw_menubar(mut app, real_size)
 		}
+		if app.scrollbar{
+			draw_scrollbar(app, app.get_object_by_id("@scrollbar:horizontal")[0])
+			draw_scrollbar(app, app.get_object_by_id("@scrollbar:vertical")[0])
+			draw_rect(app, app.get_object_by_id("@scrollbar:extra")[0])
+		}
 		app.gg.end()
 	}
 }
@@ -174,11 +180,20 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 								} "checkbox" {
 									object["c"]=WindowData{bol:!object["c"].bol}
 									object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["c"].bol.str()},mut app, mut app.app_data)
-								} "slider", "scrollbar" {
+								} "slider" {
 									if !object["vert"].bol {
 										object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(x-object["x"].num,0),object["w"].num))/f32(object["w"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
 									} else {
 										object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
+									}
+									object["click"]=WindowData{bol:true}
+									object["fnclk"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()}, mut app, mut app.app_data)
+									object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()}, mut app, mut app.app_data)
+								} "scrollbar" {
+									if !object["vert"].bol {
+										object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(x-object["x"].num,0),object["w"].num))/f32(object["w"].num/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num-object["sThum"].num)}
+									} else {
+										object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num-object["sThum"].num)}
 									}
 									object["click"]=WindowData{bol:true}
 									object["fnclk"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()}, mut app, mut app.app_data)
@@ -229,12 +244,21 @@ fn move_fn(x f32, y f32, mut app &Window){
 	unsafe{
 		if !(app.focus==""){
 			object:=get_object_by_id(app, app.focus)
-			if object["type"].str=="slider" || object["type"].str=="scrollbar"{
+			if object["type"].str=="slider"{
 				if object["click"].bol {
 					if !object["vert"].bol {
 						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(x-object["x"].num,0),object["w"].num))/f32(object["w"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
 					} else {
 						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
+					}
+					object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
+				}
+			} else if object["type"].str=="scrollbar"{
+				if object["click"].bol {
+					if !object["vert"].bol {
+						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(x-object["x"].num,0),object["w"].num))/f32(object["w"].num/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num-object["sThum"].num)}
+					} else {
+						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num-object["sThum"].num)}
 					}
 					object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
 				}
@@ -262,11 +286,11 @@ fn scroll_fn(event &gg.Event, mut app &Window){
 		shift_press:=event.modifiers&1<<0==1
 		if event.scroll_x!=0 || shift_press {
 			mut scrollbar_horizontal:=app.get_object_by_id("@scrollbar:horizontal")[0]
-			app.scroll_x=math.max(math.min(int(scrollbar_horizontal["val"].num+if !shift_press {event.scroll_x} else {event.scroll_y}*-50),scrollbar_horizontal["vlMax"].num), scrollbar_horizontal["vlMin"].num)
+			app.scroll_x=math.max(math.min(int(scrollbar_horizontal["val"].num+if !shift_press {event.scroll_x} else {event.scroll_y}*-50),scrollbar_horizontal["vlMax"].num-scrollbar_horizontal["sThum"].num), scrollbar_horizontal["vlMin"].num)
 			scrollbar_horizontal["val"].num=app.scroll_x
 		} else {
 			mut scrollbar_vertical:=app.get_object_by_id("@scrollbar:vertical")[0]
-			app.scroll_y=math.max(math.min(int(scrollbar_vertical["val"].num+event.scroll_y*-50),scrollbar_vertical["vlMax"].num), scrollbar_vertical["vlMin"].num)
+			app.scroll_y=math.max(math.min(int(scrollbar_vertical["val"].num+event.scroll_y*-50),scrollbar_vertical["vlMax"].num-scrollbar_vertical["sThum"].num), scrollbar_vertical["vlMin"].num)
 			scrollbar_vertical["val"].num=app.scroll_y
 		}
 	}

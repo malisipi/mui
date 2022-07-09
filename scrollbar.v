@@ -56,12 +56,12 @@ fn draw_scrollbar(app &Window, object map[string]WindowData){
         if !object["vert"].bol {
             app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
             thumb_size:=int(f32(object["sThum"].num-object["vlMin"].num)/f32(object["vlMax"].num-object["vlMin"].num)*object["w"].num)
-            width_of_thumb:=int(f32(object["w"].num-thumb_size)/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num)*(f32(object["val"].num-object["vlMin"].num)/object["vStep"].num))
+            width_of_thumb:=int(f32(object["w"].num-thumb_size)/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num)*(f32(object["val"].num-object["vlMin"].num)/object["vStep"].num))
             app.gg.draw_rect_filled(object["x"].num+width_of_thumb, object["y"].num, thumb_size, object["h"].num, object["bfg"].clr)
         } else {
             app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
             thumb_size:=int(f32(object["sThum"].num-object["vlMin"].num)/f32(object["vlMax"].num-object["vlMin"].num)*object["h"].num)
-            height_of_thumb:=int(f32(object["h"].num-thumb_size)/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num)*(f32(object["val"].num-object["vlMin"].num)/object["vStep"].num))
+            height_of_thumb:=int(f32(object["h"].num-thumb_size)/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num)*(f32(object["val"].num-object["vlMin"].num)/object["vStep"].num))
             app.gg.draw_rect_filled(object["x"].num, object["y"].num+height_of_thumb, object["w"].num, thumb_size, object["bfg"].clr)
         }
 	}
