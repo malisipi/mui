@@ -36,34 +36,42 @@ fn update_play_slider(mut app &mui.Window, mut app_data &AppData){
     }
 }
 
-fn load_music(mut app &mui.Window, mut app_data &AppData){
+fn load_music(file_path string, mut app &mui.Window, mut app_data &AppData){
+    file_ext:=file_path.split(".")[file_path.split(".").len-1]
+    if !(file_ext=="mp3" ||  file_ext=="wav" ||  file_ext=="flac"){
+        mui.messagebox("MPlayer","."+file_ext+" Files Not Supported","ok","error")
+        return
+    }
+    app_data.music=ma.Sound{audio_buffer:voidptr(0)}
+    app_data.device.free()
+    app_data.device=ma.device()
+    app_data.music=ma.sound( file_path )
+    app_data.device.add("",app_data.music)
+    app_data.music.play()
+    unsafe {
+        app.get_object_by_id("play_button")[0]["text"].str=pause_emoji
+        app.get_object_by_id("play_slider")[0]["vlMax"].num=int(app_data.music.length()/1000)
+        app.get_object_by_id("play_slider")[0]["val"].num=0
+        app.get_object_by_id("volume_slider")[0]["val"].num=100
+        mut file_name:=file_path.split("/")[file_path.split("/").len-1]
+        file_name=file_name.split("\\")[file_name.split("\\").len-1]
+        app.get_object_by_id("now_playing")[0]["text"].str=file_name
+    }
+}
+
+fn load_music_file_dialog(mut app &mui.Window, mut app_data &AppData){
     file_path:=mui.openfiledialog("MPlayer")
     if file_path!=""{
-        file_ext:=file_path.split(".")[file_path.split(".").len-1]
-        if !(file_ext=="mp3" ||  file_ext=="wav" ||  file_ext=="flac"){
-            mui.messagebox("MPlayer","."+file_ext+" Files Not Supported","ok","error")
-            return
-        }
-        app_data.music=ma.Sound{audio_buffer:voidptr(0)}
-        app_data.device.free()
-        app_data.device=ma.device()
-        app_data.music=ma.sound( file_path )
-        app_data.device.add("",app_data.music)
-        app_data.music.play()
-        unsafe {
-            app.get_object_by_id("play_button")[0]["text"].str=pause_emoji
-            app.get_object_by_id("play_slider")[0]["vlMax"].num=int(app_data.music.length()/1000)
-            app.get_object_by_id("play_slider")[0]["val"].num=0
-            app.get_object_by_id("volume_slider")[0]["val"].num=100
-            mut file_name:=file_path.split("/")[file_path.split("/").len-1]
-            file_name=file_name.split("\\")[file_name.split("\\").len-1]
-            app.get_object_by_id("now_playing")[0]["text"].str=file_name
-        }
+        load_music(file_path, mut app, mut app_data)
     }
 }
 
 fn load_music_button(event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
-    go load_music(mut app, mut app_data)
+    go load_music_file_dialog(mut app, mut app_data)
+}
+
+fn load_music_file_handler(event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
+    load_music(event_details.value, mut app, mut app_data)
 }
 
 fn seek_to_time(event_details mui.EventDetails, mut app &mui.Window, mut app_data &AppData){
@@ -101,7 +109,7 @@ fn main(){
         device:ma.device()
     }
 
-    mut app:=mui.create(mui.WindowConfig{ title:"MPlayer - MUI Example", height: 100, width:600, app_data:&app_data})
+    mut app:=mui.create(mui.WindowConfig{ title:"MPlayer - MUI Example", height: 100, width:600, app_data:&app_data, file_handler:load_music_file_handler})
 
     app.label(mui.Widget{ id:"now_playing" x: 10, y:10, width: "100%x -20", height:"100%y -55", text:"No Song Playing"})
     app.button(mui.Widget{ id:"load_button", x: 10, y:"# 10", width:"25", height:"25" text:open_file_emoji, onclick:load_music_button, icon:true})

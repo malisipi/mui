@@ -1,5 +1,4 @@
 import malisipi.mui as m
-import time
 
 const (
     cols=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
@@ -7,7 +6,6 @@ const (
     cell_size=[80,25]
     view_area=[(cols.len+1)*cell_size[0],(rows+1)*cell_size[1]]
 )
-
 fn is_this_number(value string) bool { return value.int() != 0 || (value.int()==0 && value.replace("0","").len==0) }
 
 fn calculate_cell(mut app &m.Window, value string) int {
@@ -20,8 +18,10 @@ fn calculate_cell(mut app &m.Window, value string) int {
             if w%2==0 {
                 if is_this_number(item){ res = res + if current_operation=="+" {item.int()} else {-1*item.int()} }
                 else {
-                    cell_data:=app.get_object_by_id("cell_"+item#[0..1]+"_"+item#[1..])[0]["ph"].str.int()
-                    res = res + if current_operation=="+" {cell_data} else {-1*cell_data}
+                    unsafe {
+                        cell_data:=app.get_object_by_id("cell_"+item#[0..1]+"_"+item#[1..])[0]["ph"].str.int()
+                        res = res + if current_operation=="+" {cell_data} else {-1*cell_data}
+                    }
                 }
             } else {
                 current_operation=item
@@ -50,7 +50,6 @@ app.rect(m.Widget{ id:"rect2", x:"& 0", y:0, width:cell_size[0], height:view_are
 for w,c in cols {
     app.label(m.Widget{ id:"col_"+c, x:(w+1)*cell_size[0], y:"& 0", width:cell_size[0], height:cell_size[1], text:c })
 }
-
 for r in 0..rows {
     app.label(m.Widget{ id:"row_"+r.str(), x:"& 0", y:(r+1)*cell_size[1], width:cell_size[0], height:cell_size[1], text:r.str() })
 }

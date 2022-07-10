@@ -42,15 +42,16 @@ pub mut:
 	color			[]int							= [-1,-1,-1]
 	scrollbar		bool							//= false
 	view_area		[]int							= [-1,-1]
+	file_handler	OnEvent							= empty_fn
 }
 
 pub struct EventDetails{
 pub mut:
-	event			string		// click, value_change, unclick, keypress
+	event			string		// click, value_change, unclick, keypress, file_drop
 	trigger			string		// mouse_left, mouse_right, mouse_middle, keyboard
-	value			string
-	target_type		string
-	target_id		string
+	value			string		="true"
+	target_type		string		="null"
+	target_id		string		//=""
 }
 
 pub struct Window {
@@ -69,6 +70,7 @@ pub mut:
 	scrollbar		bool
 	scroll_x		int
 	scroll_y		int
+	file_handler	OnEvent
 }
 
 pub struct Widget {

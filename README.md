@@ -62,6 +62,7 @@ You can find more examples in `./examples/` folder.
     * Notification Support
 * Anchor System
 * Transition Animations (Supports Anchors)
+* File Drag-n-Drop
 
 ## To-Do List
 
@@ -88,6 +89,7 @@ You can find more examples in `./examples/` folder.
 * Column Chart
 * Gauge chart
 * Area Graph
+* Keybindings
 
 ## Installation
 
@@ -99,13 +101,13 @@ You can find more examples in `./examples/` folder.
 
 | Flags       | Description                              |
 |-------------|------------------------------------------|
+| -d show_fps | Show FPS of the window                   |
 | -d no_emoji | Disable emoji support and font embedding |
 
 ## Known Bugs
 
-* ~~Slider scrolling bug when `width`<`(maxValue-MinValue)/Step`~~
+* Draws widget overflowing from the window. That cause' more cpu usage.
 * Anchor system won't works correctly with radio button.
-* ~~All keys (of keyboard) not supported now. _Works a-z, A-Z, 0-9, Arrow keys, also other important keys (like escape, space, enter, shift)_~~
 
 ## License
 

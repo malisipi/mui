@@ -3,6 +3,7 @@ module mui
 import gg
 import math
 import os
+import sokol.sapp
 
 pub fn create(args &WindowConfig)	 &Window{
     mut app := &Window{
@@ -18,6 +19,7 @@ pub fn create(args &WindowConfig)	 &Window{
         yn_offset: if args.scrollbar { scrollbar_size } else { 0 } + args.yn_offset
         app_data: args.app_data
         screen_reader: if args.screen_reader { check_screen_reader() } else { false }
+        file_handler: args.file_handler
     }
 
     mut emoji_font:=args.font
@@ -40,11 +42,13 @@ pub fn create(args &WindowConfig)	 &Window{
 		unclick_fn: unclick_fn
 		resized_fn: resized_fn
 		scroll_fn: scroll_fn
+		event_fn: event_fn
 		font_path: args.font
 		custom_bold_font_path: emoji_font
 		width: args.width
 		height: args.height
 		create_window: true
+		enable_dragndrop: true
 	)
 
 	if args.scrollbar{
@@ -281,17 +285,29 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 }
 
 [unsafe]
+fn event_fn(event &gg.Event, mut app &Window){
+	if event.typ==sapp.EventType.files_droped{
+		for q in 0..dropped_files_len(){
+			app.file_handler(EventDetails{event:"files_drop",trigger:"mouse_left", value:dropped_file_path(q)},mut app, mut app.app_data)
+		}
+
+	}
+}
+
+[unsafe]
 fn scroll_fn(event &gg.Event, mut app &Window){
 	unsafe{
-		shift_press:=event.modifiers&1<<0==1
-		if event.scroll_x!=0 || shift_press {
-			mut scrollbar_horizontal:=app.get_object_by_id("@scrollbar:horizontal")[0]
-			app.scroll_x=math.max(math.min(int(scrollbar_horizontal["val"].num+if !shift_press {event.scroll_x} else {event.scroll_y}*-50),scrollbar_horizontal["vlMax"].num-scrollbar_horizontal["sThum"].num), scrollbar_horizontal["vlMin"].num)
-			scrollbar_horizontal["val"].num=app.scroll_x
-		} else {
-			mut scrollbar_vertical:=app.get_object_by_id("@scrollbar:vertical")[0]
-			app.scroll_y=math.max(math.min(int(scrollbar_vertical["val"].num+event.scroll_y*-50),scrollbar_vertical["vlMax"].num-scrollbar_vertical["sThum"].num), scrollbar_vertical["vlMin"].num)
-			scrollbar_vertical["val"].num=app.scroll_y
+		if app.scrollbar {
+			shift_press:=event.modifiers&1<<0==1
+			if event.scroll_x!=0 || shift_press {
+				mut scrollbar_horizontal:=app.get_object_by_id("@scrollbar:horizontal")[0]
+				app.scroll_x=math.max(math.min(int(scrollbar_horizontal["val"].num+if !shift_press {event.scroll_x} else {event.scroll_y}*-50),scrollbar_horizontal["vlMax"].num-scrollbar_horizontal["sThum"].num), scrollbar_horizontal["vlMin"].num)
+				scrollbar_horizontal["val"].num=app.scroll_x
+			} else {
+				mut scrollbar_vertical:=app.get_object_by_id("@scrollbar:vertical")[0]
+				app.scroll_y=math.max(math.min(int(scrollbar_vertical["val"].num+event.scroll_y*-50),scrollbar_vertical["vlMax"].num-scrollbar_vertical["sThum"].num), scrollbar_vertical["vlMin"].num)
+				scrollbar_vertical["val"].num=app.scroll_y
+			}
 		}
 	}
 }
