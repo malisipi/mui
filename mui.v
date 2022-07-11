@@ -92,6 +92,8 @@ fn frame_fn(app &Window) {
 						draw_password(app, object)
 					}"checkbox"{
 						draw_checkbox(app, object)
+					}"switch"{
+						draw_switch(app, object)
 					}"selectbox"{
 						draw_selectbox(app, object)
 					}"slider"{
@@ -183,7 +185,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 							match object["type"].str{
 								"button" {
 									object["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:true.str()},mut app, mut app.app_data)
-								} "checkbox" {
+								} "checkbox", "switch" {
 									object["c"]=WindowData{bol:!object["c"].bol}
 									object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["c"].bol.str()},mut app, mut app.app_data)
 								} "slider" {
@@ -375,7 +377,7 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 					if key=="enter" || key==" " {
 						object["fn"].fun(EventDetails{event:"keypress",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
 					}
-				} "checkbox" {
+				} "checkbox", "switch" {
 					if key=="enter" || key==" " {
 						object["c"]=WindowData{bol:!object["c"].bol}
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["c"].bol.str()},mut app, mut app.app_data)

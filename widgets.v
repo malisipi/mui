@@ -45,7 +45,11 @@ pub fn (mut app Window) password ( args Widget ){
 }
 
 pub fn (mut app Window) checkbox ( args Widget ){
-	add_checkbox(mut app, args.text, args.id, args.x, args.y, args.height, args.checked , args.hidden, app.color_scheme[1], app.color_scheme[3], app.color_scheme[3], args.onchange)
+	add_checkbox(mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.checked , args.hidden, app.color_scheme[1], app.color_scheme[3], app.color_scheme[3], args.onchange)
+}
+
+pub fn (mut app Window) switch ( args Widget ){
+	add_switch(mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.checked , args.hidden, app.color_scheme[1], app.color_scheme[3], app.color_scheme[3], args.onchange)
 }
 
 pub fn (mut app Window) radio ( args Widget ){
