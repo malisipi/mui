@@ -19,4 +19,4 @@ app.selectbox(m.Widget{ id:"type", x:"5%x", y:"35%y", width:"43%x", height:"10%y
 app.selectbox(m.Widget{ id:"icon", x:"# 5%x", y:"35%y", width:"43%x", height:"10%y", list:["info", "warning", "error"] })
 app.button(m.Widget{ id:"create", x:"5%x", y:"# 5%y", width:"90%x", height:"10%y", text:"Create", onclick:create_messagebox })
 
-m.run(mut app)
+app.run()

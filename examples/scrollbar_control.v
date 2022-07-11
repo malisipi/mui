@@ -4,4 +4,4 @@ mut app:=m.create(m.WindowConfig{title:"Scrollbar Test - MUI Examples", width:40
 
 app.rect(m.Widget{ id:"test", x: "0", y:"0", width:600, height:600})
 
-m.run(mut app)
+app.run()

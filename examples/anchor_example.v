@@ -7,6 +7,6 @@ fn main(){
 	app.rect(m.Widget{ id:"rect", x:"# 10%x", y:"10%y", width:"30%x", height:"30%y" })
 	app.rect(m.Widget{ id:"rect", x:"10%x", y:"# 10%y", width:"30%x", height:"30%y" })
 	app.rect(m.Widget{ id:"rect", x:"# 10%x", y:"# 10%y", width:"30%x", height:"30%y" })
-	m.run(mut app)
+	app.run()
 
 }

@@ -12,4 +12,4 @@ mut app:=m.create(m.WindowConfig{ title:"Transition - MUI Example", height:600, 
 app.image(id:"image", x:300, y:300, height:100, width:100, path:"v-logo.png")
 app.button(id:"move", x:30, y:30, height:30, width:70, text:"Move", onclick:move_image)
 
-m.run(mut app)
+app.run()

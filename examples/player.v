@@ -118,5 +118,5 @@ fn main(){
     app.slider(mui.Widget{ id:"volume_slider", x: "# 40", y:"# 10", width:"60", height:25, value:100, value_max:100, step:10, onunclick:change_vol })
 
     go update_play_slider(mut app, mut &app_data)
-    mui.run(mut app)
+    app.run()
 }

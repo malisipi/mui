@@ -22,7 +22,7 @@ mut app:=m.create(m.WindowConfig{ title:"Counter - MUI Example", height:100, wid
 app.label(m.Widget{ id:"count", x:"5%x", y:"5%y", width:"45%x", height:"90%y" text:"0" })
 app.button(m.Widget{ id:"count_button", x:"# 5%x", y:"5%y", width:"45%x", height:"90%y", text:"Count", onclick:increase_count })
 
-m.run(mut app)
+app.run()
 ```
 
 You can find more examples in `./examples/` folder.
@@ -49,7 +49,7 @@ You can find more examples in `./examples/` folder.
     * Graphs
     * Menubar
     * Map
-    * Scrollbar
+    * Scrollbar (Verical & Horizontal)
 * Screen Reader Support (Experimental)
 * Emoji Icon Support
 * Dialogs
@@ -63,6 +63,7 @@ You can find more examples in `./examples/` folder.
 * Anchor System
 * Transition Animations (Supports Anchors)
 * File Drag-n-Drop
+* Ask Quit Dialog & Quit Function
 
 ## To-Do List
 

@@ -43,6 +43,8 @@ pub mut:
 	scrollbar		bool							//= false
 	view_area		[]int							= [-1,-1]
 	file_handler	OnEvent							= empty_fn
+	ask_quit		bool							//= false
+	quit_fn			OnEvent							= empty_fn
 }
 
 pub struct EventDetails{
@@ -71,6 +73,8 @@ pub mut:
 	scroll_x		int
 	scroll_y		int
 	file_handler	OnEvent
+	ask_quit		bool
+	quit_fn			OnEvent
 }
 
 pub struct Widget {

@@ -56,4 +56,4 @@ for r in 0..rows {
 
 app.rect(m.Widget{ id:"rect3", x:"& 0", y:"& 0", width:cell_size[0], height:cell_size[1], placeholder:"0", ph_as_text:true })
 
-m.run(mut app)
+app.run()

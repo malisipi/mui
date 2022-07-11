@@ -25,4 +25,4 @@ app.line_graph(m.Widget{ id:"back", x:"25", y:"25", width:"100%x -50", height:"1
     ]
 })
 
-m.run(mut app)
+app.run()

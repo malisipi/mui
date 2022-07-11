@@ -12,4 +12,4 @@ fn change_type(event_details m.EventDetails, mut app &m.Window, app_data voidptr
 
 mut app:=m.create(m.WindowConfig{ title:"Change Type - MUI Example", width:165, height:60, color:m.theme_light})
 app.password(m.Widget{ id:"widget", x:"20", y:"20", onchange:change_type })
-m.run(mut app)
+app.run()

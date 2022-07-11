@@ -43,4 +43,4 @@ app.table(m.Widget{ id:"table", table:[["Sam","Johnson","29","United States"],["
 
 app.image(m.Widget{ id:"vlogo", x: "# 0", y:"# 0", path:"v-logo.png", width:128, height:128})
 
-m.run(mut app)
+app.run()
