@@ -1,8 +1,6 @@
 import malisipi.mui as m
 
-#flag -w // for easy debugging
-
-mut app:=m.create(m.WindowConfig{ title:"MUI", scrollbar:true, width:400, height: 500 view_area:[1000,1000] })
+mut app:=m.create(m.WindowConfig{ title:"MUI", scrollbar:true, width:800, height: 600 view_area:[1000,1000], ask_quit:true })
 
 app.rect(m.Widget{ id:"rect", x:0, y:0, width:170, height:420 })
 app.label(m.Widget{ id:"label", x: 20, y:20, text:"This is a label" })
@@ -18,5 +16,8 @@ app.group(m.Widget{ id:"group", x:20, y:290, height:110, text:"Animal" })
 app.radio(m.Widget{ id:"radio", x:40, y:310, height:20, list:["Cat","Dog","Bird"]})
 app.switch(m.Widget{ id:"switch", x:200, y:20, width:50 text:"Switch me!"})
 app.image(m.Widget{ id:"image", x: 200, y:50, path:"v-logo.png", width:100, height:100 })
+app.textarea(m.Widget{ id:"textarea", x:200, y:170, width:125, height:125, text:"I'm a textarea\n:)",})
+app.textarea(m.Widget{ id:"codefield", x:200, y:320, width:125, height:125, text:"main(){\n   print(\"Hi!\")\n}", codefield:true})
+app.map(m.Widget{ id:"map", x: 340, y:20, width:256, height:256 })
 
 app.run()

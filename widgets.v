@@ -40,6 +40,10 @@ pub fn (mut app Window) textbox ( args Widget ){
 	add_textbox (mut app, args.text, args.id, args.placeholder, args.ph_as_text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange)
 }
 
+pub fn (mut app Window) textarea ( args Widget ){
+	add_textarea (mut app, args.text, args.id, args.placeholder, args.ph_as_text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange, args.codefield)
+}
+
 pub fn (mut app Window) password ( args Widget ){
 	add_password (mut app, args.text, args.hider_char, args.id, args.placeholder, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange)
 }

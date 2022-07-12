@@ -88,6 +88,8 @@ fn frame_fn(app &Window) {
 						draw_progress(app, object)
 					}"textbox"{
 						draw_textbox(app, object)
+					}"textarea"{
+						draw_textarea(app, object)
 					}"password"{
 						draw_password(app, object)
 					}"checkbox"{
@@ -216,11 +218,29 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									if the_text.len>0{
 										mut split_char:=0
 										if object["type"].str=="textbox"{
-											split_char=math.min(int(math.round((x-object["x"].num)/((app.gg.text_width(the_text)+2)/the_text.len))),the_text.len)
+											split_char=math.min(int(math.round((x-object["x"].num)/((app.gg.text_width(the_text)+2)/the_text.runes().len))),the_text.runes().len)
 										} else {
-											split_char=math.min(int(math.round((x-object["x"].num)/((app.gg.text_width(object["hc"].str)*the_text.len+2)/the_text.len))),the_text.len)
+											split_char=math.min(int(math.round((x-object["x"].num)/((app.gg.text_width(object["hc"].str)*the_text.runes().len+2)/the_text.runes().len))),the_text.runes().len)
 										}
-										object["text"]=WindowData{str:the_text[0..split_char]+"\0"+the_text[split_char..math.min(99999,the_text.len)]}
+										object["text"]=WindowData{str:the_text.runes()[0..split_char].string()+"\0"+the_text.runes()[split_char..math.min(99999,the_text.runes().len)].string()}
+									} else {
+										object["text"]=WindowData{str:"\0"}
+									}
+								} "textarea"{
+									the_text:=object["text"].str.replace("\0","")
+									if the_text.len>0{
+										rows:=the_text.split("\n")
+										which_row:=int(math.min(math.max(y-object["y"].num-4,0)/20,rows.len-1))
+										row_text:=the_text.split("\n")[which_row]
+										mut edited_row:="\0"
+										if row_text.len>0{
+											split_char:=math.min(int(math.round((x-object["x"].num)/((app.gg.text_width(row_text)+2)/row_text.runes().len))),row_text.runes().len)
+											edited_row=row_text.runes()[0..split_char].string()+"\0"+row_text.runes()[split_char..math.min(99999,row_text.runes().len)].string()
+										}
+										before_rows:=if rows#[0..which_row].len>0 { rows#[0..which_row].join("\n") } else { "" }
+										after_rows:=if rows#[which_row+1..].len>0 { rows#[which_row+1..].join("\n") } else { "" }
+										latest_text:=before_rows+if before_rows!="" {"\n"} else {""}+edited_row+if after_rows!="" {"\n"} else {""}+after_rows
+										object["text"]=WindowData{str:latest_text}
 									} else {
 										object["text"]=WindowData{str:"\0"}
 									}
@@ -373,6 +393,67 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 							object["text"]=WindowData{str:the_text_part1#[0..-1].string()+"\0"+the_text_part1[the_text_part1.len-1..the_text_part1.len].string()+the_text_part2.string()}
 						}
 					}
+				} "textarea" {
+					if key.runes().len<2 || key=="enter"{
+						if key=="enter" { key="\n" }
+						the_text:=object["text"].str
+						the_text_part1,the_text_part2:=the_text.split("\0")[0],the_text.split("\0")[1]
+						if key!="\b" && key!="\1" {
+							object["text"]=WindowData{str:the_text_part1+key+"\0"+the_text_part2}
+						} else if key=="\b" {
+							object["text"]=WindowData{str:the_text_part1.runes()#[0..-1].string()+"\0"+the_text_part2}
+						} else {
+							object["text"]=WindowData{str:the_text_part1+"\0"+the_text_part2.runes()#[1..].string()}
+						}
+						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["text"].str},mut app, mut app.app_data)
+					} else if key=="right" || key=="left"{
+						the_text:=object["text"].str
+						the_text_part1,the_text_part2:=the_text.split("\0")[0].runes(),the_text.split("\0")[1].runes()
+						if key=="right" {
+							if the_text_part2.len==0 { return }
+							object["text"]=WindowData{str:the_text_part1.string()+the_text_part2[0..1].string()+"\0"+the_text_part2[1..the_text_part2.len].string()}
+						} else {
+							if the_text_part1.len==0 { return }
+							object["text"]=WindowData{str:the_text_part1#[0..-1].string()+"\0"+the_text_part1[the_text_part1.len-1..the_text_part1.len].string()+the_text_part2.string()}
+						}
+					} else if key=="down" || key=="__up"{
+						the_text:=object["text"].str
+						rows:=the_text.split("\n")
+						mut cursor_loc:=[-1,-1]
+						for which_row, row in rows {
+							cursor:=row.index("\0") or {-1}
+							if cursor!=-1 { cursor_loc=[which_row,cursor] }
+						}
+						mut latest_text:=""
+						if key=="down"{
+							if cursor_loc[0]!=rows.len-1 {
+								latest_text=rows#[0..math.max(cursor_loc[0]+1,0)].join("\n").replace("\0","")
+								if latest_text!="" {latest_text+="\n"}
+								edited_row:=rows#[cursor_loc[0]+1..cursor_loc[0]+2][0]
+								latest_text+=edited_row.runes()#[0..cursor_loc[1]].string()+"\0"+edited_row.runes()#[cursor_loc[1]..].string()
+								after_rows:=rows#[cursor_loc[0]+2..].join("\n").replace("\0","")
+								if after_rows!="" {
+									latest_text+="\n"+after_rows
+								}
+							} else {
+								latest_text=the_text.replace("\0","")+"\0"
+							}
+						} else {
+							if cursor_loc[0]!=0{
+								latest_text=rows#[0..math.max(cursor_loc[0]-1,0)].join("\n")
+								if latest_text!="" {latest_text+="\n"}
+								edited_row:=rows#[cursor_loc[0]-1..cursor_loc[0]][0]
+								latest_text+=edited_row.runes()#[0..cursor_loc[1]].string()+"\0"+edited_row.runes()#[cursor_loc[1]..].string()
+								after_rows:=rows#[cursor_loc[0]..].join("\n").replace("\0","")
+								if after_rows!="" {
+									latest_text+="\n"+after_rows
+								}
+							} else {
+								latest_text="\0"+the_text.replace("\0","")
+							}
+						}
+						object["text"]=WindowData{str:latest_text}
+					}
 				} "button" {
 					if key=="enter" || key==" " {
 						object["fn"].fun(EventDetails{event:"keypress",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
@@ -386,7 +467,7 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 					if key=="left" {
 						object["val"]=WindowData{num:math.max(object["vlMin"].num,object["val"].num-object["vStep"].num)}
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
-					} else if key.to_lower()=="right" {
+					} else if key=="right" {
 						object["val"]=WindowData{num:math.min(object["vlMax"].num,object["val"].num+object["vStep"].num)}
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
 					}

@@ -52,7 +52,7 @@ pub mut:
 	event			string		// click, value_change, unclick, keypress, file_drop
 	trigger			string		// mouse_left, mouse_right, mouse_middle, keyboard
 	value			string		="true"
-	target_type		string		="null"
+	target_type		string		="window" //window, menubar, and widget_types
 	target_id		string		//=""
 }
 
@@ -114,8 +114,9 @@ pub struct Widget {
 	latitude		f64				= 48.856613									//- => image
 	longitude		f64				= 2.352222									//- => image
 	zoom			int				= 10										//- => image
-	vertical		bool			//=false									//vert
-	icon			bool			//=false									//icon
+	vertical		bool			//= false									//vert
+	icon			bool			//= false									//icon
+	codefield		bool			//= false									//code
 }
 
 pub fn empty_fn(event_details EventDetails, mut app &Window, app_data voidptr){}

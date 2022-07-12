@@ -49,6 +49,9 @@ You can find more examples in `./examples/` folder.
     * Graphs
     * Menubar
     * Map
+    * Switch
+    * Textarea
+    * Codefield
     * Scrollbar (Verical & Horizontal)
 * Screen Reader Support (Experimental)
 * Emoji Icon Support
@@ -67,15 +70,13 @@ You can find more examples in `./examples/` folder.
 
 ## To-Do List
 
+* Syntax Highlighting For Codefield
 * Tabs
 * Treeview
-* Textfield
-* Codefield
 * Status Bar
 * Spinner
 * Spin Button
 * Editable Label
-* Switch
 * Disable Status (for Buttons, Checkboxs, Selectboxs, etc.)
 * Custom Colors for Widgets (except Themes)
 * Handle Appearance Preferences (like Background Color, Text Color)
