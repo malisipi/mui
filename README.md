@@ -2,9 +2,9 @@
 
 ![MUI Demo](./pictures/MUI_Demo.gif "MUI Demo")
 
-> **Supports Windows, Linux & Android (Very Experimental)<sup>1</sup>**. *Not tested on MacOS<sup>2</sup>.*
+> **Supports Windows, Linux & Android (Experimental)<sup>1</sup>**. *Not tested on MacOS<sup>2</sup>.*
 
-> 1: Themes, screen reader, dialogs, virtual keyboard & map widget not working on Android now, also touch support could be faulty. Also, you need to use [V Android Bootstrapper](https://github.com/vlang/vab) to compile for Android.
+> 1: Themes, screen reader, dialogs, virtual keyboard & map widget not working on Android now. Also, you need to use [V Android Bootstrapper](https://github.com/vlang/vab) to compile for Android.
 
 > 2: All critical processes (like Widget drawing, click handling etc.) should work on MacOS. But themes and screen reader won't work, and could be include MacOS-only bug.
 

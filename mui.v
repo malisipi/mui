@@ -59,7 +59,6 @@ pub fn create(args &WindowConfig)	 &Window{
 		app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true})
 		app.rect(Widget{ id:"@scrollbar:extra", x:"!&# 0", y:"!&# 0", width:"15", height:"15", background: app.color_scheme[1]})
 	}
-
 	return app
 }
 
@@ -326,15 +325,15 @@ fn event_fn(event &gg.Event, mut app &Window){
 		sapp.quit()
 	} else if event.typ == sapp.EventType.touches_began {
 		unsafe {
-			click_fn(event.touches[0].pos_x,event.touches[0].pos_y, gg.MouseButton.left, mut app)
+			click_fn(event.touches[0].pos_x/app.gg.scale,event.touches[0].pos_y/app.gg.scale, gg.MouseButton.left, mut app)
 		}
 	} else if event.typ == sapp.EventType.touches_moved {
 		unsafe {
-			move_fn(event.touches[0].pos_x,event.touches[0].pos_y, mut app)
+			move_fn(event.touches[0].pos_x/app.gg.scale,event.touches[0].pos_y/app.gg.scale, mut app)
 		}
 	} else if event.typ == sapp.EventType.touches_ended {
 		unsafe {
-			unclick_fn(event.touches[0].pos_x,event.touches[0].pos_y, gg.MouseButton.left, mut app)
+			unclick_fn(event.touches[0].pos_x/app.gg.scale,event.touches[0].pos_y/app.gg.scale, gg.MouseButton.left, mut app)
 		}
 	}
 }
