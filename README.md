@@ -2,9 +2,11 @@
 
 ![MUI Demo](./pictures/MUI_Demo.gif "MUI Demo")
 
-> **Supports Windows & Linux**. *No support for MacOS<sup>1</sup>.*
+> **Supports Windows, Linux & Android (Very Experimental)<sup>1</sup>**. *Not tested on MacOS<sup>2</sup>.*
 
-1: Should work on MacOS. But themes and screen reader won't work, and could be include MacOS-only bug.
+> 1: Themes, screen reader, dialogs, virtual keyboard & map widget not working on Android now, also touch support could be faulty. Also, you need to use [V Android Bootstrapper](https://github.com/vlang/vab) to compile for Android.
+
+> 2: All critical processes (like Widget drawing, click handling etc.) should work on MacOS. But themes and screen reader won't work, and could be include MacOS-only bug.
 
 ## Example
 
@@ -12,9 +14,7 @@
 import mui as m
 
 fn increase_count(event_details m.EventDetails,mut app &m.Window, app_data voidptr){
-	unsafe{
-		app.get_object_by_id("count")[0]["text"].str=(app.get_object_by_id("count")[0]["text"].str.int()+1).str()
-	}
+	unsafe{   app.get_object_by_id("count")[0]["text"].str=(app.get_object_by_id("count")[0]["text"].str.int()+1).str()   }
 }
 
 mut app:=m.create(m.WindowConfig{ title:"Counter - MUI Example", height:100, width:400 })

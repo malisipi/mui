@@ -1,4 +1,3 @@
-# Binaries for programs and plugins
 main
 mui
 *.exe
@@ -7,4 +6,5 @@ mui
 *.dylib
 *.dll
 vls.log
-gui_builder/
+*.apk
+*.out

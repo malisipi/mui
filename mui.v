@@ -25,11 +25,12 @@ pub fn create(args &WindowConfig)	 &Window{
     }
 
     mut emoji_font:=args.font
-    $if no_emoji? {
-	} $else {
-		noto_emoji_font:=$embed_file("noto_emoji_font/NotoEmoji.ttf")
-		emoji_font=os.temp_dir()+"/noto_emoji_font.ttf"
-		os.write_file(emoji_font, noto_emoji_font.to_string()) or {}
+    $if !no_emoji? {
+		$if !android {
+			noto_emoji_font:=$embed_file("noto_emoji_font/NotoEmoji.ttf")
+			emoji_font=os.temp_dir()+"/noto_emoji_font.ttf"
+			os.write_file(emoji_font, noto_emoji_font.to_string()) or {}
+		}
 	}
 
     app.gg = gg.new_context(
@@ -323,6 +324,18 @@ fn event_fn(event &gg.Event, mut app &Window){
 		}
 		app.quit_fn(EventDetails{event:"quit",trigger:"quit",value:"true"},mut app, mut app.app_data)
 		sapp.quit()
+	} else if event.typ == sapp.EventType.touches_began {
+		unsafe {
+			click_fn(event.touches[0].pos_x,event.touches[0].pos_y, gg.MouseButton.left, mut app)
+		}
+	} else if event.typ == sapp.EventType.touches_moved {
+		unsafe {
+			move_fn(event.touches[0].pos_x,event.touches[0].pos_y, mut app)
+		}
+	} else if event.typ == sapp.EventType.touches_ended {
+		unsafe {
+			unclick_fn(event.touches[0].pos_x,event.touches[0].pos_y, gg.MouseButton.left, mut app)
+		}
 	}
 }
 
