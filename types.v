@@ -58,23 +58,26 @@ pub mut:
 
 pub struct Window {
 pub mut:
-    objects     	[]map[string]WindowData
-    focus       	string
-    color_scheme	[]gx.Color
-    app_data		voidptr
-    gg          	&gg.Context
-    screen_reader	bool
-    menubar			[]map[string]WindowData
-    x_offset		int
-	y_offset		int
-	xn_offset		int
-	yn_offset		int
-	scrollbar		bool
-	scroll_x		int
-	scroll_y		int
-	file_handler	OnEvent
-	ask_quit		bool
-	quit_fn			OnEvent
+    objects     		[]map[string]WindowData
+    focus       		string
+    color_scheme		[]gx.Color
+    app_data			voidptr
+    gg          		&gg.Context
+    screen_reader		bool
+    menubar				[]map[string]WindowData
+    x_offset			int
+	y_offset			int
+	xn_offset			int
+	yn_offset			int
+	scrollbar			bool
+	scroll_x			int
+	scroll_y			int
+	file_handler		OnEvent
+	ask_quit			bool
+	quit_fn				OnEvent
+	active_dialog		string			//= "" //messagebox, input, password, progress, color, date, notification, openfile, savefile, openfolder, custom
+	dialog_answer		string			= dialogs_null_answer
+    dialog_objects		[]map[string]WindowData // for dialogs
 }
 
 pub struct Widget {
@@ -117,6 +120,15 @@ pub struct Widget {
 	vertical		bool			//= false									//vert
 	icon			bool			//= false									//icon
 	codefield		bool			//= false									//code
+	dialog			bool			//= false									//- => app.objects || app.dialog_objects
+}
+
+pub struct Modal {
+	title			string		= "MUI"
+	message			string		//= ""
+	typ				string		= "messagebox"
+	file_ext		string		= "*"
+	default_entry	string		//= ""
 }
 
 pub fn empty_fn(event_details EventDetails, mut app &Window, app_data voidptr){}

@@ -1,7 +1,7 @@
 module mui
 
 pub fn (mut app Window) rect ( args Widget ){
-	add_rect (mut app, args.id, args.x, args.y, args.width, args.height, args.hidden, args.background)
+	add_rect (mut app, args.id, args.x, args.y, args.width, args.height, args.hidden, args.background, args.dialog)
 }
 
 pub fn (mut app Window) line_graph ( args Widget ){
@@ -17,11 +17,11 @@ pub fn (mut app Window) group ( args Widget ){
 }
 
 pub fn (mut app Window) label ( args Widget ){
-	add_label (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[3], args.onclick)
+	add_label (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[3], args.onclick, args.dialog)
 }
 
 pub fn (mut app Window) button ( args Widget ){
-	add_button (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[3], args.onclick, args.icon)
+	add_button (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[3], args.onclick, args.icon, args.dialog)
 }
 
 pub fn (mut app Window) image ( args Widget ){
@@ -33,11 +33,11 @@ pub fn (mut app Window) map ( args Widget ){
 }
 
 pub fn (mut app Window) progress ( args Widget ){
-	add_progress (mut app, args.percent, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[2],  app.color_scheme[3])
+	add_progress (mut app, args.percent, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[2],  app.color_scheme[3], args.dialog)
 }
 
 pub fn (mut app Window) textbox ( args Widget ){
-	add_textbox (mut app, args.text, args.id, args.placeholder, args.ph_as_text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange)
+	add_textbox (mut app, args.text, args.id, args.placeholder, args.ph_as_text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange, args.dialog)
 }
 
 pub fn (mut app Window) textarea ( args Widget ){
@@ -45,7 +45,7 @@ pub fn (mut app Window) textarea ( args Widget ){
 }
 
 pub fn (mut app Window) password ( args Widget ){
-	add_password (mut app, args.text, args.hider_char, args.id, args.placeholder, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange)
+	add_password (mut app, args.text, args.hider_char, args.id, args.placeholder, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange, args.dialog)
 }
 
 pub fn (mut app Window) checkbox ( args Widget ){
@@ -65,7 +65,7 @@ pub fn (mut app Window) selectbox ( args Widget ){
 }
 
 pub fn (mut app Window) slider ( args Widget ){
-	add_slider(mut app, args.value, args.value_min, args.value_max, args.step, args.id, args.x, args.y, args.width, args.height, args.vertical, args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onclick, args.onchange, args.onunclick, args.value_map)
+	add_slider(mut app, args.value, args.value_min, args.value_max, args.step, args.id, args.x, args.y, args.width, args.height, args.vertical, args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onclick, args.onchange, args.onunclick, args.value_map, args.dialog)
 }
 
 pub fn (mut app Window) scrollbar ( args Widget ){

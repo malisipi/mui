@@ -3,8 +3,8 @@ module mui
 import gg
 import gx
 
-pub fn add_password(mut app &Window, text string, hider_char string, id string, placeholder string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent){
-    app.objects << {
+pub fn add_password(mut app &Window, text string, hider_char string, id string, placeholder string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, dialog bool){
+    widget:={
         "type": WindowData{str:"password"},
         "id":   WindowData{str:id},
         "text": WindowData{str:text+"\0"},
@@ -24,6 +24,7 @@ pub fn add_password(mut app &Window, text string, hider_char string, id string, 
         "hc":	WindowData{str:hider_char},
         "fnchg":WindowData{fun:fnchg}
     }
+    if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
 [unsafe]

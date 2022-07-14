@@ -66,15 +66,21 @@ pub fn create(args &WindowConfig)	 &Window{
 fn frame_fn(app &Window) {
 	unsafe{
 		app.gg.begin()
+
 		mut objects:=app.objects.clone()
 		if app.focus!="" { objects << get_object_by_id(app, app.focus) }
 		real_size:=app.gg.window_size()
 		window_info:=[real_size.width-app.x_offset-app.xn_offset,real_size.height-app.y_offset-app.yn_offset,real_size.width,real_size.height,app.scroll_x,app.scroll_y].clone()
+
+		if app.active_dialog!="" {
+			objects=app.dialog_objects.clone()
+		}
+
 		for object in objects{
 			if !object["hi"].bol && object["type"].str!="hidden"{
 				points:=calc_points(window_info,object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
-				object["x"]=WindowData{num:points[0]+ if !object["x_raw"].str.starts_with("!") {app.x_offset} else {0} }
-				object["y"]=WindowData{num:points[1]+ if !object["y_raw"].str.starts_with("!") {app.y_offset} else {0} }
+				object["x"]=WindowData{num:points[0]+ if !object["x_raw"].str.starts_with("!") || app.active_dialog!="" {app.x_offset} else {0} }
+				object["y"]=WindowData{num:points[1]+ if !object["y_raw"].str.starts_with("!") || app.active_dialog!="" {app.y_offset} else {0} }
 				object["w"]=WindowData{num:points[2]}
 				object["h"]=WindowData{num:points[3]}
 				match object["type"].str{
@@ -136,7 +142,7 @@ fn frame_fn(app &Window) {
 [unsafe]
 fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 	unsafe{
-		if app.focus!="" {
+		if app.focus!="" && app.active_dialog=="" {
 			if get_object_by_id(app, app.focus)["type"].str=="selectbox" {
 				mut old_focused_object:=get_object_by_id(app, app.focus)
 				app.focus=""
@@ -168,7 +174,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 		}
 		app.focus=""
 
-		if y<=menubar_height && app.menubar!=[]map["string"]WindowData{}{
+		if app.active_dialog=="" && y<=menubar_height && app.menubar!=[]map["string"]WindowData{}{
 			menu_items:=app.menubar.len
 			if x<menu_items*menubar_width{
 				app.focus="@menubar#"+(x/menubar_width).str()
@@ -177,12 +183,25 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 		}
 
 		if mb==gg.MouseButton.left{
-			for mut object in app.objects{
+			mut objects:=app.objects.clone()
+			if app.active_dialog!=""{
+				objects=app.dialog_objects.clone()
+			}
+			for mut object in objects{
 				if !object["hi"].bol && object["type"].str!="rect" && object["type"].str!="group" && object["type"].str!="table"{
 					if object["x"].num<x && object["x"].num+object["w"].num>x{
 						if object["y"].num<y && object["y"].num+object["h"].num>y{
 							if object["type"].str!="rect" {
 								app.focus=object["id"].str
+							}
+							$if android{
+								match object["type"].str{
+									"textbox", "password", "textarea" {
+										show_keyboard(true)
+									} else {
+										show_keyboard(false)
+									}
+								}
 							}
 							match object["type"].str{
 								"button" {
@@ -271,7 +290,10 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 fn move_fn(x f32, y f32, mut app &Window){
 	unsafe{
 		if !(app.focus==""){
-			object:=get_object_by_id(app, app.focus)
+			mut object:=get_object_by_id(app,app.focus)
+			if app.active_dialog!=""{
+				object=get_dialog_object_by_id(app,app.focus)
+			}
 			if object["type"].str=="slider"{
 				if object["click"].bol {
 					if !object["vert"].bol {
@@ -299,7 +321,10 @@ fn move_fn(x f32, y f32, mut app &Window){
 fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 	unsafe{
 		if !(app.focus==""){
-			object:=get_object_by_id(app, app.focus)
+			mut object:=get_object_by_id(app,app.focus)
+			if app.active_dialog!=""{
+				object=get_dialog_object_by_id(app,app.focus)
+			}
 			if object["type"].str=="slider" || object["type"].str=="scrollbar"{
 				object["click"]=WindowData{bol:false}
 				object["fnucl"].fun(EventDetails{event:"unclick",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()},mut app, mut app.app_data)
@@ -359,6 +384,9 @@ fn scroll_fn(event &gg.Event, mut app &Window){
 [unsafe]
 fn char_fn(chr u32, mut app &Window){
 	unsafe {
+		$if android{
+			return
+		}
 		keyboard_fn(chr, mut app)
 	}
 }
@@ -368,6 +396,9 @@ fn keyboard_fn(chr u32|string, mut app &Window){
 	unsafe{
 		if app.focus!="" {
 			mut object:=get_object_by_id(app,app.focus)
+			if app.active_dialog!=""{
+				object=get_dialog_object_by_id(app,app.focus)
+			}
 
 			mut key:=""
 			match chr{
@@ -555,31 +586,125 @@ fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
 	//alt   := m == .alt
 	//ctrl  := m == .ctrl
 	mut key:=""
-	match c{
-		.tab {
-			unsafe {
-				if shift {
-					app.focus=app.get_previous_object_by_id(app.focus)[0]["id"].str
-					if app.screen_reader { screen_reader_read(app.screen_reader_parse_text(app.focus)) }
-				} else {
-					app.focus=app.get_next_object_by_id(app.focus)[0]["id"].str
-					if app.screen_reader { screen_reader_read(app.screen_reader_parse_text(app.focus)) }
+	$if !android {
+		match c{
+			.tab {
+				unsafe {
+					if app.active_dialog!=""{
+						if shift {
+							app.focus=app.get_previous_dialog_object_by_id(app.focus)[0]["id"].str
+							if app.screen_reader { screen_reader_read(app.screen_reader_parse_text(app.focus)) }
+						} else {
+							app.focus=app.get_next_dialog_object_by_id(app.focus)[0]["id"].str
+							if app.screen_reader { screen_reader_read(app.screen_reader_parse_text(app.focus)) }
+						}
+					} else {
+						if shift {
+							app.focus=app.get_previous_object_by_id(app.focus)[0]["id"].str
+							if app.screen_reader { screen_reader_read(app.screen_reader_parse_text(app.focus)) }
+						} else {
+							app.focus=app.get_next_object_by_id(app.focus)[0]["id"].str
+							if app.screen_reader { screen_reader_read(app.screen_reader_parse_text(app.focus)) }
+						}
+					}
 				}
 			}
+			.menu  { key="menu" }
+			.right { key="right"}
+			.left  { key="left" }
+			.down  { key="down" }
+			.up    { key="__up" }
+			.enter { key="enter"}
+			.escape{key="escape"}
+			.backspace{ key="\b"}
+			.delete{key="\1"}
+			else {}
 		}
-		.menu  { key="menu" }
-		.right { key="right"}
-		.left  { key="left" }
-		.down  { key="down" }
-		.up    { key="__up" }
-		.enter { key="enter"}
-		.escape{key="escape"}
-		.backspace{ key="\b"}
-		.delete{key="\1"}
-		else {}
-	}
-	if key!=""{
-		unsafe {
+		if key!=""{
+			unsafe {
+				keyboard_fn(key,mut app)
+			}
+		}
+	} $else {
+		match c {
+			.space{ key=" "}
+			.a { key="a" }
+			.b { key="b" }
+			.c { key="c" }
+			.d { key="d" }
+			.e { key="e" }
+			.f { key="f" }
+			.g { key="g" }
+			.h { key="h" }
+			.i { key="i" }
+			.j { key="j" }
+			.k { key="k" }
+			.l { key="l" }
+			.m { key="m" }
+			.n { key="n" }
+			.o { key="o" }
+			.p { key="p" }
+			.r { key="r" }
+			.s { key="s" }
+			.t { key="t" }
+			.u { key="u" }
+			.v { key="v" }
+			.y { key="y" }
+			.z { key="z" }
+			.x { key="x" }
+			.q { key="q" }
+			.w { key="w" }
+			._0 { key="0" }
+			._1 { key="1" }
+			._2 { key="2" }
+			._3 { key="3" }
+			._4 { key="4" }
+			._5 { key="5" }
+			._6 { key="6" }
+			._7 { key="7" }
+			._8 { key="8" }
+			._9 { key="9" }
+			.kp_0 { key="0" }
+			.kp_1 { key="1" }
+			.kp_2 { key="2" }
+			.kp_3 { key="3" }
+			.kp_4 { key="4" }
+			.kp_5 { key="5" }
+			.kp_6 { key="6" }
+			.kp_7 { key="7" }
+			.kp_8 { key="8" }
+			.kp_9 { key="9" }
+			.apostrophe { key="'" }
+			.comma { key="," }
+			.period { key="."}
+			.minus { key="-" }
+			.slash { key="/" }
+			.semicolon { key=";" }
+			.equal { key="=" }
+			.escape { key="escape" }
+			.enter { key="enter" }
+			.tab { key="tab" }
+			.backspace { key="\b" }
+			.kp_divide { key="/" }
+			.kp_equal { key="=" }
+			.kp_add { key="+" }
+			.kp_multiply { key="*" }
+			.kp_subtract { key="-" }
+			.menu { key="menu" }
+			.right { key="right" }
+			.left { key="left" }
+			.down { key="down" }
+			.up { key="up" }
+			else {}
+		}
+
+		if shift {
+			if key.len>1{
+				keyboard_fn(key,mut app)
+			} else {
+				keyboard_fn(key.to_upper(),mut app)
+			}
+		} else {
 			keyboard_fn(key,mut app)
 		}
 	}

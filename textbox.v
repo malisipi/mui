@@ -3,8 +3,8 @@ module mui
 import gg
 import gx
 
-pub fn add_textbox(mut app &Window, text string, id string, placeholder string, phsa bool, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent){
-    app.objects << {
+pub fn add_textbox(mut app &Window, text string, id string, placeholder string, phsa bool, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, dialog bool){
+    widget:= {
         "type": WindowData{str:"textbox"},
         "id":   WindowData{str:id},
         "text": WindowData{str:text+"\0"},
@@ -24,6 +24,7 @@ pub fn add_textbox(mut app &Window, text string, id string, placeholder string, 
         "hi":	WindowData{bol:hi},
         "fnchg":WindowData{fun:fnchg}
     }
+    if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
 [unsafe]

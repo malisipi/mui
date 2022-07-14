@@ -56,7 +56,10 @@ fn screen_reader_read(text string){
 fn (mut app Window) screen_reader_parse_text(object_id string) string{
     unsafe {
         if object_id!=""{
-            object:=app.get_object_by_id(object_id)[0]
+            mut object:=app.get_object_by_id(object_id)[0]
+            if app.active_dialog!=""{
+                object=app.get_dialog_object_by_id(object_id)[0]
+            }
             if object["type"].str=="button" || object["type"].str=="checkbox" || object["type"].str=="radio" || object["type"].str=="selectbox" || object["type"].str=="label" || object["type"].str=="link"{
                 return object["text"].str
             } else if object["type"].str=="textbox" {

@@ -3,8 +3,8 @@ module mui
 import gg
 import gx
 
-pub fn add_progress(mut app &Window, percent int, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color){
-    app.objects << {
+pub fn add_progress(mut app &Window, percent int, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, dialog bool){
+    widget:={
         "type": WindowData{str:"progress"},
         "id":   WindowData{str:id}
         "perc": WindowData{num:percent},
@@ -21,6 +21,7 @@ pub fn add_progress(mut app &Window, percent int, id string, x string|int, y str
         "bfg":  WindowData{clr:bfg},
         "fg":   WindowData{clr:fg}
     }
+    if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
 [unsafe]

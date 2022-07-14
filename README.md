@@ -2,9 +2,9 @@
 
 ![MUI Demo](./pictures/MUI_Demo.gif "MUI Demo")
 
-> **Supports Windows, Linux & Android (Experimental)<sup>1</sup>**. *Not tested on MacOS<sup>2</sup>.*
+> **Supports Windows, Linux & Android<sup>1</sup>**. *Not tested on MacOS<sup>2</sup>.*
 
-> 1: Themes, screen reader, dialogs, virtual keyboard & map widget not working on Android now. Also, you need to use [V Android Bootstrapper](https://github.com/vlang/vab) to compile for Android.
+> 1: System themes & map widget not working on Android now. If you interested with compiling for android, look [here](#compile-for-android)
 
 > 2: All critical processes (like Widget drawing, click handling etc.) should work on MacOS. But themes and screen reader won't work, and could be include MacOS-only bug.
 
@@ -48,21 +48,22 @@ You can find more examples in `./examples/` folder.
     * Table
     * Graphs
     * Menubar
-    * Map
+    * Map (Desktop Only)
     * Switch
     * Textarea
     * Codefield
     * Scrollbar (Verical & Horizontal)
-* Screen Reader Support (Experimental)
+* Screen Reader Support (Experimental - Desktop Only)
 * Emoji Icon Support
 * Dialogs
-    * Messagebox
-    * Inputbox
-    * Passwordbox
-    * Color Chooser
-    * File Open/Save Dialog
-    * Folder Open Dialog
-    * Notification Support
+    * Messagebox (Tinyfiledialogs & built-in)
+    * Inputbox (Tinyfiledialogs & built-in)
+    * Passwordbox (Tinyfiledialogs & built-in)
+    * Color Chooser (Tinyfiledialogs & built-in)
+    * File Open/Save Dialog (Tinyfiledialogs)
+    * Folder Open Dialog (Tinyfiledialogs)
+    * Notification Support (Tinyfiledialogs)
+    * Custom Dialog Support (Not Finished Completely Yet)
 * Anchor System
 * Transition Animations (Supports Anchors)
 * File Drag-n-Drop
@@ -99,17 +100,25 @@ You can find more examples in `./examples/` folder.
 
 > To remove, run `v remove malisipi.mui`
 
-# Compile-Time Flags
+## Compile-Time Flags
 
 | Flags       | Description                              |
 |-------------|------------------------------------------|
 | -d show_fps | Show FPS of the window                   |
 | -d no_emoji | Disable emoji support and font embedding |
 
+## Compile for Android {#compile-for-android}
+
+* You need to use [V Android Bootstrapper](https://github.com/vlang/vab) to compile for Android.
+* Tinyfiledialogs won't work on Android, but you can use built-in dialogs.
+* If you want to working keyboard, you need patch the sokol library that placed into v/thirdparty. You can found the patch file from `./patches`.
+
 ## Known Bugs
 
 * Draws widget overflowing from the window. That cause' more cpu usage.
 * Anchor system won't works correctly with radio button.
+
+> If you have a problem/question or feature request about MUI, you can create a issue.
 
 ## License
 
@@ -117,6 +126,7 @@ You can find more examples in `./examples/` folder.
 * [Tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/) (`./tinyfiledialogs/`) licensed by Zlib License.
 * [Noto Emoji Font](https://fonts.google.com/noto/specimen/Noto+Emoji) (`./noto_emoji_font/`) licensed by OFL License.
 * [V-logo](https://github.com/vlang/v-logo) (`./examples/v-logo.png`) licensed by MIT license.
+* [Original Sokol](https://github.com/floooh/sokol) and [Sokol Patch](https://github.com/floooh/sokol/pull/503) (`./patches/sokol.patch`) licensed by Zlib license.
 
 ## Documentation
 

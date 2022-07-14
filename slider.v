@@ -3,8 +3,8 @@ module mui
 import gg
 import gx
 
-pub fn add_slider(mut app &Window, val int, min int, max int, step int, id string, x string|int, y string|int, w string|int, h string|int, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, value_map ValueMap){
-	    app.objects << {
+pub fn add_slider(mut app &Window, val int, min int, max int, step int, id string, x string|int, y string|int, w string|int, h string|int, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, value_map ValueMap, dialog bool){
+	    widget:={
         "type": WindowData{str:"slider"},
         "id":   WindowData{str:id},
         "val":  WindowData{num:val-(val-min)%step},
@@ -30,6 +30,7 @@ pub fn add_slider(mut app &Window, val int, min int, max int, step int, id strin
         "fnchg":WindowData{fun:fnchg},
         "fnucl":WindowData{fun:fnucl}
     }
+    if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
 [unsafe]

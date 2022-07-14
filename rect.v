@@ -3,8 +3,8 @@ module mui
 import gg
 import gx
 
-pub fn add_rect(mut app &Window, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color){
-    app.objects << {
+pub fn add_rect(mut app &Window, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color, dialog bool){
+    widget:= {
         "type": WindowData{str:"rect"},
         "id":   WindowData{str:id},
         "x":    WindowData{num:0},
@@ -18,6 +18,7 @@ pub fn add_rect(mut app &Window, id string, x string|int, y string|int, w string
         "hi":	WindowData{bol:hi},
         "bg":   WindowData{clr:bg},
     }
+    if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
 [unsafe]
