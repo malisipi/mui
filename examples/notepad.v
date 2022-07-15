@@ -48,6 +48,10 @@ fn change_codefield(event_details m.EventDetails, mut app &m.Window, mut app_dat
     unsafe {   app.get_object_by_id("textarea")[0]["code"].bol=event_details.value=="true"   }
 }
 
+fn change_text_size(event_details m.EventDetails, mut app &m.Window, mut app_data &AppData){
+    unsafe {   app.get_object_by_id("textarea")[0]["tSize"].num=event_details.value.int()   }
+}
+
 menubar:=[
     {"text":m.WindowData{str:"File"}, "items":m.WindowData{lst:[
         {"text":m.WindowData{str:"Open"}, "fn": m.WindowData{fun:load_file}}
@@ -65,6 +69,7 @@ mut app:=m.create(m.WindowConfig{ title:"Notepad - MUI Examples", width:400, hei
 app.button(m.Widget{ id:"open", x:"!& 0", y:"!& 25" width:25, height:25, text:open_file_emoji, onclick:load_file, icon:true})
 app.button(m.Widget{ id:"save", x:"!& 30", y:"!& 25" width:25, height:25, text:save_file_emoji, onclick:save_file, icon:true})
 app.switch(m.Widget{ id:"codefield", x:"!& 60", y:"!& 30" width:30, height:15, text:"Codefield", onchange:change_codefield})
+app.slider(m.Widget{ id:"text_size", x:"!& 180", y:"!& 30" width:80, height:15, value_min:8, value_max:40, value:20, onclick:change_text_size, onchange:change_text_size, onunclick:change_text_size})
 
 app.textarea(m.Widget{ id:"textarea", x:0, y:0, width:"100%x", height:"100%y", placeholder:"Open/Drop a file to edit\nOr create a new file"})
 

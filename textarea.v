@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_textarea(mut app &Window, text string, id string, placeholder string, phsa bool, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, codefield bool){
+pub fn add_textarea(mut app &Window, text string, id string, placeholder string, phsa bool, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, codefield bool, tSize int){
     app.objects << {
         "type": WindowData{str:"textarea"},
         "id":   WindowData{str:id},
@@ -23,7 +23,8 @@ pub fn add_textarea(mut app &Window, text string, id string, placeholder string,
         "fg":   WindowData{clr:fg},
         "hi":	WindowData{bol:hi},
         "fnchg":WindowData{fun:fnchg},
-		"code": WindowData{bol:codefield}
+		"code": WindowData{bol:codefield},
+        "tSize":WindowData{num:tSize}
     }
 }
 
@@ -38,20 +39,20 @@ fn draw_textarea(app &Window, object map[string]WindowData){
 				the_text=object["ph"].str
 			}
 			for w,split_text in the_text.split("\n"){
-				app.gg.draw_text(object["x"].num+4, object["y"].num+4+w*20, split_text, gx.TextCfg{
+				app.gg.draw_text(object["x"].num+4, object["y"].num+4+w*object["tSize"].num, split_text, gx.TextCfg{
 					color: object["fg"].clr
 					mono: object["code"].bol
-					size: 20
+					size: object["tSize"].num
 					align: .left
 					vertical_align: .top
 				})
 			}
 		} else {
 			for w,split_text in object["text"].str.replace("\0",text_cursor).split("\n"){
-				app.gg.draw_text(object["x"].num+4, object["y"].num+4+w*20, split_text, gx.TextCfg{
+				app.gg.draw_text(object["x"].num+4, object["y"].num+4+w*object["tSize"].num, split_text, gx.TextCfg{
 					color: object["fg"].clr
 					mono: object["code"].bol
-					size: 20
+					size: object["tSize"].num
 					align: .left
 					vertical_align: .top
 				})
@@ -60,10 +61,10 @@ fn draw_textarea(app &Window, object map[string]WindowData){
 
 		if object["text"].str.len<2 && !object["phsa"].bol{
 			for w,split_text in object["ph"].str.split("\n"){
-				app.gg.draw_text(object["x"].num+4, object["y"].num+4+w*20, "  "+split_text, gx.TextCfg{
+				app.gg.draw_text(object["x"].num+4, object["y"].num+4+w*object["tSize"].num, "  "+split_text, gx.TextCfg{
 					color: object["bg"].clr
 					mono: object["code"].bol
-					size: 20
+					size: object["tSize"].num
 					align: .left
 					vertical_align: .top
 				})

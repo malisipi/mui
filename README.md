@@ -120,6 +120,28 @@ You can find more examples in `./examples/` folder.
 
 > If you have a problem/question or feature request about MUI, you can create a issue.
 
+## Suggestions
+
+* You should run processes that required more time than 0.2s as concurrent. If you don't, app couldn't response until finish processes.
+    * Also dialogs (specially, built-in dialogs) must to be runned concurrent as different functions than main threads. If don't, app never response.
+    ```v
+    //Don't (App never response when call the function)
+    fn run_dialog(event_details m.EventDetails,mut app &m.Window, app_data voidptr){
+        app.create_dialog(m.Modal{typ:"messagebox",message:"Hello, "+app.wait_and_get_answer(),title:"Hi!"})
+        print(app.wait_and_get_answer())
+    }
+
+    //Do
+    fn do_another_process(mut app &m.Window){
+        app.create_dialog(m.Modal{typ:"messagebox",message:"Hello, "+app.wait_and_get_answer(),title:"Hi!"})
+        print(app.wait_and_get_answer())
+    }
+
+    fn run_dialog(event_details m.EventDetails,mut app &m.Window, app_data voidptr){
+        go do_another_process(mut app)
+    }
+    ```
+
 ## License
 
 * **This project licensed by [Apache License 2.0](./LICENSE).**

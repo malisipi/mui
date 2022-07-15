@@ -121,6 +121,9 @@ pub struct Widget {
 	icon			bool			//= false									//icon
 	codefield		bool			//= false									//code
 	dialog			bool			//= false									//- => app.objects || app.dialog_objects
+	text_size		int				= 20										//tSize
+	text_align		int				= 1											//tAlin
+	text_multiline	bool			//= false									//tMult
 }
 
 pub struct Modal {
