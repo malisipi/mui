@@ -54,7 +54,7 @@ You can find more examples in `./examples/` folder.
     * Codefield
     * Scrollbar (Verical & Horizontal)
 * Screen Reader Support (Experimental - Desktop Only)
-* Emoji Icon Support
+* Emoji Icon Support (Desktop Only)
 * Dialogs
     * Messagebox (Tinyfiledialogs & built-in)
     * Inputbox (Tinyfiledialogs & built-in)
@@ -66,8 +66,8 @@ You can find more examples in `./examples/` folder.
     * Custom Dialog Support (Not Finished Completely Yet)
 * Anchor System
 * Transition Animations (Supports Anchors)
-* File Drag-n-Drop
-* Ask Quit Dialog & Quit Function
+* File Drag-n-Drop (Desktop Only)
+* Ask Quit Dialog & Quit Function (Desktop Only)
 
 ## To-Do List
 
@@ -107,7 +107,7 @@ You can find more examples in `./examples/` folder.
 | -d show_fps | Show FPS of the window                   |
 | -d no_emoji | Disable emoji support and font embedding |
 
-## Compile for Android {#compile-for-android}
+## Compile for android
 
 * You need to use [V Android Bootstrapper](https://github.com/vlang/vab) to compile for Android.
 * Tinyfiledialogs won't work on Android, but you can use built-in dialogs.
@@ -115,7 +115,6 @@ You can find more examples in `./examples/` folder.
 
 ## Known Bugs
 
-* Draws widget overflowing from the window. That cause' more cpu usage.
 * Anchor system won't works correctly with radio button.
 
 > If you have a problem/question or feature request about MUI, you can create a issue.

@@ -206,14 +206,16 @@ fn event_fn(event &gg.Event, mut app &Window){
 			app.file_handler(EventDetails{event:"files_drop",trigger:"mouse_left", value:dropped_file_path(q)},mut app, mut app.app_data)
 		}
 	} else if event.typ == sapp.EventType.quit_requested {
-		sapp.cancel_quit()
-		if app.ask_quit {
-			if messagebox("Quit?", "Do you want to quit?", "yesno", "quit")==0 { //if no
-				return
+		$if !android {
+			sapp.cancel_quit()
+			if app.ask_quit {
+				if messagebox("Quit?", "Do you want to quit?", "yesno", "quit")==0 { //if no
+					return
+				}
 			}
+			app.quit_fn(EventDetails{event:"quit",trigger:"quit",value:"true"},mut app, mut app.app_data)
+			sapp.quit()
 		}
-		app.quit_fn(EventDetails{event:"quit",trigger:"quit",value:"true"},mut app, mut app.app_data)
-		sapp.quit()
 	} else if event.typ == sapp.EventType.touches_began {
 		unsafe {
 			click_fn(event.touches[0].pos_x/app.gg.scale,event.touches[0].pos_y/app.gg.scale, gg.MouseButton.left, mut app)

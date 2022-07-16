@@ -82,46 +82,49 @@ fn frame_fn(app &Window) {
 				object["y"]=WindowData{num:points[1]+ if !object["y_raw"].str.starts_with("!") || app.active_dialog!="" {app.y_offset} else {0} }
 				object["w"]=WindowData{num:points[2]}
 				object["h"]=WindowData{num:points[3]}
-				match object["type"].str{
-					"rect"{
-						draw_rect(app, object)
-					}"button"{
-						draw_button(app, object)
-					}"label"{
-						draw_label(app, object)
-					}"progress"{
-						draw_progress(app, object)
-					}"textbox"{
-						draw_textbox(app, object)
-					}"textarea"{
-						draw_textarea(app, object)
-					}"password"{
-						draw_password(app, object)
-					}"checkbox"{
-						draw_checkbox(app, object)
-					}"switch"{
-						draw_switch(app, object)
-					}"selectbox"{
-						draw_selectbox(app, object)
-					}"slider"{
-						draw_slider(app, object)
-					}"link"{
-						draw_link(app, object)
-					}"radio"{
-						draw_radio(app, object)
-					}"group"{
-						draw_group(app, object)
-					}"image"{
-						draw_image(app, object)
-					}"table"{
-						draw_table(app, object)
-					}"line_graph"{
-						draw_line_graph(app, object)
-					}"map"{
-						draw_map(app, object)
-					}"scrollbar"{
-						draw_scrollbar(app, object)
-					}else {}
+				if object["x"].num+object["w"].num>=0 && object["y"].num+object["h"].num>=0
+								&& object["x"].num<=window_info[2] && object["y"].num<=window_info[3] {
+					match object["type"].str{
+						"rect"{
+							draw_rect(app, object)
+						}"button"{
+							draw_button(app, object)
+						}"label"{
+							draw_label(app, object)
+						}"progress"{
+							draw_progress(app, object)
+						}"textbox"{
+							draw_textbox(app, object)
+						}"textarea"{
+							draw_textarea(app, object)
+						}"password"{
+							draw_password(app, object)
+						}"checkbox"{
+							draw_checkbox(app, object)
+						}"switch"{
+							draw_switch(app, object)
+						}"selectbox"{
+							draw_selectbox(app, object)
+						}"slider"{
+							draw_slider(app, object)
+						}"link"{
+							draw_link(app, object)
+						}"radio"{
+							draw_radio(app, object)
+						}"group"{
+							draw_group(app, object)
+						}"image"{
+							draw_image(app, object)
+						}"table"{
+							draw_table(app, object)
+						}"line_graph"{
+							draw_line_graph(app, object)
+						}"map"{
+							draw_map(app, object)
+						}"scrollbar"{
+							draw_scrollbar(app, object)
+						}else {}
+					}
 				}
 			}
 		}

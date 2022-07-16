@@ -90,17 +90,17 @@ pub fn(mut app Window)create_dialog(dialog_data Modal){
     match dialog_data.typ{
         "messagebox" {
             app.rect(Widget{ id:"mui__background", x:"10%x", y:"5%y", width:"80%x", height:"40%y", background:app.color_scheme[1], dialog:true})
-            app.label(Widget{ id:"mui__title", x:"10%x", y:"5%y", width:"80%x", height:"20", text:dialog_data.title, dialog:true})
-            app.label(Widget{ id:"mui__text", x:"10%x", y:"5%y +25", width:"80%x", height:"40", text:dialog_data.message, dialog:true})
+            app.label(Widget{ id:"mui__title", x:"10%x", y:"5%y +5", width:"80%x", height:"25", text_size:25, text:dialog_data.title, dialog:true})
+            app.label(Widget{ id:"mui__text", x:"10%x +5", y:"5%y +35", width:"80%x -10", height:"30%y -40", text:dialog_data.message, text_align:0, text_multiline:true, dialog:true})
             app.button(Widget{ id:"mui__cancel", x:"10%x", y:"# 55%y", width:"40%x", height:"10%y", text:"Cancel", dialog:true, onclick:dialogs_messagebox_cancel})
             app.button(Widget{ id:"mui__ok", x:"# 10%x", y:"# 55%y", width:"40%x", height:"10%y", text:"OK", dialog:true, onclick:dialogs_messagebox_ok})
         } "textbox","password" {
             app.rect(Widget{ id:"mui__background", x:"10%x", y:"5%y", width:"80%x", height:"40%y", background:app.color_scheme[1], dialog:true})
-            app.label(Widget{ id:"mui__title", x:"10%x", y:"5%y", width:"80%x", height:"20", text:dialog_data.title, dialog:true})
+            app.label(Widget{ id:"mui__title", x:"10%x", y:"5%y +5", width:"80%x", height:"25", text_size:25, text:dialog_data.title, dialog:true})
             if dialog_data.typ=="textbox" {
-                app.textbox(Widget{ id:"mui__text", x:"10%x", y:"5%y +25", width:"80%x", height:"40", text:dialog_data.default_entry, dialog:true})
+                app.textbox(Widget{ id:"mui__text", x:"10%x +5", y:"5%y +35", width:"80%x -10", height:"40", text:dialog_data.default_entry, dialog:true})
             } else {
-                app.password(Widget{ id:"mui__text", x:"10%x", y:"5%y +25", width:"80%x", height:"40", text:dialog_data.default_entry, dialog:true})
+                app.password(Widget{ id:"mui__text", x:"10%x +5", y:"5%y +35", width:"80%x -10", height:"40", text:dialog_data.default_entry, dialog:true})
             }
             app.button(Widget{ id:"mui__cancel", x:"10%x", y:"# 55%y", width:"40%x", height:"10%y", text:"Cancel", dialog:true, onclick:dialogs_textbox_cancel})
             app.button(Widget{ id:"mui__ok", x:"# 10%x", y:"# 55%y", width:"40%x", height:"10%y", text:"OK", dialog:true, onclick:dialogs_textbox_ok})
