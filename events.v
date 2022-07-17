@@ -141,7 +141,13 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									group["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:which_item.str()},mut app, mut app.app_data)
 								} "image", "map" {
 									object["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
-								}else {}
+								}else {
+									for widget in app.custom_widgets{
+										if object["type"].str==widget.typ{
+											widget.click_fn(x, y, mut object, mut app)
+										}
+									}
+								}
 							}
 							break
 						}
@@ -178,6 +184,12 @@ fn move_fn(x f32, y f32, mut app &Window){
 					}
 					object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
 				}
+			} else {
+				for widget in app.custom_widgets{
+					if object["type"].str==widget.typ{
+						widget.move_fn(x, y, mut object, mut app)
+					}
+				}
 			}
 		}
 	}
@@ -194,6 +206,11 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 			if object["type"].str=="slider" || object["type"].str=="scrollbar"{
 				object["click"]=WindowData{bol:false}
 				object["fnucl"].fun(EventDetails{event:"unclick",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()},mut app, mut app.app_data)
+			}
+			for widget in app.custom_widgets{
+				if object["type"].str==widget.typ{
+					widget.unclick_fn(x, y, mut object, mut app)
+				}
 			}
 		}
 	}
@@ -522,16 +539,20 @@ fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
 			.x { key="x" }
 			.q { key="q" }
 			.w { key="w" }
-			._0 { key="0" }
-			._1 { key="1" }
-			._2 { key="2" }
-			._3 { key="3" }
-			._4 { key="4" }
-			._5 { key="5" }
-			._6 { key="6" }
-			._7 { key="7" }
-			._8 { key="8" }
-			._9 { key="9" }
+			._0 { key= if shift {")"} else {"0"} }
+			._1 { key= if shift {"!"} else {"1"} }
+			._2 { key= if shift {"@"} else {"2"} }
+			._3 { key= if shift {"#"} else {"3"} }
+			._4 { key= if shift {"$"} else {"4"} }
+			._5 { key= if shift {"%"} else {"5"} }
+			._6 { key= if shift {"^"} else {"6"} }
+			._7 { key= if shift {"&"} else {"7"} }
+			._8 { key= if shift {"*"} else {"8"} }
+			._9 { key= if shift {"("} else {"9"} }
+			.left_bracket { key= if shift {"{"} else {"["} }
+			.right_bracket { key= if shift {"}"} else {"]"} }
+			.grave_accent { key= if shift {"~"} else {"`"} }
+			.backslash { key= if shift {"|"} else {"\\"} }
 			.kp_0 { key="0" }
 			.kp_1 { key="1" }
 			.kp_2 { key="2" }
@@ -542,13 +563,13 @@ fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
 			.kp_7 { key="7" }
 			.kp_8 { key="8" }
 			.kp_9 { key="9" }
-			.apostrophe { key="'" }
-			.comma { key="," }
-			.period { key="."}
-			.minus { key="-" }
-			.slash { key="/" }
-			.semicolon { key=";" }
-			.equal { key="=" }
+			.apostrophe { key= if shift {"\""} else {"'"} }
+			.comma { key= if shift {"<"} else {","} }
+			.period { key= if shift {">"} else {"."} }
+			.minus { key= if shift {"_"} else {"-"} }
+			.slash { key= if shift {"?"} else {"/"} }
+			.semicolon { key= if shift {":"} else {";"} }
+			.equal { key= if shift {"+"} else {"="} }
 			.escape { key="escape" }
 			.enter { key="enter" }
 			.tab { key="tab" }

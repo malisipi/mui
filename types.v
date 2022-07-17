@@ -11,6 +11,12 @@ const (
 pub type OnEvent=fn(EventDetails, mut Window, voidptr)
 pub type ValueMap=fn(int) string
 
+pub type CustomWidgetDraw=fn(&Window, map[string]WindowData)
+pub type CustomWidgetEvent=fn(f32, f32, mut map[string]WindowData, mut Window)
+
+pub fn empty_custom_widget_draw(app &Window, object map[string]WindowData){}
+pub fn empty_custom_widget_event(x f32, y f32, mut object map[string]WindowData, app &Window){}
+
 pub union WindowData {
 pub mut:
 	num int
@@ -24,6 +30,15 @@ pub mut:
 	lcr []gx.Color
 	vmp ValueMap
 	lst []map[string]WindowData
+}
+
+pub struct CustomWidget {
+pub mut:
+	typ			string
+    draw_fn		CustomWidgetDraw	= empty_custom_widget_draw
+    click_fn	CustomWidgetEvent	= empty_custom_widget_event
+    move_fn		CustomWidgetEvent	= empty_custom_widget_event
+    unclick_fn	CustomWidgetEvent	= empty_custom_widget_event
 }
 
 pub struct WindowConfig {
@@ -51,9 +66,9 @@ pub struct EventDetails{
 pub mut:
 	event			string		// click, value_change, unclick, keypress, file_drop
 	trigger			string		// mouse_left, mouse_right, mouse_middle, keyboard
-	value			string		="true"
-	target_type		string		="window" //window, menubar, and widget_types
-	target_id		string		//=""
+	value			string		= "true"
+	target_type		string		= "window" //window, menubar, and widget_types
+	target_id		string		//= ""
 }
 
 pub struct Window {
@@ -78,9 +93,11 @@ pub mut:
 	active_dialog		string			//= "" //messagebox, input, password, progress, color, date, notification, openfile, savefile, openfolder, custom
 	dialog_answer		string			= dialogs_null_answer
     dialog_objects		[]map[string]WindowData // for dialogs
+    custom_widgets		[]CustomWidget
 }
 
 pub struct Widget {
+pub:
 	hidden			bool			//= false									//hi
 	path			string			//= ""										//- => image
 	text			string			//= ""										//text

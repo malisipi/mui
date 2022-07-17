@@ -53,6 +53,7 @@ You can find more examples in `./examples/` folder.
     * Textarea
     * Codefield
     * Scrollbar (Verical & Horizontal)
+* Custom/Thirdparty Widget Support (Not Finished Completely Yet)
 * Screen Reader Support (Experimental - Desktop Only)
 * Emoji Icon Support (Desktop Only)
 * Dialogs
