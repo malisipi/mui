@@ -32,6 +32,11 @@ pub fn create(args &WindowConfig)	 &Window{
 		}
 	}
 
+	mut window_title:="canvas"
+	$if !emscripten? {
+		window_title=args.title
+	}
+
     app.gg = gg.new_context(
 		bg_color: app.color_scheme[0]
 		frame_fn: frame_fn
@@ -39,7 +44,7 @@ pub fn create(args &WindowConfig)	 &Window{
 		char_fn: char_fn
 		keydown_fn: keydown_fn
 		user_data: app
-		window_title: args.title
+		window_title: window_title
 		move_fn: move_fn
 		unclick_fn: unclick_fn
 		resized_fn: resized_fn

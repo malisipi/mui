@@ -10,5 +10,4 @@ vls.log
 *.out
 *.wasm
 examples/*.js
-examples/*.html
 examples/*.c

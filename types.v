@@ -2,7 +2,6 @@ module mui
 
 import gg
 import gx
-import os.font
 
 const (
 	null_object={"id":WindowData{str:""}}
@@ -46,7 +45,7 @@ pub mut:
 	title			string							//= ""
 	width			int								= 800
 	height			int								= 600
-	font			string							= font.default()
+	font			string							= os_font
     app_data		voidptr
     screen_reader	bool							= true
     menubar			[]map[string]WindowData			= []map[string]WindowData{}

@@ -2,11 +2,13 @@
 
 ![MUI Demo](./pictures/MUI_Demo.gif "MUI Demo")
 
-> **Supports Windows, Linux & Android<sup>1</sup>**. *Not tested on MacOS<sup>2</sup>.*
+> **Supports Windows, Linux, Android<sup>1</sup>** & Web<sup>2</sup> (Experimental). *Not tested on MacOS<sup>3</sup>.*
 
 > 1: System themes & map widget not working on Android now. If you interested with compiling for android, look [here](#compile-for-android)
 
-> 2: All critical processes (like Widget drawing, click handling etc.) should work on MacOS. But themes and screen reader won't work, and could be include MacOS-only bug.
+> 2: With Emscripten. System themes & map widget not working now. If you interested with compiling for web, look [here](#compile-with-emscripten)
+
+> 3: All critical processes (like Widget drawing, click handling etc.) should work on MacOS. But themes and screen reader won't work, and could be include MacOS-only bug.
 
 ## Example
 
@@ -57,10 +59,10 @@ You can find more examples in `./examples/` folder.
 * Screen Reader Support (Experimental - Desktop Only)
 * Emoji Icon Support (Desktop Only)
 * Dialogs
-    * Messagebox (Tinyfiledialogs & built-in)
-    * Inputbox (Tinyfiledialogs & built-in)
-    * Passwordbox (Tinyfiledialogs & built-in)
-    * Color Chooser (Tinyfiledialogs & built-in)
+    * Messagebox (Tinyfiledialogs & built-in & web)
+    * Inputbox (Tinyfiledialogs & built-in & web)
+    * Passwordbox (Tinyfiledialogs & built-in & web)
+    * Color Chooser (Tinyfiledialogs & built-in & web)
     * File Open/Save Dialog (Tinyfiledialogs)
     * Folder Open Dialog (Tinyfiledialogs)
     * Notification Support (Tinyfiledialogs)
@@ -94,6 +96,7 @@ You can find more examples in `./examples/` folder.
 * Gauge chart
 * Area Graph
 * Keybindings
+* Mouse Cursors
 
 ## Installation
 
@@ -103,16 +106,28 @@ You can find more examples in `./examples/` folder.
 
 ## Compile-Time Flags
 
-| Flags       | Description                              |
-|-------------|------------------------------------------|
-| -d show_fps | Show FPS of the window                   |
-| -d no_emoji | Disable emoji support and font embedding |
+| Flags           | Description                                               |
+|-----------------|-----------------------------------------------------------|
+| `-d show_fps`   | Show FPS of the window                                    |
+| `-d no_emoji`   | Disable emoji support and font embedding                  |
+| `-d emscripten` | Compile for emscripten (use with `-os wasm32-emscripten`) |
 
 ## Compile for android
 
 * You need to use [V Android Bootstrapper](https://github.com/vlang/vab) to compile for Android.
 * Tinyfiledialogs won't work on Android, but you can use built-in dialogs.
 * If you want to working keyboard, you need patch the sokol library that placed into v/thirdparty. You can found the patch file from `./patches`.
+
+## Compile with emscripten
+
+How to compile demo.v with emscripten:
+```bash
+[~/.vmodules/malisipi/mui/examples]$ v -d emscripten -d no_emoji -gc none -os wasm32-emscripten demo.v -o emscripten_.c
+
+[~/.vmodules/malisipi/mui/examples]$ cat emscripten_.c | sed 's/waitpid(p->pid, &cstatus, 0);/-1;/g' | sed 's/waitpid(p->pid, &cstatus, WNOHANG);/-1;/g' | sed 's/wait(0);/-1;/g' &> emscripten.c
+
+[path/to/dir/v]$ emcc -fPIC -Wimplicit-function-declaration -w  thirdparty/stb_image/stbi.c -I/usr/include/gc/   -Ithirdparty/stb_image -Ithirdparty/fontstash -Ithirdparty/sokol -Ithirdparty/sokol/util    -DSOKOL_GLES2 -DSOKOL_NO_ENTRY   -DNDEBUG -O3   -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH -s MODULARIZE -s ASSERTIONS=1 ~/.vmodules/malisipi/mui/examples/emscripten.c -o ~/.vmodules/malisipi/mui/examples/app.js --embed-file ~/.vmodules/malisipi/mui/assets/Roboto.ttf@/Roboto.ttf --embed-file ~/.vmodules/malisipi/mui/examples/v-logo.png@v-logo.png
+```
 
 ## Known Bugs
 
@@ -147,8 +162,9 @@ You can find more examples in `./examples/` folder.
 * **This project licensed by [Apache License 2.0](./LICENSE).**
 * [Tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/) (`./tinyfiledialogs/`) licensed by Zlib License.
 * [Noto Emoji Font](https://fonts.google.com/noto/specimen/Noto+Emoji) (`./noto_emoji_font/`) licensed by OFL License.
+* [Roboto Font](https://fonts.google.com/specimen/Roboto) (`./assets/Roboto.ttf`) licensed by Apache 2.0 License.
 * [V-logo](https://github.com/vlang/v-logo) (`./examples/v-logo.png`) licensed by MIT license.
-* [Original Sokol](https://github.com/floooh/sokol) and [Sokol Patch](https://github.com/floooh/sokol/pull/503) (`./patches/sokol.patch`) licensed by Zlib license.
+* [Original Sokol](https://github.com/floooh/sokol) and [Sokol Patch](https://github.com/floooh/sokol/pull/503) (`./patches/sokol_android_keyboard.patch`) licensed by Zlib license.
 
 ## Documentation
 
