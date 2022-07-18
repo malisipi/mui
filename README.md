@@ -27,7 +27,7 @@ app.button(m.Widget{ id:"count_button", x:"# 5%x", y:"5%y", width:"45%x", height
 app.run()
 ```
 
-You can find more examples in `./examples/` folder.
+> You can find more examples in `./examples/` folder. Also you can visit [Gallery](./gallery.md "Gallery") that lists applications screenshots uses MUI.
 
 ## Abilities
 
@@ -96,7 +96,6 @@ You can find more examples in `./examples/` folder.
 * Gauge chart
 * Area Graph
 * Keybindings
-* Mouse Cursors
 
 ## Installation
 

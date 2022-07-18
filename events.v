@@ -161,6 +161,32 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 [unsafe]
 fn move_fn(x f32, y f32, mut app &Window){
 	unsafe{
+		mut objects:=app.objects.clone()
+		if app.active_dialog!=""{
+			objects=app.dialog_objects.clone()
+		}
+		sapp.set_mouse_cursor(.default)
+		for mut object in objects{
+			if !object["hi"].bol && object["type"].str!="rect" && object["type"].str!="group" && object["type"].str!="table"{
+				if object["x"].num<x && object["x"].num+object["w"].num>x{
+					if object["y"].num<y && object["y"].num+object["h"].num>y{
+						match object["type"].str {
+							"textbox", "password", "textarea"{
+								sapp.set_mouse_cursor(.ibeam)
+								break
+							} "link" {
+								sapp.set_mouse_cursor(.pointing_hand)
+								break
+							} else {
+								sapp.set_mouse_cursor(.default)
+								break
+							}
+						}
+					}
+				}
+			}
+		}
+
 		if !(app.focus==""){
 			mut object:=get_object_by_id(app,app.focus)
 			if app.active_dialog!=""{
