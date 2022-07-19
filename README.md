@@ -56,7 +56,7 @@ app.run()
     * Codefield
     * Scrollbar (Verical & Horizontal)
 * Custom/Thirdparty Widget Support (Not Finished Completely Yet)
-* Screen Reader Support (Experimental - Desktop Only)
+* Screen Reader Support (Experimental - Linux & Windows Only)
 * Emoji Icon Support (Desktop Only)
 * Dialogs
     * Messagebox (Tinyfiledialogs & built-in & web)
@@ -71,31 +71,34 @@ app.run()
 * Transition Animations (Supports Anchors)
 * File Drag-n-Drop (Desktop Only)
 * Ask Quit Dialog & Quit Function (Desktop Only)
+* Keybindings (Ctrl+Key Combinations for now) _Will be ignored pressed keys/key combinations that used by widgets if the assigned function to the key/key combination._
 
 ## To-Do List
 
-* Syntax Highlighting For Codefield
-* Tabs
-* Treeview
-* Status Bar
-* Spinner
-* Spin Button
-* Editable Label
-* Disable Status (for Buttons, Checkboxs, Selectboxs, etc.)
-* Custom Colors for Widgets (except Themes)
-* Handle Appearance Preferences (like Background Color, Text Color)
-* Improve Light Theme
-* GUI Builder
-* Hot Code Reloading
-* Load UI from External XML/JSON File
-* Improve Documentation
-* Context Menu
-* Bar Chart
-* Pie Chart
-* Column Chart
-* Gauge chart
-* Area Graph
-* Keybindings
+* Widgets:
+    * Tabs
+    * Treeview
+    * Status Bar
+    * Spinner
+    * Spin Button
+    * Editable Label
+    * Bar Chart
+    * Pie Chart
+    * Column Chart
+    * Gauge chart
+    * Area Graph
+* Themes:
+    * Custom Colors for Widgets (except Themes)
+    * Handle Appearance Preferences (like Background Color, Text Color)
+    * Improve Light Theme
+* Other:
+    * Context Menu
+    * Syntax Highlighting For Codefield
+    * Hot Code Reloading
+    * Disable Status (for Buttons, Checkboxs, Selectboxs, etc.)
+    * Load UI from External XML/JSON File
+    * Improve Documentation
+    * GUI Builder
 
 ## Installation
 

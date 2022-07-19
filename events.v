@@ -298,7 +298,14 @@ fn char_fn(chr u32, mut app &Window){
 		$if android{
 			return
 		}
-		keyboard_fn(chr, mut app)
+		if app.gg.key_modifiers==.ctrl {
+			chr_keybinding:="ctrl|"+utf32_to_str(chr).to_lower()
+			if app.keybindings[chr_keybinding].num!=120 {
+				app.keybindings[chr_keybinding].fun(EventDetails{event:"keypress",trigger:"keyboard",value:chr_keybinding}, mut app, mut app.app_data)
+			}
+		} else {
+			keyboard_fn(chr, mut app)
+		}
 	}
 }
 

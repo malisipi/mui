@@ -90,9 +90,10 @@ pub mut:
 	ask_quit			bool
 	quit_fn				OnEvent
 	active_dialog		string			//= "" //messagebox, input, password, progress, color, date, notification, openfile, savefile, openfolder, custom
-	dialog_answer		string			= dialogs_null_answer
+	dialog_answer		string					= dialogs_null_answer
     dialog_objects		[]map[string]WindowData // for dialogs
     custom_widgets		[]CustomWidget
+	keybindings			map[string]WindowData 	= map[string]WindowData{}
 }
 
 pub struct Widget {
