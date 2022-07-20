@@ -29,6 +29,8 @@ app.run()
 
 > You can find more examples in `./examples/` folder. Also you can visit [Gallery](./gallery.md "Gallery") that lists applications screenshots uses MUI.
 
+> You can test MUI easily from [here](https://malisipi.github.io/mui/).
+
 ## Abilities
 
 * Theme from system accent color, _If couldn't found accent color, use dark/light theme preference. If couldn't found dark/light theme preference, choose light theme_

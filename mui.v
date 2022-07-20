@@ -58,6 +58,10 @@ pub fn create(args &WindowConfig)	 &Window{
 		enable_dragndrop: true
 	)
 
+	$if emscripten?{
+		C.emscripten_run_script(cstr("document.title='"+args.title+"'"))
+	}
+
 	if args.scrollbar{
 		app.scrollbar(Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:args.view_area[0]+app.x_offset+app.xn_offset, size_thumb:args.width, onchange: update_scroll_hor})
 		app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true})
