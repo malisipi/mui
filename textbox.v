@@ -3,10 +3,11 @@ module mui
 import gg
 import gx
 
-pub fn add_textbox(mut app &Window, text string, id string, placeholder string, phsa bool, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, dialog bool){
+pub fn add_textbox(mut app &Window, text string, id string, placeholder string, phsa bool, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, dialog bool, frame string){
     widget:= {
         "type": WindowData{str:"textbox"},
         "id":   WindowData{str:id},
+        "in":   WindowData{str:frame},
         "text": WindowData{str:text+"\0"},
 		"ph":	WindowData{str:placeholder},
 		"phsa": WindowData{bol:phsa},

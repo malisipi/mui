@@ -3,10 +3,11 @@ module mui
 import gg
 import gx
 
-pub fn add_checkbox(mut app &Window, text string, id string, x string|int, y string|int, w string|int, h string|int, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent){
+pub fn add_checkbox(mut app &Window, text string, id string, x string|int, y string|int, w string|int, h string|int, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string){
     app.objects << {
         "type": WindowData{str:"checkbox"},
-        "id":   WindowData{str:id}
+        "id":   WindowData{str:id},
+		"in":   WindowData{str:frame},
         "text": WindowData{str:text},
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},

@@ -3,10 +3,11 @@ module mui
 import gg
 import gx
 
-pub fn add_link(mut app &Window, text string, id string, x string|int, y string|int, w string|int, h string|int, hi bool, underline bool, link string, fg gx.Color, fnclk OnEvent){
+pub fn add_link(mut app &Window, text string, id string, x string|int, y string|int, w string|int, h string|int, hi bool, underline bool, link string, fg gx.Color, fnclk OnEvent, frame string){
     app.objects << {
         "type": WindowData{str:"link"},
-        "id":   WindowData{str:id}
+        "id":   WindowData{str:id},
+		"in":   WindowData{str:frame},
         "text": WindowData{str:text},
         "unlin": WindowData{str:text},
         "x":    WindowData{num:0},

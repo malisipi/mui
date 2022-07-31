@@ -57,6 +57,7 @@ app.run()
     * Textarea
     * Codefield
     * Scrollbar (Verical & Horizontal)
+    * Frames & Nested-Frames
 * Custom/Thirdparty Widget Support (Not Finished Completely Yet)
 * Screen Reader Support (Experimental - Linux & Windows Only)
 * Emoji Icon Support (Desktop Only)
@@ -89,6 +90,7 @@ app.run()
     * Column Chart
     * Gauge chart
     * Area Graph
+    * Split View
 * Themes:
     * Custom Colors for Widgets (except Themes)
     * Handle Appearance Preferences (like Background Color, Text Color)

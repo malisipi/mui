@@ -2,11 +2,12 @@ module mui
 
 import gx
 
-pub fn add_radio(mut app &Window, list []string, group_id string, x string|int, y string|int, wh string|int, selected int, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent){
+pub fn add_radio(mut app &Window, list []string, group_id string, x string|int, y string|int, wh string|int, selected int, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string){
 	app.objects << {
 		"type": WindowData{str:"hidden"},
 		"realT":WindowData{str:"radio"},
-		"id":   WindowData{str:group_id}
+		"id":   WindowData{str:group_id},
+		"in":   WindowData{str:frame},
 		"len":	WindowData{num:list.len}
 		"x":    WindowData{num:0},
 		"y":    WindowData{num:0},

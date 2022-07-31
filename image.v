@@ -2,10 +2,11 @@ module mui
 
 import gg
 
-pub fn add_image(mut app &Window, path string, id string, x string|int, y string|int, w string|int, h string|int, hi bool, fun OnEvent){
+pub fn add_image(mut app &Window, path string, id string, x string|int, y string|int, w string|int, h string|int, hi bool, fun OnEvent, frame string){
     app.objects << {
         "type": WindowData{str:"image"},
         "id":   WindowData{str:id},
+        "in":   WindowData{str:frame},
 		"image":WindowData{img:app.gg.create_image(path)}
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},

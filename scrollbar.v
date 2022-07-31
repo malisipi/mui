@@ -21,10 +21,11 @@ fn update_scroll_ver(event_details EventDetails, mut app &Window, app_data voidp
     }
 }
 
-pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum int, id string, x string|int, y string|int, w string|int, h string|int, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent){
+pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum int, id string, x string|int, y string|int, w string|int, h string|int, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, frame string){
 	    app.objects << {
         "type": WindowData{str:"scrollbar"},
         "id":   WindowData{str:id},
+        "in":   WindowData{str:frame},
         "val":  WindowData{num:val-(val-min)%step},
         "vlMin":WindowData{num:min},
         "vlMax":WindowData{num:max-(max-min)%step},

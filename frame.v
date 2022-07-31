@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_rect(mut app &Window, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color, dialog bool, frame string){
+pub fn add_frame(mut app &Window, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color, dialog bool, frame string){
     widget:= {
         "type": WindowData{str:"rect"},
         "id":   WindowData{str:id},
@@ -23,8 +23,9 @@ pub fn add_rect(mut app &Window, id string, x string|int, y string|int, w string
 }
 
 [unsafe]
-fn draw_rect(app &Window, object map[string]WindowData){
+fn draw_frame(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
 	}
 }
+

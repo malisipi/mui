@@ -3,10 +3,11 @@ module mui
 import gg
 import gx
 
-pub fn add_textarea(mut app &Window, text string, id string, placeholder string, phsa bool, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, codefield bool, tSize int){
+pub fn add_textarea(mut app &Window, text string, id string, placeholder string, phsa bool, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, codefield bool, tSize int, frame string){
     app.objects << {
         "type": WindowData{str:"textarea"},
         "id":   WindowData{str:id},
+		"in":   WindowData{str:frame},
         "text": WindowData{str:text+"\0"},
 		"ph":	WindowData{str:placeholder},
 		"phsa": WindowData{bol:phsa},

@@ -141,6 +141,7 @@ pub:
 	text_size		int				= 20										//tSize
 	text_align		int				= 1											//tAlin
 	text_multiline	bool			//= false									//tMult
+	frame			string			//= ""										//in
 }
 
 pub struct Modal {

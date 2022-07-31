@@ -5,10 +5,11 @@ import gx
 import math
 import math.stats
 
-pub fn add_line_graph(mut app &Window, id string, x string|int, y string|int, w string|int, h string|int, hi bool, title string, label []string, data [][]int, colors []gx.Color, names []string, bg gx.Color, fg gx.Color){
+pub fn add_line_graph(mut app &Window, id string, x string|int, y string|int, w string|int, h string|int, hi bool, title string, label []string, data [][]int, colors []gx.Color, names []string, bg gx.Color, fg gx.Color, frame string){
     app.objects << {
         "type": WindowData{str:"line_graph"},
         "id":   WindowData{str:id},
+		"in":   WindowData{str:frame},
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},
         "w":    WindowData{num:0},
