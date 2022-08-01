@@ -51,6 +51,8 @@ app.run()
     * Selectbox
     * Table
     * Graphs
+        * Line Graph
+        * Area Graph
     * Menubar
     * Map (Desktop Only)
     * Switch
@@ -89,7 +91,6 @@ app.run()
     * Pie Chart
     * Column Chart
     * Gauge chart
-    * Area Graph
     * Split View
 * Themes:
     * Custom Colors for Widgets (except Themes)

@@ -12,6 +12,10 @@ pub fn (mut app Window) line_graph ( args Widget ){ //dialog support not done
 	add_line_graph (mut app, args.id, args.x, args.y, args.width, args.height, args.hidden, args.graph_title, args.graph_label, args.graph_data, args.graph_color, args.graph_names, args.background, app.color_scheme[3], args.frame)
 }
 
+pub fn (mut app Window) area_graph ( args Widget ){ //dialog support not done
+	add_area_graph (mut app, args.id, args.x, args.y, args.width, args.height, args.hidden, args.graph_title, args.graph_label, args.graph_data, args.graph_color, args.graph_names, args.background, app.color_scheme[3], args.frame)
+}
+
 pub fn (mut app Window) table ( args Widget ){ //dialog support not done
 	add_table (mut app, args.table, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[0], app.color_scheme[2], app.color_scheme[3], args.frame)
 }

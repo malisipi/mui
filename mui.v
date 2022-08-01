@@ -142,6 +142,8 @@ fn frame_fn(app &Window) {
 							draw_table(app, object)
 						}"line_graph"{
 							draw_line_graph(app, object)
+						}"area_graph"{
+							draw_area_graph(app, object)
 						}"map"{
 							draw_map(app, object)
 						}"scrollbar"{

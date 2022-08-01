@@ -1,0 +1,101 @@
+module mui
+
+import gg
+import gx
+import math
+import math.stats
+
+pub fn add_area_graph(mut app &Window, id string, x string|int, y string|int, w string|int, h string|int, hi bool, title string, label []string, data [][]int, colors []gx.Color, names []string, bg gx.Color, fg gx.Color, frame string){
+    app.objects << {
+        "type": WindowData{str:"area_graph"},
+        "id":   WindowData{str:id},
+		"in":   WindowData{str:frame},
+        "x":    WindowData{num:0},
+        "y":    WindowData{num:0},
+        "w":    WindowData{num:0},
+        "h":    WindowData{num:0},
+		"x_raw":WindowData{str: match x{ int{ x.str() } string{ x } } },
+		"y_raw":WindowData{str: match y{ int{ y.str() } string{ y } } },
+		"w_raw":WindowData{str: match w{ int{ w.str() } string{ w } } },
+		"h_raw":WindowData{str: match h{ int{ h.str() } string{ h } } },
+        "hi":	WindowData{bol:hi},
+		"g_tit":WindowData{str:title},
+		"g_lbl":WindowData{str:label.join("\0")},
+		"g_nam":WindowData{str:names.join("\0")},
+		"g_dat":WindowData{dat:data},
+		"g_clr":WindowData{lcr:colors},
+        "bg":   WindowData{clr:bg},
+        "fg":   WindowData{clr:fg},
+    }
+}
+
+[unsafe]
+fn draw_area_graph(app &Window, object map[string]WindowData){
+	unsafe{
+		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
+		labels:=object["g_lbl"].str.split("\0")
+		datas:=object["g_dat"].dat
+		colors:=object["g_clr"].lcr
+		names:=object["g_nam"].str.split("\0")
+		mut datas_1d:=[]int{}
+		for a in datas{
+			for b in a{
+				datas_1d << b
+			}
+		}
+		data_max:=stats.max(datas_1d)
+		data_range:=stats.range(datas_1d)
+		rows:=f32(object["h"].num-80)/30
+		rows_height:=f32(data_range)/rows
+		cols:=labels.len
+		cols_width:=f32(object["w"].num-80)/cols
+
+		app.gg.draw_text(object["x"].num+object["w"].num/2, object["y"].num+10, object["g_tit"].str, gx.TextCfg{
+			color: object["fg"].clr
+			size: 20
+			align: .center
+			vertical_align: .top
+		})
+
+		for row in 0..int(rows){
+			app.gg.draw_text(object["x"].num+36, (object["y"].num+40)+30*row+30/2, int(math.round(data_max-row*rows_height)).str(), gx.TextCfg{
+				color: object["fg"].clr
+				size: 20
+				align: .right
+				vertical_align: .middle
+			})
+		}
+		for col in 0..int(cols){
+			app.gg.draw_text(int((object["x"].num+40)+cols_width*col+cols_width/2), object["y"].num+object["h"].num-40, labels[col], gx.TextCfg{
+				color: object["fg"].clr
+				size: 20
+				align: .center
+				vertical_align: .top
+			})
+		}
+	
+		for wn,name in names{
+			for col in 0..int(cols)-1{
+				x1:=int((object["x"].num+36)+cols_width*col+cols_width/2)
+				y1:=object["y"].num+40+int(f32(object["h"].num-80)/data_range*(data_max-datas[wn][col]))
+				x2:=int((object["x"].num+36)+cols_width*(col+1)+cols_width/2)
+				y2:=object["y"].num+40+int(f32(object["h"].num-80)/data_range*(data_max-datas[wn][col+1]))
+				y3:=math.max(y1,y2)
+				x3:=if y3==y1 { x2 } else { x1 }
+				app.gg.draw_line(x1,y1,x2,y2, colors[wn])
+				area_color:=gx.Color{r:colors[wn].r, g:colors[wn].g, b:colors[wn].b, a:80}
+				app.gg.draw_triangle_filled(x1,y1,x2,y2,x3,y3,area_color)
+				app.gg.draw_rect_filled(x1,y3,x2-x1,object["y"].num+object["h"].num-40-y3,area_color)
+			}
+			app.gg.draw_text(int((object["x"].num+36)+cols_width*(cols-1)+cols_width/2)+4, object["y"].num+40+int(f32(object["h"].num-80)/data_range*(data_max-datas[wn][datas[wn].len-1])), name, gx.TextCfg{
+				color: colors[wn]
+				size: 20
+				align: .left
+				vertical_align: .middle
+			})
+		}
+
+		app.gg.draw_line(object["x"].num+40, object["y"].num+40, object["x"].num+40, object["y"].num+object["h"].num-40, object["fg"].clr)
+		app.gg.draw_line(object["x"].num+40, object["y"].num+object["h"].num-40, object["x"].num+object["w"].num-40, object["y"].num+object["h"].num-40, object["fg"].clr)
+	}
+}
