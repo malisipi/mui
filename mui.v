@@ -95,7 +95,10 @@ fn frame_fn(app &Window) {
 				} else {
 					frame:=app.get_object_by_id(object["in"].str)[0]
 					if frame["hi"].bol {
-						break
+						object["x"]=WindowData{num:-1}
+						object["y"]=WindowData{num:-1}
+						object["w"]=WindowData{num:0}
+						object["h"]=WindowData{num:0}
 					} else {
 					points:=calc_points([frame["w"].num,frame["h"].num,frame["w"].num,frame["h"].num,0,0],
 										object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
