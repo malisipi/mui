@@ -16,7 +16,13 @@ fn hex_to_rgb(clr string) []int {
 }
 
 fn is_light_theme() bool{
-	$if windows {
+	$if emscripten? {
+
+		unsafe {
+			return C.emscripten_run_script_string(cstr("String(window.matchMedia('(prefers-color-scheme: light)').matches)")).vstring()=="true"
+		}
+
+	} $else $if windows {
 
 		output:=os.execute("REG QUERY HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize /v AppsUseLightTheme")
 
