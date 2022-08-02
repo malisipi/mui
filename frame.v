@@ -3,11 +3,12 @@ module mui
 import gg
 import gx
 
-pub fn add_frame(mut app &Window, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color, dialog bool, frame string){
+pub fn add_frame(mut app &Window, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color, dialog bool, frame string, zindex int){
     widget:= {
         "type": WindowData{str:"rect"},
         "id":   WindowData{str:id},
         "in":   WindowData{str:frame},
+        "z_ind":WindowData{num:zindex},
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},
         "w":    WindowData{num:0},

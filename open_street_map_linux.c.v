@@ -31,12 +31,13 @@ fn map_download(zoom int, x int, y int) string{
     return os.temp_dir()+"/openstreetmap_"+zoom.str()+"_"+x.str()+"_"+y.str()+".png"
 }
 
-pub fn add_map(mut app &Window, zoom int, lat f64, lon f64, id string, x string|int, y string|int, w string|int, h string|int, hi bool, fun OnEvent, frame string){
+pub fn add_map(mut app &Window, zoom int, lat f64, lon f64, id string, x string|int, y string|int, w string|int, h string|int, hi bool, fun OnEvent, frame string, zindex int){
     map_x_tile,map_y_tile:=map_deg2num(lat, lon, zoom)
     app.objects << {
         "type": WindowData{str:"map"},
         "id":   WindowData{str:id},
         "in":   WindowData{str:frame},
+        "z_ind":WindowData{num:zindex},
 		"image":WindowData{img:app.gg.create_image(map_download(zoom, map_x_tile, map_y_tile))}
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},

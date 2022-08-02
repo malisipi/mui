@@ -63,9 +63,9 @@ pub fn create(args &WindowConfig)	 &Window{
 	}
 
 	if args.scrollbar{
-		app.scrollbar(Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:args.view_area[0]+app.x_offset+app.xn_offset, size_thumb:args.width, onchange: update_scroll_hor})
-		app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true})
-		app.rect(Widget{ id:"@scrollbar:extra", x:"!&# 0", y:"!&# 0", width:"15", height:"15", background: app.color_scheme[1]})
+		app.scrollbar(Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:args.view_area[0]+app.x_offset+app.xn_offset, size_thumb:args.width, onchange: update_scroll_hor, z_index:999999})
+		app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true, z_index:999999})
+		app.rect(Widget{ id:"@scrollbar:extra", x:"!&# 0", y:"!&# 0", width:"15", height:"15", background: app.color_scheme[1], z_index:999999})
 	}
 	return app
 }
@@ -167,16 +167,12 @@ fn frame_fn(app &Window) {
 		if app.menubar!=[]map["string"]WindowData{} {
 			draw_menubar(mut app, real_size)
 		}
-		if app.scrollbar{
-			draw_scrollbar(app, app.get_object_by_id("@scrollbar:horizontal")[0])
-			draw_scrollbar(app, app.get_object_by_id("@scrollbar:vertical")[0])
-			draw_rect(app, app.get_object_by_id("@scrollbar:extra")[0])
-		}
 		app.gg.end()
 	}
 }
 
 pub fn (mut app Window) run () {
+	app.sort_widgets_with_zindex()
 	app.gg.run()
 }
 

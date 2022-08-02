@@ -3,11 +3,12 @@ module mui
 import gg
 import gx
 
-pub fn add_switch(mut app &Window, text string, id string, x string|int, y string|int, w string|int, h string|int, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string){
+pub fn add_switch(mut app &Window, text string, id string, x string|int, y string|int, w string|int, h string|int, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int){
     app.objects << {
         "type": WindowData{str:"switch"},
         "id":   WindowData{str:id},
 		"in":   WindowData{str:frame},
+        "z_ind":WindowData{num:zindex},
         "text": WindowData{str:text},
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},

@@ -49,9 +49,9 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 		}
 
 		if mb==gg.MouseButton.left{
-			mut objects:=app.objects.clone()
+			mut objects:=app.objects.clone().reverse()
 			if app.active_dialog!=""{
-				objects=app.dialog_objects.clone()
+				objects=app.dialog_objects.clone().reverse()
 			}
 			for mut object in objects{
 				if !object["hi"].bol && object["type"].str!="rect" && object["type"].str!="group" && object["type"].str!="table"{
@@ -161,9 +161,9 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 [unsafe]
 fn move_fn(x f32, y f32, mut app &Window){
 	unsafe{
-		mut objects:=app.objects.clone()
+		mut objects:=app.objects.clone().reverse()
 		if app.active_dialog!=""{
-			objects=app.dialog_objects.clone()
+			objects=app.dialog_objects.clone().reverse()
 		}
 		sapp.set_mouse_cursor(.default)
 		for mut object in objects{

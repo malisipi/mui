@@ -75,6 +75,7 @@ app.run()
 * Anchor System
 * Transition Animations (Supports Anchors)
 * File Drag-n-Drop (Desktop Only)
+* Z-Index Support
 * Ask Quit Dialog & Quit Function (Desktop Only)
 * Keybindings (Ctrl+Key Combinations for now) _Will be ignored pressed keys/key combinations that used by widgets if the assigned function to the key/key combination._
 

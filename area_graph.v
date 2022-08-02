@@ -5,11 +5,12 @@ import gx
 import math
 import math.stats
 
-pub fn add_area_graph(mut app &Window, id string, x string|int, y string|int, w string|int, h string|int, hi bool, title string, label []string, data [][]int, colors []gx.Color, names []string, bg gx.Color, fg gx.Color, frame string){
+pub fn add_area_graph(mut app &Window, id string, x string|int, y string|int, w string|int, h string|int, hi bool, title string, label []string, data [][]int, colors []gx.Color, names []string, bg gx.Color, fg gx.Color, frame string, zindex int){
     app.objects << {
         "type": WindowData{str:"area_graph"},
         "id":   WindowData{str:id},
 		"in":   WindowData{str:frame},
+        "z_ind":WindowData{num:zindex},
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},
         "w":    WindowData{num:0},

@@ -142,6 +142,7 @@ pub:
 	text_align		int				= 1											//tAlin
 	text_multiline	bool			//= false									//tMult
 	frame			string			//= ""										//in
+	z_index			int				//= 0										//z_ind
 }
 
 pub struct Modal {
