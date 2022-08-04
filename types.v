@@ -7,7 +7,7 @@ const (
 	null_object={"id":WindowData{str:""}}
 )
 
-pub type OnEvent=fn(EventDetails, mut Window, voidptr)
+pub type OnEvent=fn(EventDetails, mut Window, mut voidptr)
 pub type ValueMap=fn(int) string
 
 pub type CustomWidgetDraw=fn(&Window, map[string]WindowData)
