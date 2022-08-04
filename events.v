@@ -165,7 +165,8 @@ fn move_fn(x f32, y f32, mut app &Window){
 		if app.active_dialog!=""{
 			objects=app.dialog_objects.clone().reverse()
 		}
-		sapp.set_mouse_cursor(.default)
+
+		mut changed_cursor:=false
 		for mut object in objects{
 			if !object["hi"].bol && object["type"].str!="rect" && object["type"].str!="group" && object["type"].str!="table"{
 				if object["x"].num<x && object["x"].num+object["w"].num>x{
@@ -173,12 +174,15 @@ fn move_fn(x f32, y f32, mut app &Window){
 						match object["type"].str {
 							"textbox", "password", "textarea"{
 								sapp.set_mouse_cursor(.ibeam)
+								changed_cursor=true
 								break
 							} "link" {
 								sapp.set_mouse_cursor(.pointing_hand)
+								changed_cursor=true
 								break
 							} else {
 								sapp.set_mouse_cursor(.default)
+								changed_cursor=true
 								break
 							}
 						}
@@ -186,6 +190,7 @@ fn move_fn(x f32, y f32, mut app &Window){
 				}
 			}
 		}
+		if !changed_cursor { sapp.set_mouse_cursor(.default) }
 
 		if !(app.focus==""){
 			mut object:=get_object_by_id(app,app.focus)
