@@ -19,6 +19,7 @@ pub fn add_frame(mut app &Window, id string, x string|int, y string|int, w strin
 		"h_raw":WindowData{str: match h{ int{ h.str() } string{ h } } },
         "hi":	WindowData{bol:hi},
         "bg":   WindowData{clr:bg},
+        "acttb":WindowData{str:""}, // for tabbed view
     }
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }

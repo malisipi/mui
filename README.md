@@ -60,6 +60,7 @@ app.run()
     * Codefield
     * Scrollbar (Verical & Horizontal)
     * Frames & Nested-Frames
+    * Tabbed View
 * Custom/Thirdparty Widget Support (Not Finished Completely Yet)
 * Screen Reader Support (Experimental - Linux & Windows Only)
 * Emoji Icon Support (Desktop Only)
@@ -82,7 +83,6 @@ app.run()
 ## To-Do List
 
 * Widgets:
-    * Tabs
     * Treeview
     * Status Bar
     * Spinner

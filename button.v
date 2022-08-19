@@ -22,7 +22,8 @@ pub fn add_button(mut app &Window, text string, id string, x string|int, y strin
         "bg":   WindowData{clr:bg},
         "fg":   WindowData{clr:fg},
         "fn":   WindowData{fun:fun},
-        "icon": WindowData{bol:icon}
+        "icon": WindowData{bol:icon},
+        "tabvw":WindowData{str:""}, // for tabbed view
     }
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }

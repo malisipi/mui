@@ -104,6 +104,8 @@ pub:
 	placeholder		string			//= ""										//ph
 	ph_as_text		bool			//= 0										//phsa //show placeholder as text
 	table			[][]string		= [[""]]									//table
+	tabs			[][]string		= [["Test Tab","test_tab"]]					//tabs
+	active_tab		string			//= ""										//acttb
 	id				string			//= ""										//id
 	link			string			//= ""										//link
 	percent			int				//= 0										//perc

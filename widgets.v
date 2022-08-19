@@ -83,3 +83,10 @@ pub fn (mut app Window) scrollbar ( args Widget ){ //dialog support not done
 pub fn (mut app Window) link ( args Widget ){ //dialog support not done
 	add_link (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, args.link_underline, args.link, app.color_scheme[3], args.onclick, args.frame, args.z_index)
 }
+
+[unsafe]
+pub fn (mut app Window) tab_view ( args Widget ){
+	unsafe {
+		add_tabbed_view (mut app, args.id, args.tabs, args.hidden, args.x, args.y, args.width, args.height, args.frame, args.z_index, args.active_tab)
+	}
+}
