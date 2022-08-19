@@ -1,4 +1,4 @@
-# MUI - A Cross-Platform UI Library _for V_
+# <img src="./pictures/MUI.svg" height="50px" alt="MUI" title="MUI"/> - A Cross-Platform UI Library _for V_
 
 ![MUI Demo](./pictures/MUI_Demo.gif "MUI Demo")
 
