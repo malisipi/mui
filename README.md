@@ -45,7 +45,7 @@ app.run()
     * Rect
     * Image
     * Progress
-    * Radio Button
+    * Radio Button (Deprecated, will be replaced new radio button asap.)
     * Checkbox
     * Link
     * Selectbox
@@ -83,6 +83,7 @@ app.run()
 ## To-Do List
 
 * Widgets:
+    * New Radio Button
     * Treeview
     * Status Bar
     * Spinner
@@ -138,8 +139,6 @@ How to compile demo.v with emscripten:
 ```
 
 ## Known Bugs
-
-* Anchor system won't works correctly with radio button.
 
 > If you have a problem/question or feature request about MUI, you can create a issue.
 

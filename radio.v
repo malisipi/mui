@@ -3,6 +3,7 @@ module mui
 import gx
 
 pub fn add_radio(mut app &Window, list []string, group_id string, x string|int, y string|int, wh string|int, selected int, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int){
+/*
 	app.objects << {
 		"type": WindowData{str:"hidden"},
 		"realT":WindowData{str:"radio"},
@@ -38,10 +39,12 @@ pub fn add_radio(mut app &Window, list []string, group_id string, x string|int, 
 			"hi":	WindowData{bol:hi}
 		}
 	}
+	*/
 }
 
 [unsafe]
 fn draw_radio(app &Window, object map[string]WindowData){
+/*
 	unsafe{
 		group:=get_object_by_id(app, object["id"].str.split("_")#[0..-1].join("_"))
 		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["w"].num, group["bg"].clr)
@@ -55,4 +58,5 @@ fn draw_radio(app &Window, object map[string]WindowData){
 			vertical_align: .middle
 		})
 	}
+	*/
 }
