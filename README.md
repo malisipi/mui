@@ -167,7 +167,7 @@ How to compile demo.v with emscripten:
 ## License
 
 * **This project licensed by [Apache License 2.0](./LICENSE).**
-* [Tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/) (`./tinyfiledialogs/`) licensed by Zlib License.
+* [Tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/) (`./tinyfiledialogs/`) (Patched) licensed by Zlib License.
 * [Noto Emoji Font](https://fonts.google.com/noto/specimen/Noto+Emoji) (`./noto_emoji_font/`) licensed by OFL License.
 * [Roboto Font](https://fonts.google.com/specimen/Roboto) (`./assets/Roboto.ttf`) licensed by Apache 2.0 License.
 * [V-logo](https://github.com/vlang/v-logo) (`./examples/v-logo.png`) licensed by MIT license.
