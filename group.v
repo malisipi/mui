@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_group(mut app &Window, id string, text string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int){
+pub fn add_group(mut app &Window, id string, text string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int){
     app.objects << {
         "type": WindowData{str:"group"},
         "id":   WindowData{str:id},

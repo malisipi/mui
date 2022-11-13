@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_slider(mut app &Window, val int, min int, max int, step int, id string, x string|int, y string|int, w string|int, h string|int, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, value_map ValueMap, dialog bool, frame string, zindex int){
+pub fn add_slider(mut app &Window, val int, min int, max int, step int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, value_map ValueMap, dialog bool, frame string, zindex int){
 	    widget:={
         "type": WindowData{str:"slider"},
         "id":   WindowData{str:id},

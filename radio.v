@@ -2,8 +2,7 @@ module mui
 
 import gx
 
-pub fn add_radio(mut app &Window, list []string, group_id string, x string|int, y string|int, wh string|int, selected int, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int){
-/*
+pub fn add_radio(mut app &Window, list []string, group_id string, x IntOrString, y IntOrString, wh IntOrString, selected int, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int){
 	app.objects << {
 		"type": WindowData{str:"hidden"},
 		"realT":WindowData{str:"radio"},
@@ -22,6 +21,7 @@ pub fn add_radio(mut app &Window, list []string, group_id string, x string|int, 
 		"hi":	WindowData{bol:hi}
 		"fnchg":WindowData{fun:fnchg}
 	}
+	x_raw_str := match x{ int{ x.str() } string{ x } }
 	for which_item,item in list {
 		app.objects << {
 			"type": WindowData{str:"radio"},
@@ -31,7 +31,7 @@ pub fn add_radio(mut app &Window, list []string, group_id string, x string|int, 
 			"y":    WindowData{num:0},
 			"w":    WindowData{num:0},
 			"h":    WindowData{num:0},
-			"x_raw":WindowData{str: match x{ int{ x.str() } string{ x } } },
+			"x_raw":WindowData{str: x_raw_str },
 			"y_raw":WindowData{str: match y{ int{ (y+((match wh{int{wh}string{0}}+5)*which_item)).str() } string{ print("Anchors couldn't be used in Y of radio buttons.\n") "0" } } },
 			"w_raw":WindowData{str: match wh{ int{ wh.str() } string{ print("Anchors couldn't be used in size of radio buttons.\n") "0" } } },
 			"h_raw":WindowData{str: match wh{ int{ wh.str() } string{ print("Anchors couldn't be used in size of radio buttons.\n") "0" } } },
@@ -39,12 +39,10 @@ pub fn add_radio(mut app &Window, list []string, group_id string, x string|int, 
 			"hi":	WindowData{bol:hi}
 		}
 	}
-	*/
 }
 
 [unsafe]
 fn draw_radio(app &Window, object map[string]WindowData){
-/*
 	unsafe{
 		group:=get_object_by_id(app, object["id"].str.split("_")#[0..-1].join("_"))
 		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["w"].num, group["bg"].clr)
@@ -58,5 +56,4 @@ fn draw_radio(app &Window, object map[string]WindowData){
 			vertical_align: .middle
 		})
 	}
-	*/
 }

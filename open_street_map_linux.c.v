@@ -31,7 +31,7 @@ fn map_download(zoom int, x int, y int) string{
     return os.temp_dir()+"/openstreetmap_"+zoom.str()+"_"+x.str()+"_"+y.str()+".png"
 }
 
-pub fn add_map(mut app &Window, zoom int, lat f64, lon f64, id string, x string|int, y string|int, w string|int, h string|int, hi bool, fun OnEvent, frame string, zindex int){
+pub fn add_map(mut app &Window, zoom int, lat f64, lon f64, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, fun OnEvent, frame string, zindex int){
     map_x_tile,map_y_tile:=map_deg2num(lat, lon, zoom)
     app.objects << {
         "type": WindowData{str:"map"},

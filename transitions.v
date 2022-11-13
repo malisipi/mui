@@ -8,7 +8,7 @@ const (
 )
 
 [unsafe]
-pub fn move_object(mut app &Window, object_id string, new_pos []int|string, move_time f64){
+pub fn move_object(mut app &Window, object_id string, new_pos []IntOrString, move_time f64){
     unsafe {
         mut object:=app.get_object_by_id(object_id)[0]
         total_step:=move_time/transition_time

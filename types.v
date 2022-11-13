@@ -7,6 +7,8 @@ const (
 	null_object={"id":WindowData{str:""}}
 )
 
+pub type IntOrString=int|string
+pub type U32OrString=u32|string
 pub type OnEvent=fn(EventDetails, mut Window, mut voidptr)
 pub type ValueMap=fn(int) string
 
@@ -118,10 +120,10 @@ pub:
 	hider_char		string			= "*"										//hc
 	selected		int				//= 0										//s
 	list			[]string		= [""]										//list
-	x				int|string		= "0"										//x_raw
-	y				int|string		= "0"										//y_raw
-	width			int|string		= "125"										//w_raw
-	height			int|string		= "20"										//h_raw
+	x				IntOrString		= "0"										//x_raw
+	y				IntOrString		= "0"										//y_raw
+	width			IntOrString		= "125"										//w_raw
+	height			IntOrString		= "20"										//h_raw
 	onchange		OnEvent			= empty_fn									//onchg
 	onclick			OnEvent			= empty_fn									//onclk
 	onunclick		OnEvent			= empty_fn									//onucl

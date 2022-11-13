@@ -18,7 +18,7 @@ fn tabbed_view_button_onclick(event_details EventDetails, mut app &Window, app_d
 }
 
 [unsafe]
-pub fn add_tabbed_view(mut app &Window, id string, tabs [][]string, hidden bool, x string|int, y string|int, w string|int, h string|int,  frame string, zindex int, active_tab string){
+pub fn add_tabbed_view(mut app &Window, id string, tabs [][]string, hidden bool, x IntOrString, y IntOrString, w IntOrString, h IntOrString,  frame string, zindex int, active_tab string){
     unsafe {
         app.frame( Widget{ id:id, x:x, y:y, width:w, height:h, hidden:hidden, frame:frame, z_index:zindex })
         for which_tab,tab in tabs {

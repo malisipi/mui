@@ -315,7 +315,7 @@ fn char_fn(chr u32, mut app &Window){
 }
 
 [unsafe]
-fn keyboard_fn(chr u32|string, mut app &Window){
+fn keyboard_fn(chr U32OrString, mut app &Window){
 	unsafe{
 		if app.focus!="" {
 			mut object:=get_object_by_id(app,app.focus)

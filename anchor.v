@@ -12,7 +12,7 @@ fn calc_get_percent(window_info []int, percent string) int {
 	return percent.split("%")[0].int()*x/100
 }
 
-fn calc_size(window_info []int, w int|string, h int|string) (int, int){
+fn calc_size(window_info []int, w IntOrString, h IntOrString) (int, int){
 	mut data:=[]int{}
 	for x in [w,h]{
 		match x{
@@ -44,7 +44,7 @@ fn calc_size(window_info []int, w int|string, h int|string) (int, int){
 	return data[0], data[1]
 }
 
-fn calc_x_y(window_info []int, x int|string, y int|string, size []int) (int, int){
+fn calc_x_y(window_info []int, x IntOrString, y IntOrString, size []int) (int, int){
 	mut data:=[]int{}
 	for w, r in [x,y].clone(){
 		mut x_y_scroll:=window_info#[-2..]
@@ -104,7 +104,7 @@ fn calc_x_y(window_info []int, x int|string, y int|string, size []int) (int, int
 	return data[0], data[1]
 }
 
-fn calc_points(window_info []int, x int|string, y int|string, w int|string, h int|string) []int{
+fn calc_points(window_info []int, x IntOrString, y IntOrString, w IntOrString, h IntOrString) []int{
 	calc_width,calc_height:=calc_size(window_info, w, h)
 	x_,y_:=calc_x_y(window_info, x, y, [calc_width, calc_height])
 	return [x_,y_,calc_width, calc_height]

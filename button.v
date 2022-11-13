@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_button(mut app &Window, text string, id string, x string|int, y string|int, w string|int, h string|int, hi bool, bg gx.Color, fg gx.Color, fun OnEvent, icon bool, dialog bool, frame string, zindex int){
+pub fn add_button(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, fg gx.Color, fun OnEvent, icon bool, dialog bool, frame string, zindex int){
     widget:={
         "type": WindowData{str:"button"},
         "id":   WindowData{str:id},

@@ -45,7 +45,7 @@ app.run()
     * Rect
     * Image
     * Progress
-    * Radio Button (Deprecated, will be replaced new radio button asap.)
+    * Radio Button
     * Checkbox
     * Link
     * Selectbox
