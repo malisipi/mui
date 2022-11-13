@@ -3148,8 +3148,9 @@ char * tinyfd_colorChooser(
         char const * aTitle, /* NULL or "" */
         char const * aDefaultHexRGB, /* NULL or "#FF0000"*/
         unsigned char const aDefaultRGB[3], /* { 0 , 255 , 255 } */
-        unsigned char aoResultRGB[3]) /* { 0 , 0 , 0 } */
+        unsigned char aaResultRGB[3]) /* NULL */
 {
+        unsigned char aoResultRGB[3];
 	static char lDefaultHexRGB[16];
     int i;
     char * p ;
