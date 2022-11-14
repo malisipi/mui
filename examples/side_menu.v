@@ -1,13 +1,13 @@
 import malisipi.mui as m
 
-fn toggle_menu(event_details m.EventDetails,mut app &m.Window, app_data voidptr){
+fn toggle_menu(event_details m.EventDetails,mut app &m.Window, mut app_data voidptr){
 	unsafe{
 		app.get_object_by_id("menu_frame")[0]["hi"].bol=!app.get_object_by_id("menu_frame")[0]["hi"].bol
 	}
 }
 
-fn menu_open(event_details m.EventDetails,mut app &m.Window, app_data voidptr){
-    toggle_menu(event_details,mut app, app_data)
+fn menu_open(event_details m.EventDetails,mut app &m.Window, mut app_data voidptr){
+    toggle_menu(event_details, mut app, mut app_data)
     unsafe {
         app.get_object_by_id("text")[0]["text"].str="You clicked "+app.get_object_by_id(event_details.target_id)[0]["text"].str
     }

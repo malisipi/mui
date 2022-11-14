@@ -8,7 +8,7 @@ fn do_another_process(mut app &m.Window){
     print(app.wait_and_get_answer())
 }
 
-fn run_dialog(event_details m.EventDetails,mut app &m.Window, app_data voidptr){
+fn run_dialog(event_details m.EventDetails,mut app &m.Window, mut app_data voidptr){
 	go do_another_process(mut app)
 }
 

@@ -32,7 +32,7 @@ fn calculate_cell(mut app &m.Window, value string) int {
     return 0
 }
 
-fn update_cell(event_details m.EventDetails, mut app &m.Window, app_data voidptr){
+fn update_cell(event_details m.EventDetails, mut app &m.Window, mut app_data voidptr){
     unsafe{ app.get_object_by_id(event_details.target_id)[0]["ph"].str=calculate_cell(mut app, event_details.value.replace("\0","")).str() }
 }
 

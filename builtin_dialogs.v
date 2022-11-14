@@ -10,22 +10,22 @@ const (
     hex_chars           = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"]
 )
 
-fn dialogs_messagebox_cancel(event_details EventDetails, mut app &Window, app_data voidptr){
+fn dialogs_messagebox_cancel(event_details EventDetails, mut app &Window, mut app_data voidptr){
     app.clear_dialog()
     app.dialog_answer="0"
 }
 
-fn dialogs_messagebox_ok(event_details EventDetails, mut app &Window, app_data voidptr){
+fn dialogs_messagebox_ok(event_details EventDetails, mut app &Window, mut app_data voidptr){
     app.clear_dialog()
     app.dialog_answer="1"
 }
 
-fn dialogs_textbox_cancel(event_details EventDetails, mut app &Window, app_data voidptr){
+fn dialogs_textbox_cancel(event_details EventDetails, mut app &Window, mut app_data voidptr){
     app.clear_dialog()
     app.dialog_answer=""
 }
 
-fn dialogs_textbox_ok(event_details EventDetails, mut app &Window, app_data voidptr){
+fn dialogs_textbox_ok(event_details EventDetails, mut app &Window, mut app_data voidptr){
     unsafe {
         the_text:=app.get_dialog_object_by_id("mui__text")[0]["text"].str.replace("\0","")
         app.clear_dialog()
@@ -33,12 +33,12 @@ fn dialogs_textbox_ok(event_details EventDetails, mut app &Window, app_data void
     }
 }
 
-fn dialogs_color_cancel(event_details EventDetails, mut app &Window, app_data voidptr){
+fn dialogs_color_cancel(event_details EventDetails, mut app &Window, mut app_data voidptr){
     app.clear_dialog()
     app.dialog_answer="#000000"
 }
 
-fn dialogs_color_ok(event_details EventDetails, mut app &Window, app_data voidptr){
+fn dialogs_color_ok(event_details EventDetails, mut app &Window, mut app_data voidptr){
     unsafe {
         color_code:=rgb_to_color_code([ app.get_dialog_object_by_id("mui__slider__red")[0]["val"].num,
             app.get_dialog_object_by_id("mui__slider__green")[0]["val"].num,
@@ -49,7 +49,7 @@ fn dialogs_color_ok(event_details EventDetails, mut app &Window, app_data voidpt
     }
 }
 
-fn dialogs_color_update(event_details EventDetails, mut app &Window, app_data voidptr){
+fn dialogs_color_update(event_details EventDetails, mut app &Window, mut app_data voidptr){
     unsafe {
         typ:=event_details.target_id.split("__")#[-1..][0][0..1] //mui__slider__red -> mui, slider, red -> red -> r
         match typ{

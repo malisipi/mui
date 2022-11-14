@@ -1,7 +1,7 @@
 import malisipi.mui as m
 import rand
 
-fn move_image(event_details m.EventDetails,mut app &m.Window, app_data voidptr){
+fn move_image(event_details m.EventDetails,mut app &m.Window, mut app_data voidptr){
 	unsafe{
 		go m.move_object(mut app, "image", [rand.int_in_range(0,500) or {0},rand.int_in_range(0,500) or {0}], 1)
 	}

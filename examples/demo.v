@@ -5,7 +5,7 @@ const (
 )
 
 [unsafe]
-fn add_user(event_details m.EventDetails, mut app &m.Window, app_data voidptr){
+fn add_user(event_details m.EventDetails, mut app &m.Window, mut app_data voidptr){
 	unsafe{
 		if app.get_object_by_id("progress")[0]["perc"].num<100{
 			app.get_object_by_id("table")[0]["h_raw"].str=(app.get_object_by_id("table")[0]["h_raw"].str.int()+30).str()

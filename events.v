@@ -144,7 +144,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 								}else {
 									for widget in app.custom_widgets{
 										if object["type"].str==widget.typ{
-											widget.click_fn(x, y, mut object, mut app)
+											widget.click_fn(x, y, mut object, app)
 										}
 									}
 								}
@@ -218,7 +218,7 @@ fn move_fn(x f32, y f32, mut app &Window){
 			} else {
 				for widget in app.custom_widgets{
 					if object["type"].str==widget.typ{
-						widget.move_fn(x, y, mut object, mut app)
+						widget.move_fn(x, y, mut object, app)
 					}
 				}
 			}
@@ -240,7 +240,7 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 			}
 			for widget in app.custom_widgets{
 				if object["type"].str==widget.typ{
-					widget.unclick_fn(x, y, mut object, mut app)
+					widget.unclick_fn(x, y, mut object, app)
 				}
 			}
 		}

@@ -1,6 +1,6 @@
 import malisipi.mui as m
 
-fn change_type(event_details m.EventDetails, mut app &m.Window, app_data voidptr){
+fn change_type(event_details m.EventDetails, mut app &m.Window, mut app_data voidptr){
     unsafe{
         if app.get_object_by_id("widget")[0]["type"].str=="password"{
             app.get_object_by_id("widget")[0]["type"].str="textbox"

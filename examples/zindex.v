@@ -1,6 +1,6 @@
 import malisipi.mui as m
 
-fn change_z_index(event_details m.EventDetails,mut app &m.Window, app_data voidptr){
+fn change_z_index(event_details m.EventDetails,mut app &m.Window, mut app_data voidptr){
     unsafe {
         app.get_object_by_id(event_details.target_id.replace("z_index","button"))[0]["z_ind"].num=event_details.value.int()
         app.sort_widgets_with_zindex()

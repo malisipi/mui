@@ -1,6 +1,6 @@
 module mui
 
-fn about_dialog(event_details EventDetails, mut app &Window, app_data voidptr){
+fn about_dialog(event_details EventDetails, mut app &Window, mut app_data voidptr){
 	mut main_text:="MUI -  1.0.0 (Apache 2.0)"
 	$if !android {
 		main_text+="\n* TinyFileDialogs: 3.8.8 (ZLib)"

@@ -1,6 +1,6 @@
 import malisipi.mui as m
 
-fn create_messagebox(event_details m.EventDetails, mut app &m.Window, app_data voidptr){
+fn create_messagebox(event_details m.EventDetails, mut app &m.Window, mut app_data voidptr){
     unsafe{
         m.messagebox(
             app.get_object_by_id("title")[0]["text"].str,

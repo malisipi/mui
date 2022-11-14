@@ -1,6 +1,6 @@
 import malisipi.mui as m
 
-fn move_image(event_details m.EventDetails,mut app &m.Window, app_data voidptr){
+fn move_image(event_details m.EventDetails,mut app &m.Window, mut app_data voidptr){
 	unsafe{
 		go m.move_object(mut app, "image", ["# 25", "10%y +25"], 5)
 	}

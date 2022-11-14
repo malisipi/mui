@@ -8,14 +8,14 @@ const (
 )
 
 [unsafe]
-fn update_scroll_hor(event_details EventDetails, mut app &Window, app_data voidptr){
+fn update_scroll_hor(event_details EventDetails, mut app &Window, mut app_data voidptr){
     unsafe{
         app.scroll_x=event_details.value.int()
     }
 }
 
 [unsafe]
-fn update_scroll_ver(event_details EventDetails, mut app &Window, app_data voidptr){
+fn update_scroll_ver(event_details EventDetails, mut app &Window, mut app_data voidptr){
     unsafe{
         app.scroll_y=event_details.value.int()
     }

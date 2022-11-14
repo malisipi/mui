@@ -9,11 +9,11 @@ const (
 
 pub type IntOrString=int|string
 pub type U32OrString=u32|string
-pub type OnEvent=fn(EventDetails, mut Window, mut voidptr)
+pub type OnEvent=fn(EventDetails, mut &Window, mut voidptr)
 pub type ValueMap=fn(int) string
 
 pub type CustomWidgetDraw=fn(&Window, map[string]WindowData)
-pub type CustomWidgetEvent=fn(f32, f32, mut map[string]WindowData, mut Window)
+pub type CustomWidgetEvent=fn(f32, f32, mut map[string]WindowData, &Window)
 
 pub fn empty_custom_widget_draw(app &Window, object map[string]WindowData){}
 pub fn empty_custom_widget_event(x f32, y f32, mut object map[string]WindowData, app &Window){}
@@ -157,5 +157,5 @@ pub struct Modal {
 	default_entry	string		//= ""
 }
 
-pub fn empty_fn(event_details EventDetails, mut app &Window, app_data voidptr){}
+pub fn empty_fn(event_details EventDetails, mut app &Window, mut app_data voidptr){}
 pub fn no_map(val int) string { return val.str() }

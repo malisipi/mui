@@ -5,7 +5,7 @@ tabs:[
 ]
 */
 [unsafe]
-fn tabbed_view_button_onclick(event_details EventDetails, mut app &Window, app_data voidptr){
+fn tabbed_view_button_onclick(event_details EventDetails, mut app &Window, mut app_data voidptr){
     unsafe {
         mut button:=app.get_object_by_id(event_details.target_id)[0]
         mut main_frame:=app.get_object_by_id(button["tabvw"].str)[0]

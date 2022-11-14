@@ -1,6 +1,6 @@
 import malisipi.mui as m
 
-fn delete_me(event_details m.EventDetails, mut app &m.Window, app_data voidptr){
+fn delete_me(event_details m.EventDetails, mut app &m.Window, mut app_data voidptr){
     unsafe{
         app.remove_object_by_id(event_details.target_id)
         app.focus=""
