@@ -5,14 +5,12 @@ pub fn messagebox(title string, text string, dialog_type string, icon_type strin
 	return 0
 }
 
-[unsafe]
 pub fn inputbox(title string, text string, default_text string) string {
     unsafe {
         return C.emscripten_run_script_string(cstr("prompt('"+title+"\\n"+text+"','"+default_text+"')")).vstring()
     }
 }
 
-[unsafe]
 pub fn passwordbox(title string, text string) string {
     unsafe {
         return C.emscripten_run_script_string(cstr("alert('"+title+"\\n"+text+"')")).vstring()
@@ -31,7 +29,6 @@ pub fn selectfolderdialog(title string) string {
     return ""
 }
 
-[unsafe]
 pub fn colorchooser(title string, default_color string) string {
     unsafe {
         return C.emscripten_run_script_string(cstr("prompt('"+title+"','"+default_color+"')")).vstring()

@@ -1,6 +1,5 @@
 module mui
 
-[unsafe]
 fn get_object_by_id(app &Window, id string) map[string]WindowData{
 	unsafe{
 		for object in app.objects{
@@ -12,14 +11,12 @@ fn get_object_by_id(app &Window, id string) map[string]WindowData{
     return null_object
 }
 
-[unsafe]
 pub fn (mut app Window) get_object_by_id(id string) []map[string]WindowData{
 	unsafe{
 		return [get_object_by_id(app, id)]
 	}
 }
 
-[unsafe]
 fn get_dialog_object_by_id(app &Window, id string) map[string]WindowData{
 	unsafe{
 		for object in app.dialog_objects{
@@ -31,14 +28,12 @@ fn get_dialog_object_by_id(app &Window, id string) map[string]WindowData{
     return null_object
 }
 
-[unsafe]
 pub fn (mut app Window) get_dialog_object_by_id(id string) []map[string]WindowData{
 	unsafe{
 		return [get_dialog_object_by_id(app, id)]
 	}
 }
 
-[unsafe]
 pub fn (mut app Window) remove_object_by_id(id string){
 	unsafe{
 		app_objects:=[]map[string]WindowData{}
@@ -51,7 +46,6 @@ pub fn (mut app Window) remove_object_by_id(id string){
 	}
 }
 
-[unsafe]
 pub fn (mut app Window) remove_dialog_object_by_id(id string){
 	unsafe{
 		app_objects:=[]map[string]WindowData{}
@@ -64,7 +58,6 @@ pub fn (mut app Window) remove_dialog_object_by_id(id string){
 	}
 }
 
-[unsafe]
 fn clear_values(mut app Window, id string){
 	unsafe{
 		mut object:=app.get_object_by_id(id)[0]
@@ -191,38 +184,51 @@ fn get_next_dialog_object_by_id(app &Window, id string) map[string]WindowData{
     return null_object
 }
 
-[unsafe]
 pub fn (mut app Window) get_previous_object_by_id(id string) []map[string]WindowData{
 	unsafe{
 		return [get_previous_object_by_id(app, id)]
 	}
 }
 
-[unsafe]
 pub fn (mut app Window) get_next_object_by_id(id string) []map[string]WindowData{
 	unsafe{
 		return [get_next_object_by_id(app, id)]
 	}
 }
 
-[unsafe]
 pub fn (mut app Window) get_previous_dialog_object_by_id(id string) []map[string]WindowData{
 	unsafe{
 		return [get_previous_dialog_object_by_id(app, id)]
 	}
 }
 
-[unsafe]
 pub fn (mut app Window) get_next_dialog_object_by_id(id string) []map[string]WindowData{
 	unsafe{
 		return [get_next_dialog_object_by_id(app, id)]
 	}
 }
-[unsafe]
+
 pub fn (mut app Window) clear_values (id []string){
 	unsafe{
 		for widget_id in id{
 			clear_values(mut app, widget_id)
 		}
 	}
+}
+
+pub fn (mut app Window) remove_all_objects () {
+	app.objects.clear()
+	app.dialog_objects.clear()
+	app.focus=""
+	app.scrollbar(Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:0, onchange: update_scroll_hor, z_index:999999, hidden:true})
+	app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:0, onchange: update_scroll_ver, vertical:true, z_index:999999, hidden:true})
+	app.rect(Widget{ id:"@scrollbar:extra", x:"!&# 0", y:"!&# 0", width:"15", height:"15", background: app.color_scheme[1], z_index:999999, hidden:true})
+}
+
+pub fn (mut app Window) clone_app_objects () []map[string]WindowData {
+	return app.objects.clone()
+}
+
+pub fn (mut app Window) load_app_objects (app_objects []map[string]WindowData) {
+	app.objects = app_objects.clone()
 }

@@ -62,11 +62,10 @@ pub fn create(args &WindowConfig)	 &Window{
 		C.emscripten_run_script(cstr("document.title='"+args.title+"'"))
 	}
 
-	if args.scrollbar{
-		app.scrollbar(Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:args.view_area[0]+app.x_offset+app.xn_offset, size_thumb:args.width, onchange: update_scroll_hor, z_index:999999})
-		app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true, z_index:999999})
-		app.rect(Widget{ id:"@scrollbar:extra", x:"!&# 0", y:"!&# 0", width:"15", height:"15", background: app.color_scheme[1], z_index:999999})
-	}
+	app.scrollbar(Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:args.view_area[0]+app.x_offset+app.xn_offset, size_thumb:args.width, onchange: update_scroll_hor, z_index:999999, hidden:!app.scrollbar})
+	app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true, z_index:999999, hidden:!app.scrollbar})
+	app.rect(Widget{ id:"@scrollbar:extra", x:"!&# 0", y:"!&# 0", width:"15", height:"15", background: app.color_scheme[1], z_index:999999, hidden:!app.scrollbar})
+
 	return app
 }
 
@@ -178,4 +177,33 @@ pub fn (mut app Window) run () {
 
 pub fn (mut app Window) destroy () {
 	sapp.quit()
+}
+
+pub fn (mut app Window) enable_scrollbar (enable_scrollbar bool) {
+	if !(app.scrollbar==enable_scrollbar) {
+		if enable_scrollbar {
+			app.scrollbar=true
+			app.xn_offset+=scrollbar_size
+			app.yn_offset+=scrollbar_size
+			unsafe {
+				app.get_object_by_id("@scrollbar:horizontal")[0]["hi"].bol=false
+				app.get_object_by_id("@scrollbar:vertical")[0]["hi"].bol=false
+				app.get_object_by_id("@scrollbar:extra")[0]["hi"].bol=false
+			}
+		} else {
+			app.scrollbar=false
+			app.xn_offset-=scrollbar_size
+			app.yn_offset-=scrollbar_size
+			unsafe {
+				app.get_object_by_id("@scrollbar:horizontal")[0]["hi"].bol=true
+				app.get_object_by_id("@scrollbar:vertical")[0]["hi"].bol=true
+				app.get_object_by_id("@scrollbar:extra")[0]["hi"].bol=true
+			}
+		}
+	}
+}
+
+pub fn (mut app Window) set_viewarea (x int, y int) {
+	app.get_object_by_id("@scrollbar:horizontal")[0]["vlMax"].num=x+app.x_offset+app.xn_offset
+	app.get_object_by_id("@scrollbar:vertical")[0]["vlMax"].num=y+app.y_offset+app.yn_offset
 }
