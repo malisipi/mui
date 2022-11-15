@@ -3,11 +3,6 @@ module webview
 #include "@VMODROOT/webview/webview/webview.h"
 #flag -I./webview/
 #flag @VMODROOT/webview/webview.o
-#flag windows -L@VMODROOT/webview/webview2/build/native/x64 -lWebView2Loader.dll
-#flag windows -lole32 -lshell32 -lshlwapi -luser32
-#flag windows -I @VMODROOT/webview/webview2/build/native/include
-#flag -lstdc++
-#flag -static
 
 type Webview_t = voidptr
 fn C.webview_create(debug int, window voidptr) Webview_t
