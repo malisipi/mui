@@ -8,6 +8,7 @@ mui
 vls.log
 *.apk
 *.out
+*.o
 examples/*.wasm
 examples/*.js
 examples/*.c
