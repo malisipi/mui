@@ -13,3 +13,4 @@ examples/*.js
 examples/*.c
 examples/*.dll
 examples/*/*.dll
+examples/*/*/*.dll
