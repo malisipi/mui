@@ -35,7 +35,7 @@ app.run()
 
 * Theme from system accent color, _If couldn't found accent color, use dark/light theme preference. If couldn't found dark/light theme preference, choose light theme_
 ![Themes](./pictures/Themes.png "Themes")
-* [Webview Window](#how-to-compile-programs-that-use-malisipi.mui.webview)
+* [Webview Window](#how-to-compile-programs-that-use-malisipimuiwebview)
 * Widgets
     * Slider (Verical & Horizontal)
     * Button
