@@ -26,7 +26,7 @@ fn C.webview_eval(w Webview_t, code &char)
 fn C.webview_init(w Webview_t, code &char)
 
 [unsafe]
-pub fn init() {
+fn init() {
 	mut static does_init:=false
 	if !does_init {
 		$if windows {
@@ -71,7 +71,7 @@ pub fn (webview Webview_t) navigate (url string) {
 	C.webview_navigate(webview, &char(url.str))
 }
 
-pub fn get_window(webview Webview_t) voidptr {
+pub fn (webview Webview_t) get_window () voidptr {
 	return C.webview_get_window(webview)
 }
 
