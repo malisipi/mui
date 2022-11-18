@@ -3,5 +3,5 @@
 *.vsh linguist-language=V text=auto eol=lf
 **/v.mod linguist-language=V text=auto eol=lf
 tinyfiledialogs/* linguist-vendored
-tinyfiledialogs/tinyfiledialogs.c linguist-vendored=false linguist-detectable=false
-tinyfiledialogs/tinyfiledialogs.h linguist-vendored=false linguist-detectable=false
+webview/webview/* linguist-vendored
+webview/webview2/** linguist-vendored
