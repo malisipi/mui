@@ -197,8 +197,10 @@ For Windows;
 * [Tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/) (`./tinyfiledialogs/`) (Patched) licensed by Zlib License.
 * [Noto Emoji Font](https://fonts.google.com/noto/specimen/Noto+Emoji) (`./noto_emoji_font/`) licensed by OFL License.
 * [Roboto Font](https://fonts.google.com/specimen/Roboto) (`./assets/Roboto.ttf`) licensed by Apache 2.0 License.
-* [V-logo](https://github.com/vlang/v-logo) (`./examples/v-logo.png`) licensed by MIT license.
+* [V-logo](https://github.com/vlang/v-logo) (`./examples/v-logo.png`) licensed by MIT License.
 * [Original Sokol](https://github.com/floooh/sokol) and [Sokol Patch](https://github.com/floooh/sokol/pull/503) (`./patches/sokol_android_keyboard.patch`) licensed by Zlib license.
+* [Webview](https://github.com/malisipi/vebview-webview) (`./webview/webview`) licensed by MIT License.
+* [Webview2 (1.0.1264.42)](https://www.nuget.org/packages/Microsoft.Web.WebView2/) (`./webview/webview2`) -> [License](./webview/webview2/LICENSE.txt).
 
 ## Documentation
 
