@@ -1,8 +1,10 @@
 import malisipi.mui as m
+import malisipi.mui.window as w
 
 const (
 	countries=["United States","Canada","United Kingdom", "Australia"]
 )
+
 
 [unsafe]
 fn add_user(event_details m.EventDetails, mut app &m.Window, mut app_data voidptr){
@@ -23,6 +25,8 @@ fn add_user(event_details m.EventDetails, mut app &m.Window, mut app_data voidpt
 		}
 	}
 }
+
+w.hide_console_window()
 
 mut app:=m.create(m.WindowConfig{ title:"MUI Demo"})
 
