@@ -4,10 +4,13 @@ mui
 *.exe~
 *.so
 *.dylib
-*.dll
 vls.log
 *.apk
 *.out
+*.o
 examples/*.wasm
 examples/*.js
 examples/*.c
+examples/*.dll
+examples/*/*.dll
+examples/*/*/*.dll

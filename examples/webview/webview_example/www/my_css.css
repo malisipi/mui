@@ -1,0 +1,15 @@
+body {
+ background:green;
+ text-align:center;
+}
+
+b {
+ font-size:50px;
+ color:white;
+}
+
+button {
+ background:yellow;
+ color:black;
+ border: 5px solid purple;
+}
