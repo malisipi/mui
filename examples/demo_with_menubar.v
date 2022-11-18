@@ -39,7 +39,7 @@ mut app:=m.create(m.WindowConfig{ title:"MUI Demo",
 		]}},
 	] })
 
-app.rect(m.Widget{ id:"back", x:"# 0", y:"# 0", width:"100%x -300", height:"100%y", background:app.color_scheme[1], z_index:-1 })
+app.rect(m.Widget{ id:"back", x:"# 0", y:"# 0", width:"100%x -300", height:"100%y", background:app.color_scheme[1] })
 
 app.textbox(m.Widget{ id:"name", placeholder:"First Name", x:30, y:30, width: 240})
 app.textbox(m.Widget{ id:"last_name", placeholder:"Last Name", x:30, y:60, width: 240})
@@ -47,7 +47,7 @@ app.textbox(m.Widget{ id:"age", placeholder:"Age", x:30, y:90, width: 240})
 app.password(m.Widget{ id:"password", placeholder:"Password", x:30, y:120, width: 240})
 app.checkbox(m.Widget{ id:"online_reg", x:30, y:150, width:20, text:"Online registration"})
 app.checkbox(m.Widget{ id:"subscribe", x:30, y:180, width:20, text:"Subscribe to the newsletter"})
-app.group(m.Widget{ id:"country_group", x:20, y:210, height:140, width:240, text:"Country", z_index:-1 })
+app.group(m.Widget{ id:"country_group", x:20, y:210, height:140, width:240, text:"Country" })
 app.radio(m.Widget{ id:"country", x:40, y:235, height:20, list:countries})
 app.button(m.Widget{ id:"button", x: 30, y:"# 60", text:"Add User" onclick:add_user})
 app.progress(m.Widget{ id:"progress", x:30, y:"# 30", width: 240, percent:20 })
@@ -55,7 +55,5 @@ app.progress(m.Widget{ id:"progress", x:30, y:"# 30", width: 240, percent:20 })
 app.table(m.Widget{ id:"table", table:[["Sam","Johnson","29","United States"],["Kate","Williams","26","Canada"]] x:"330", y:"30", width:"100%x -360", height:"60" })
 
 app.image(m.Widget{ id:"vlogo", x: "# 0", y:"# 0", path:"v-logo.png", width:128, height:128})
-
-app.sort_widgets_with_zindex()
 
 app.run()

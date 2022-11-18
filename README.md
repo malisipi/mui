@@ -136,7 +136,7 @@ How to compile demo.v with emscripten:
 
 [~/.vmodules/malisipi/mui/examples]$ cat emscripten_.c | sed 's/waitpid(p->pid, &cstatus, 0);/-1;/g' | sed 's/waitpid(p->pid, &cstatus, WNOHANG);/-1;/g' | sed 's/wait(0);/-1;/g' &> emscripten.c
 
-[path/to/dir/v]$ emcc -fPIC -Wimplicit-function-declaration -w  thirdparty/stb_image/stbi.c -I/usr/include/gc/   -Ithirdparty/stb_image -Ithirdparty/fontstash -Ithirdparty/sokol -Ithirdparty/sokol/util    -DSOKOL_GLES2 -DSOKOL_NO_ENTRY   -DNDEBUG -O3   -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH -s MODULARIZE -s ASSERTIONS=1 ~/.vmodules/malisipi/mui/examples/emscripten.c -o ~/.vmodules/malisipi/mui/examples/app.js --embed-file ~/.vmodules/malisipi/mui/assets/Roboto.ttf@/Roboto.ttf --embed-file ~/.vmodules/malisipi/mui/examples/v-logo.png@v-logo.png
+[path/to/dir/v]$ emcc -fPIC -Wimplicit-function-declaration -w  thirdparty/stb_image/stbi.c -I/usr/include/gc/   -Ithirdparty/stb_image -Ithirdparty/fontstash -Ithirdparty/sokol -Ithirdparty/sokol/util    -DSOKOL_GLES2 -DSOKOL_NO_ENTRY   -DNDEBUG -O3   -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH -s MODULARIZE -s ASSERTIONS=1 ~/.vmodules/malisipi/mui/examples/emscripten.c -o ~/.vmodules/malisipi/mui/examples/app.js --embed-file ~/.vmodules/malisipi/mui/assets/noto.ttf@/noto.ttf --embed-file ~/.vmodules/malisipi/mui/examples/v-logo.png@v-logo.png
 ```
 
 ## How to Compile Programs that use malisipi.mui.webview?
@@ -196,7 +196,8 @@ For Windows;
 * **This project licensed by [Apache License 2.0](./LICENSE).**
 * [Tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/) (`./tinyfiledialogs/`) (Patched) licensed by Zlib License.
 * [Noto Emoji Font](https://fonts.google.com/noto/specimen/Noto+Emoji) (`./noto_emoji_font/`) licensed by OFL License.
-* [Roboto Font](https://fonts.google.com/specimen/Roboto) (`./assets/Roboto.ttf`) licensed by Apache 2.0 License.
+* [Noto Font](https://fonts.google.com/noto/specimen/Noto+Sans) (`./assets/noto.ttf`) licensed by OFL License.
+* [Noto (Japanese) Font](https://fonts.google.com/noto/specimen/Noto+Sans+JP) (`./assets/noto_jp.ttf`) licensed by OFL License.
 * [V-logo](https://github.com/vlang/v-logo) (`./examples/v-logo.png`) licensed by MIT License.
 * [Original Sokol](https://github.com/floooh/sokol) and [Sokol Patch](https://github.com/floooh/sokol/pull/503) (`./patches/sokol_android_keyboard.patch`) licensed by Zlib license.
 * [Webview](https://github.com/malisipi/vebview-webview) (`./webview/webview`) (Patched) licensed by MIT License.

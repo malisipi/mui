@@ -50,7 +50,7 @@ pub fn create(args &WindowConfig)	 &Window{
 		resized_fn: resized_fn
 		scroll_fn: scroll_fn
 		event_fn: event_fn
-		font_path: args.font
+		font_path: os.abs_path(args.font)
 		custom_bold_font_path: emoji_font
 		width: args.width
 		height: args.height

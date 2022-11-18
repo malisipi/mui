@@ -5,5 +5,5 @@ pub fn C.emscripten_run_script_string(a &char) &char
 
 const (
     text_cursor="|"
-    os_font="Roboto.ttf"
+    os_font="noto.ttf"
 )
