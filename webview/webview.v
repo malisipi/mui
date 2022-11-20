@@ -24,6 +24,7 @@ fn C.webview_return(w Webview_t, seq &char, status int, result &char)
 fn C.webview_get_window(w Webview_t) voidptr
 fn C.webview_eval(w Webview_t, code &char)
 fn C.webview_init(w Webview_t, code &char)
+fn C.webview_dispatch(w Webview_t, funct fn(w Webview_t, args voidptr), args voidptr)
 
 [unsafe]
 fn init() {
@@ -37,8 +38,10 @@ fn init() {
 }
 
 pub fn create(debug int) Webview_t {
-	unsafe {
-		init()
+	$if windows {
+		unsafe {
+			init()
+		}
 	}
 	return C.webview_create(debug, C.NULL)
 }
@@ -56,19 +59,27 @@ pub fn (webview Webview_t) run (){
 }
 
 pub fn (webview Webview_t) set_title (title string){
-	C.webview_set_title(webview, &char(title.str))
+	C.webview_dispatch(webview, fn [title](webview Webview_t, void voidptr){
+		C.webview_set_title(webview, &char(title.str))
+	}, voidptr(0))
 }
 
 pub fn (webview Webview_t) set_size (width int, height int){
-	C.webview_set_size(webview, width, height, C.WEBVIEW_HINT_NONE)
+	C.webview_dispatch(webview, fn [width, height](webview Webview_t, void voidptr){
+		C.webview_set_size(webview, width, height, C.WEBVIEW_HINT_NONE)
+	}, voidptr(0))
 }
 
 pub fn (webview Webview_t) set_html (html string){
-	C.webview_set_html(webview, &char(html.str))
+	C.webview_dispatch(webview, fn [html](webview Webview_t, void voidptr){
+		C.webview_set_html(webview, &char(html.str))
+	}, voidptr(0))
 }
 
 pub fn (webview Webview_t) navigate (url string) {
-	C.webview_navigate(webview, &char(url.str))
+	C.webview_dispatch(webview, fn [url](webview Webview_t, void voidptr){
+		C.webview_navigate(webview, &char(url.str))
+	}, voidptr(0))
 }
 
 pub fn (webview Webview_t) get_window () voidptr {
@@ -76,7 +87,9 @@ pub fn (webview Webview_t) get_window () voidptr {
 }
 
 pub fn (webview Webview_t) eval(code string) {
-	C.webview_eval(webview, &char(code.str))
+	C.webview_dispatch(webview, fn [code](webview Webview_t, void voidptr){
+		C.webview_eval(webview, &char(code.str))
+	}, voidptr(0))
 }
 
 pub fn (webview Webview_t) load_html_file (file string){
