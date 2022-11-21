@@ -5513,7 +5513,9 @@ char * tinyfd_inputBox(
                 }
                 else
                 {
-                        strcat(lDialogString, " --hide-text") ;
+                        if ( ! aDefaultInput ) {
+                                strcat(lDialogString, " --hide-text") ;
+                        }
                 }
                 if (tinyfd_silent) strcat( lDialogString , " 2>/dev/null ");
                 strcat( lDialogString ,

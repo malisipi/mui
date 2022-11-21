@@ -26,7 +26,7 @@ fn add_user(event_details m.EventDetails, mut app &m.Window, mut app_data voidpt
 	}
 }
 
-w.hide_console_window()
+w.hide_console()
 
 mut app:=m.create(m.WindowConfig{ title:"MUI Demo"})
 

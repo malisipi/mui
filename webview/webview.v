@@ -47,11 +47,15 @@ pub fn create(debug int) Webview_t {
 }
 
 pub fn (webview Webview_t) destroy (){
-	C.webview_destroy(webview)
+	C.webview_dispatch(webview, fn (webview Webview_t, void voidptr){
+		C.webview_destroy(webview)
+	}, voidptr(0))
 }
 
 pub fn (webview Webview_t) terminate (){
-	C.webview_terminate(webview)
+	C.webview_dispatch(webview, fn (webview Webview_t, void voidptr){
+		C.webview_terminate(webview)
+	}, voidptr(0))
 }
 
 pub fn (webview Webview_t) run (){
@@ -109,5 +113,7 @@ pub fn (webview Webview_t) rturn (seq &char, the_string string){ //this is not a
 }
 
 pub fn (webview Webview_t) init (code string){
-	C.webview_init(webview, &char(code.str))
+	C.webview_dispatch(webview, fn [code](webview Webview_t, void voidptr){
+		C.webview_init(webview, &char(code.str))
+	}, voidptr(0))
 }
