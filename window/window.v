@@ -18,11 +18,15 @@ pub fn prefer_x11(){ // only linux (if display server is wayland, try to use x11
 pub fn hide(window voidptr){
 	$if linux {
 		C.gtk_widget_hide(window)
+	} $else $if windows {
+		C.ShowWindow(window, false)
 	}
 }
 
 pub fn show(window voidptr){
 	$if linux {
 		C.gtk_widget_show(window)
+	} $else $if windows {
+		C.ShowWindow(window, true)
 	}
 }
