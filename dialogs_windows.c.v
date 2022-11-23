@@ -4,6 +4,9 @@ module mui
 #flag @VMODROOT/tinyfiledialogs/tinyfiledialogs.c
 #flag windows -lole32
 #flag windows -lcomdlg32
+$if tinyc {
+	#include "@VMODROOT/dialogs_tcc_patch.h"
+}
 
 fn C.tinyfd_messageBox(a &char, b &char, c &char, d &char, e int) int
 

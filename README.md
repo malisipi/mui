@@ -165,9 +165,16 @@ How to compile demo.v with emscripten:
 ## Known Bugs
 
 For Windows;
-* MSVC and TCC (sometimes) not works. I strongly suggest GCC to compile your programs. `v -cc gcc ...`
+* MSVC and TCC (without full-winapi, look below) not works. I strongly suggest GCC to compile your programs. `v -cc gcc ...`
 
 > If you have a problem/question or feature request about MUI, you can create a issue.
+
+## How to use TCC on Windows?
+
+* If you're using webview sub-module, TCC never works. But you can still use TCC for Windows to compile faster.
+* You need full winapi for TCC. [winapi-full-for-0.9.27.zip at download-mirror.savannah.gnu.org](https://download-mirror.savannah.gnu.org/releases/tinycc/) Download it and extract to somewhere that not include spaces.
+* ```v -cc tcc -cflags "-isystem path\to\winapi-full-for-0.9.27\include\winapi" run example.v```
+* And it's works like a charm.
 
 ## Suggestions
 
