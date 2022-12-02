@@ -80,6 +80,7 @@ app.run()
 * Z-Index Support
 * Ask Quit Dialog & Quit Function (Desktop Only)
 * Keybindings (Ctrl+Key Combinations for now) _Will be ignored pressed keys/key combinations that used by widgets if the assigned function to the key/key combination._
+* Japanese Input Support (Experimental)
 
 ## To-Do List
 
@@ -116,11 +117,12 @@ app.run()
 
 ## Compile-Time Flags
 
-| Flags           | Description                                               |
-|-----------------|-----------------------------------------------------------|
-| `-d show_fps`   | Show FPS of the window                                    |
-| `-d no_emoji`   | Disable emoji support and font embedding                  |
-| `-d emscripten` | Compile for emscripten (use with `-os wasm32-emscripten`) |
+| Flags                      | Description                                               |
+|----------------------------|-----------------------------------------------------------|
+| `-d show_fps`              | Show FPS of the window                                    |
+| `-d no_emoji`              | Disable emoji support and font embedding                  |
+| `-d emscripten`            | Compile for emscripten (use with `-os wasm32-emscripten`) |
+| `-d support_japanese_input`| Support basic japanese input                              |
 
 ## Compile for android
 

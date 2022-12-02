@@ -341,7 +341,11 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 						the_text:=object["text"].str
 						the_text_part1,the_text_part2:=the_text.split("\0")[0],the_text.split("\0")[1]
 						if key!="\b" && key!="\1" {
-							object["text"]=WindowData{str:the_text_part1+key+"\0"+the_text_part2}
+							if is_system_language_japanese() {
+								object["text"]=WindowData{str:replace_romanji_with_hiragana(the_text_part1+key+"\0"+the_text_part2)}
+							} else {
+								object["text"]=WindowData{str:the_text_part1+key+"\0"+the_text_part2}
+							}
 						} else if key=="\b" {
 							object["text"]=WindowData{str:the_text_part1.runes()#[0..-1].string()+"\0"+the_text_part2}
 						} else {
@@ -365,7 +369,11 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 						the_text:=object["text"].str
 						the_text_part1,the_text_part2:=the_text.split("\0")[0],the_text.split("\0")[1]
 						if key!="\b" && key!="\1" {
-							object["text"]=WindowData{str:the_text_part1+key+"\0"+the_text_part2}
+							if is_system_language_japanese() {
+								object["text"]=WindowData{str:replace_romanji_with_hiragana(the_text_part1+key+"\0"+the_text_part2)}
+							} else {
+								object["text"]=WindowData{str:the_text_part1+key+"\0"+the_text_part2}
+							}
 						} else if key=="\b" {
 							object["text"]=WindowData{str:the_text_part1.runes()#[0..-1].string()+"\0"+the_text_part2}
 						} else {
