@@ -44,14 +44,14 @@ for w0,c0 in cols{
     }
 }
 
-app.rect(m.Widget{ id:"rect1", x:0, y:"& 0", width:view_area[0], height:cell_size[1], placeholder:"0", ph_as_text:true })
-app.rect(m.Widget{ id:"rect2", x:"& 0", y:0, width:cell_size[0], height:view_area[1], placeholder:"0", ph_as_text:true })
+app.rect(m.Widget{ id:"rect1", x:0, y:"& 0", width:view_area[0], height:cell_size[1], placeholder:"0", ph_as_text:true, z_index:10 })
+app.rect(m.Widget{ id:"rect2", x:"& 0", y:0, width:cell_size[0], height:view_area[1], placeholder:"0", ph_as_text:true, z_index:5 })
 
 for w,c in cols {
-    app.label(m.Widget{ id:"col_"+c, x:(w+1)*cell_size[0], y:"& 0", width:cell_size[0], height:cell_size[1], text:c })
+    app.label(m.Widget{ id:"col_"+c, x:(w+1)*cell_size[0], y:"& 0", width:cell_size[0], height:cell_size[1], text:c, z_index:10 })
 }
 for r in 0..rows {
-    app.label(m.Widget{ id:"row_"+r.str(), x:"& 0", y:(r+1)*cell_size[1], width:cell_size[0], height:cell_size[1], text:r.str() })
+    app.label(m.Widget{ id:"row_"+r.str(), x:"& 0", y:(r+1)*cell_size[1], width:cell_size[0], height:cell_size[1], text:r.str(), z_index:5 })
 }
 
 app.rect(m.Widget{ id:"rect3", x:"& 0", y:"& 0", width:cell_size[0], height:cell_size[1], placeholder:"0", ph_as_text:true })
