@@ -1,6 +1,7 @@
 module mui
 
 import gg
+import gx
 import os
 import sokol.sapp
 
@@ -39,7 +40,7 @@ pub fn create(args &WindowConfig)	 &Window{
 	}
 
     app.gg = gg.new_context(
-		bg_color: app.color_scheme[0]
+		bg_color: if args.background == [-1,-1,-1] { app.color_scheme[0] } else { gx.rgb(u8(args.background[0]), u8(args.background[1]), u8(args.background[2])) }
 		frame_fn: frame_fn
 		click_fn: click_fn
 		char_fn: char_fn
