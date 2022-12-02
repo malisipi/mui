@@ -61,6 +61,7 @@ pub mut:
 	file_handler	OnEvent							= empty_fn
 	ask_quit		bool							//= false
 	quit_fn			OnEvent							= empty_fn
+	resized_fn		OnEvent							= empty_fn
 }
 
 pub struct EventDetails{
@@ -91,6 +92,7 @@ pub mut:
 	file_handler		OnEvent
 	ask_quit			bool
 	quit_fn				OnEvent
+	resized_fn			OnEvent
 	active_dialog		string			//= "" //messagebox, input, password, progress, color, date, notification, openfile, savefile, openfolder, custom
 	dialog_answer		string					= dialogs_null_answer
     dialog_objects		[]map[string]WindowData // for dialogs

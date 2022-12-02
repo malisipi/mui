@@ -21,6 +21,7 @@ pub fn create(args &WindowConfig)	 &Window{
         file_handler: args.file_handler
         ask_quit: args.ask_quit
         quit_fn: args.quit_fn
+		resized_fn: args.resized_fn
     }
 
     mut emoji_font:=args.font

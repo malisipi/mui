@@ -497,6 +497,7 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 [unsafe]
 fn resized_fn(event &gg.Event, mut app &Window){
 	unsafe{
+		app.resized_fn(EventDetails{event:"resize",trigger:"resize",value:event.window_width.str()+","+event.window_height.str()},mut app, mut app.app_data)
 		app.get_object_by_id("@scrollbar:horizontal")[0]["sThum"].num=event.window_width
 		app.get_object_by_id("@scrollbar:vertical")[0]["sThum"].num=event.window_height
 	}
