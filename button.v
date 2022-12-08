@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_button(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, fg gx.Color, fun OnEvent, icon bool, dialog bool, frame string, zindex int){
+pub fn add_button(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, fg gx.Color, fun OnEvent, icon bool, dialog bool, frame string, zindex int, tSize int){
     widget:={
         "type": WindowData{str:"button"},
         "id":   WindowData{str:id},
@@ -23,6 +23,7 @@ pub fn add_button(mut app &Window, text string, id string, x IntOrString, y IntO
         "fg":   WindowData{clr:fg},
         "fn":   WindowData{fun:fun},
         "icon": WindowData{bol:icon},
+        "tSize":WindowData{num:tSize},
         "tabvw":WindowData{str:""}, // for tabbed view
     }
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
@@ -34,7 +35,7 @@ fn draw_button(app &Window, object map[string]WindowData){
 		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
 		app.gg.draw_text(object["x"].num+object["w"].num/2, object["y"].num+object["h"].num/2, object["text"].str, gx.TextCfg{
 			color: object["fg"].clr
-			size: 20
+			size: object["tSize"].num
 			align: .center
 			vertical_align: .middle
 			bold: object["icon"].bol

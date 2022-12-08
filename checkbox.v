@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_checkbox(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int){
+pub fn add_checkbox(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int, tSize int){
     app.objects << {
         "type": WindowData{str:"checkbox"},
         "id":   WindowData{str:id},
@@ -21,9 +21,10 @@ pub fn add_checkbox(mut app &Window, text string, id string, x IntOrString, y In
         "bg":   WindowData{clr:bg},
         "bfg":	WindowData{clr:bfg},
         "fg":   WindowData{clr:fg},
-        "c":	WindowData{bol:checked}
-        "hi":	WindowData{bol:hi}
-        "fnchg":WindowData{fun:fnchg}
+        "c":	WindowData{bol:checked},
+        "hi":	WindowData{bol:hi},
+        "fnchg":WindowData{fun:fnchg},
+        "tSize":WindowData{num:tSize}
     }
 }
 
@@ -36,7 +37,7 @@ fn draw_checkbox(app &Window, object map[string]WindowData){
 		}
 		app.gg.draw_text(object["x"].num+object["w"].num+4, object["y"].num+object["h"].num/2, object["text"].str, gx.TextCfg{
 			color: object["fg"].clr
-			size: 20
+			size: object["tSize"].num
 			align: .left
 			vertical_align: .middle
 		})

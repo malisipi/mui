@@ -2,7 +2,7 @@ module mui
 
 import gx
 
-pub fn add_radio(mut app &Window, list []string, group_id string, x IntOrString, y IntOrString, wh IntOrString, selected int, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int){
+pub fn add_radio(mut app &Window, list []string, group_id string, x IntOrString, y IntOrString, wh IntOrString, selected int, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int, tSize int){
 	app.objects << {
 		"type": WindowData{str:"hidden"},
 		"realT":WindowData{str:"radio"},
@@ -18,8 +18,9 @@ pub fn add_radio(mut app &Window, list []string, group_id string, x IntOrString,
 		"bg":   WindowData{clr:bg},
 		"bfg":	WindowData{clr:bfg},
 		"fg":   WindowData{clr:fg},
-		"hi":	WindowData{bol:hi}
-		"fnchg":WindowData{fun:fnchg}
+		"hi":	WindowData{bol:hi},
+		"fnchg":WindowData{fun:fnchg},
+		"tSize":WindowData{num:tSize}
 	}
 	x_raw_str := match x{ int{ x.str() } string{ x } }
 	for which_item,item in list {
@@ -37,6 +38,7 @@ pub fn add_radio(mut app &Window, list []string, group_id string, x IntOrString,
 			"h_raw":WindowData{str: match wh{ int{ wh.str() } string{ print("Anchors couldn't be used in size of radio buttons.\n") "0" } } },
 			"c":	WindowData{bol:selected==which_item}
 			"hi":	WindowData{bol:hi}
+			"tSize":WindowData{num:tSize}
 		}
 	}
 }
@@ -51,7 +53,7 @@ fn draw_radio(app &Window, object map[string]WindowData){
 		}
 		app.gg.draw_text(object["x"].num+object["w"].num+4, object["y"].num+object["h"].num/2, object["text"].str, gx.TextCfg{
 			color: group["fg"].clr
-			size: 20
+			size: object["tSize"].num
 			align: .left
 			vertical_align: .middle
 		})

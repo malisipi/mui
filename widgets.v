@@ -29,7 +29,7 @@ pub fn (mut app Window) label ( args Widget ){
 }
 
 pub fn (mut app Window) button ( args Widget ){
-	add_button (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[3], args.onclick, args.icon, args.dialog, args.frame, args.z_index)
+	add_button (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[3], args.onclick, args.icon, args.dialog, args.frame, args.z_index, args.text_size)
 }
 
 pub fn (mut app Window) image ( args Widget ){ //dialog support not done
@@ -45,7 +45,7 @@ pub fn (mut app Window) progress ( args Widget ){
 }
 
 pub fn (mut app Window) textbox ( args Widget ){
-	add_textbox (mut app, args.text, args.id, args.placeholder, args.ph_as_text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange, args.dialog, args.frame, args.z_index)
+	add_textbox (mut app, args.text, args.id, args.placeholder, args.ph_as_text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange, args.dialog, args.frame, args.z_index, args.text_size)
 }
 
 pub fn (mut app Window) textarea ( args Widget ){ //dialog support not done
@@ -53,19 +53,19 @@ pub fn (mut app Window) textarea ( args Widget ){ //dialog support not done
 }
 
 pub fn (mut app Window) password ( args Widget ){
-	add_password (mut app, args.text, args.hider_char, args.id, args.placeholder, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange, args.dialog, args.frame, args.z_index)
+	add_password (mut app, args.text, args.hider_char, args.id, args.placeholder, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange, args.dialog, args.frame, args.z_index, args.text_size)
 }
 
 pub fn (mut app Window) checkbox ( args Widget ){ //dialog support not done
-	add_checkbox(mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.checked , args.hidden, app.color_scheme[1], app.color_scheme[3], app.color_scheme[3], args.onchange, args.frame, args.z_index)
+	add_checkbox(mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.checked , args.hidden, app.color_scheme[1], app.color_scheme[3], app.color_scheme[3], args.onchange, args.frame, args.z_index, args.text_size)
 }
 
 pub fn (mut app Window) switch ( args Widget ){ //dialog support not done
-	add_switch(mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.checked , args.hidden, app.color_scheme[1], app.color_scheme[3], app.color_scheme[3], args.onchange, args.frame, args.z_index)
+	add_switch(mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.checked , args.hidden, app.color_scheme[1], app.color_scheme[3], app.color_scheme[3], args.onchange, args.frame, args.z_index, args.text_size)
 }
 
 pub fn (mut app Window) radio ( args Widget ){ //dialog support not done
-	add_radio(mut app, args.list, args.id, args.x, args.y, args.height, args.selected , args.hidden, app.color_scheme[1], app.color_scheme[3], app.color_scheme[3], args.onchange, args.frame, args.z_index)
+	add_radio(mut app, args.list, args.id, args.x, args.y, args.height, args.selected , args.hidden, app.color_scheme[1], app.color_scheme[3], app.color_scheme[3], args.onchange, args.frame, args.z_index, args.text_size)
 }
 
 pub fn (mut app Window) selectbox ( args Widget ){ //dialog support not done

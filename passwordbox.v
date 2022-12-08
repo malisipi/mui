@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_password(mut app &Window, text string, hider_char string, id string, placeholder string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, dialog bool, frame string, zindex int){
+pub fn add_password(mut app &Window, text string, hider_char string, id string, placeholder string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, dialog bool, frame string, zindex int, tSize int){
     widget:={
         "type": WindowData{str:"password"},
         "id":   WindowData{str:id},
@@ -24,7 +24,8 @@ pub fn add_password(mut app &Window, text string, hider_char string, id string, 
         "bfg":  WindowData{clr:bfg},
         "fg":   WindowData{clr:fg},
         "hc":	WindowData{str:hider_char},
-        "fnchg":WindowData{fun:fnchg}
+        "fnchg":WindowData{fun:fnchg},
+        "tSize":WindowData{num:tSize}
     }
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
@@ -47,14 +48,14 @@ fn draw_password(app &Window, object map[string]WindowData){
 		if app.focus!=object["id"].str{
 			app.gg.draw_text(object["x"].num+4, object["y"].num+object["h"].num/2, hidden_text.replace("\0",""), gx.TextCfg{
 				color: object["fg"].clr
-				size: 20
+				size: object["tSize"].num
 				align: .left
 				vertical_align: .middle
 			})
 		} else {
 			app.gg.draw_text(object["x"].num+4, object["y"].num+object["h"].num/2, hidden_text.replace("\0",text_cursor), gx.TextCfg{
 				color: object["fg"].clr
-				size: 20
+				size: object["tSize"].num
 				align: .left
 				vertical_align: .middle
 			})
@@ -63,7 +64,7 @@ fn draw_password(app &Window, object map[string]WindowData){
 		if object["text"].str.len<2{
 			app.gg.draw_text(object["x"].num+4, object["y"].num+object["h"].num/2, "  "+object["ph"].str, gx.TextCfg{
 				color: object["bg"].clr
-				size: 20
+				size: object["tSize"].num
 				align: .left
 				vertical_align: .middle
 			})

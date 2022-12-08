@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_switch(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int){
+pub fn add_switch(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int, tSize int){
     app.objects << {
         "type": WindowData{str:"switch"},
         "id":   WindowData{str:id},
@@ -21,9 +21,10 @@ pub fn add_switch(mut app &Window, text string, id string, x IntOrString, y IntO
         "bg":   WindowData{clr:bg},
         "bfg":	WindowData{clr:bfg},
         "fg":   WindowData{clr:fg},
-        "c":	WindowData{bol:checked}
-        "hi":	WindowData{bol:hi}
-        "fnchg":WindowData{fun:fnchg}
+        "c":	WindowData{bol:checked},
+        "hi":	WindowData{bol:hi},
+        "fnchg":WindowData{fun:fnchg},
+        "tSize":WindowData{num:tSize}
     }
 }
 
