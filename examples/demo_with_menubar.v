@@ -37,7 +37,12 @@ mut app:=m.create(m.WindowConfig{ title:"MUI Demo",
 			{"text":m.WindowData{str:"About"}, "fn": m.WindowData{fun:about_dialog}},
 			{"text":m.WindowData{str:"About MUI"}, "fn": m.WindowData{fun:m.about_dialog}}
 		]}},
-	] })
+	], menubar_config: m.MenubarConfig{
+		width: 100,
+		sub_width: 120,
+		height: 30,
+		text_size: 24
+	}})
 
 app.rect(m.Widget{ id:"back", x:"# 0", y:"# 0", width:"100%x -300", height:"100%y", background:app.color_scheme[1] })
 

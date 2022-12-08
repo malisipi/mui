@@ -27,10 +27,10 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 				}
 			}else if app.focus.starts_with("@menubar#") {
 				selected_item:=app.focus.replace("@menubar#","").int()
-				if x>=menubar_width*selected_item && x<=menubar_width*selected_item+menubar_sub_width {
+				if x>=app.menubar_config.width*selected_item && x<=app.menubar_config.width*selected_item+app.menubar_config.sub_width {
 					menubar_sub_items_len:=app.menubar[selected_item]["items"].lst.len
-					if y>=menubar_height && y<=menubar_height*(menubar_sub_items_len+1){
-						app.menubar[selected_item]["items"].lst[int(y-menubar_height)/menubar_height]["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",value:"true",target_type:"menubar",target_id:"menubar"},mut app, mut app.app_data)
+					if y>=app.menubar_config.height && y<=app.menubar_config.height*(menubar_sub_items_len+1){
+						app.menubar[selected_item]["items"].lst[int(y-app.menubar_config.height)/app.menubar_config.height]["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",value:"true",target_type:"menubar",target_id:"menubar"},mut app, mut app.app_data)
 					}
 				}
 				app.focus=""
@@ -40,10 +40,10 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 		}
 		app.focus=""
 
-		if app.active_dialog=="" && y<=menubar_height && app.menubar!=[]map["string"]WindowData{}{
+		if app.active_dialog=="" && y<=app.menubar_config.height && app.menubar!=[]map["string"]WindowData{}{
 			menu_items:=app.menubar.len
-			if x<menu_items*menubar_width{
-				app.focus="@menubar#"+(x/menubar_width).str()
+			if x<menu_items*app.menubar_config.width{
+				app.focus="@menubar#"+(x/app.menubar_config.width).str()
 				return
 			}
 		}

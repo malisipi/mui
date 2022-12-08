@@ -63,6 +63,7 @@ pub mut:
 	quit_fn			OnEvent							= empty_fn
 	resized_fn		OnEvent							= empty_fn
 	background		[]int							= [-1,-1,-1]
+	menubar_config	MenubarConfig
 }
 
 pub struct EventDetails{
@@ -99,7 +100,18 @@ pub mut:
     dialog_objects		[]map[string]WindowData // for dialogs
     custom_widgets		[]CustomWidget
 	keybindings			map[string]WindowData 	= map[string]WindowData{}
+	menubar_config		MenubarConfig
 }
+
+pub struct MenubarConfig {
+pub mut:
+	//for each box
+	height			int				= 25
+	sub_width		int				= 160
+	width			int				= 80
+	text_size		int				= 20
+}
+
 
 pub struct Widget {
 pub:

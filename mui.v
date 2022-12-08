@@ -15,7 +15,7 @@ pub fn create(args &WindowConfig)	 &Window{
         scrollbar: args.scrollbar
         x_offset: 0 + args.x_offset
         xn_offset: if args.scrollbar { scrollbar_size } else { 0 } + args.xn_offset
-        y_offset: if args.menubar!=[]map["string"]WindowData{} { menubar_height } else { 0 } + args.y_offset
+        y_offset: if args.menubar!=[]map["string"]WindowData{} { args.menubar_config.height } else { 0 } + args.y_offset
         yn_offset: if args.scrollbar { scrollbar_size } else { 0 } + args.yn_offset
         app_data: args.app_data
         screen_reader: if args.screen_reader { check_screen_reader() } else { false }
@@ -23,6 +23,7 @@ pub fn create(args &WindowConfig)	 &Window{
         ask_quit: args.ask_quit
         quit_fn: args.quit_fn
 		resized_fn: args.resized_fn
+		menubar_config: args.menubar_config
     }
 
     mut emoji_font:=args.font
