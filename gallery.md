@@ -1,14 +1,12 @@
 # Gallery
 
-|Operating System |Screenshots                                     |
-|-----------------|------------------------------------------------|
-| Windows 10      |![Windows](./pictures/windows.png "Windows 10") |
-| Windows 7       |![Windows7](./pictures/windows7.png "Windows 7")|
-| Linux (Arch)    |![Linux](./pictures/linux.png "Linux")          |
-| Linux (Ubuntu)  |![Ubuntu](./pictures/ubuntu.png "Ubuntu")       |
-| Wine            |![Wine](./pictures/wine.png "Wine")             |
-| Web (Emscripten)|![Web](./pictures/web.png "Web")                |
-| Android         |![Android](./pictures/android.png "Android")    |
+|Operating System |Screenshots                                     |Operating System |Screenshots                                     |
+|-----------------|------------------------------------------------|-----------------|------------------------------------------------|
+| Windows 10      |![Windows](./pictures/windows.png "Windows 10") | Windows 7       |![Windows7](./pictures/windows7.png "Windows 7")|
+| Linux (Arch)    |![Linux](./pictures/linux.png "Linux")          | Linux (Ubuntu)  |![Ubuntu](./pictures/ubuntu.png "Ubuntu")       |
+| WSL (WSLG)      |![WSLG](./pictures/wslg.png "WSLG")             | WSL (VcXsrv)    |![VcXsrv](./pictures/vcxsrv.png "VcXsrv")       |
+| Web (Emscripten)|![Web](./pictures/web.png "Web")                | Wine            |![Wine](./pictures/wine.png "Wine")             |
+| Android         |![Android](./pictures/android.png "Android")    |                 |                                                |
 
 ## Real World Examples
 

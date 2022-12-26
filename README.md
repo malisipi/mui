@@ -96,6 +96,7 @@ app.run()
     * Column Chart
     * Gauge chart
     * Split View
+    * Grid View
 * Themes:
     * Custom Colors for Widgets (except Themes)
     * Handle Appearance Preferences (like Background Color, Text Color)
@@ -108,6 +109,7 @@ app.run()
     * Load UI from External XML/JSON File
     * Improve Documentation
     * GUI Builder
+    * Support Other languages except V like Python and C
 
 ## Installation
 
