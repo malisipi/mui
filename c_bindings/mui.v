@@ -1,6 +1,3 @@
-//v -shared -cc gcc mui.v -o mui.so
-//v -shared -cc gcc mui.v -cflags "-Os -fdata-sections -ffunction-sections -Wl,--gc-sections -Wl,-O1 -Wl,--as-needed -Wl,--strip-all" -d no_emoji -gc none -skip-unused -o mui.so
-//gcc test.c mui.so -Wl,-rpath=$(pwd) -o test.app
 import malisipi.mui
 import json
 
