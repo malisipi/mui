@@ -4,8 +4,8 @@ import json
 
 struct AppData {
 mut:
-	web		webview.Webview_t
-	wv_state	int
+	web			webview.Webview_t
+	wv_state	bool
 }
 
 fn call_v(seq &char, req &char, mut app_data &AppData) {
@@ -28,11 +28,11 @@ fn webview_runner(mut app_data AppData){
 	app_data.web.init("alert('This code will work at the initialization of the new page');")
 	app_data.web.run()
 	app_data.web.destroy()
-	app_data.wv_state=2
+	app_data.wv_state=false
 }
 
 fn eval_code(event_details m.EventDetails,mut app &m.Window, mut app_data AppData){
-	if app_data.wv_state==1 {
+	if app_data.wv_state {
 		app_data.web.eval("alert('The location was visited: '+location.href);")
 	} else {
 		m.messagebox("Heyyy!", "You should start webview before", "ok", "warning")
@@ -40,8 +40,8 @@ fn eval_code(event_details m.EventDetails,mut app &m.Window, mut app_data AppDat
 }
 
 fn start_webview(event_details m.EventDetails,mut app &m.Window, mut app_data AppData){
-	if app_data.wv_state==0 {
-		app_data.wv_state=1
+	if app_data.wv_state==false {
+		app_data.wv_state=true
 		go webview_runner(mut &app_data)
 	} else {
 		m.messagebox("Heyyy!", "Multiple webview is not possible for now", "ok", "warning")

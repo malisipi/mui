@@ -45,20 +45,20 @@ pub mut:
 pub struct WindowConfig {
 pub mut:
 	title			string							//= ""
-	width			int								= 800
-	height			int								= 600
+	width			int							= 800
+	height			int							= 600
 	font			string							= os_font
-    app_data		voidptr
-    screen_reader	bool							= true
-    menubar			[]map[string]WindowData			= []map[string]WindowData{}
-    x_offset		int								//=0
-	y_offset		int								//=0
-	xn_offset		int								//=0
-	yn_offset		int								//=0
+	app_data		voidptr
+	screen_reader		bool							= true
+	menubar			[]map[string]WindowData					= []map[string]WindowData{}
+	x_offset		int							//=0
+	y_offset		int							//=0
+	xn_offset		int							//=0
+	yn_offset		int							//=0
 	color			[]int							= [-1,-1,-1]
 	scrollbar		bool							//= false
 	view_area		[]int							= [-1,-1]
-	file_handler	OnEvent							= empty_fn
+	file_handler	OnEvent								= empty_fn
 	ask_quit		bool							//= false
 	quit_fn			OnEvent							= empty_fn
 	resized_fn		OnEvent							= empty_fn
@@ -77,30 +77,30 @@ pub mut:
 
 pub struct Window {
 pub mut:
-    objects     		[]map[string]WindowData
-    focus       		string
-    color_scheme		[]gx.Color
-    app_data			voidptr
-    gg          		&gg.Context
-    screen_reader		bool
-    menubar				[]map[string]WindowData
-    x_offset			int
+	objects     			[]map[string]WindowData
+	focus       			string
+	color_scheme			[]gx.Color
+	app_data			voidptr
+	gg          			&gg.Context
+	screen_reader			bool
+	menubar				[]map[string]WindowData
+	x_offset			int
 	y_offset			int
 	xn_offset			int
 	yn_offset			int
 	scrollbar			bool
 	scroll_x			int
 	scroll_y			int
-	file_handler		OnEvent
+	file_handler			OnEvent
 	ask_quit			bool
 	quit_fn				OnEvent
 	resized_fn			OnEvent
-	active_dialog		string			//= "" //messagebox, input, password, progress, color, date, notification, openfile, savefile, openfolder, custom
-	dialog_answer		string					= dialogs_null_answer
-    dialog_objects		[]map[string]WindowData // for dialogs
-    custom_widgets		[]CustomWidget
+	active_dialog			string			//= "" //messagebox, input, password, progress, color, date, notification, openfile, savefile, openfolder, custom
+	dialog_answer			string					= dialogs_null_answer
+	dialog_objects			[]map[string]WindowData // for dialogs
+	custom_widgets			[]CustomWidget
 	keybindings			map[string]WindowData 	= map[string]WindowData{}
-	menubar_config		MenubarConfig
+	menubar_config			MenubarConfig
 }
 
 pub struct MenubarConfig {
@@ -114,7 +114,7 @@ pub mut:
 
 
 pub struct Widget {
-pub:
+pub mut:
 	hidden			bool			//= false									//hi
 	path			string			//= ""										//- => image
 	text			string			//= ""										//text

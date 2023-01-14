@@ -14,3 +14,4 @@ examples/*.c
 examples/*.dll
 examples/*/*.dll
 examples/*/*/*.dll
+c_bindings/*.dll

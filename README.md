@@ -1,4 +1,4 @@
-# ![MUI](./pictures/MUI.png "MUI") - A Cross-Platform UI Library _for V_
+# ![MUI](./pictures/MUI.png "MUI") - A Cross-Platform UI Library _for V & C_
 
 ![MUI Demo](./pictures/MUI_Demo.gif "MUI Demo")
 
@@ -33,6 +33,7 @@ app.run()
 
 ## Abilities
 
+* C Bindings (Desktop Only & Experimental)
 * Theme from system accent color, _If couldn't found accent color, use dark/light theme preference. If couldn't found dark/light theme preference, choose light theme_
 ![Themes](./pictures/Themes.png "Themes")
 * [Webview Window](#how-to-compile-programs-that-use-malisipimuiwebview)
@@ -150,10 +151,7 @@ How to compile demo.v with emscripten:
 * For Windows
     * Requirenments:
         * GCC (need to be inside Path) 
-        * [Windows 10 SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) (Also you can use Windows 11 SDK)
         * [Microsoft Edge Webview2 Runtime](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) (Pre-installed in latest Windows 10 and Windows 11)
-        * And some patience :')
-    * `set W10_SDK=`<sdk_path> (ex. `C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\`)
     * `%USERPROFILE%\.vmodules\malisipi\mui\webview> build_webview_for_windows.cmd`
     * `X:\path\to\example> copy "%USERPROFILE%\.vmodules\malisipi\mui\webview\webview2\runtimes\win-`<win_arch>`\native\WebView2Loader.dll"` `"X:\path\to\example"`
     * `X:\path\to\example> v -cc gcc example.v`
@@ -164,7 +162,6 @@ How to compile demo.v with emscripten:
         * `libgtk-3-dev` and `libwebkit2gtk-4.0-dev` package (on Debian-based systems)
     * `[~/.vmodules/malisipi/mui/webview/]$ ./build_webview_for_linux.sh`
     * You're ready to go!
-    
 
 ## Known Bugs
 
