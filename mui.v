@@ -4,12 +4,15 @@ import gg
 import gx
 import os
 import sokol.sapp
+import malisipi.mui.window as mui_window
 
 pub fn create(args &WindowConfig)	 &Window{
+	color_scheme, light_mode := if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
     mut app := &Window{
         objects: []
         focus: ""
-        color_scheme: if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
+        color_scheme: color_scheme
+		light_mode: light_mode
         gg: 0
         menubar: args.menubar
         scrollbar: args.scrollbar
@@ -50,6 +53,7 @@ pub fn create(args &WindowConfig)	 &Window{
 		window_title: window_title
 		move_fn: move_fn
 		unclick_fn: unclick_fn
+		init_fn: init_fn
 		resized_fn: resized_fn
 		scroll_fn: scroll_fn
 		event_fn: event_fn
@@ -170,6 +174,13 @@ fn frame_fn(app &Window) {
 			draw_menubar(mut app, real_size)
 		}
 		app.gg.end()
+	}
+}
+
+fn init_fn(app &Window){
+	println(app.light_mode)
+	if !app.light_mode {
+		mui_window.prefer_dark_titlebar(sapp.win32_get_hwnd())
 	}
 }
 

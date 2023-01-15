@@ -15,6 +15,12 @@ pub fn prefer_x11(){ // only linux (if display server is wayland, try to use x11
 	}
 }
 
+pub fn prefer_dark_titlebar(window voidptr){ // only windows
+	$if windows {
+		C.prefer_dark_titlebar(window)
+	}
+}
+
 pub fn hide(window voidptr){
 	$if linux {
 		C.gtk_widget_hide(window)
