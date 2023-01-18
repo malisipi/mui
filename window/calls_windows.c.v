@@ -7,4 +7,4 @@ fn C.FreeConsole()
 fn C.AllocConsole()
 fn C.GetConsoleWindow() voidptr
 fn C.ShowWindow(voidptr, bool)
-fn C.prefer_dark_titlebar(voidptr)
+fn C.prefer_dark_titlebar(voidptr, bool)

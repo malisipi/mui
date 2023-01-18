@@ -1,12 +1,14 @@
 import malisipi.mui as m
 import malisipi.mui.window as w
-import sokol.sapp
+import time
 
-[unsafe]
 fn add_user(event_details m.EventDetails, mut app &m.Window, mut app_data voidptr){
-	$if windows {
-		w.prefer_dark_titlebar(sapp.win32_get_hwnd())
+	async_fn := fn [mut app] (){
+		w.prefer_dark_titlebar(app.window_handle(), true)
+		time.sleep(time.second * 2)
+		w.prefer_dark_titlebar(app.window_handle(), false)
 	}
+	go async_fn()
 }
 
 mut app:=m.create(title: "Dark Titlebar")
