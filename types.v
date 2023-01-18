@@ -61,6 +61,7 @@ pub mut:
 	file_handler	OnEvent								= empty_fn
 	ask_quit		bool							//= false
 	quit_fn			OnEvent							= empty_fn
+	init_fn			OnEvent							= empty_fn
 	resized_fn		OnEvent							= empty_fn
 	background		[]int							= [-1,-1,-1]
 	menubar_config	MenubarConfig
@@ -80,6 +81,7 @@ pub mut:
 	objects     			[]map[string]WindowData
 	focus       			string
 	color_scheme			[]gx.Color
+	light_mode			bool
 	app_data			voidptr
 	gg          			&gg.Context
 	screen_reader			bool
@@ -94,6 +96,7 @@ pub mut:
 	file_handler			OnEvent
 	ask_quit			bool
 	quit_fn				OnEvent
+	init_fn				OnEvent
 	resized_fn			OnEvent
 	active_dialog			string			//= "" //messagebox, input, password, progress, color, date, notification, openfile, savefile, openfolder, custom
 	dialog_answer			string					= dialogs_null_answer

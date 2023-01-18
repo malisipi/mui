@@ -73,10 +73,10 @@ fn theme_accent_color() []int{
 
 }
 
-fn create_color_scheme_from_accent_color(accent_color []int) [][]int {
-	mut font_color:=[0,0,0]
+fn create_color_scheme_from_accent_color(accent_color []int) ([][]int, bool) {
+	mut font_color:=[0, 0, 0]
 	if accent_color[0]+accent_color[1]+accent_color[2]/3<255*3/2 {
-		font_color=[255,255,255]
+		font_color=[255, 255, 255]
 	}
 
 	return [
@@ -84,10 +84,10 @@ fn create_color_scheme_from_accent_color(accent_color []int) [][]int {
 		accent_color,
 		[accent_color[0]*5/3,accent_color[1]*5/3,accent_color[2]*5/3]
 		font_color
-	]
+	], font_color == [0, 0, 0]
 }
 
-fn create_color_scheme() [][]int{
+fn create_color_scheme() ([][]int, bool) {
 	accent_color:=theme_accent_color()
 
 	if accent_color!=[-1,-1,-1] {
@@ -102,8 +102,8 @@ fn create_color_scheme() [][]int{
 	return create_color_scheme_from_accent_color(theme_dark)
 }
 
-fn create_gx_color_from_color_scheme() []gx.Color{
-	color_scheme:=create_color_scheme()
+fn create_gx_color_from_color_scheme() ([]gx.Color, bool) {
+	color_scheme, is_light_theme_mode:=create_color_scheme()
 	mut gx_colors:=[]gx.Color{}
 	for color in color_scheme {
 		gx_colors << gx.Color{
@@ -111,11 +111,11 @@ fn create_gx_color_from_color_scheme() []gx.Color{
 			g:u8(math.max(math.min(color[1],255),0)),
 			b:u8(math.max(math.min(color[2],255),0))}
 	}
-	return gx_colors
+	return gx_colors, is_light_theme_mode
 }
 
-fn create_gx_color_from_manuel_color(the_color []int) []gx.Color{
-	color_scheme:=create_color_scheme_from_accent_color(the_color)
+fn create_gx_color_from_manuel_color(the_color []int) ([]gx.Color, bool){
+	color_scheme, is_light_theme_mode:=create_color_scheme_from_accent_color(the_color)
 	mut gx_colors:=[]gx.Color{}
 	for color in color_scheme {
 		gx_colors << gx.Color{
@@ -123,5 +123,5 @@ fn create_gx_color_from_manuel_color(the_color []int) []gx.Color{
 			g:u8(math.max(math.min(color[1],255),0)),
 			b:u8(math.max(math.min(color[2],255),0))}
 	}
-	return gx_colors
+	return gx_colors, is_light_theme_mode
 }

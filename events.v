@@ -279,6 +279,10 @@ fn event_fn(event &gg.Event, mut app &Window){
 	}
 }
 
+fn init_fn(mut app &Window){
+	app.init_fn(EventDetails{event:"init",trigger:"init",value:"true"},mut app, mut app.app_data)
+}
+
 [unsafe]
 fn scroll_fn(event &gg.Event, mut app &Window){
 	unsafe{
