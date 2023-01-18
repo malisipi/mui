@@ -32,7 +32,7 @@ fn mui_change_object_property(mut window &mui.Window, id &char, pconf &char){
 	}
 }
 
-fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEvent){
+fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEvent, onchg mui.OnEvent, onucl mui.OnEvent){
 	unsafe {
 		jconf := json.decode(map[string]IntString, pconf.vstring()) or {println("Crashed -> json") exit(0)}
 		mut wconf := mui.Widget{}
@@ -44,12 +44,16 @@ fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEve
 		if jconf["height"].type_name() == "string" { wconf.height = jconf["height"] as string }
 		if jconf["text"].type_name() == "string" { wconf.text = jconf["text"] as string }
 		wconf.onclick = onclk
+		wconf.onchange = onchg
+		wconf.onunclick = onucl
 
 		match _type {
 			"button" {
 				window.button(wconf)
 			} "label" {
 				window.label(wconf)
+			} "textbox" {
+				window.textbox(wconf)
 			} else {
 				println(":: Invalid/Unsupported widget type")
 			}
@@ -60,12 +64,37 @@ fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEve
 
 [export: "mui_button"]
 fn mui_button(mut window &mui.Window, pconf &char, onclk mui.OnEvent){
-	mui_widget("button", mut window, pconf, onclk)
+	mui_widget("button", mut window, pconf, onclk, mui.empty_fn, mui.empty_fn)
 }
 
 [export: "mui_label"]
-fn mui_label(mut window &mui.Window, pconf &char){
-	mui_widget("label", mut window, pconf, mui.empty_fn)
+fn mui_label(mut window &mui.Window, pconf &char, onclk mui.OnEvent){
+	mui_widget("label", mut window, pconf, onclk, mui.empty_fn, mui.empty_fn)
+}
+
+[export: "mui_textbox"]
+fn mui_textbox(mut window &mui.Window, pconf &char, onchg mui.OnEvent){
+	mui_widget("textbox", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn)
+}
+
+pub struct ParsedEventDetails{
+pub mut:
+	event			&char		// click, value_change, unclick, keypress, files_drop, resize
+	trigger			&char		// mouse_left, mouse_right, mouse_middle, keyboard
+	value			&char		= c"true"
+	target_type		&char		= c"window" //window, menubar, and widget_types
+	target_id		&char		= c""
+}
+
+[export: "mui_parse_event_details"]
+fn mui_parse_event_details(event_details mui.EventDetails) ParsedEventDetails {
+	return ParsedEventDetails {
+		event: &char(event_details.event.str)
+		trigger: &char(event_details.trigger.str)
+		value: &char(event_details.value.str)
+		target_type: &char(event_details.target_type.str)
+		target_id: &char(event_details.target_id.str)
+	}
 }
 
 [export: "mui_run"]
