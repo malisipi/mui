@@ -80,7 +80,6 @@ pub mut:
 	objects     			[]map[string]WindowData
 	focus       			string
 	color_scheme			[]gx.Color
-	light_mode				bool
 	app_data			voidptr
 	gg          			&gg.Context
 	screen_reader			bool
