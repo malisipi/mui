@@ -101,3 +101,38 @@ fn mui_parse_event_details(event_details mui.EventDetails) ParsedEventDetails {
 fn mui_run(mut window &mui.Window){
 	window.run()
 }
+
+[export: "mui_messagebox"]
+fn mui_messagebox(title &char, message &char, _type &char, icon &char) int {
+	unsafe {
+		return mui.messagebox(
+			title.vstring(),
+			message.vstring(),
+			_type.vstring(),
+			icon.vstring()
+		)
+	}
+	return 0
+}
+
+[export: "mui_inputbox"]
+fn mui_inputbox(title &char, text &char, default_text &char) &char {
+	unsafe {
+		return &char(mui.inputbox(
+			title.vstring(),
+			text.vstring(),
+			default_text.vstring()
+		).str)
+	}
+	return c""
+}
+
+[export: "mui_beep"]
+fn mui_beep(){
+	mui.beep()
+}
+
+[export: "mui_destroy"]
+fn mui_destroy(mut window &mui.Window){
+	window.destroy()
+}
