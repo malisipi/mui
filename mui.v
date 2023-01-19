@@ -6,10 +6,12 @@ import os
 import sokol.sapp
 
 pub fn create(args &WindowConfig)	 &Window{
+    color_scheme, light_mode := if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
     mut app := &Window{
         objects: []
         focus: ""
-        color_scheme: if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
+        color_scheme: color_scheme
+	light_mode: light_mode
         gg: 0
         menubar: args.menubar
         scrollbar: args.scrollbar
@@ -21,6 +23,7 @@ pub fn create(args &WindowConfig)	 &Window{
         screen_reader: if args.screen_reader { check_screen_reader() } else { false }
         file_handler: args.file_handler
         ask_quit: args.ask_quit
+        init_fn: args.init_fn
         quit_fn: args.quit_fn
 		resized_fn: args.resized_fn
 		menubar_config: args.menubar_config
@@ -50,6 +53,7 @@ pub fn create(args &WindowConfig)	 &Window{
 		window_title: window_title
 		move_fn: move_fn
 		unclick_fn: unclick_fn
+		init_fn: init_fn
 		resized_fn: resized_fn
 		scroll_fn: scroll_fn
 		event_fn: event_fn
