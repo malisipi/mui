@@ -186,6 +186,10 @@ pub fn (mut app Window) destroy () {
 	sapp.quit()
 }
 
+pub fn (mut app Window) set_title (title string) {
+	C.sapp_set_window_title(&char(title.str))
+}
+
 pub fn (mut app Window) enable_scrollbar (enable_scrollbar bool) {
 	if !(app.scrollbar==enable_scrollbar) {
 		if enable_scrollbar {
