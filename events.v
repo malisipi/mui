@@ -355,7 +355,7 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 						} else {
 							object["text"]=WindowData{str:the_text_part1+"\0"+the_text_part2.runes()#[1..].string()}
 						}
-						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["text"].str},mut app, mut app.app_data)
+						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["text"].str.replace("\0","")},mut app, mut app.app_data)
 					} else if key=="right" || key.to_lower()=="left"{
 						the_text:=object["text"].str
 						the_text_part1,the_text_part2:=the_text.split("\0")[0].runes(),the_text.split("\0")[1].runes()
@@ -383,7 +383,7 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 						} else {
 							object["text"]=WindowData{str:the_text_part1+"\0"+the_text_part2.runes()#[1..].string()}
 						}
-						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["text"].str},mut app, mut app.app_data)
+						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["text"].str.replace("\0","")},mut app, mut app.app_data)
 					} else if key=="right" || key=="left"{
 						the_text:=object["text"].str
 						the_text_part1,the_text_part2:=the_text.split("\0")[0].runes(),the_text.split("\0")[1].runes()
