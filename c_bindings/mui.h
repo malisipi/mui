@@ -15,6 +15,7 @@ typedef struct mui_window mui_window;
 typedef struct mui_event_details mui_event_details;
 typedef struct mui_parsed_event_details mui_parsed_event_details;
 typedef struct v_string v_string;
+typedef struct mui_object mui_object;
 
 struct v_string {
   int* str;
@@ -39,25 +40,27 @@ struct mui_parsed_event_details {
 };
 
 struct mui_window {};
+struct mui_object {};
 
 void mui_init(int argc, char** argv);
-mui_window* mui_create(char* config);
+mui_window* mui_create(char* config, void**);
 void mui_button(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
 void mui_label(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
 void mui_textbox(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
+void mui_password(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
 void mui_run(mui_window* window);
-void mui_change_object_property(mui_window* window, char* id, char* config);
+void mui_change_object_property(mui_window* window, struct mui_object* object, char* config);
 struct mui_parsed_event_details mui_parse_event_details(mui_event_details);
 void mui_empty_fn(mui_event_details details, mui_window* window, void** app_data){}
 void mui_destroy(mui_window* window);
 int mui_messagebox(char* title, char* message, char* typ, char* icon);
 void mui_beep();
 char* mui_inputbox(char* title, char* text, char* default_text);
+struct mui_object* mui_get_object_by_id(mui_window* window, char* id);
 
 /*
 ### Not Implemented Yet ###
 
-void mui_get_object_by_id();
 void mui_sort_widgets_with_zindex();
 void mui_notifypopup();
 void mui_openfiledialog();
