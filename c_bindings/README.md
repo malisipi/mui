@@ -3,7 +3,7 @@
 Compile For Linux:
 ```bash
 v -shared -cc gcc mui.v -o mui.so
-gcc test.c mui.so -Wl,-rpath=$(pwd) -o test.app
+gcc test.c mui.so -Wl,-rpath=. -o test.app
 ```
 
 Compile For Windows:
