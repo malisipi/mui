@@ -157,7 +157,9 @@ fn frame_fn(app &Window) {
 							draw_map(app, object)
 						}"scrollbar"{
 							draw_scrollbar(app, object)
-						}else {
+						}"list"{
+							draw_list(app, object)
+						} else {
 							for widget in app.custom_widgets{
 								if object["type"].str==widget.typ{
 									widget.draw_fn(app, object)
