@@ -17,11 +17,11 @@ pub fn (mut app Window) area_graph ( args Widget ){ //dialog support not done
 }
 
 pub fn (mut app Window) table ( args Widget ){ //dialog support not done
-	add_table (mut app, args.table, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[0], app.color_scheme[2], app.color_scheme[3], args.frame, args.z_index)
+	add_table (mut app, args.table, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[0], app.color_scheme[2], app.color_scheme[3], args.frame, args.z_index, args.text_size)
 }
 
 pub fn (mut app Window) list ( args Widget ){ //dialog support not done
-	add_list (mut app, args.table, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[0], app.color_scheme[2], app.color_scheme[3], args.frame, args.z_index, args.onchange, args.selected)
+	add_list (mut app, args.table, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[0], app.color_scheme[2], app.color_scheme[3], args.frame, args.z_index, args.onchange, args.selected, args.text_size)
 }
 
 pub fn (mut app Window) group ( args Widget ){ //dialog support not done
@@ -45,7 +45,7 @@ pub fn (mut app Window) map ( args Widget ){ //dialog support not done
 }
 
 pub fn (mut app Window) progress ( args Widget ){
-	add_progress (mut app, args.percent, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[2],  app.color_scheme[3], args.dialog, args.frame, args.z_index)
+	add_progress (mut app, args.percent, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[2],  app.color_scheme[3], args.dialog, args.frame, args.z_index, args.text_size)
 }
 
 pub fn (mut app Window) textbox ( args Widget ){
@@ -81,7 +81,7 @@ pub fn (mut app Window) selectbox ( args Widget ){ //dialog support not done
 }
 
 pub fn (mut app Window) slider ( args Widget ){
-	add_slider(mut app, args.value, args.value_min, args.value_max, args.step, args.id, args.x, args.y, args.width, args.height, args.vertical, args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onclick, args.onchange, args.onunclick, args.value_map, args.dialog, args.frame, args.z_index)
+	add_slider(mut app, args.value, args.value_min, args.value_max, args.step, args.id, args.x, args.y, args.width, args.height, args.vertical, args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onclick, args.onchange, args.onunclick, args.value_map, args.dialog, args.frame, args.z_index, args.text_size)
 }
 
 pub fn (mut app Window) scrollbar ( args Widget ){ //dialog support not done
@@ -92,7 +92,6 @@ pub fn (mut app Window) link ( args Widget ){ //dialog support not done
 	add_link (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, args.link_underline, args.link, app.color_scheme[3], args.onclick, args.frame, args.z_index)
 }
 
-[unsafe]
 pub fn (mut app Window) tab_view ( args Widget ){
 	unsafe {
 		add_tabbed_view (mut app, args.id, args.tabs, args.hidden, args.x, args.y, args.width, args.height, args.frame, args.z_index, args.active_tab)

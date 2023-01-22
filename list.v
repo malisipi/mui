@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_list(mut app &Window, table [][]string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int, fnchg OnEvent, selected int){
+pub fn add_list(mut app &Window, table [][]string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int, fnchg OnEvent, selected int, tSize int){
     app.objects << {
         "type": WindowData{str:"list"},
 	"table":WindowData{tbl:table},
@@ -24,13 +24,13 @@ pub fn add_list(mut app &Window, table [][]string, id string, x IntOrString, y I
         "s":	WindowData{num:selected},
         "fg":   WindowData{clr:fg},
         "fnchg":WindowData{fun:fnchg},
+        "tSize":WindowData{num:tSize}
     }
 }
 
 [unsafe]
 fn draw_list(app &Window, object map[string]WindowData){
 	unsafe{
-
 		table:=object["table"].tbl
 		table_y:=table.len
 		table_x:=table[0].len
@@ -45,7 +45,7 @@ fn draw_list(app &Window, object map[string]WindowData){
 				app.gg.draw_rect_empty(object["x"].num+per_cell[0]*wx, object["y"].num+per_cell[1]*wy, per_cell[0], per_cell[1], object["bfg"].clr)
 				app.gg.draw_text(object["x"].num+per_cell[0]*wx+per_cell[0]/2, object["y"].num+per_cell[1]*wy+per_cell[1]/2, x_, gx.TextCfg{
 					color: object["fg"].clr
-					size: 20
+					size: object["tSize"].num
 					align: .center
 					vertical_align: .middle
 				})
