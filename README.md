@@ -63,6 +63,7 @@ app.run()
     * Scrollbar (Verical & Horizontal)
     * Frames & Nested-Frames
     * List View
+    * Spinner (aka UpDown)
     * Tabbed View
 * Custom/Thirdparty Widget Support (Not Finished Completely Yet)
 * Screen Reader Support (Experimental - Linux & Windows Only)
@@ -90,8 +91,6 @@ app.run()
     * New Radio Button
     * Treeview
     * Status Bar
-    * Spinner
-    * Spin Button
     * Editable Label
     * Bar Chart
     * Pie Chart

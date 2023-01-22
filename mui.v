@@ -159,6 +159,8 @@ fn frame_fn(app &Window) {
 							draw_scrollbar(app, object)
 						}"list"{
 							draw_list(app, object)
+						}"spinner"{
+							draw_spinner(app, object)
 						} else {
 							for widget in app.custom_widgets{
 								if object["type"].str==widget.typ{

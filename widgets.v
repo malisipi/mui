@@ -52,6 +52,10 @@ pub fn (mut app Window) textbox ( args Widget ){
 	add_textbox (mut app, args.text, args.id, args.placeholder, args.ph_as_text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange, args.dialog, args.frame, args.z_index, args.text_size)
 }
 
+pub fn (mut app Window) spinner ( args Widget ){
+	add_spinner (mut app, args.text, args.id, args.placeholder, args.ph_as_text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange, args.dialog, args.frame, args.z_index, args.text_size)
+}
+
 pub fn (mut app Window) textarea ( args Widget ){ //dialog support not done
 	add_textarea (mut app, args.text, args.id, args.placeholder, args.ph_as_text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[2], app.color_scheme[1], app.color_scheme[3], args.onchange, args.codefield, args.text_size, args.frame, args.z_index)
 }
