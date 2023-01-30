@@ -7,17 +7,17 @@ pub fn add_switch(mut app &Window, text string, id string, x IntOrString, y IntO
     app.objects << {
         "type": WindowData{str:"switch"},
         "id":   WindowData{str:id},
-		"in":   WindowData{str:frame},
+	"in":   WindowData{str:frame},
         "z_ind":WindowData{num:zindex},
         "text": WindowData{str:text},
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},
         "w":    WindowData{num:0},
         "h":    WindowData{num:0},
-		"x_raw":WindowData{str: match x{ int{ x.str() } string{ x } } },
-		"y_raw":WindowData{str: match y{ int{ y.str() } string{ y } } },
-		"w_raw":WindowData{str: match w{ int{ w.str() } string{ w } } },
-		"h_raw":WindowData{str: match h{ int{ h.str() } string{ h } } },
+	"x_raw":WindowData{str: match x{ int{ x.str() } string{ x } } },
+	"y_raw":WindowData{str: match y{ int{ y.str() } string{ y } } },
+	"w_raw":WindowData{str: match w{ int{ w.str() } string{ w } } },
+	"h_raw":WindowData{str: match h{ int{ h.str() } string{ h } } },
         "bg":   WindowData{clr:bg},
         "bfg":	WindowData{clr:bfg},
         "fg":   WindowData{clr:fg},
@@ -39,7 +39,7 @@ fn draw_switch(app &Window, object map[string]WindowData){
 		}
 		app.gg.draw_text(object["x"].num+object["w"].num+4, object["y"].num+object["h"].num/2, object["text"].str, gx.TextCfg{
 			color: object["fg"].clr
-			size: 20
+			size: object["tSize"].num
 			align: .left
 			vertical_align: .middle
 		})

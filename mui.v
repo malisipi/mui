@@ -157,7 +157,11 @@ fn frame_fn(app &Window) {
 							draw_map(app, object)
 						}"scrollbar"{
 							draw_scrollbar(app, object)
-						}else {
+						}"list"{
+							draw_list(app, object)
+						}"spinner"{
+							draw_spinner(app, object)
+						} else {
 							for widget in app.custom_widgets{
 								if object["type"].str==widget.typ{
 									widget.draw_fn(app, object)
@@ -184,6 +188,10 @@ pub fn (mut app Window) run () {
 
 pub fn (mut app Window) destroy () {
 	sapp.quit()
+}
+
+pub fn (mut app Window) set_title (title string) {
+	C.sapp_set_window_title(&char(title.str))
 }
 
 pub fn (mut app Window) enable_scrollbar (enable_scrollbar bool) {

@@ -98,11 +98,21 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 								} "link"{
 									object["fnclk"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:true.str()},mut app, mut app.app_data)
 									os.open_uri(object["link"].str) or {}
-								} "textbox", "password"{
+								} "textbox", "password", "spinner" {
+									if object["type"].str == "spinner" {
+										if x-object["x"].num-object["w"].num > -16 {
+											if object["h"].num / 2 > (y-object["y"].num) {
+												object["text"].str = (object["text"].str.replace("\0","").int() + 1).str()
+											} else {
+												object["text"].str = (object["text"].str.replace("\0","").int() - 1).str()
+											}
+											return
+										}
+									}
 									the_text:=object["text"].str.replace("\0","")
 									if the_text.len>0{
 										mut split_char:=0
-										if object["type"].str=="textbox"{
+										if !(object["type"].str=="password") { //textbox & spinner
 											split_char=math.min(int(math.round((x-object["x"].num)/((app.gg.text_width(the_text)+2)/the_text.runes().len))),the_text.runes().len)
 										} else {
 											split_char=math.min(int(math.round((x-object["x"].num)/((app.gg.text_width(object["hc"].str)*the_text.runes().len+2)/the_text.runes().len))),the_text.runes().len)
@@ -139,9 +149,12 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									}
 									group["s"].num=which_item
 									group["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:which_item.str()},mut app, mut app.app_data)
+								} "list" {
+									object["s"].num = int(y-object["y"].num) / int(object["height"].num / object["table"].tbl[0].len)
+									object["fnchg"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["s"].num.str()},mut app, mut app.app_data)
 								} "image", "map" {
 									object["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
-								}else {
+								} else {
 									for widget in app.custom_widgets{
 										if object["type"].str==widget.typ{
 											widget.click_fn(x, y, mut object, app)
@@ -340,8 +353,16 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 				app.focus=""
 			}
 			match object["type"].str {
-				"textbox","password" {
+				"textbox","password", "spinner" {
 					if key.runes().len<2{
+						if object["type"].str=="spinner" {
+							if !(key in ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "\b", "\1"]) {
+								return
+							}
+							object["text"].str.index("\0") or {
+								object["text"].str += "\0"
+							}
+						}
 						the_text:=object["text"].str
 						the_text_part1,the_text_part2:=the_text.split("\0")[0],the_text.split("\0")[1]
 						if key!="\b" && key!="\1" {
@@ -356,7 +377,12 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 							object["text"]=WindowData{str:the_text_part1+"\0"+the_text_part2.runes()#[1..].string()}
 						}
 						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:object["text"].str.replace("\0","")},mut app, mut app.app_data)
-					} else if key=="right" || key.to_lower()=="left"{
+					} else if key=="right" || key=="left"{
+						if object["type"].str=="spinner" {
+							object["text"].str.index("\0") or {
+								object["text"].str += "\0"
+							}
+						}
 						the_text:=object["text"].str
 						the_text_part1,the_text_part2:=the_text.split("\0")[0].runes(),the_text.split("\0")[1].runes()
 						if key.to_lower()=="right" {
@@ -365,6 +391,12 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 						} else {
 							if the_text_part1.len==0 { return }
 							object["text"]=WindowData{str:the_text_part1#[0..-1].string()+"\0"+the_text_part1[the_text_part1.len-1..the_text_part1.len].string()+the_text_part2.string()}
+						}
+					} else if (key=="down" || key=="__up") && object["type"].str=="spinner" {
+						if key == "__up" {
+							object["text"].str = (object["text"].str.replace("\0","").int() + 1).str()
+						} else {
+							object["text"].str = (object["text"].str.replace("\0","").int() - 1).str()
 						}
 					}
 				} "textarea" {

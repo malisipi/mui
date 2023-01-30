@@ -3,9 +3,9 @@ module mui
 import gg
 import gx
 
-pub fn add_table(mut app &Window, table [][]string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int, tSize int){
+pub fn add_list(mut app &Window, table [][]string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int, fnchg OnEvent, selected int, tSize int){
     app.objects << {
-        "type": WindowData{str:"table"},
+        "type": WindowData{str:"list"},
 	"table":WindowData{tbl:table},
         "id":   WindowData{str:id},
 	"in":   WindowData{str:frame},
@@ -21,21 +21,24 @@ pub fn add_table(mut app &Window, table [][]string, id string, x IntOrString, y 
         "hi":	WindowData{bol:hi},
         "bg":   WindowData{clr:bg},
         "bfg":  WindowData{clr:bfg},
+        "s":	WindowData{num:selected},
         "fg":   WindowData{clr:fg},
+        "fnchg":WindowData{fun:fnchg},
         "tSize":WindowData{num:tSize}
     }
 }
 
 [unsafe]
-fn draw_table(app &Window, object map[string]WindowData){
+fn draw_list(app &Window, object map[string]WindowData){
 	unsafe{
-
 		table:=object["table"].tbl
 		table_y:=table.len
 		table_x:=table[0].len
 		per_cell:=[object["w"].num/table_x,object["h"].num/table_y]
 
 		app.gg.draw_rect_filled(object["x"].num, object["y"].num, per_cell[0]*table_x, per_cell[1]*table_y, object["bg"].clr)
+		
+		app.gg.draw_rect_filled(object["x"].num, object["y"].num + per_cell[1] * object["s"].num, per_cell[0]*table_x, per_cell[1], object["bfg"].clr)
 
 		for wy,y_ in table{
 			for wx,x_ in y_{

@@ -11,10 +11,10 @@ fn mui_init(argc int, argv &&char){
 }
 
 [export: "mui_create"]
-fn mui_create(pconf &char) &mui.Window {
+fn mui_create(pconf &char, app_data voidptr) &mui.Window {
 	unsafe {
 		jconf := json.decode(map[string]IntString, pconf.vstring()) or {println("Crashed -> json") exit(0)}
-		mut wconf := mui.WindowConfig{}
+		mut wconf := mui.WindowConfig{app_data: app_data}
 		if jconf["title"].type_name() == "string" { wconf.title = jconf["title"] as string }
 		if jconf["width"].type_name() == "int" { wconf.width = jconf["width"] as int }
 		if jconf["height"].type_name() == "int" { wconf.height = jconf["height"] as int }
@@ -23,12 +23,12 @@ fn mui_create(pconf &char) &mui.Window {
 }
 
 [export: "mui_change_object_property"]
-fn mui_change_object_property(mut window &mui.Window, id &char, pconf &char){
+fn mui_change_object_property(mut window &mui.Window, object &map[string]mui.WindowData, pconf &char){
 	unsafe {
 		jconf := json.decode(map[string]string, pconf.vstring()) or {println("Crashed -> json") exit(0)}
 		property := jconf["property"]
 		value := jconf["value"]
-		window.get_object_by_id(id.vstring())[0][property] = mui.WindowData{str: value}
+		object[property] = mui.WindowData{str: value}
 	}
 }
 
@@ -54,6 +54,8 @@ fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEve
 				window.label(wconf)
 			} "textbox" {
 				window.textbox(wconf)
+			} "password" {
+				window.password(wconf)
 			} else {
 				println(":: Invalid/Unsupported widget type")
 			}
@@ -75,6 +77,18 @@ fn mui_label(mut window &mui.Window, pconf &char, onclk mui.OnEvent){
 [export: "mui_textbox"]
 fn mui_textbox(mut window &mui.Window, pconf &char, onchg mui.OnEvent){
 	mui_widget("textbox", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn)
+}
+
+[export: "mui_password"]
+fn mui_password(mut window &mui.Window, pconf &char, onchg mui.OnEvent){
+	mui_widget("password", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn)
+}
+
+[export: "mui_get_object_by_id"]
+fn mui_get_object_by_id(mut window &mui.Window, id &char) voidptr {
+	unsafe {
+		return &window.get_object_by_id(id.vstring())[0]
+	}
 }
 
 pub struct ParsedEventDetails{
