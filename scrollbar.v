@@ -22,7 +22,7 @@ fn update_scroll_ver(event_details EventDetails, mut app &Window, mut app_data v
 }
 
 pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, frame string, zindex int){
-	    app.objects << {
+    app.objects << {
         "type": WindowData{str:"scrollbar"},
         "id":   WindowData{str:id},
         "in":   WindowData{str:frame},
@@ -36,10 +36,10 @@ pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum
         "y":    WindowData{num:0},
         "w":    WindowData{num:0},
         "h":    WindowData{num:0},
-		"x_raw":WindowData{str: match x{ int{ x.str() } string{ x } } },
-		"y_raw":WindowData{str: match y{ int{ y.str() } string{ y } } },
-		"w_raw":WindowData{str: match w{ int{ w.str() } string{ w } } },
-		"h_raw":WindowData{str: match h{ int{ h.str() } string{ h } } },
+        "x_raw":WindowData{str: match x{ int{ x.str() } string{ x } } },
+        "y_raw":WindowData{str: match y{ int{ y.str() } string{ y } } },
+        "w_raw":WindowData{str: match w{ int{ w.str() } string{ w } } },
+        "h_raw":WindowData{str: match h{ int{ h.str() } string{ h } } },
         "vert": WindowData{bol:vert},
         "hi":	WindowData{bol:hi},
         "bg":   WindowData{clr:bg},

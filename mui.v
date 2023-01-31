@@ -80,11 +80,11 @@ pub fn create(args &WindowConfig)	 &Window{
 fn frame_fn(app &Window) {
 	unsafe{
 		app.gg.begin()
-
 		mut objects:=app.objects.clone()
 		if app.focus!="" { objects << get_object_by_id(app, app.focus) }
 		real_size:=app.gg.window_size()
 		window_info:=[real_size.width-app.x_offset-app.xn_offset,real_size.height-app.y_offset-app.yn_offset,real_size.width,real_size.height,app.scroll_x,app.scroll_y].clone()
+		app.gg.scissor_rect(0, 0, real_size.width, real_size.height)
 
 		if app.active_dialog!="" {
 			objects=app.dialog_objects.clone()
@@ -115,7 +115,8 @@ fn frame_fn(app &Window) {
 					}
 				}
 				if object["x"].num+object["w"].num>=0 && object["y"].num+object["h"].num>=0
-								&& object["x"].num<=window_info[2] && object["y"].num<=window_info[3] {
+								&& object["x"].num<=window_info[2] && object["y"].num<=window_info[3] && object["w"].num>0 && object["h"].num>0 {
+					app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num, object["h"].num)
 					match object["type"].str{
 						"rect"{
 							draw_rect(app, object)
@@ -132,16 +133,21 @@ fn frame_fn(app &Window) {
 						}"password"{
 							draw_password(app, object)
 						}"checkbox"{
+							app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 200, object["h"].num)
 							draw_checkbox(app, object)
 						}"switch"{
+							app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 200, object["h"].num)
 							draw_switch(app, object)
 						}"selectbox"{
+							app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num, object["h"].num+800)
 							draw_selectbox(app, object)
 						}"slider"{
+							app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 200, object["h"].num + 200)
 							draw_slider(app, object)
 						}"link"{
 							draw_link(app, object)
 						}"radio"{
+							app.gg.scissor_rect(object["x"].num-1, object["y"].num-1, object["w"].num + 200, object["h"].num+2)
 							draw_radio(app, object)
 						}"group"{
 							draw_group(app, object)
@@ -173,6 +179,7 @@ fn frame_fn(app &Window) {
 				}
 			}
 		}
+		app.gg.scissor_rect(0, 0, real_size.width, real_size.height)
 		draw_focus(mut app)
 		if app.menubar!=[]map["string"]WindowData{} {
 			draw_menubar(mut app, real_size)
