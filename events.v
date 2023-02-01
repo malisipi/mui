@@ -150,7 +150,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									group["s"].num=which_item
 									group["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:which_item.str()},mut app, mut app.app_data)
 								} "list" {
-									object["s"].num = int(y-object["y"].num) / int(object["height"].num / object["table"].tbl[0].len)
+									object["s"].num = int(y-object["y"].num+object["schsl"].num) / int(if object["row_h"].num==-1 { object["height"].num / object["table"].tbl[0].len } else {object["row_h"].num})
 									object["fnchg"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["s"].num.str()},mut app, mut app.app_data)
 								} "image", "map" {
 									object["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)

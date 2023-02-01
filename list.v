@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-pub fn add_list(mut app &Window, table [][]string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int, fnchg OnEvent, selected int, tSize int){
+pub fn add_list(mut app &Window, table [][]string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int, fnchg OnEvent, selected int, tSize int, row_h int){
     app.objects << {
         "type": WindowData{str:"list"},
 	"table":WindowData{tbl:table},
@@ -24,7 +24,11 @@ pub fn add_list(mut app &Window, table [][]string, id string, x IntOrString, y I
         "s":	WindowData{num:selected},
         "fg":   WindowData{clr:fg},
         "fnchg":WindowData{fun:fnchg},
-        "tSize":WindowData{num:tSize}
+        "tSize":WindowData{num:tSize},
+        "row_h":WindowData{num:row_h},
+        "schmx":WindowData{num:0},
+        "schvl":WindowData{num:0},
+        "schsl":WindowData{num:0}
     }
 }
 
@@ -34,21 +38,35 @@ fn draw_list(app &Window, object map[string]WindowData){
 		table:=object["table"].tbl
 		table_y:=table.len
 		table_x:=table[0].len
-		per_cell:=[object["w"].num/table_x,object["h"].num/table_y]
+		fit_inside_viewarea := object["row_h"].num==-1
+		per_cell:=[object["w"].num/table_x,if fit_inside_viewarea {object["h"].num/table_y} else {object["row_h"].num}]
+
+		mut scrolled_height := 0
+		if !fit_inside_viewarea {
+			max_height := table_y * object["row_h"].num
+			view_height := object["h"].num
+			if max_height > view_height && object["schvl"].num > 0{
+				scrolled_height = (max_height - view_height) * object["schmx"].num / object["schvl"].num
+				object["schsl"].num = scrolled_height
+			}
+		}
 
 		app.gg.draw_rect_filled(object["x"].num, object["y"].num, per_cell[0]*table_x, per_cell[1]*table_y, object["bg"].clr)
-		
-		app.gg.draw_rect_filled(object["x"].num, object["y"].num + per_cell[1] * object["s"].num, per_cell[0]*table_x, per_cell[1], object["bfg"].clr)
+		if fit_inside_viewarea || ( (object["s"].num+1)*per_cell[1] > scrolled_height && object["s"].num*per_cell[1] < object["h"].num + scrolled_height ) {
+			app.gg.draw_rect_filled(object["x"].num, object["y"].num + per_cell[1] * object["s"].num - scrolled_height, per_cell[0]*table_x, per_cell[1]-1, object["bfg"].clr)
+		}
 
 		for wy,y_ in table{
-			for wx,x_ in y_{
-				app.gg.draw_rect_empty(object["x"].num+per_cell[0]*wx, object["y"].num+per_cell[1]*wy, per_cell[0], per_cell[1], object["bfg"].clr)
-				app.gg.draw_text(object["x"].num+per_cell[0]*wx+per_cell[0]/2, object["y"].num+per_cell[1]*wy+per_cell[1]/2, x_, gx.TextCfg{
-					color: object["fg"].clr
-					size: object["tSize"].num
-					align: .center
-					vertical_align: .middle
-				})
+			if fit_inside_viewarea || ( (wy+1)*per_cell[1] > scrolled_height && wy*per_cell[1] < object["h"].num + scrolled_height ) {
+				for wx,x_ in y_{
+					app.gg.draw_rect_empty(object["x"].num+per_cell[0]*wx+1, object["y"].num+per_cell[1]*wy+1 - scrolled_height, per_cell[0]-2, per_cell[1]-2, object["bfg"].clr)
+					app.gg.draw_text(object["x"].num+per_cell[0]*wx+per_cell[0]/2, object["y"].num+per_cell[1]*wy+per_cell[1]/2 - scrolled_height, x_, gx.TextCfg{
+						color: object["fg"].clr
+						size: object["tSize"].num
+						align: .center
+						vertical_align: .middle
+					})
+				}
 			}
 		}
 	}

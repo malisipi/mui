@@ -36,9 +36,9 @@ pub fn add_textarea(mut app &Window, text string, id string, placeholder string,
 [unsafe]
 fn draw_textarea(app &Window, object map[string]WindowData){
 	unsafe{
-		line_count := object["text"].str.count("\n")
+		line_count := object["text"].str.count("\n") + 1
 		max_height := line_count * object["tSize"].num
-		view_height := object["h"].num - 16 - line_count * 4 / 3
+		view_height := object["h"].num - 8
 		mut scrolled_height := 0
 		if max_height > view_height && object["schvl"].num > 0{
 			scrolled_height = (max_height - view_height) * object["schmx"].num / object["schvl"].num
@@ -52,7 +52,7 @@ fn draw_textarea(app &Window, object map[string]WindowData){
 				the_text=object["ph"].str
 			}
 			for w,split_text in the_text.replace("\t","    ").split("\n"){
-				if 4+w*object["tSize"].num - scrolled_height > 0 && 4+w*object["tSize"].num - scrolled_height < object["h"].num {
+				if 4+(w+1)*object["tSize"].num - scrolled_height > 0 && 4+w*object["tSize"].num - scrolled_height < object["h"].num {
 					app.gg.draw_text(object["x"].num+4, object["y"].num+4+w*object["tSize"].num - scrolled_height, split_text, gx.TextCfg{
 						color: object["fg"].clr
 						mono: object["code"].bol
@@ -64,7 +64,7 @@ fn draw_textarea(app &Window, object map[string]WindowData){
 			}
 		} else {
 			for w,split_text in object["text"].str.replace("\t","    ").replace("\0",text_cursor).split("\n"){
-				if 4+w*object["tSize"].num - scrolled_height > 0 && 4+w*object["tSize"].num - scrolled_height < object["h"].num{
+				if 4+(w+1)*object["tSize"].num - scrolled_height > 0 && 4+w*object["tSize"].num - scrolled_height < object["h"].num{
 					app.gg.draw_text(object["x"].num+4, object["y"].num+4+w*object["tSize"].num - scrolled_height, split_text, gx.TextCfg{
 						color: object["fg"].clr
 						mono: object["code"].bol

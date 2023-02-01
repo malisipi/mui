@@ -27,10 +27,10 @@ pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum
         "id":   WindowData{str:id},
         "in":   WindowData{str:frame},
         "z_ind":WindowData{num:zindex},
-        "val":  WindowData{num:val-(val-min)%step},
-        "vlMin":WindowData{num:min},
-        "vlMax":WindowData{num:max-(max-min)%step},
-        "vStep":WindowData{num:step},
+        "val":  WindowData{num:if connected_object==null_object{val-(val-min)%step} else { 0 } },
+        "vlMin":WindowData{num:if connected_object==null_object{min} else { 0 } },
+        "vlMax":WindowData{num:if connected_object==null_object{max-(max-min)%step} else { 99999 } },
+        "vStep":WindowData{num:if connected_object==null_object{step} else { 1 }},
         "sThum":WindowData{num:sthum},
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},
@@ -57,7 +57,7 @@ pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum
 fn change_connected_object_viewarea(event_details EventDetails, mut window &Window, mut app_data voidptr){
 	unsafe {
 		// TODO: check "vert"
-		mut scrollbar:= window.get_object_by_id(event_details.target_id)[0]
+		mut scrollbar := window.get_object_by_id(event_details.target_id)[0]
 		scrollbar["cnObj"].lst[0]["schmx"].num = scrollbar["val"].num - scrollbar["vlMin"].num
 		scrollbar["cnObj"].lst[0]["schvl"].num = scrollbar["vlMax"].num - scrollbar["vlMin"].num
 	}
@@ -68,12 +68,20 @@ fn draw_scrollbar(app &Window, object map[string]WindowData){
 	unsafe{
         if !object["vert"].bol {
             app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
-            thumb_size:=int(f32(object["sThum"].num-object["vlMin"].num)/f32(object["vlMax"].num-object["vlMin"].num)*object["w"].num)
+            thumb_size:=if object["cnObj"].lst[0] == null_object {
+            	int(f32(object["sThum"].num-object["vlMin"].num)/f32(object["vlMax"].num-object["vlMin"].num)*object["w"].num)
+            } else {
+            	object["w"].num/4
+            }
             width_of_thumb:=int(f32(object["w"].num-thumb_size)/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num)*(f32(object["val"].num-object["vlMin"].num)/object["vStep"].num))
             app.gg.draw_rect_filled(object["x"].num+width_of_thumb, object["y"].num, thumb_size, object["h"].num, object["bfg"].clr)
         } else {
             app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
-            thumb_size:=int(f32(object["sThum"].num-object["vlMin"].num)/f32(object["vlMax"].num-object["vlMin"].num)*object["h"].num)
+            thumb_size:=if object["cnObj"].lst[0] == null_object {
+            	int(f32(object["sThum"].num-object["vlMin"].num)/f32(object["vlMax"].num-object["vlMin"].num)*object["h"].num)
+            } else {
+            	object["h"].num/4
+            }
             height_of_thumb:=int(f32(object["h"].num-thumb_size)/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num)*(f32(object["val"].num-object["vlMin"].num)/object["vStep"].num))
             app.gg.draw_rect_filled(object["x"].num, object["y"].num+height_of_thumb, object["w"].num, thumb_size, object["bfg"].clr)
         }

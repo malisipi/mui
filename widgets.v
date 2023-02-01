@@ -17,11 +17,11 @@ pub fn (mut app Window) area_graph ( args Widget ){ //dialog support not done
 }
 
 pub fn (mut app Window) table ( args Widget ){ //dialog support not done
-	add_table (mut app, args.table, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[0], app.color_scheme[2], app.color_scheme[3], args.frame, args.z_index, args.text_size)
+	add_table (mut app, args.table, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[0], app.color_scheme[2], app.color_scheme[3], args.frame, args.z_index, args.text_size, args.row_height)
 }
 
 pub fn (mut app Window) list ( args Widget ){ //dialog support not done
-	add_list (mut app, args.table, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[0], app.color_scheme[2], app.color_scheme[3], args.frame, args.z_index, args.onchange, args.selected, args.text_size)
+	add_list (mut app, args.table, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[0], app.color_scheme[2], app.color_scheme[3], args.frame, args.z_index, args.onchange, args.selected, args.text_size, args.row_height)
 }
 
 pub fn (mut app Window) group ( args Widget ){ //dialog support not done
