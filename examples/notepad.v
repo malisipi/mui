@@ -71,6 +71,7 @@ app.button(m.Widget{ id:"save", x:"!& 30", y:"!& 25" width:25, height:25, text:s
 app.switch(m.Widget{ id:"codefield", x:"!& 60", y:"!& 30" width:30, height:15, text:"Codefield", onchange:change_codefield})
 app.slider(m.Widget{ id:"text_size", x:"!& 180", y:"!& 30" width:80, height:15, value_min:8, value_max:40, value:20, onclick:change_text_size, onchange:change_text_size, onunclick:change_text_size})
 
-app.textarea(m.Widget{ id:"textarea", x:0, y:0, width:"100%x", height:"100%y", placeholder:"Open/Drop a file to edit\nOr create a new file"})
+app.textarea(m.Widget{ id:"textarea", x:0, y:0, width:"100%x -20", height:"100%y", placeholder:"Open/Drop a file to edit\nOr create a new file"})
+app.scrollbar(id:"textarea_scrollbar", x:"# 0", y:"# 0", width: 20, height:"100%y", vertical:true, connected_widget:app.get_object_by_id("textarea")[0], value_min:0, value_max:250, value:0)
 
 app.run()

@@ -21,12 +21,12 @@ pub fn empty_custom_widget_event(x f32, y f32, mut object map[string]WindowData,
 pub union WindowData {
 pub mut:
 	num int
-    str string
-    clr gx.Color
-    bol bool
-    fun OnEvent
-    img gg.Image
-    tbl [][]string
+	str string
+	clr gx.Color
+	bol bool
+	fun OnEvent
+	img gg.Image
+	tbl [][]string
 	dat [][]int
 	lcr []gx.Color
 	vmp ValueMap
@@ -35,11 +35,11 @@ pub mut:
 
 pub struct CustomWidget {
 pub mut:
-	typ			string
-    draw_fn		CustomWidgetDraw	= empty_custom_widget_draw
-    click_fn	CustomWidgetEvent	= empty_custom_widget_event
-    move_fn		CustomWidgetEvent	= empty_custom_widget_event
-    unclick_fn	CustomWidgetEvent	= empty_custom_widget_event
+	typ		string
+	draw_fn		CustomWidgetDraw	= empty_custom_widget_draw
+	click_fn	CustomWidgetEvent	= empty_custom_widget_event
+	move_fn		CustomWidgetEvent	= empty_custom_widget_event
+	unclick_fn	CustomWidgetEvent	= empty_custom_widget_event
 }
 
 pub struct WindowConfig {
@@ -58,13 +58,13 @@ pub mut:
 	color			[]int							= [-1,-1,-1]
 	scrollbar		bool							//= false
 	view_area		[]int							= [-1,-1]
-	file_handler	OnEvent								= empty_fn
+	file_handler		OnEvent							= empty_fn
 	ask_quit		bool							//= false
 	quit_fn			OnEvent							= empty_fn
 	init_fn			OnEvent							= empty_fn
 	resized_fn		OnEvent							= empty_fn
 	background		[]int							= [-1,-1,-1]
-	menubar_config	MenubarConfig
+	menubar_config		MenubarConfig
 }
 
 pub struct EventDetails{
@@ -76,6 +76,7 @@ pub mut:
 	target_id		string		//= ""
 }
 
+[heap]
 pub struct Window {
 pub mut:
 	objects     			[]map[string]WindowData
@@ -99,7 +100,7 @@ pub mut:
 	init_fn				OnEvent
 	resized_fn			OnEvent
 	active_dialog			string			//= "" //messagebox, input, password, progress, color, date, notification, openfile, savefile, openfolder, custom
-	dialog_answer			string					= dialogs_null_answer
+	dialog_answer			string			= dialogs_null_answer
 	dialog_objects			[]map[string]WindowData // for dialogs
 	custom_widgets			[]CustomWidget
 	keybindings			map[string]WindowData 	= map[string]WindowData{}
@@ -124,55 +125,56 @@ pub mut:
 	placeholder		string			//= ""										//ph
 	ph_as_text		bool			//= 0										//phsa //show placeholder as text
 	table			[][]string		= [[""]]									//table
-	tabs			[][]string		= [["Test Tab","test_tab"]]					//tabs
+	tabs			[][]string		= [["Test Tab","test_tab"]]							//tabs
 	active_tab		string			//= ""										//acttb
-	id				string			//= ""										//id
+	id			string			//= ""										//id
 	link			string			//= ""										//link
-	percent			int				//= 0										//perc
-	value			int				//= 0										//val
-	value_max		int				= 10										//vlMax
-	value_min		int				//= 0										//vlMin
-	size_thumb		int				= 6											//sThum
+	percent			int			//= 0										//perc
+	value			int			//= 0										//val
+	value_max		int			= 10										//vlMax
+	value_min		int			//= 0										//vlMin
+	size_thumb		int			= 6										//sThum
 	checked			bool			//= false									//c
-	step			int				= 1											//vStep
+	step			int			= 1										//vStep
 	hider_char		string			= "*"										//hc
-	selected		int				//= 0										//s
+	selected		int			//= 0										//s
 	list			[]string		= [""]										//list
-	x				IntOrString		= "0"										//x_raw
-	y				IntOrString		= "0"										//y_raw
+	x			IntOrString		= "0"										//x_raw
+	y			IntOrString		= "0"										//y_raw
 	width			IntOrString		= "125"										//w_raw
 	height			IntOrString		= "20"										//h_raw
 	onchange		OnEvent			= empty_fn									//onchg
 	onclick			OnEvent			= empty_fn									//onclk
 	onunclick		OnEvent			= empty_fn									//onucl
-	link_underline	bool			= true										//unlin
+	link_underline		bool			= true										//unlin
 	graph_title		string			= "Graph"									//g_tit
-	graph_label		[]string		= ["","",""]								//g_lbl
+	graph_label		[]string		= ["","",""]									//g_lbl
 	graph_data		[][]int			= [[0,0,0]]									//g_dat
 	graph_names		[]string		= [""]										//g_nam
-	graph_color		[]gx.Color		= [gx.Color{r: 255, g: 255, b: 255}]		//g_clr
-	background		gx.Color		= gx.Color{r: 127, g: 127, b: 127}			//bg
+	graph_color		[]gx.Color		= [gx.Color{r: 255, g: 255, b: 255}]						//g_clr
+	background		gx.Color		= gx.Color{r: 127, g: 127, b: 127}						//bg
 	value_map		ValueMap		= no_map									//vlMap
-	latitude		f64				= 48.856613									//- => image
-	longitude		f64				= 2.352222									//- => image
-	zoom			int				= 10										//- => image
+	latitude		f64			= 48.856613									//- => image
+	longitude		f64			= 2.352222									//- => image
+	zoom			int			= 10										//- => image
 	vertical		bool			//= false									//vert
 	icon			bool			//= false									//icon
 	codefield		bool			//= false									//code
 	dialog			bool			//= false									//- => app.objects || app.dialog_objects
-	text_size		int				= 20										//tSize
-	text_align		int				= 1											//tAlin
-	text_multiline	bool			//= false									//tMult
+	text_size		int			= 20										//tSize
+	text_align		int			= 1										//tAlin
+	text_multiline		bool			//= false									//tMult
 	frame			string			//= ""										//in
-	z_index			int				//= 0										//z_ind
+	z_index			int			//= 0										//z_ind
+	connected_widget	map[string]WindowData	= null_object									//cnObj
 }
 
 pub struct Modal {
 	title			string		= "MUI"
 	message			string		//= ""
-	typ				string		= "messagebox"
+	typ			string		= "messagebox"
 	file_ext		string		= "*"
-	default_entry	string		//= ""
+	default_entry		string		//= ""
 }
 
 pub fn empty_fn(event_details EventDetails, mut app &Window, mut app_data voidptr){}

@@ -21,7 +21,7 @@ fn update_scroll_ver(event_details EventDetails, mut app &Window, mut app_data v
     }
 }
 
-pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, frame string, zindex int){
+pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, frame string, zindex int, connected_object map[string]WindowData){
     app.objects << {
         "type": WindowData{str:"scrollbar"},
         "id":   WindowData{str:id},
@@ -46,10 +46,21 @@ pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum
         "bfg":  WindowData{clr:bfg},
         "fg":   WindowData{clr:fg},
         "click":WindowData{bol:false},
-        "fnclk":WindowData{fun:fnclk},
-        "fnchg":WindowData{fun:fnchg},
-        "fnucl":WindowData{fun:fnucl}
+        "fnclk":WindowData{fun:if connected_object==null_object{fnclk} else {empty_fn} },
+        "fnchg":WindowData{fun:if connected_object==null_object{fnchg} else {change_connected_object_viewarea}},
+        "fnucl":WindowData{fun:if connected_object==null_object{fnucl} else {empty_fn}},
+        "cnObj":WindowData{lst:[connected_object]}
     }
+}
+
+[unsafe]
+fn change_connected_object_viewarea(event_details EventDetails, mut window &Window, mut app_data voidptr){
+	unsafe {
+		// TODO: check "vert"
+		mut scrollbar:= window.get_object_by_id(event_details.target_id)[0]
+		scrollbar["cnObj"].lst[0]["schmx"].num = scrollbar["val"].num - scrollbar["vlMin"].num
+		scrollbar["cnObj"].lst[0]["schvl"].num = scrollbar["vlMax"].num - scrollbar["vlMin"].num
+	}
 }
 
 [unsafe]

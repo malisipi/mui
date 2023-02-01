@@ -85,7 +85,7 @@ pub fn (mut app Window) slider ( args Widget ){
 }
 
 pub fn (mut app Window) scrollbar ( args Widget ){ //dialog support not done
-	add_scrollbar(mut app, args.value, args.value_min, args.value_max, args.step, args.size_thumb, args.id, args.x, args.y, args.width, args.height, args.vertical, args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onclick, args.onchange, args.onunclick, args.frame, args.z_index)
+	add_scrollbar(mut app, args.value, args.value_min, args.value_max, args.step, args.size_thumb, args.id, args.x, args.y, args.width, args.height, args.vertical, args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onclick, args.onchange, args.onunclick, args.frame, args.z_index, args.connected_widget)
 }
 
 pub fn (mut app Window) link ( args Widget ){ //dialog support not done

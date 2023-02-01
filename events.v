@@ -125,7 +125,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									the_text:=object["text"].str.replace("\0","")
 									if the_text.len>0{
 										rows:=the_text.split("\n")
-										which_row:=int(math.min(math.max(y-object["y"].num-4,0)/20,rows.len-1))
+										which_row:=int(math.min(math.max(y+object["schsl"].num-object["y"].num-4,0)/20,rows.len-1))
 										row_text:=the_text.split("\n")[which_row]
 										mut edited_row:="\0"
 										if row_text.len>0{
