@@ -51,7 +51,7 @@ fn draw_list(app &Window, object map[string]WindowData){
 			}
 		}
 
-		app.gg.draw_rect_filled(object["x"].num, object["y"].num, per_cell[0]*table_x, per_cell[1]*table_y, object["bg"].clr)
+		app.gg.draw_rect_filled(object["x"].num, object["y"].num, per_cell[0]*table_x, if fit_inside_viewarea { per_cell[1]*table_y } else { object["h"].num }, object["bg"].clr)
 		if fit_inside_viewarea || ( (object["s"].num+1)*per_cell[1] > scrolled_height && object["s"].num*per_cell[1] < object["h"].num + scrolled_height ) {
 			app.gg.draw_rect_filled(object["x"].num, object["y"].num + per_cell[1] * object["s"].num - scrolled_height, per_cell[0]*table_x, per_cell[1]-1, object["bfg"].clr)
 		}

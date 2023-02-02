@@ -56,10 +56,14 @@ pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum
 [unsafe]
 fn change_connected_object_viewarea(event_details EventDetails, mut window &Window, mut app_data voidptr){
 	unsafe {
-		// TODO: check "vert"
 		mut scrollbar := window.get_object_by_id(event_details.target_id)[0]
-		scrollbar["cnObj"].lst[0]["schmx"].num = scrollbar["val"].num - scrollbar["vlMin"].num
-		scrollbar["cnObj"].lst[0]["schvl"].num = scrollbar["vlMax"].num - scrollbar["vlMin"].num
+		if scrollbar["vert"].bol {
+			scrollbar["cnObj"].lst[0]["schmx"].num = scrollbar["val"].num - scrollbar["vlMin"].num
+			scrollbar["cnObj"].lst[0]["schvl"].num = scrollbar["vlMax"].num - scrollbar["vlMin"].num
+		} else {
+			scrollbar["cnObj"].lst[0]["scwmx"].num = scrollbar["val"].num - scrollbar["vlMin"].num
+			scrollbar["cnObj"].lst[0]["scwvl"].num = scrollbar["vlMax"].num - scrollbar["vlMin"].num
+		}
 	}
 }
 

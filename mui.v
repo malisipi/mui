@@ -3,6 +3,7 @@ module mui
 import gg
 import gx
 import os
+import math
 import sokol.sapp
 
 pub fn create(args &WindowConfig)	 &Window{
@@ -108,18 +109,37 @@ fn frame_fn(app &Window) {
 					} else {
 					points:=calc_points([frame["w"].num,frame["h"].num,frame["w"].num,frame["h"].num,0,0],
 										object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
-					object["x"]=WindowData{num:points[0]+frame["x"].num}
-					object["y"]=WindowData{num:points[1]+frame["y"].num}
+					object["x"]=WindowData{num:points[0]+frame["x"].num-frame["scwsl"].num}
+					object["y"]=WindowData{num:points[1]+frame["y"].num-frame["schsl"].num}
 					object["w"]=WindowData{num:points[2]}
 					object["h"]=WindowData{num:points[3]}
 					}
 				}
 				if object["x"].num+object["w"].num>=0 && object["y"].num+object["h"].num>=0
 								&& object["x"].num<=window_info[2] && object["y"].num<=window_info[3] && object["w"].num>0 && object["h"].num>0 {
-					$if !dont_clip ? { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num, object["h"].num) }
+					$if !dont_clip ? {
+						if object["in"].str == "" {
+							app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num, object["h"].num)
+						} else {
+							frame := app.get_object_by_id(object["in"].str)[0]
+							scissor_x := math.max(frame["x"].num,object["x"].num)
+							scissor_y := math.max(frame["y"].num,object["y"].num)
+							scissor_w := math.min(frame["x"].num+frame["w"].num,object["x"].num+frame["w"].num) - scissor_x
+							scissor_h := math.min(frame["y"].num+frame["h"].num,object["y"].num+object["h"].num) - scissor_y
+							if scissor_w < 0 || scissor_h < 0 { continue }
+							app.gg.scissor_rect(
+										scissor_x,
+										scissor_y,
+										scissor_w,
+										scissor_h
+									)
+						}
+					}
 					match object["type"].str{
 						"rect"{
 							draw_rect(app, object)
+						}"frame"{
+							draw_frame(app, object)
 						}"button"{
 							draw_button(app, object)
 						}"label"{

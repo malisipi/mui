@@ -168,6 +168,7 @@ pub mut:
 	z_index			int			//= 0										//z_ind
 	connected_widget	map[string]WindowData	= null_object									//cnObj
 	row_height		int			= -1										//row_h
+	view_area		[]int			= [-1,-1]									//viewA
 }
 
 pub struct Modal {
