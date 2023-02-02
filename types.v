@@ -105,7 +105,7 @@ pub mut:
 	keybindings			map[string]WindowData 	= map[string]WindowData{}
 	menubar_config			MenubarConfig
 	redraw_requried			bool			= true
-	last_drawing			gg.Image
+	force_redraw			bool			//= false
 }
 
 pub struct MenubarConfig {

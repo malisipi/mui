@@ -92,7 +92,7 @@ fn frame_fn(app &Window) {
 
 		for object in objects{
 			if !object["hi"].bol && object["type"].str!="hidden"{
-				if app.redraw_requried {
+				if app.redraw_requried || app.force_redraw {
 					if object["in"].str == "" {
 						points:=calc_points(window_info,object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
 						object["x"]=WindowData{num:points[0]+ if !object["x_raw"].str.starts_with("!") || app.active_dialog!="" {app.x_offset} else {0} }
