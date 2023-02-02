@@ -104,6 +104,8 @@ pub mut:
 	custom_widgets			[]CustomWidget
 	keybindings			map[string]WindowData 	= map[string]WindowData{}
 	menubar_config			MenubarConfig
+	redraw_requried			bool			= true
+	last_drawing			gg.Image
 }
 
 pub struct MenubarConfig {

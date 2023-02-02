@@ -169,6 +169,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 			}
 		}
 	}
+	app.redraw_requried = true
 }
 
 [unsafe]
@@ -218,6 +219,7 @@ fn move_fn(x f32, y f32, mut app &Window){
 						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
 					}
 					object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
+					app.redraw_requried = true
 				}
 			} else if object["type"].str=="scrollbar"{
 				if object["click"].bol {
@@ -227,6 +229,7 @@ fn move_fn(x f32, y f32, mut app &Window){
 						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num-object["sThum"].num)}
 					}
 					object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
+					app.redraw_requried = true
 				}
 			} else {
 				for widget in app.custom_widgets{
@@ -258,6 +261,7 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 			}
 		}
 	}
+	app.redraw_requried = true
 }
 
 [unsafe]
@@ -312,6 +316,7 @@ fn scroll_fn(event &gg.Event, mut app &Window){
 			}
 		}
 	}
+	app.redraw_requried = true
 }
 
 [unsafe]
@@ -536,6 +541,7 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 			}
 		}
 	}
+	app.redraw_requried = true
 }
 
 [unsafe]
@@ -545,6 +551,7 @@ fn resized_fn(event &gg.Event, mut app &Window){
 		app.get_object_by_id("@scrollbar:horizontal")[0]["sThum"].num=event.window_width
 		app.get_object_by_id("@scrollbar:vertical")[0]["sThum"].num=event.window_height
 	}
+	app.redraw_requried = true
 }
 
 [unsafe]
