@@ -1,5 +1,5 @@
 import malisipi.mui
-import malisipi.miniaudio as ma // v install https://github.com/malisipi/miniaudio
+import miniaudio as ma // v install https://github.com/malisipi/miniaudio
 import math
 import time
 

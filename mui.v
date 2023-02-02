@@ -6,6 +6,10 @@ import os
 import math
 import sokol.sapp
 
+$if clang {
+	#flag -Wno-everything
+}
+
 pub fn create(args &WindowConfig)	 &Window{
     color_scheme, light_mode := if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
     mut app := &Window{
