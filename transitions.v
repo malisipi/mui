@@ -37,7 +37,7 @@ pub fn move_object(mut app &Window, object_id string, new_pos []IntOrString, mov
         }
         $if power_save ? {
 	        app.force_redraw = false
-	        app.draw_required = true
+	        app.redraw_required = true
 	}
     }
 }
