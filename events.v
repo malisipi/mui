@@ -179,7 +179,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 		}
 	}
 	$if power_save ? {
-		app.redraw_requried = true
+		app.redraw_required = true
 	}
 }
 
@@ -231,7 +231,7 @@ fn move_fn(x f32, y f32, mut app &Window){
 					}
 					object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
 					$if power_save ? {
-						app.redraw_requried = true
+						app.redraw_required = true
 					}
 				}
 			} else if object["type"].str=="scrollbar"{
@@ -243,7 +243,7 @@ fn move_fn(x f32, y f32, mut app &Window){
 					}
 					object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
 					$if power_save ? {
-						app.redraw_requried = true
+						app.redraw_required = true
 					}
 				}
 			} else {
@@ -277,7 +277,7 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 		}
 	}
 	$if power_save ? {
-		app.redraw_requried = true
+		app.redraw_required = true
 	}
 }
 
@@ -334,7 +334,7 @@ fn scroll_fn(event &gg.Event, mut app &Window){
 		}
 	}
 	$if power_save ? {
-		app.redraw_requried = true
+		app.redraw_required = true
 	}
 }
 
@@ -561,7 +561,7 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 		}
 	}
 	$if power_save ? {
-		app.redraw_requried = true
+		app.redraw_required = true
 	}
 }
 
@@ -573,7 +573,7 @@ fn resized_fn(event &gg.Event, mut app &Window){
 		app.get_object_by_id("@scrollbar:vertical")[0]["sThum"].num=event.window_height
 	}
 	$if power_save ? {
-		app.redraw_requried = true
+		app.redraw_required = true
 	}
 }
 

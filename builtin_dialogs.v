@@ -86,6 +86,9 @@ pub fn(mut app Window)clear_dialog(){
 }
 
 pub fn(mut app Window)create_dialog(dialog_data Modal){
+    $if !dont_clip ? {
+    	app.force_redraw = true
+    }
     app.clear_dialog()
     match dialog_data.typ{
         "messagebox" {
@@ -133,6 +136,10 @@ pub fn(mut app Window)wait_and_get_answer()string{
             return app.dialog_answer
         }
         time.sleep(dialogs_wait_time*time.millisecond)
+    }
+    $if !dont_clip ? {
+    	app.force_redraw = false
+    	app.redraw_required = true
     }
     return ""
 }

@@ -105,7 +105,7 @@ pub mut:
 	custom_widgets			[]CustomWidget
 	keybindings			map[string]WindowData 	= map[string]WindowData{}
 	menubar_config			MenubarConfig
-	redraw_requried			bool			= true
+	redraw_required			bool			= true
 	force_redraw			bool			//= false
 }
 
