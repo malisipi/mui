@@ -52,7 +52,7 @@ fn draw_table(app &Window, object map[string]WindowData){
 		app.gg.draw_rect_filled(object["x"].num, object["y"].num, per_cell[0]*table_x, if fit_inside_viewarea { per_cell[1]*table_y } else { object["h"].num }, object["bg"].clr)
 
 		for wy,y_ in table{
-			if !fit_inside_viewarea && (wy+1)*per_cell[1] > scrolled_height && wy*per_cell[1] < object["h"].num + scrolled_height {
+			if fit_inside_viewarea || ( (wy+1)*per_cell[1] > scrolled_height && wy*per_cell[1] < object["h"].num + scrolled_height ) {
 				for wx,x_ in y_{
 					app.gg.draw_rect_empty(object["x"].num+per_cell[0]*wx+1, object["y"].num+per_cell[1]*wy+1 - scrolled_height, per_cell[0]-2, per_cell[1]-2, object["bfg"].clr)
 					app.gg.draw_text(object["x"].num+per_cell[0]*wx+per_cell[0]/2, object["y"].num+per_cell[1]*wy+per_cell[1]/2 - scrolled_height, x_, gx.TextCfg{
