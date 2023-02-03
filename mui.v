@@ -92,26 +92,28 @@ fn frame_fn(app &Window) {
 
 		for object in objects{
 			if !object["hi"].bol && object["type"].str!="hidden"{
-				if object["in"].str == "" {
-					points:=calc_points(window_info,object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
-					object["x"]=WindowData{num:points[0]+ if !object["x_raw"].str.starts_with("!") || app.active_dialog!="" {app.x_offset} else {0} }
-					object["y"]=WindowData{num:points[1]+ if !object["y_raw"].str.starts_with("!") || app.active_dialog!="" {app.y_offset} else {0} }
-					object["w"]=WindowData{num:points[2]}
-					object["h"]=WindowData{num:points[3]}
-				} else {
-					frame:=app.get_object_by_id(object["in"].str)[0]
-					if frame["hi"].bol {
-						object["x"]=WindowData{num:-1}
-						object["y"]=WindowData{num:-1}
-						object["w"]=WindowData{num:0}
-						object["h"]=WindowData{num:0}
+				if $if power_save ? { app.redraw_requried || app.force_redraw } $else { true } {
+					if object["in"].str == "" {
+						points:=calc_points(window_info,object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
+						object["x"]=WindowData{num:points[0]+ if !object["x_raw"].str.starts_with("!") || app.active_dialog!="" {app.x_offset} else {0} }
+						object["y"]=WindowData{num:points[1]+ if !object["y_raw"].str.starts_with("!") || app.active_dialog!="" {app.y_offset} else {0} }
+						object["w"]=WindowData{num:points[2]}
+						object["h"]=WindowData{num:points[3]}
 					} else {
-					points:=calc_points([frame["w"].num,frame["h"].num,frame["w"].num,frame["h"].num,0,0],
-										object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
-					object["x"]=WindowData{num:points[0]+frame["x"].num}
-					object["y"]=WindowData{num:points[1]+frame["y"].num}
-					object["w"]=WindowData{num:points[2]}
-					object["h"]=WindowData{num:points[3]}
+						frame:=app.get_object_by_id(object["in"].str)[0]
+						if frame["hi"].bol {
+							object["x"]=WindowData{num:-1}
+							object["y"]=WindowData{num:-1}
+							object["w"]=WindowData{num:0}
+							object["h"]=WindowData{num:0}
+						} else {
+						points:=calc_points([frame["w"].num,frame["h"].num,frame["w"].num,frame["h"].num,0,0],
+											object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
+						object["x"]=WindowData{num:points[0]+frame["x"].num}
+						object["y"]=WindowData{num:points[1]+frame["y"].num}
+						object["w"]=WindowData{num:points[2]}
+						object["h"]=WindowData{num:points[3]}
+						}
 					}
 				}
 				if object["x"].num+object["w"].num>=0 && object["y"].num+object["h"].num>=0
@@ -178,6 +180,11 @@ fn frame_fn(app &Window) {
 			draw_menubar(mut app, real_size)
 		}
 		app.gg.end()
+		$if power_save ? {
+			if app.redraw_requried {
+				app.redraw_requried = false
+			}
+		}
 	}
 }
 
