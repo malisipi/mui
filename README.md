@@ -88,7 +88,6 @@ app.run()
 ## To-Do List
 
 * Widgets:
-    * New Radio Button
     * Treeview
     * Status Bar
     * Editable Label
@@ -100,7 +99,6 @@ app.run()
     * Grid View
 * Themes:
     * Custom Colors for Widgets (except Themes)
-    * Handle Appearance Preferences (like Background Color, Text Color)
     * Improve Light Theme
 * Other:
     * Context Menu
@@ -109,7 +107,6 @@ app.run()
     * Disable Status (for Buttons, Checkboxs, Selectboxs, etc.)
     * Load UI from External XML/JSON File
     * Improve Documentation
-    * GUI Builder
     * Support Other languages except V like Python and C
 
 ## Installation
@@ -125,6 +122,7 @@ app.run()
 | `-d show_fps`              | Show FPS of the window                                    |
 | `-d no_emoji`              | Disable emoji support and font embedding                  |
 | `-d emscripten`            | Compile for emscripten (use with `-os wasm32-emscripten`) |
+| `-d dont_clip`             | For debugging purposes, it disables clipping the widgets area. (Not recommend) |
 | `-d power_save`            | Enables power save mode. It's recommend if your application require more resource or you're running the application on low-hardware computer. Some drawing lags would be appeared with the flag, please report them. |
 | `-d support_japanese_input`| Support basic japanese input                              |
 

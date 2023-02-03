@@ -20,6 +20,6 @@ app.button(m.Widget{ id:"menu_1", x:"10", y:"60", width:"280", height:"30", text
 app.button(m.Widget{ id:"menu_2", x:"10", y:"90", width:"280", height:"30", text:"Edit", icon:false, frame:"menu_frame", onclick:menu_open })
 app.button(m.Widget{ id:"menu_3", x:"10", y:"120", width:"280", height:"30", text:"About", icon:false, frame:"menu_frame", onclick:menu_open })
 app.button(m.Widget{ id:"menu_open", x:"10", y:"10", width:"30", height:"30", text:"↩", icon:true, onclick:toggle_menu })
-app.label(m.Widget{ id:"text", x:"# 10", y:"# 10", width:"100", height:"25", text_align:2 text:"" })
+app.label(m.Widget{ id:"text", x:"# 10", y:"# 10", width:"300", height:"25", text_align:2 text:"" })
 
 app.run()

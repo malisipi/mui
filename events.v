@@ -54,9 +54,18 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 				objects=app.dialog_objects.clone().reverse()
 			}
 			for mut object in objects{
-				if !object["hi"].bol && object["type"].str!="rect" && object["type"].str!="group" && object["type"].str!="table"{
+				if !object["hi"].bol && object["type"].str!="rect" && object["type"].str!="frame" && object["type"].str!="group" && object["type"].str!="table"{
 					if object["x"].num<x && object["x"].num+object["w"].num>x{
 						if object["y"].num<y && object["y"].num+object["h"].num>y{
+							if object["in"].str != "" {
+								frame_x:=app.get_object_by_id(object["in"].str)[0]["x"].num
+								frame_y:=app.get_object_by_id(object["in"].str)[0]["y"].num
+								frame_w:=app.get_object_by_id(object["in"].str)[0]["w"].num
+								frame_h:=app.get_object_by_id(object["in"].str)[0]["h"].num
+								if frame_x > x || frame_x + frame_w < x || frame_y > y || frame_y + frame_h < y {
+									continue
+								}
+							}
 							if object["type"].str!="rect" {
 								app.focus=object["id"].str
 							}
@@ -125,7 +134,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									the_text:=object["text"].str.replace("\0","")
 									if the_text.len>0{
 										rows:=the_text.split("\n")
-										which_row:=int(math.min(math.max(y-object["y"].num-4,0)/20,rows.len-1))
+										which_row:=int(math.min(math.max(y+object["schsl"].num-object["y"].num-4,0)/20,rows.len-1))
 										row_text:=the_text.split("\n")[which_row]
 										mut edited_row:="\0"
 										if row_text.len>0{
@@ -150,7 +159,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									group["s"].num=which_item
 									group["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:which_item.str()},mut app, mut app.app_data)
 								} "list" {
-									object["s"].num = int(y-object["y"].num) / int(object["height"].num / object["table"].tbl[0].len)
+									object["s"].num = int(y-object["y"].num+object["schsl"].num) / int(if object["row_h"].num==-1 { object["height"].num / object["table"].tbl[0].len } else {object["row_h"].num})
 									object["fnchg"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["s"].num.str()},mut app, mut app.app_data)
 								} "image", "map" {
 									object["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)

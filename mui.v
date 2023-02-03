@@ -3,7 +3,12 @@ module mui
 import gg
 import gx
 import os
+import math
 import sokol.sapp
+
+$if clang {
+	#flag -Wno-everything
+}
 
 pub fn create(args &WindowConfig)	 &Window{
     color_scheme, light_mode := if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
@@ -80,11 +85,11 @@ pub fn create(args &WindowConfig)	 &Window{
 fn frame_fn(app &Window) {
 	unsafe{
 		app.gg.begin()
-
 		mut objects:=app.objects.clone()
 		if app.focus!="" { objects << get_object_by_id(app, app.focus) }
 		real_size:=app.gg.window_size()
 		window_info:=[real_size.width-app.x_offset-app.xn_offset,real_size.height-app.y_offset-app.yn_offset,real_size.width,real_size.height,app.scroll_x,app.scroll_y].clone()
+		$if !dont_clip ? { app.gg.scissor_rect(0, 0, real_size.width, real_size.height) }
 
 		if app.active_dialog!="" {
 			objects=app.dialog_objects.clone()
@@ -107,20 +112,40 @@ fn frame_fn(app &Window) {
 							object["w"]=WindowData{num:0}
 							object["h"]=WindowData{num:0}
 						} else {
-						points:=calc_points([frame["w"].num,frame["h"].num,frame["w"].num,frame["h"].num,0,0],
-											object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
-						object["x"]=WindowData{num:points[0]+frame["x"].num}
-						object["y"]=WindowData{num:points[1]+frame["y"].num}
-						object["w"]=WindowData{num:points[2]}
-						object["h"]=WindowData{num:points[3]}
+            points:=calc_points([frame["w"].num,frame["h"].num,frame["w"].num,frame["h"].num,0,0],
+                      object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
+            object["x"]=WindowData{num:points[0]+frame["x"].num-frame["scwsl"].num}
+            object["y"]=WindowData{num:points[1]+frame["y"].num-frame["schsl"].num}
+            object["w"]=WindowData{num:points[2]}
+            object["h"]=WindowData{num:points[3]}
 						}
 					}
 				}
 				if object["x"].num+object["w"].num>=0 && object["y"].num+object["h"].num>=0
-								&& object["x"].num<=window_info[2] && object["y"].num<=window_info[3] {
+								&& object["x"].num<=window_info[2] && object["y"].num<=window_info[3] && object["w"].num>0 && object["h"].num>0 {
+					$if !dont_clip ? {
+						if object["in"].str == "" {
+							app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num, object["h"].num)
+						} else {
+							frame := app.get_object_by_id(object["in"].str)[0]
+							scissor_x := math.max(frame["x"].num,object["x"].num)
+							scissor_y := math.max(frame["y"].num,object["y"].num)
+							scissor_w := math.min(frame["x"].num+frame["w"].num,object["x"].num+frame["w"].num) - scissor_x
+							scissor_h := math.min(frame["y"].num+frame["h"].num,object["y"].num+object["h"].num) - scissor_y
+							if scissor_w < 0 || scissor_h < 0 { continue }
+							app.gg.scissor_rect(
+										scissor_x,
+										scissor_y,
+										scissor_w,
+										scissor_h
+									)
+						}
+					}
 					match object["type"].str{
 						"rect"{
 							draw_rect(app, object)
+						}"frame"{
+							draw_frame(app, object)
 						}"button"{
 							draw_button(app, object)
 						}"label"{
@@ -134,16 +159,21 @@ fn frame_fn(app &Window) {
 						}"password"{
 							draw_password(app, object)
 						}"checkbox"{
+							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 200, object["h"].num) } }
 							draw_checkbox(app, object)
 						}"switch"{
+							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 200, object["h"].num) } }
 							draw_switch(app, object)
 						}"selectbox"{
+							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num, object["h"].num+800) } }
 							draw_selectbox(app, object)
 						}"slider"{
+							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 200, object["h"].num + 200) } }
 							draw_slider(app, object)
 						}"link"{
 							draw_link(app, object)
 						}"radio"{
+							$if !dont_clip ? { if object["in"].str=="" {  app.gg.scissor_rect(object["x"].num-1, object["y"].num-1, object["w"].num + 200, object["h"].num+2) } }
 							draw_radio(app, object)
 						}"group"{
 							draw_group(app, object)
@@ -175,6 +205,7 @@ fn frame_fn(app &Window) {
 				}
 			}
 		}
+		$if !dont_clip ? { app.gg.scissor_rect(0, 0, real_size.width, real_size.height) }
 		draw_focus(mut app)
 		if app.menubar!=[]map["string"]WindowData{} {
 			draw_menubar(mut app, real_size)
