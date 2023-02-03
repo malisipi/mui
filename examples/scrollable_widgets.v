@@ -15,11 +15,17 @@ app.scrollbar(id:"textarea_scrollbar", x:180, y:20, width: 20, height:200, verti
 app.table(id:"table", table:user_list, x:300, y:20, width:380, height:100, row_height:40)
 app.scrollbar(id:"table_scrollbar", x:680, y:20, width: 20, height:100, vertical:true, connected_widget:app.get_object_by_id("table")[0])
 
-app.frame(id:"frame", x:20, y:320, width:480, height:230, view_area:[800,600])
+app.frame(id:"frame", x:20, y:320, width:480, height:230, view_area:[1250,1250])
 app.scrollbar(id:"frame_scrollbar_v", x:500, y:320, width: 20, height:250, vertical:true, connected_widget:app.get_object_by_id("frame")[0])
 app.scrollbar(id:"frame_scrollbar_h", x:20, y:550, width: 480, height:20, connected_widget:app.get_object_by_id("frame")[0])
 
 app.list(id:"list", table:user_list, x:20, y:20, width:380, height:100, row_height:40, frame:"frame")
 app.scrollbar(id:"list_scrollbar", x:400, y:20, width: 20, height:100, vertical:true, connected_widget:app.get_object_by_id("list")[0], frame:"frame")
+
+app.checkbox(id:"checkbox", x:500, y:300, width:20, text:"Check me!" frame:"frame")
+app.switch(id:"switch", x:500, y:330, width:40, text:"Switch me!" frame:"frame")
+app.selectbox(id:"selectbox", x:500, y:360, list:["English","Turkish","Spanish"], text:"Language", frame:"frame")
+app.slider(id:"slider", x:500, y:390, frame:"frame")
+app.radio(id:"radio", x:500, y:420, height:20, list:["Cat","Dog","Bird"], frame:"frame")
 
 app.run()

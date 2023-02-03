@@ -26,7 +26,7 @@ pub fn add_radio(mut app &Window, list []string, group_id string, x IntOrString,
 	for which_item,item in list {
 		app.objects << {
 			"type": WindowData{str:"radio"},
-			"id":   WindowData{str:group_id+"_"+which_item.str()}
+			"id":   WindowData{str:group_id+"_"+which_item.str()},
 			"text": WindowData{str:item},
 			"x":    WindowData{num:0},
 			"y":    WindowData{num:0},
@@ -36,9 +36,10 @@ pub fn add_radio(mut app &Window, list []string, group_id string, x IntOrString,
 			"y_raw":WindowData{str: match y{ int{ (y+((match wh{int{wh}string{0}}+5)*which_item)).str() } string{ print("Anchors couldn't be used in Y of radio buttons.\n") "0" } } },
 			"w_raw":WindowData{str: match wh{ int{ wh.str() } string{ print("Anchors couldn't be used in size of radio buttons.\n") "0" } } },
 			"h_raw":WindowData{str: match wh{ int{ wh.str() } string{ print("Anchors couldn't be used in size of radio buttons.\n") "0" } } },
-			"c":	WindowData{bol:selected==which_item}
-			"hi":	WindowData{bol:hi}
-			"tSize":WindowData{num:tSize}
+			"c":	WindowData{bol:selected==which_item},
+			"hi":	WindowData{bol:hi},
+			"tSize":WindowData{num:tSize},
+			"in":   WindowData{str:frame},
 		}
 	}
 }
