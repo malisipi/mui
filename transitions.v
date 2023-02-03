@@ -9,7 +9,9 @@ const (
 
 pub fn move_object(mut app &Window, object_id string, new_pos []IntOrString, move_time f64){
     unsafe {
-	app.force_redraw = true
+    	$if power_save ? {
+		app.force_redraw = true
+	}
         mut object:=app.get_object_by_id(object_id)[0]
         total_step:=move_time/transition_time
         old_x_raw,old_y_raw:=object["x_raw"].str,object["y_raw"].str
@@ -33,6 +35,8 @@ pub fn move_object(mut app &Window, object_id string, new_pos []IntOrString, mov
                 }
             }
         }
-        app.force_redraw = false
+        $if power_save ? {
+	        app.force_redraw = false
+	}
     }
 }
