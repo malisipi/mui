@@ -123,6 +123,7 @@ app.run()
 | `-d no_emoji`              | Disable emoji support and font embedding                  |
 | `-d emscripten`            | Compile for emscripten (use with `-os wasm32-emscripten`) |
 | `-d dont_clip`             | For debugging purposes, it disables clipping the widgets area. (Not recommend) |
+| `-d power_save`            | Enables power save mode. It's recommend if your application require more resource or you're running the application on low-hardware computer. Some drawing lags would be appeared with the flag, please report them. |
 | `-d support_japanese_input`| Support basic japanese input                              |
 
 ## Compile for android
