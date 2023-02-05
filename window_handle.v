@@ -6,6 +6,6 @@ pub fn (mut app Window) window_handle() voidptr {
       $if windows {
 		return sapp.win32_get_hwnd()
 	}
-	return unsafe { nil }
+	return unsafe { voidptr(0) }
 
 }

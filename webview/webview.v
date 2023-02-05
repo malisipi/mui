@@ -5,7 +5,7 @@ import os
 #include "@VMODROOT/webview/webview/webview.h"
 #flag -I./webview/
 #flag @VMODROOT/webview/webview.o
-$if gcc || mingw {
+$if gcc || mingw || clang {
 	#flag -lstdc++
 }
 

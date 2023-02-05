@@ -23,7 +23,9 @@ pub fn prefer_dark_titlebar(window voidptr, dark bool){ // only windows
 
 pub fn hide(window voidptr){
 	$if linux {
-		C.gtk_widget_hide(window)
+		$if !tinyc {
+			C.gtk_widget_hide(window)
+		}
 	} $else $if windows {
 		C.ShowWindow(window, false)
 	}
@@ -31,7 +33,9 @@ pub fn hide(window voidptr){
 
 pub fn show(window voidptr){
 	$if linux {
-		C.gtk_widget_show(window)
+		$if !tinyc {
+			C.gtk_widget_show(window)
+		}
 	} $else $if windows {
 		C.ShowWindow(window, true)
 	}
