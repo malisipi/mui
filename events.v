@@ -119,12 +119,13 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 										}
 									}
 									the_text:=object["text"].str.replace("\0","")
+									app.gg.set_text_cfg(size:object["tSize"].num)
 									if the_text.len>0{
 										mut split_char:=0
 										if !(object["type"].str=="password") { //textbox & spinner
-											split_char=math.min(int(math.round((x-object["x"].num)/((app.gg.text_width(the_text)+2)/the_text.runes().len))),the_text.runes().len)
+											split_char=math.min(int(math.round((x-4-object["x"].num)/((app.gg.text_width(the_text)+2)/the_text.runes().len))),the_text.runes().len)
 										} else {
-											split_char=math.min(int(math.round((x-object["x"].num)/((app.gg.text_width(object["hc"].str)*the_text.runes().len+2)/the_text.runes().len))),the_text.runes().len)
+											split_char=math.min(int(math.round((x-4-object["x"].num)/((app.gg.text_width(object["hc"].str)*the_text.runes().len+2)/the_text.runes().len))),the_text.runes().len)
 										}
 										object["text"]=WindowData{str:the_text.runes()[0..split_char].string()+"\0"+the_text.runes()[split_char..math.min(99999,the_text.runes().len)].string()}
 									} else {
@@ -132,13 +133,14 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									}
 								} "textarea"{
 									the_text:=object["text"].str.replace("\0","")
+									app.gg.set_text_cfg(size:object["tSize"].num, mono:object["code"].bol)
 									if the_text.len>0{
 										rows:=the_text.split("\n")
 										which_row:=int(math.min(math.max(y+object["schsl"].num-object["y"].num-4,0)/20,rows.len-1))
 										row_text:=the_text.split("\n")[which_row]
 										mut edited_row:="\0"
 										if row_text.len>0{
-											split_char:=math.min(int(math.round((x-object["x"].num)/((app.gg.text_width(row_text)+2)/row_text.runes().len))),row_text.runes().len)
+											split_char:=math.min(int(math.round((x-4-object["x"].num)/((app.gg.text_width(row_text)+2)/row_text.runes().len))),row_text.runes().len)
 											edited_row=row_text.runes()[0..split_char].string()+"\0"+row_text.runes()[split_char..math.min(99999,row_text.runes().len)].string()
 										}
 										before_rows:=if rows#[0..which_row].len>0 { rows#[0..which_row].join("\n") } else { "" }
