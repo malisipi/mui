@@ -65,6 +65,8 @@ pub mut:
 	resized_fn		OnEvent							= empty_fn
 	background		[]int							= [-1,-1,-1]
 	menubar_config		MenubarConfig
+	toolbar			int							//= 0
+	statusbar		int							//= 0
 }
 
 pub struct EventDetails{

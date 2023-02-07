@@ -10,7 +10,7 @@ $if clang {
 	#flag -Wno-everything
 }
 
-pub fn create(args &WindowConfig)	 &Window{
+pub fn create(args &WindowConfig) &Window {
     color_scheme, light_mode := if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
     mut app := &Window{
         objects: []
@@ -22,8 +22,8 @@ pub fn create(args &WindowConfig)	 &Window{
         scrollbar: args.scrollbar
         x_offset: 0 + args.x_offset
         xn_offset: if args.scrollbar { scrollbar_size } else { 0 } + args.xn_offset
-        y_offset: if args.menubar!=[]map["string"]WindowData{} { args.menubar_config.height } else { 0 } + args.y_offset
-        yn_offset: if args.scrollbar { scrollbar_size } else { 0 } + args.yn_offset
+        y_offset: if args.menubar!=[]map["string"]WindowData{} { args.menubar_config.height } else { 0 } + args.y_offset + args.toolbar
+        yn_offset: if args.scrollbar { scrollbar_size } else { 0 } + args.yn_offset + args.statusbar
         app_data: args.app_data
         screen_reader: if args.screen_reader { check_screen_reader() } else { false }
         file_handler: args.file_handler
@@ -77,6 +77,14 @@ pub fn create(args &WindowConfig)	 &Window{
 	app.scrollbar(Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:args.view_area[0]+app.x_offset+app.xn_offset, size_thumb:args.width, onchange: update_scroll_hor, z_index:999999, hidden:!app.scrollbar})
 	app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true, z_index:999999, hidden:!app.scrollbar})
 	app.rect(Widget{ id:"@scrollbar:extra", x:"!&# 0", y:"!&# 0", width:"15", height:"15", background: app.color_scheme[1], z_index:999999, hidden:!app.scrollbar})
+
+	if args.toolbar != 0 {
+		menubar_height := if args.menubar!=[]map["string"]WindowData{} { args.menubar_config.height } else { 0 }
+		app.frame(id:"@toolbar", x:"!& 0", y:"!& ${menubar_height}", width:"100%x", height:args.toolbar)
+	}
+	if args.statusbar != 0 {
+		app.frame(id:"@statusbar", x:"!& 0", y:"!&# 0", width:"100%x", height:args.statusbar)
+	}
 
 	return app
 }
