@@ -5,9 +5,14 @@ type IntString = int | string
 
 fn C._vinit(int, &&char)
 
-[export: "mui_init"]
+[export: "mui_v_init"]
 fn mui_init(argc int, argv &&char){
 	C._vinit(argc, argv)
+}
+
+[export: "mui_get_null_object"]
+fn mui_get_null_object() &map[string]mui.WindowData {
+	return &mui.null_object
 }
 
 [export: "mui_create"]
@@ -32,7 +37,7 @@ fn mui_change_object_property(mut window &mui.Window, object &map[string]mui.Win
 	}
 }
 
-fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEvent, onchg mui.OnEvent, onucl mui.OnEvent){
+fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEvent, onchg mui.OnEvent, onucl mui.OnEvent, connected_object &map[string]mui.WindowData){
 	unsafe {
 		jconf := json.decode(map[string]IntString, pconf.vstring()) or {println("Crashed -> json") exit(0)}
 		mut wconf := mui.Widget{}
@@ -43,9 +48,13 @@ fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEve
 		if jconf["width"].type_name() == "string" { wconf.width = jconf["width"] as string }
 		if jconf["height"].type_name() == "string" { wconf.height = jconf["height"] as string }
 		if jconf["text"].type_name() == "string" { wconf.text = jconf["text"] as string }
+		if jconf["vertical"].type_name() == "string" { wconf.vertical = (jconf["vertical"] as string) == "true" }
 		wconf.onclick = onclk
 		wconf.onchange = onchg
 		wconf.onunclick = onucl
+		if _type=="scrollbar" {
+			wconf.connected_widget = connected_object
+		}
 
 		match _type {
 			"button" {
@@ -54,8 +63,12 @@ fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEve
 				window.label(wconf)
 			} "textbox" {
 				window.textbox(wconf)
+			} "textarea" {
+				window.textarea(wconf)
 			} "password" {
 				window.password(wconf)
+			} "scrollbar" {
+				window.scrollbar(wconf)
 			} else {
 				println(":: Invalid/Unsupported widget type")
 			}
@@ -66,22 +79,32 @@ fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEve
 
 [export: "mui_button"]
 fn mui_button(mut window &mui.Window, pconf &char, onclk mui.OnEvent){
-	mui_widget("button", mut window, pconf, onclk, mui.empty_fn, mui.empty_fn)
+	mui_widget("button", mut window, pconf, onclk, mui.empty_fn, mui.empty_fn, &mui.null_object)
 }
 
 [export: "mui_label"]
 fn mui_label(mut window &mui.Window, pconf &char, onclk mui.OnEvent){
-	mui_widget("label", mut window, pconf, onclk, mui.empty_fn, mui.empty_fn)
+	mui_widget("label", mut window, pconf, onclk, mui.empty_fn, mui.empty_fn, &mui.null_object)
 }
 
 [export: "mui_textbox"]
 fn mui_textbox(mut window &mui.Window, pconf &char, onchg mui.OnEvent){
-	mui_widget("textbox", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn)
+	mui_widget("textbox", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn, &mui.null_object)
+}
+
+[export: "mui_textarea"]
+fn mui_textarea(mut window &mui.Window, pconf &char, onchg mui.OnEvent){
+	mui_widget("textarea", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn, &mui.null_object)
 }
 
 [export: "mui_password"]
 fn mui_password(mut window &mui.Window, pconf &char, onchg mui.OnEvent){
-	mui_widget("password", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn)
+	mui_widget("password", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn, &mui.null_object)
+}
+
+[export: "mui_scrollbar"]
+fn mui_scrollbar(mut window &mui.Window, pconf &char, onclk mui.OnEvent, onchg mui.OnEvent, onunclk mui.OnEvent, connected_object &map[string]mui.WindowData){
+	mui_widget("scrollbar", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn, connected_object)
 }
 
 [export: "mui_get_object_by_id"]

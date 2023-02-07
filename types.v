@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-const (
+pub const (
 	null_object={"id":WindowData{str:""}}
 )
 

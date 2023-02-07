@@ -24,7 +24,7 @@ void textbox_event_handler(mui_event_details details, mui_window* window, void**
     str);
 }
 
-void main(int argc, char** argv){
+int main(int argc, char** argv){
   struct AppData app_data;
   app_data.count = 0;
   
@@ -33,5 +33,9 @@ void main(int argc, char** argv){
   mui_button(window, "{\"id\":\"button1\", \"x\":\"10%x\", \"y\":\"10\", \"width\":\"80%x\", \"text\": \"Destroy the window\"}", *button_event_handler);
   mui_label(window, "{\"id\":\"label1\", \"x\":\"10%x\", \"y\":\"50\", \"width\":\"80%x\", \"text\": \"This is a label\"}", *mui_empty_fn);
   mui_textbox(window, "{\"id\":\"textbox1\", \"x\":\"10%x\", \"y\":\"90\", \"width\":\"80%x\", \"text\": \"This is a textbox\"}", *textbox_event_handler);
+  mui_textarea(window, "{\"id\":\"textarea1\", \"x\":\"10%x\", \"y\":\"130\", \"width\":\"80%x -20\", \"height\":\"100\", \"text\": \"This is a textarea\"}", *mui_empty_fn);
+  mui_object* textarea1 = mui_get_object_by_id (window, "textarea1");
+  mui_scrollbar(window, "{\"id\":\"scrollbar1\", \"x\":\"# 10%x\", \"y\":\"130\", \"width\":\"20\", \"height\":\"100\", \"vertical\":\"true\"}", *mui_empty_fn, *mui_empty_fn, *mui_empty_fn, textarea1);
   mui_run(window);
+  return 0;
 }

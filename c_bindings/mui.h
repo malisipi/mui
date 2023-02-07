@@ -42,12 +42,22 @@ struct mui_parsed_event_details {
 struct mui_window {};
 struct mui_object {};
 
-void mui_init(int argc, char** argv);
+void mui_v_init(int argc, char** argv);
+struct mui_object* mui_get_null_object();
+struct mui_object* mui_null_object; // will be declared with mui_init
+
+void mui_init(int argc, char** argv){
+  mui_v_init(argc, argv);
+  mui_null_object = mui_get_null_object();
+};
+
 mui_window* mui_create(char* config, void**);
 void mui_button(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
 void mui_label(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
 void mui_textbox(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
+void mui_textarea(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
 void mui_password(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
+void mui_scrollbar(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**), void (*onchg)(mui_event_details, mui_window*, void**), void (*onunclk)(mui_event_details, mui_window*, void**), mui_object*);
 void mui_run(mui_window* window);
 void mui_change_object_property(mui_window* window, struct mui_object* object, char* config);
 struct mui_parsed_event_details mui_parse_event_details(mui_event_details);
