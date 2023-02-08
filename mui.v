@@ -6,17 +6,13 @@ import os
 import math
 import sokol.sapp
 
-$if clang {
-	#flag -Wno-everything
-}
-
 pub fn create(args &WindowConfig) &Window {
     color_scheme, light_mode := if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
     mut app := &Window{
         objects: []
         focus: ""
         color_scheme: color_scheme
-	light_mode: light_mode
+        light_mode: light_mode
         gg: 0
         menubar: args.menubar
         scrollbar: args.scrollbar
@@ -30,8 +26,8 @@ pub fn create(args &WindowConfig) &Window {
         ask_quit: args.ask_quit
         init_fn: args.init_fn
         quit_fn: args.quit_fn
-		resized_fn: args.resized_fn
-		menubar_config: args.menubar_config
+        resized_fn: args.resized_fn
+        menubar_config: args.menubar_config
     }
 
     mut emoji_font:=args.font
@@ -233,6 +229,13 @@ pub fn (mut app Window) run () {
 }
 
 pub fn (mut app Window) destroy () {
+	app.quit_fn( EventDetails{
+					event:"destroy",
+					trigger:"non_user",
+					value:"true",
+					target_type:"window",
+					target_id:""},
+		mut app, mut app.app_data)
 	sapp.quit()
 }
 

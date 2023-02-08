@@ -71,8 +71,8 @@ pub mut:
 
 pub struct EventDetails{
 pub mut:
-	event			string		// click, value_change, unclick, keypress, files_drop, resize
-	trigger			string		// mouse_left, mouse_right, mouse_middle, keyboard
+	event			string		// click, value_change, unclick, keypress, files_drop, resize, destroy
+	trigger			string		// mouse_left, mouse_right, mouse_middle, keyboard, non_user
 	value			string		= "true"
 	target_type		string		= "window" //window, menubar, and widget_types
 	target_id		string		//= ""
