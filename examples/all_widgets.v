@@ -1,8 +1,7 @@
 import malisipi.mui as m
 
-mut app:=m.create(m.WindowConfig{ title:"MUI", scrollbar:true, width:800, height: 600 view_area:[1000,1000], ask_quit:true, prefer_native:false })
+mut app:=m.create(m.WindowConfig{ title:"MUI", scrollbar:true, width:800, height: 600 view_area:[1000,1000], ask_quit:true, prefer_native:true })
 
-app.rect(m.Widget{ id:"rect", x:0, y:0, width:170, height:420 })
 app.label(m.Widget{ id:"label", x: 20, y:20, text:"This is a label" })
 app.button(m.Widget{ id:"button", x: 20, y:50, text:"Button" })
 app.progress(m.Widget{ id:"progress", x:20, y: 80, percent:25 })

@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-const (
+pub const (
     scrollbar_size=15
 )
 
@@ -71,23 +71,23 @@ fn change_connected_object_viewarea(event_details EventDetails, mut window &Wind
 fn draw_scrollbar(app &Window, object map[string]WindowData){
 	unsafe{
         if !object["vert"].bol {
-            app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
+            app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)
             thumb_size:=if object["cnObj"].lst[0] == null_object {
             	int(f32(object["sThum"].num-object["vlMin"].num)/f32(object["vlMax"].num-object["vlMin"].num)*object["w"].num)
             } else {
             	object["w"].num/4
             }
             width_of_thumb:=int(f32(object["w"].num-thumb_size)/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num)*(f32(object["val"].num-object["vlMin"].num)/object["vStep"].num))
-            app.gg.draw_rect_filled(object["x"].num+width_of_thumb, object["y"].num, thumb_size, object["h"].num, object["bfg"].clr)
+            app.gg.draw_rounded_rect_filled(object["x"].num+width_of_thumb, object["y"].num + object["h"].num / 3, thumb_size, object["h"].num / 3, app.round_corners, object["bfg"].clr)
         } else {
-            app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
+            app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)
             thumb_size:=if object["cnObj"].lst[0] == null_object {
             	int(f32(object["sThum"].num-object["vlMin"].num)/f32(object["vlMax"].num-object["vlMin"].num)*object["h"].num)
             } else {
             	object["h"].num/4
             }
             height_of_thumb:=int(f32(object["h"].num-thumb_size)/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num)*(f32(object["val"].num-object["vlMin"].num)/object["vStep"].num))
-            app.gg.draw_rect_filled(object["x"].num, object["y"].num+height_of_thumb, object["w"].num, thumb_size, object["bfg"].clr)
+            app.gg.draw_rounded_rect_filled(object["x"].num + object["w"].num / 3, object["y"].num+height_of_thumb, object["w"].num / 3, thumb_size, app.round_corners, object["bfg"].clr)
         }
 	}
 }

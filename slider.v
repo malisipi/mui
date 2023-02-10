@@ -40,9 +40,9 @@ pub fn add_slider(mut app &Window, val int, min int, max int, step int, id strin
 fn draw_slider(app &Window, object map[string]WindowData){
 	unsafe{
         if !object["vert"].bol {
-            app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
+            app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)
             width_of_thumb:=int(f32(object["w"].num)/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num)*(f32(object["val"].num-object["vlMin"].num)/object["vStep"].num))-3
-            app.gg.draw_rect_filled(object["x"].num+width_of_thumb, object["y"].num, 6, object["h"].num, object["bfg"].clr)
+            app.gg.draw_rounded_rect_filled(object["x"].num+width_of_thumb, object["y"].num, 6, object["h"].num, app.round_corners, object["bfg"].clr)
             app.gg.draw_text(object["x"].num+object["w"].num+6, object["y"].num+object["h"].num/2, object["vlMap"].vmp(object["val"].num), gx.TextCfg{
                 color: object["fg"].clr
                 size: object["tSize"].num
@@ -50,9 +50,9 @@ fn draw_slider(app &Window, object map[string]WindowData){
                 vertical_align: .middle
             })
         } else {
-            app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
+            app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)
             height_of_thumb:=int(f32(object["h"].num)/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num)*(f32(object["val"].num-object["vlMin"].num)/object["vStep"].num))-3
-            app.gg.draw_rect_filled(object["x"].num, object["y"].num+height_of_thumb, object["w"].num, 6, object["bfg"].clr)
+            app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num+height_of_thumb, object["w"].num, 6, app.round_corners, object["bfg"].clr)
             app.gg.draw_text(object["x"].num+object["w"].num/2, object["y"].num+object["h"].num+6, object["vlMap"].vmp(object["val"].num), gx.TextCfg{
                 color: object["fg"].clr
                 size: object["tSize"].num

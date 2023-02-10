@@ -69,6 +69,7 @@ pub mut:
 	toolbar			int							//= 0
 	statusbar		int							//= 0
 	prefer_native	bool						//= true
+	round_corners	int							= -1
 }
 
 pub struct EventDetails{
@@ -113,6 +114,7 @@ pub mut:
 	force_redraw			bool			//= false
 	prefer_native			bool
 	native_focus			bool			//=false
+	round_corners			int
 }
 
 pub struct MenubarConfig {

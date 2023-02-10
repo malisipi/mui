@@ -50,7 +50,7 @@ fn draw_frame(app &Window, object map[string]WindowData){
 		}
 		object["scwsl"].num = scrolled_width
 
-		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
+		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)
 	}
 }
 

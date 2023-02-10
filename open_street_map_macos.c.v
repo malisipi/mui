@@ -58,7 +58,7 @@ fn draw_map(app &Window, object map[string]WindowData){
         draw_image(app, object)
 
         text_width, text_height:=app.gg.text_size(map_source)
-        app.gg.draw_rect_filled(object["x"].num, object["y"].num+object["h"].num-text_height-8, text_width+8, text_height+8, gx.Color{r:0, g:0, b:0, a:190})
+        app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num+object["h"].num-text_height-8, text_width+8, text_height+8, app.round_corners, gx.Color{r:0, g:0, b:0, a:190})
         app.gg.draw_text(object["x"].num+4, object["y"].num+object["h"].num-text_height/2-4, map_source, gx.TextCfg{
             color: gx.white
             size: 20

@@ -36,6 +36,13 @@ pub fn create(args &WindowConfig) &Window {
         resized_fn: args.resized_fn
         menubar_config: args.menubar_config
 		prefer_native: prefer_native
+		round_corners: if args.round_corners==-1 {
+			if prefer_native {
+				5
+			} else {
+				0
+			}
+		} else { args.round_corners }
     }
 
     mut emoji_font:=args.font
