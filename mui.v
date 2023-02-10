@@ -12,7 +12,11 @@ pub fn create(args &WindowConfig) &Window {
 		if !prefer_native {
 			create_gx_color_from_color_scheme()
 		} else {
-			[gx.Color{r:240,g:240,b:240}, gx.Color{r:253,g:253,b:253}, gx.Color{r:0,g:120,b:212}, gx.Color{r:0,g:0,b:0}], true
+			if user_light_theme {
+				[gx.Color{r:240,g:240,b:240}, gx.Color{r:253,g:253,b:253}, gx.Color{r:0,g:120,b:212}, gx.Color{r:0,g:0,b:0}], true
+			} else {
+				[gx.Color{r:32,g:33,b:36}, gx.Color{r:53,g:54,b:58}, gx.Color{r:0,g:120,b:212}, gx.Color{r:243,g:243,b:243}], false
+			}
 		}
 	}
     mut app := &Window{
@@ -86,8 +90,7 @@ pub fn create(args &WindowConfig) &Window {
 	}
 
 	app.scrollbar(Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:args.view_area[0]+app.x_offset+app.xn_offset, size_thumb:args.width, onchange: update_scroll_hor, z_index:999999, hidden:!app.scrollbar})
-	app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true, z_index:999999, hidden:!app.scrollbar})
-	app.rect(Widget{ id:"@scrollbar:extra", x:"!&# 0", y:"!&# 0", width:"15", height:"15", background: app.color_scheme[1], z_index:999999, hidden:!app.scrollbar})
+	app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true, z_index:999999, hidden:!app.scrollbar})
 
 	if args.toolbar != 0 {
 		menubar_height := if args.menubar!=[]map["string"]WindowData{} { args.menubar_config.height } else { 0 }

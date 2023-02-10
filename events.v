@@ -27,7 +27,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 						return
 					}
 				}
-			} else if app.focus.starts_with("@menubar#") {
+			} else if app.focus.starts_with("@menubar#") && !app.prefer_native {
 				selected_item:=app.focus.replace("@menubar#","").int()
 				if x>=app.menubar_config.width*selected_item && x<=app.menubar_config.width*selected_item+app.menubar_config.sub_width {
 					menubar_sub_items_len:=app.menubar[selected_item]["items"].lst.len
