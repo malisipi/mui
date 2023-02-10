@@ -33,7 +33,7 @@ pub fn add_line_graph(mut app &Window, id string, x IntOrString, y IntOrString, 
 [unsafe]
 fn draw_line_graph(app &Window, object map[string]WindowData){
 	unsafe{
-		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
+		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)
 		labels:=object["g_lbl"].str.split("\0")
 		datas:=object["g_dat"].dat
 		colors:=object["g_clr"].lcr
