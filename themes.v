@@ -8,6 +8,7 @@ import math
 pub const (
 	theme_dark=[40,40,40]
 	theme_light=[225,225,225]
+	user_light_theme=is_light_theme()
 )
 
 fn hex_to_rgb(clr string) []int {
@@ -94,7 +95,7 @@ fn create_color_scheme() ([][]int, bool) {
 		return create_color_scheme_from_accent_color(accent_color)
 	}
 
-	color_scheme:=is_light_theme()
+	color_scheme:=user_light_theme
 	if color_scheme { // if light theme
 		return create_color_scheme_from_accent_color(theme_light)
 	}

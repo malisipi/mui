@@ -5,6 +5,7 @@ import gx
 
 pub const (
 	null_object={"id":WindowData{str:""}}
+	window_titlebar_height = 30
 )
 
 pub type IntOrString=int|string
@@ -67,6 +68,7 @@ pub mut:
 	menubar_config		MenubarConfig
 	toolbar			int							//= 0
 	statusbar		int							//= 0
+	prefer_native	bool						//= true
 }
 
 pub struct EventDetails{
@@ -109,6 +111,8 @@ pub mut:
 	menubar_config			MenubarConfig
 	redraw_required			bool			= true
 	force_redraw			bool			//= false
+	prefer_native			bool
+	native_focus			bool			//=false
 }
 
 pub struct MenubarConfig {

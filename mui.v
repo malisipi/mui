@@ -7,7 +7,14 @@ import math
 import sokol.sapp
 
 pub fn create(args &WindowConfig) &Window {
-    color_scheme, light_mode := if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
+	prefer_native := $if windows { args.prefer_native } $else { false }
+    color_scheme, light_mode := if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { 
+		if !prefer_native {
+			create_gx_color_from_color_scheme()
+		} else {
+			[gx.Color{r:240,g:240,b:240}, gx.Color{r:253,g:253,b:253}, gx.Color{r:0,g:120,b:212}, gx.Color{r:0,g:0,b:0}], true
+		}
+	}
     mut app := &Window{
         objects: []
         focus: ""
@@ -28,6 +35,7 @@ pub fn create(args &WindowConfig) &Window {
         quit_fn: args.quit_fn
         resized_fn: args.resized_fn
         menubar_config: args.menubar_config
+		prefer_native: prefer_native
     }
 
     mut emoji_font:=args.font

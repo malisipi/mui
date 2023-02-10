@@ -24,7 +24,7 @@ pub fn add_selectbox(mut app &Window, text string, list []string, selected int, 
         "list":	WindowData{str:list.join("\0")},
         "s":	WindowData{num:if text==""{ selected } else { -1 }},
         "hi":	WindowData{bol:hi},
-        "fnchg":WindowData{fun:fnchg}
+        "fnchg":WindowData{fun:fnchg},
     }
 }
 
@@ -48,6 +48,20 @@ fn draw_selectbox(app &Window, object map[string]WindowData){
 		})
 
 		if app.focus==object["id"].str {
+			if app.prefer_native {
+				if !app.native_focus {
+					the_list := object["list"].str.split("\0")
+					selected := app.create_popup_menu(the_list, object["x"].num, window_titlebar_height+object["y"].num+object["h"].num)
+					if selected != -1 {
+						object["s"]=WindowData{num:selected}
+						object["text"]=WindowData{str:the_list[object["s"].num]}
+						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",value:object["text"].str,target_type:object["type"].str,target_id:object["id"].str},mut app, mut app.app_data)
+					}
+					app.native_focus = true
+				}
+				return
+			}
+
 			$if !dont_clip ? {
 				app.gg.scissor_rect(object["x"].num,object["y"].num+object["h"].num,object["w"].num,object["h"].num*object["list"].str.split("\0").len)
 			}
