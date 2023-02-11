@@ -9,6 +9,8 @@ pub const (
 	theme_dark=[40,40,40]
 	theme_light=[225,225,225]
 	user_light_theme=is_light_theme()
+	windows_light_colors=[gx.Color{r:240,g:240,b:240}, gx.Color{r:253,g:253,b:253}, gx.Color{r:0,g:120,b:212}, gx.Color{r:0,g:0,b:0}]
+	windows_dark_colors=[gx.Color{r:32,g:33,b:36}, gx.Color{r:53,g:54,b:58}, gx.Color{r:69,g:178,b:235}, gx.Color{r:243,g:243,b:243}]
 )
 
 fn hex_to_rgb(clr string) []int {

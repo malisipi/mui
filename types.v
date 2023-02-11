@@ -68,8 +68,8 @@ pub mut:
 	menubar_config		MenubarConfig
 	toolbar			int							//= 0
 	statusbar		int							//= 0
-	prefer_native	bool						//= true
-	round_corners	int							= -1
+	draw_mode		DrawingMode						= .cross_platform
+	round_corners		int							= -1
 }
 
 pub struct EventDetails{
@@ -112,7 +112,7 @@ pub mut:
 	menubar_config			MenubarConfig
 	redraw_required			bool			= true
 	force_redraw			bool			//= false
-	prefer_native			bool
+	draw_mode			DrawingMode
 	native_focus			bool			//=false
 	round_corners			int
 }
@@ -188,6 +188,27 @@ pub struct Modal {
 	file_ext		string		= "*"
 	default_entry		string		//= ""
 }
+
+pub enum DrawingMode as int {
+	cross_platform = 0  //000000
+	windows        = 8  //001000
+	windows_native = 9  //001001
+	windows_light  = 10 //001010
+	windows_dark   = 12 //001100
+}
+/* OOOTTN
+O:  OS Theme
+  0: Undependent
+  1: Windows
+  *: Not defined for now
+TT: Color Theme
+  0: Undependent
+  1: Light
+  2: Dark
+N:  Use Native APIs
+  0: Limited
+  1: As Possible
+*/
 
 pub fn empty_fn(event_details EventDetails, mut app &Window, mut app_data voidptr){}
 pub fn no_map(val int) string { return val.str() }

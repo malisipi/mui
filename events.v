@@ -10,7 +10,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 	app.native_focus = false
 	unsafe{
 		if app.focus!="" && app.active_dialog=="" {
-			if get_object_by_id(app, app.focus)["type"].str=="selectbox" && !app.prefer_native {
+			if get_object_by_id(app, app.focus)["type"].str=="selectbox" && int(app.draw_mode) == 0 {
 				mut old_focused_object:=get_object_by_id(app, app.focus)
 				app.focus=""
 				the_list := old_focused_object["list"].str.split("\0")
@@ -27,7 +27,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 						return
 					}
 				}
-			} else if app.focus.starts_with("@menubar#") && !app.prefer_native {
+			} else if app.focus.starts_with("@menubar#") && app.draw_mode == .cross_platform {
 				selected_item:=app.focus.replace("@menubar#","").int()
 				if x>=app.menubar_config.width*selected_item && x<=app.menubar_config.width*selected_item+app.menubar_config.sub_width {
 					menubar_sub_items_len:=app.menubar[selected_item]["items"].lst.len

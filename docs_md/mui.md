@@ -319,7 +319,7 @@ pub mut:
 	menubar_config  MenubarConfig
 	redraw_required bool = true
 	force_redraw    bool //= false
-	prefer_native   bool
+	prefer_native   bool // TODO: Update it
 	native_focus    bool //=false
 	round_corners   int
 }
@@ -346,7 +346,7 @@ pub mut:
 	file_handler  OnEvent = empty_fn
 	ask_quit      bool //= false
 	quit_fn       OnEvent = empty_fn
-	prefer_native bool //= true
+	prefer_native bool //= true // TODO: Update it
 	round_corners int = -1
 }
 ```

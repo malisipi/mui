@@ -7,15 +7,16 @@ import math
 import sokol.sapp
 
 pub fn create(args &WindowConfig) &Window {
-	prefer_native := $if windows { args.prefer_native } $else { false }
+    draw_mode := $if windows { args.draw_mode } $else { unsafe { DrawingMode(int(args.draw_mode)|1^1) } }
     color_scheme, light_mode := if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { 
-		if !prefer_native {
+		if draw_mode == .cross_platform || int(draw_mode)&8 != 8 { // if drawing theme is not windows or cross_platform
 			create_gx_color_from_color_scheme()
 		} else {
-			if user_light_theme {
-				[gx.Color{r:240,g:240,b:240}, gx.Color{r:253,g:253,b:253}, gx.Color{r:0,g:120,b:212}, gx.Color{r:0,g:0,b:0}], true
+			drawing_theme:=if int(draw_mode)&2 == 2 { true } else if int(draw_mode)&4 == 4 { false } else { user_light_theme }
+			if drawing_theme {
+				windows_light_colors, true
 			} else {
-				[gx.Color{r:32,g:33,b:36}, gx.Color{r:53,g:54,b:58}, gx.Color{r:69,g:178,b:235}, gx.Color{r:243,g:243,b:243}], false
+				windows_dark_colors, false
 			}
 		}
 	}
@@ -39,14 +40,14 @@ pub fn create(args &WindowConfig) &Window {
         quit_fn: args.quit_fn
         resized_fn: args.resized_fn
         menubar_config: args.menubar_config
-		prefer_native: prefer_native
-		round_corners: if args.round_corners==-1 {
-			if prefer_native {
-				5
-			} else {
-				0
-			}
-		} else { args.round_corners }
+        draw_mode: draw_mode
+        round_corners: if args.round_corners==-1 {
+                if draw_mode!=.cross_platform {
+                        5
+                } else {
+                        0
+                }
+        } else { args.round_corners }
     }
 
     mut emoji_font:=args.font

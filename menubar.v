@@ -25,7 +25,7 @@ fn draw_menubar(mut app &Window, size &gg.Size){
 
             if clicked_item==which_item {
             	$if windows {
-		        if app.prefer_native {
+		        if draw_mode&1 == 1 {
 		            if !app.native_focus {
 		                selected:=app.create_popup_menu(items["items"].lst.map(it["text"].str), app.menubar_config.width * which_item, window_titlebar_height + app.menubar_config.height)
 		                if selected != -1 {
