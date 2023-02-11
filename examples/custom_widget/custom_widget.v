@@ -4,7 +4,7 @@ import gg
 import gx
 import malisipi.mui
 
-pub fn my_custom_widget(mut app mui.Window, args mui.Widget){
+pub fn new(mut app mui.Window, args mui.Widget){
     app.objects << {
         "type": mui.WindowData{str:"my_custom_widget"},
         "id":   mui.WindowData{str:args.id},
@@ -55,7 +55,7 @@ fn unclick_my_custom_widget(x f32, y f32, mut object map[string]mui.WindowData, 
     app.focus=""
 }
 
-pub fn load_my_custom_widget_into_app(mut app &mui.Window){
+pub fn load_into_app(mut app &mui.Window){
     app.custom_widgets << mui.CustomWidget{typ:"my_custom_widget",
                     draw_fn:draw_my_custom_widget,
                     click_fn:click_my_custom_widget,
