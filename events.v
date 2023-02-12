@@ -10,7 +10,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 	app.native_focus = false
 	unsafe{
 		if app.focus!="" && app.active_dialog=="" {
-			if get_object_by_id(app, app.focus)["type"].str=="selectbox" && int(app.draw_mode) == 0 {
+			if get_object_by_id(app, app.focus)["type"].str=="selectbox" && $if windows { int(app.draw_mode)^1 == 0 } $else { true } {
 				mut old_focused_object:=get_object_by_id(app, app.focus)
 				app.focus=""
 				the_list := old_focused_object["list"].str.split("\0")
