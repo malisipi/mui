@@ -49,7 +49,7 @@ fn draw_selectbox(app &Window, object map[string]WindowData){
 
 		if app.focus==object["id"].str {
 			$if windows {
-				if draw_mode&1 == 1 {
+				if int(app.draw_mode)&1 == 1 {
 					if !app.native_focus {
 						the_list := object["list"].str.split("\0")
 						selected := app.create_popup_menu(the_list, object["x"].num, window_titlebar_height+object["y"].num+object["h"].num)
