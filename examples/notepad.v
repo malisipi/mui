@@ -64,7 +64,7 @@ menubar:=[
     ]}},
 ]
 
-mut app:=m.create(m.WindowConfig{ title:"Notepad - MUI Examples", width:400, height: 300, menubar:menubar, file_handler:load_file, ask_quit:true, app_data:&AppData{}, toolbar:25, statusbar:25, prefer_native:true })
+mut app:=m.create(m.WindowConfig{ title:"Notepad - MUI Examples", width:400, height: 300, menubar:menubar, file_handler:load_file, ask_quit:true, app_data:&AppData{}, toolbar:25, statusbar:25, draw_mode:.system_native })
 
 app.get_object_by_id("@toolbar")[0]["bg"].clr = app.color_scheme[0]
 app.get_object_by_id("@statusbar")[0]["bg"].clr = app.color_scheme[0]

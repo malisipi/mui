@@ -189,17 +189,32 @@ pub struct Modal {
 	default_entry		string		//= ""
 }
 
-pub enum DrawingMode as int {
-	cross_platform = 0  //000000
-	windows        = 8  //001000
-	windows_native = 9  //001001
-	windows_light  = 10 //001010
-	windows_dark   = 12 //001100
+pub enum DrawingMode as int { // OOOOO TT N
+	cross_platform = 0    // 00000 00 0
+	windows        = 8    // 00001 00 0
+	windows_native = 9    // 00001 00 1
+	windows_light  = 10   // 00001 01 0
+	windows_dark   = 12   // 00001 10 0
+	linux          = 16   // 00010 00 0
+	linux_native   = 17   // 00010 00 1
+	linux_light    = 18   // 00010 01 0
+	linux_dark     = 20   // 00010 10 0
+	system         = 248  // 11111 00 0
+	system_native  = 249  // 11111 00 1
+	system_light   = 250  // 11111 01 0
+	system_dark    = 252  // 11111 10 0
 }
-/* OOOTTN
+
+struct PredefinedTheme{
+	color_scheme		[]gx.Color
+	round_corner		int
+}
+/* OOOOOTTN
 O:  OS Theme
-  0: Undependent
-  1: Windows
+  0:  Undependent
+  1:  Windows
+  2:  Linux
+  31: Native Theme for all OSs
   *: Not defined for now
 TT: Color Theme
   0: Undependent

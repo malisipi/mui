@@ -1,6 +1,6 @@
 import malisipi.mui as m
 
-mut app:=m.create(m.WindowConfig{ title:"MUI", scrollbar:true, width:800, height: 600 view_area:[1000,1000], ask_quit:true, draw_mode:.windows_dark })
+mut app:=m.create(m.WindowConfig{ title:"MUI", scrollbar:true, width:800, height: 600 view_area:[1000,1000], ask_quit:true, draw_mode:.system_native })
 
 app.label(m.Widget{ id:"label", x: 20, y:20, text:"This is a label" })
 app.button(m.Widget{ id:"button", x: 20, y:50, text:"Button" })

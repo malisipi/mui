@@ -7,16 +7,29 @@ import math
 import sokol.sapp
 
 pub fn create(args &WindowConfig) &Window {
-    draw_mode := $if windows { args.draw_mode } $else { unsafe { DrawingMode(int(args.draw_mode)|1^1) } }
-    color_scheme, light_mode := if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { 
-		if draw_mode == .cross_platform || int(draw_mode)&8 != 8 { // if drawing theme is not windows or cross_platform
-			create_gx_color_from_color_scheme()
+    draw_mode := draw_mode_config(args.draw_mode)
+    color_scheme, light_mode, round_corner := if args.color!=[-1,-1,-1] { temp0, temp1:=create_gx_color_from_manuel_color(args.color) temp0, temp1, 0 } else {
+		if draw_mode == .cross_platform { // if drawing theme is not windows or cross_platform
+			temp0, temp1:=create_gx_color_from_color_scheme()
+			temp0, temp1, 0
 		} else {
-			drawing_theme:=if int(draw_mode)&2 == 2 { true } else if int(draw_mode)&4 == 4 { false } else { user_light_theme }
-			if drawing_theme {
-				windows_light_colors, true
-			} else {
-				windows_dark_colors, false
+			if int(draw_mode)&8 == 8 { // If windows
+				drawing_theme:=if int(draw_mode)&2 == 2 { true } else if int(draw_mode)&4 == 4 { false } else { user_light_theme }
+				if drawing_theme {
+					theme_windows_light.color_scheme, true, theme_windows_light.round_corner
+				} else {
+					theme_windows_dark.color_scheme, false, theme_windows_dark.round_corner
+				}
+			} else if int(draw_mode)&16 == 16 { // If linux
+				drawing_theme:=if int(draw_mode)&2 == 2 { true } else if int(draw_mode)&4 == 4 { false } else { user_light_theme }
+				if drawing_theme {
+					theme_linux_light.color_scheme, true, theme_linux_light.round_corner
+				} else {
+					theme_linux_dark.color_scheme, false, theme_linux_dark.round_corner
+				}
+			} else { // Else
+				temp0, temp1:=create_gx_color_from_color_scheme()
+				temp0, temp1, 0
 			}
 		}
 	}
@@ -41,13 +54,7 @@ pub fn create(args &WindowConfig) &Window {
         resized_fn: args.resized_fn
         menubar_config: args.menubar_config
         draw_mode: draw_mode
-        round_corners: if args.round_corners==-1 {
-                if draw_mode!=.cross_platform {
-                        5
-                } else {
-                        0
-                }
-        } else { args.round_corners }
+        round_corners: if args.round_corners==-1 { round_corner } else { args.round_corners }
     }
 
     mut emoji_font:=args.font

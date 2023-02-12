@@ -9,8 +9,25 @@ pub const (
 	theme_dark=[40,40,40]
 	theme_light=[225,225,225]
 	user_light_theme=is_light_theme()
-	windows_light_colors=[gx.Color{r:240,g:240,b:240}, gx.Color{r:253,g:253,b:253}, gx.Color{r:0,g:120,b:212}, gx.Color{r:0,g:0,b:0}]
-	windows_dark_colors=[gx.Color{r:32,g:33,b:36}, gx.Color{r:53,g:54,b:58}, gx.Color{r:69,g:178,b:235}, gx.Color{r:243,g:243,b:243}]
+)
+
+const (
+	theme_windows_light=PredefinedTheme{
+		color_scheme: [gx.Color{r:240,g:240,b:240}, gx.Color{r:253,g:253,b:253}, gx.Color{r:0,g:120,b:212}, gx.Color{r:0,g:0,b:0}]
+		round_corner: 5
+	}
+	theme_windows_dark=PredefinedTheme{
+		color_scheme: [gx.Color{r:32,g:33,b:36}, gx.Color{r:53,g:54,b:58}, gx.Color{r:69,g:178,b:235}, gx.Color{r:243,g:243,b:243}],
+		round_corner: 5
+	}
+	theme_linux_light=PredefinedTheme{
+		color_scheme: [gx.Color{r:250,g:250,b:250}, gx.Color{r:212,g:212,b:212}, gx.Color{r:236,g:100,b:53}, gx.Color{r:42,g:42,b:42}]
+		round_corner: 5
+	}
+	theme_linux_dark=PredefinedTheme{
+		color_scheme: [gx.Color{r:48,g:48,b:48}, gx.Color{r:68,g:68,b:68}, gx.Color{r:236,g:100,b:53}, gx.Color{r:255,g:255,b:255}],
+		round_corner: 5
+	}
 )
 
 fn hex_to_rgb(clr string) []int {
@@ -127,4 +144,20 @@ fn create_gx_color_from_manuel_color(the_color []int) ([]gx.Color, bool){
 			b:u8(math.max(math.min(color[2],255),0))}
 	}
 	return gx_colors, is_light_theme_mode
+}
+
+fn draw_mode_config(draw_mode DrawingMode) DrawingMode {
+	unsafe {
+		if int(draw_mode)|7^7 == 248 {
+			$if windows {
+				return DrawingMode(int(draw_mode)|240^240) // 1
+			} $else $if linux {
+				return DrawingMode(int(draw_mode)|232^232) // 2
+			} $else {
+				return .cross_platform
+			}
+		} else {
+			return draw_mode
+		}
+	}
 }
