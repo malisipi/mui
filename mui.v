@@ -6,6 +6,10 @@ import os
 import math
 import sokol.sapp
 
+$if windows && tinyc {
+	#flag windows -isystem C:\winapi
+}
+
 pub fn create(args &WindowConfig) &Window {
     draw_mode := draw_mode_config(args.draw_mode)
     color_scheme, light_mode, round_corner := if args.color!=[-1,-1,-1] { temp0, temp1:=create_gx_color_from_manuel_color(args.color) temp0, temp1, 0 } else {
