@@ -48,9 +48,9 @@ pub fn add_radio(mut app &Window, list []string, group_id string, x IntOrString,
 fn draw_radio(app &Window, object map[string]WindowData){
 	unsafe{
 		group:=get_object_by_id(app, object["id"].str.split("_")#[0..-1].join("_"))
-		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["w"].num, group["bg"].clr)
+		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["w"].num, app.round_corners, group["bg"].clr)
 		if object["c"].bol{
-			app.gg.draw_rect_filled(object["x"].num+2, object["y"].num+2, object["w"].num-4, object["w"].num-4, group["bfg"].clr)
+			app.gg.draw_rounded_rect_filled(object["x"].num+2, object["y"].num+2, object["w"].num-4, object["w"].num-4, app.round_corners, group["bfg"].clr)
 		}
 		app.gg.draw_text(object["x"].num+object["w"].num+4, object["y"].num+object["h"].num/2, object["text"].str, gx.TextCfg{
 			color: group["fg"].clr

@@ -16,8 +16,8 @@ mut:
     music       ma.Sound
 }
 
-fn map_play_time(time int) string{
-    return (time/60).str()+":"+(time%60).str()
+fn map_play_time(the_time int) string{
+    return (the_time/60).str()+":"+(the_time%60).str()
 }
 
 fn move_play_slider(mut app &mui.Window, mut app_data &AppData){

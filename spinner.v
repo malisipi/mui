@@ -33,8 +33,8 @@ pub fn add_spinner(mut app &Window, text string, id string, placeholder string, 
 [unsafe]
 fn draw_spinner(app &Window, object map[string]WindowData){
 	unsafe{
-		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
-		app.gg.draw_rect_filled(object["x"].num+2, object["y"].num+2, object["w"].num-20, object["h"].num-4, object["bfg"].clr)
+		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)
+		app.gg.draw_rounded_rect_filled(object["x"].num+2, object["y"].num+2, object["w"].num-20, object["h"].num-4, app.round_corners, object["bfg"].clr)
 		
 		if app.focus!=object["id"].str{
 			mut the_text:=object["text"].str.replace("\0","")
@@ -65,14 +65,14 @@ fn draw_spinner(app &Window, object map[string]WindowData){
 			})
 		}
 		
-		app.gg.draw_rect_filled(object["x"].num + object["w"].num - 16, object["y"].num, 16, object["h"].num / 2 - 1, object["bfg"].clr)
+		app.gg.draw_rounded_rect_filled(object["x"].num + object["w"].num - 16, object["y"].num, 16, object["h"].num / 2 - 1, app.round_corners, object["bfg"].clr)
 		app.gg.draw_triangle_filled(
 			object["x"].num+object["w"].num-13, object["y"].num+object["h"].num/4+5-1,
 			object["x"].num+object["w"].num-3 , object["y"].num+object["h"].num/4+5-1,
 			object["x"].num+object["w"].num-8, object["y"].num+object["h"].num/4-5-1,
 			object["fg"].clr)
 		
-		app.gg.draw_rect_filled(object["x"].num + object["w"].num - 16, object["y"].num + object["h"].num / 2 + 1, 16, object["h"].num / 2 - 1, object["bfg"].clr)
+		app.gg.draw_rounded_rect_filled(object["x"].num + object["w"].num - 16, object["y"].num + object["h"].num / 2 + 1, 16, object["h"].num / 2 - 1, app.round_corners, object["bfg"].clr)
 		app.gg.draw_triangle_filled(
 			object["x"].num+object["w"].num-13, object["y"].num+object["h"].num/4*3-5+1,
 			object["x"].num+object["w"].num-3 , object["y"].num+object["h"].num/4*3-5+1,

@@ -1,495 +1,186 @@
 # malisipi.mui
 
-## Contents
-- [Constants](#Constants)
-- This functions not recommend
-	- [add_area_graph](#add_area_graph)
-	- [add_button](#add_button)
-	- [add_checkbox](#add_checkbox)
-	- [add_frame](#add_frame)
-	- [add_group](#add_group)
-	- [add_image](#add_image)
-	- [add_label](#add_label)
-	- [add_line_graph](#add_line_graph)
-	- [add_link](#add_link)
-	- [add_map](#add_map)
-	- [add_password](#add_password)
-	- [add_progress](#add_progress)
-	- [add_radio](#add_radio)
-	- [add_rect](#add_rect)
-	- [add_scrollbar](#add_scrollbar)
-	- [add_selectbox](#add_selectbox)
-	- [add_slider](#add_slider)
-	- [add_switch](#add_switch)
-	- [add_tabbed_view](#add_tabbed_view)
-	- [add_table](#add_table)
-	- [add_textarea](#add_textarea)
-	- [add_textbox](#add_textbox)
-- [beep](#beep)
-- [color_code_to_rgb](#color_code_to_rgb)
-- [colorchooser](#colorchooser)
-- [create](#create)
-- [dropped_file_path](#dropped_file_path)
-- [dropped_files_len](#dropped_files_len)
-- [empty_custom_widget_draw](#empty_custom_widget_draw)
-- [empty_custom_widget_event](#empty_custom_widget_event)
-- [empty_fn](#empty_fn)
-- [inputbox](#inputbox)
-- [messagebox](#messagebox)
-- [move_object](#move_object)
-- [no_map](#no_map)
-- [notifypopup](#notifypopup)
-- [openfiledialog](#openfiledialog)
-- [passwordbox](#passwordbox)
-- [rgb_to_color_code](#rgb_to_color_code)
-- [savefiledialog](#savefiledialog)
-- [selectfolderdialog](#selectfolderdialog)
-- [CustomWidgetDraw](#CustomWidgetDraw)
-- [CustomWidgetEvent](#CustomWidgetEvent)
-- [IntOrString](#IntOrString)
-- [OnEvent](#OnEvent)
-- [U32OrString](#U32OrString)
-- [ValueMap](#ValueMap)
-- [CustomWidget](#CustomWidget)
-- [EventDetails](#EventDetails)
-- [Modal](#Modal)
-- [Widget](#Widget)
-- [Window](#Window)
-  - [area_graph](#area_graph)
-  - [button](#button)
-  - [checkbox](#checkbox)
-  - [clear_dialog](#clear_dialog)
-  - [clear_values](#clear_values)
-  - [clone_app_objects](#clone_app_objects)
-  - [create_dialog](#create_dialog)
-  - [destroy](#destroy)
-  - [enable_scrollbar](#enable_scrollbar)
-  - [frame](#frame)
-  - [get_dialog_object_by_id](#get_dialog_object_by_id)
-  - [get_next_dialog_object_by_id](#get_next_dialog_object_by_id)
-  - [get_next_object_by_id](#get_next_object_by_id)
-  - [get_object_by_id](#get_object_by_id)
-  - [get_previous_dialog_object_by_id](#get_previous_dialog_object_by_id)
-  - [get_previous_object_by_id](#get_previous_object_by_id)
-  - [group](#group)
-  - [image](#image)
-  - [label](#label)
-  - [line_graph](#line_graph)
-  - [link](#link)
-  - [load_app_objects](#load_app_objects)
-  - [map](#map)
-  - [password](#password)
-  - [progress](#progress)
-  - [radio](#radio)
-  - [rect](#rect)
-  - [remove_all_objects](#remove_all_objects)
-  - [remove_dialog_object_by_id](#remove_dialog_object_by_id)
-  - [remove_object_by_id](#remove_object_by_id)
-  - [run](#run)
-  - [run_dialog](#run_dialog)
-  - [scrollbar](#scrollbar)
-  - [selectbox](#selectbox)
-  - [set_viewarea](#set_viewarea)
-  - [slider](#slider)
-  - [sort_widgets_with_zindex](#sort_widgets_with_zindex)
-  - [switch](#switch)
-  - [tab_view](#tab_view)
-  - [table](#table)
-  - [textarea](#textarea)
-  - [textbox](#textbox)
-  - [wait_and_get_answer](#wait_and_get_answer)
-- [WindowConfig](#WindowConfig)
-- [WindowData](#WindowData)
+# Consts
 
-## Constants
-```v
-const (
-	theme_dark  = [40, 40, 40]
-	theme_light = [225, 225, 225]
-)
-```
+scrollbar_size   = 15
+theme_dark       = [40, 40, 40]
+theme_light      = [225, 225, 225]
+user_light_theme = is_light_theme()
+null_object      = {'id': WindowData{str: ''}}
+window_titlebar_height = 30
 
+# Window
 
-[[Return to contents]](#Contents)
+## Basis Functions
 
-## add_area_graph
-```v
-fn add_area_graph(mut app Window, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, title string, label []string, data [][]int, colors []gx.Color, names []string, bg gx.Color, fg gx.Color, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_button
-```v
-fn add_button(mut app Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, fg gx.Color, fun OnEvent, icon bool, dialog bool, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_checkbox
-```v
-fn add_checkbox(mut app Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_frame
-```v
-fn add_frame(mut app Window, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, dialog bool, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_group
-```v
-fn add_group(mut app Window, id string, text string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_image
-```v
-fn add_image(mut app Window, path string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, fun OnEvent, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_label
-```v
-fn add_label(mut app Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, fg gx.Color, fnclk OnEvent, dialog bool, tSize int, tAlin int, tMult bool, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_line_graph
-```v
-fn add_line_graph(mut app Window, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, title string, label []string, data [][]int, colors []gx.Color, names []string, bg gx.Color, fg gx.Color, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_link
-```v
-fn add_link(mut app Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, underline bool, link string, fg gx.Color, fnclk OnEvent, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_map
-```v
-fn add_map(mut app Window, zoom int, lat f64, lon f64, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, fun OnEvent, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_password
-```v
-fn add_password(mut app Window, text string, hider_char string, id string, placeholder string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, dialog bool, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_progress
-```v
-fn add_progress(mut app Window, percent int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, dialog bool, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_radio
-```v
-fn add_radio(mut app Window, list []string, group_id string, x IntOrString, y IntOrString, wh IntOrString, selected int, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_rect
-```v
-fn add_rect(mut app Window, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, dialog bool, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_scrollbar
-```v
-fn add_scrollbar(mut app Window, val int, min int, max int, step int, sthum int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, vert bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_selectbox
-```v
-fn add_selectbox(mut app Window, text string, list []string, selected int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_slider
-```v
-fn add_slider(mut app Window, val int, min int, max int, step int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, vert bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, value_map ValueMap, dialog bool, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_switch
-```v
-fn add_switch(mut app Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_tabbed_view
-```v
-fn add_tabbed_view(mut app Window, id string, tabs [][]string, hidden bool, x IntOrString, y IntOrString, w IntOrString, h IntOrString, frame string, zindex int, active_tab string)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_table
-```v
-fn add_table(mut app Window, table [][]string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_textarea
-```v
-fn add_textarea(mut app Window, text string, id string, placeholder string, phsa bool, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, codefield bool, tSize int, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## add_textbox
-```v
-fn add_textbox(mut app Window, text string, id string, placeholder string, phsa bool, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, dialog bool, frame string, zindex int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## beep
-```v
-fn beep()
-```
-
-
-[[Return to contents]](#Contents)
-
-## color_code_to_rgb
-```v
-fn color_code_to_rgb(color string) []int
-```
-
-
-[[Return to contents]](#Contents)
-
-## colorchooser
-```v
-fn colorchooser(title string, default_color string) string
-```
-
-
-[[Return to contents]](#Contents)
-
-## create
 ```v
 fn create(args &WindowConfig) &Window
+fn (mut app Window) run()
+fn (mut app Window) destroy()
 ```
 
+## Object Operations 
 
-[[Return to contents]](#Contents)
-
-## dropped_file_path
 ```v
-fn dropped_file_path(w int) string
+fn (mut app Window) get_object_by_id(id string) []map[string]WindowData
+fn (mut app Window) remove_object_by_id(id string)
+fn (mut app Window) get_previous_object_by_id(id string) []map[string]WindowData
+fn (mut app Window) get_next_object_by_id(id string) []map[string]WindowData
+fn (mut app Window) remove_all_objects()
+fn (mut app Window) sort_widgets_with_zindex()
+fn (mut app Window) clear_values(id []string)
 ```
 
+## Cloning/Loading App
 
-[[Return to contents]](#Contents)
-
-## dropped_files_len
 ```v
-fn dropped_files_len() int
+fn (mut app Window) clone_app_objects() []map[string]WindowData
+fn (mut app Window) load_app_objects(app_objects []map[string]WindowData)
 ```
 
+You can clone & load entire app with all widgets states
 
-[[Return to contents]](#Contents)
+> It's could be useful making logon UI or welcome page
 
-## empty_custom_widget_draw
+## Change View Properties After Creation
+
 ```v
-fn empty_custom_widget_draw(app &Window, object map[string]WindowData)
+fn (mut app Window) set_title(title string)
+fn (mut app Window) set_viewarea(x int, y int)
+fn (mut app Window) enable_scrollbar(enable_scrollbar bool)
 ```
 
+## Built-in Dialogs
 
-[[Return to contents]](#Contents)
-
-## empty_custom_widget_event
 ```v
-fn empty_custom_widget_event(x f32, y f32, mut object map[string]WindowData, app &Window)
+fn (mut app Window) clear_dialog()
+fn (mut app Window) create_dialog(dialog_data Modal)
+fn (mut app Window) get_next_dialog_object_by_id(id string) []map[string]WindowData
+fn (mut app Window) get_dialog_object_by_id(id string) []map[string]WindowData
+fn (mut app Window) get_previous_dialog_object_by_id(id string) []map[string]WindowData
+fn (mut app Window) wait_and_get_answer() string
+fn (mut app Window) run_dialog()
+fn (mut app Window) remove_dialog_object_by_id(id string)
 ```
 
+> Browse `examples/builtin_dialogs_example.v` for example
 
-[[Return to contents]](#Contents)
+## Get Native Window Pointer
 
-## empty_fn
+It's returning HWND on Windows. Void pointer for another OSs.
+Will be implemented Linux support when Sokol have GTK pointer.
+
 ```v
-fn empty_fn(event_details EventDetails, mut app Window, mut app_data voidptr)
+fn (mut app Window) window_handle() voidptr
 ```
 
+## Toolbar/Statusbar
 
-[[Return to contents]](#Contents)
-
-## inputbox
+* Set height of statusbar/toolbar
 ```v
-fn inputbox(title string, text string, default_text string) string
+mut app:=mui.create(.., toolbar:25, statusbar:25)
 ```
 
+* Add widgets
+```app.button(.., frame:"@toolbar")``` for toolbar
+```app.button(.., frame:"@statusbar")``` for statusbar
 
-[[Return to contents]](#Contents)
+## Menubar
 
-## messagebox
+> You can create menubar with app parameters
+
 ```v
-fn messagebox(title string, text string, dialog_type string, icon_type string) int
+mui.create(.., 
+	menubar: [
+		{"text":mui.WindowData{str:"Edit"}, "items":mui.WindowData{lst:[
+			{"text":mui.WindowData{str:"Add User"}, "fn": mui.WindowData{fun:add_user}}
+		]}},
+		{"text":mui.WindowData{str:"About"}, "items":mui.WindowData{lst:[
+			{"text":mui.WindowData{str:"About"}, "fn": mui.WindowData{fun:about_dialog}},
+			{"text":mui.WindowData{str:"About MUI"}, "fn": mui.WindowData{fun:mui.about_dialog}}
+		]}},
+	], menubar_config: mui.MenubarConfig{
+		width: 100,
+		sub_width: 120,
+		height: 30,
+		text_size: 24
+	})
 ```
 
-dialog_type => "ok", "okcancel", "yesno", "yesnocancel" icon_type   => "info", "warning", "error" 0 -> cancel/no, 1 -> ok/yes, 2 -> no (yesnocancel)
+## Transitions
 
-[[Return to contents]](#Contents)
-
-## move_object
 ```v
 fn move_object(mut app Window, object_id string, new_pos []IntOrString, move_time f64)
 ```
 
+Use seconds at `move_time`
 
-[[Return to contents]](#Contents)
+## Registering Custom Widgets
 
-## no_map
-```v
-fn no_map(val int) string
+```
+import <custom_widget_library> as custom_widget
+
+custom_widget.load_into_app(mut app)
+custom_widget.new(mut app, m.Widget{ id:"custom_button", x:"5%x", y:"5%y", width:"90%x", height:"90%y", text:"Custom Widget" }))
 ```
 
+> This way is recommend for custom widget creators. But this way can be changed with creators, you should look up their docs.
 
-[[Return to contents]](#Contents)
+## Keybindings
 
-## notifypopup
 ```v
+app.keybindings["ctrl|p"].fun=fn (event_details m.EventDetails, mut app &m.Window, mut app_data voidptr){ println("Hello!\n") }
+               ^^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+			    Shorcut                                           The Function That You Want Register
+```
+
+# Dialogs
+
+```v
+fn beep()
+fn colorchooser(title string, default_color string) string
+fn inputbox(title string, text string, default_text string) string
+fn messagebox(title string, text string, dialog_type string, icon_type string) int
 fn notifypopup(title string, text string, icon_type string)
-```
-
-
-[[Return to contents]](#Contents)
-
-## openfiledialog
-```v
 fn openfiledialog(title string) string
-```
-
-
-[[Return to contents]](#Contents)
-
-## passwordbox
-```v
 fn passwordbox(title string, text string) string
-```
-
-
-[[Return to contents]](#Contents)
-
-## rgb_to_color_code
-```v
-fn rgb_to_color_code(color []int) string
-```
-
-
-[[Return to contents]](#Contents)
-
-## savefiledialog
-```v
 fn savefiledialog(title string) string
-```
-
-
-[[Return to contents]](#Contents)
-
-## selectfolderdialog
-```v
 fn selectfolderdialog(title string) string
 ```
 
+# Widgets
 
-[[Return to contents]](#Contents)
-
-## CustomWidgetDraw
 ```v
-type CustomWidgetDraw = fn (&Window, map[string]WindowData)
+fn (mut app Window) area_graph(args Widget)
+fn (mut app Window) button(args Widget)
+fn (mut app Window) checkbox(args Widget)
+fn (mut app Window) frame(args Widget)
+fn (mut app Window) group(args Widget)
+fn (mut app Window) image(args Widget)
+fn (mut app Window) label(args Widget)
+fn (mut app Window) line_graph(args Widget)
+fn (mut app Window) link(args Widget)
+fn (mut app Window) list(args Widget)
+fn (mut app Window) map(args Widget)
+fn (mut app Window) password(args Widget)
+fn (mut app Window) progress(args Widget)
+fn (mut app Window) radio(args Widget)
+fn (mut app Window) rect(args Widget)
+fn (mut app Window) scrollbar(args Widget)
+fn (mut app Window) selectbox(args Widget)
+fn (mut app Window) slider(args Widget)
+fn (mut app Window) spinner(args Widget)
+fn (mut app Window) switch(args Widget)
+fn (mut app Window) tab_view(args Widget)
+fn (mut app Window) table(args Widget)
+fn (mut app Window) textarea(args Widget)
+fn (mut app Window) textbox(args Widget)
 ```
 
-
-[[Return to contents]](#Contents)
-
-## CustomWidgetEvent
-```v
-type CustomWidgetEvent = fn (f32, f32, mut map[string]WindowData, &Window)
-```
-
-
-[[Return to contents]](#Contents)
-
-## IntOrString
-```v
-type IntOrString = int | string
-```
-
-
-[[Return to contents]](#Contents)
-
-## OnEvent
-```v
-type OnEvent = fn (EventDetails, mut Window, mut voidptr)
-```
-
-
-[[Return to contents]](#Contents)
-
-## U32OrString
-```v
-type U32OrString = string | u32
-```
-
-
-[[Return to contents]](#Contents)
-
-## ValueMap
-```v
-type ValueMap = fn (int) string
-```
-
-
-[[Return to contents]](#Contents)
+# Structs & Unions
 
 ## CustomWidget
+
 ```v
 struct CustomWidget {
 pub mut:
@@ -501,8 +192,18 @@ pub mut:
 }
 ```
 
+## MenubarConfig
 
-[[Return to contents]](#Contents)
+```v
+struct MenubarConfig {
+pub mut:
+// for each box
+	height    int = 25
+	sub_width int = 160
+	width     int = 80
+	text_size int = 20
+}
+```
 
 ## EventDetails
 ```v
@@ -516,9 +217,6 @@ pub mut:
 }
 ```
 
-
-[[Return to contents]](#Contents)
-
 ## Modal
 ```v
 struct Modal {
@@ -530,9 +228,6 @@ struct Modal {
 }
 ```
 
-
-[[Return to contents]](#Contents)
-
 ## Widget
 ```v
 struct Widget {
@@ -542,61 +237,58 @@ pub:
 	text           string      //= ""										//text
 	placeholder    string      //= ""										//ph
 	ph_as_text     bool        //= 0										//phsa //show placeholder as text
-	table          [][]string = [['']] // table
-	tabs           [][]string = [['Test Tab', 'test_tab']] // tabs
+	table          [][]string  = [['']] 									// table
+	tabs           [][]string  = [['Test Tab', 'test_tab']]					// tabs
 	active_tab     string      //= ""										//acttb
 	id             string      //= ""										//id
 	link           string      //= ""										//link
 	percent        int         //= 0										//perc
 	value          int         //= 0										//val
-	value_max      int = 10 // vlMax
+	value_max      int         = 10 										// vlMax
 	value_min      int         //= 0										//vlMin
-	size_thumb     int = 6 // sThum
+	size_thumb     int         = 6 											// sThum
 	checked        bool        //= false									//c
-	step           int    = 1 // vStep
-	hider_char     string = '*' // hc
+	step           int    	   = 1 											// vStep
+	hider_char     string      = '*' 										// hc
 	selected       int         //= 0										//s
-	list           []string    = [''] // list
-	x              IntOrString = '0' // x_raw
-	y              IntOrString = '0' // y_raw
-	width          IntOrString = '125' // w_raw
-	height         IntOrString = '20' // h_raw
-	onchange       OnEvent     = empty_fn // onchg
-	onclick        OnEvent     = empty_fn // onclk
-	onunclick      OnEvent     = empty_fn // onucl
-	link_underline bool        = true // unlin
-	graph_title    string      = 'Graph' // g_tit
-	graph_label    []string    = ['', '', ''] // g_lbl
-	graph_data     [][]int     = [[0, 0, 0]] // g_dat
-	graph_names    []string    = [''] // g_nam
+	list           []string    = [''] 										// list
+	x              IntOrString = '0' 										// x_raw
+	y              IntOrString = '0' 										// y_raw
+	width          IntOrString = '125'										// w_raw
+	height         IntOrString = '20' 										// h_raw
+	onchange       OnEvent     = empty_fn 									// onchg
+	onclick        OnEvent     = empty_fn 									// onclk
+	onunclick      OnEvent     = empty_fn 									// onucl
+	link_underline bool        = true 										// unlin
+	graph_title    string      = 'Graph'									// g_tit
+	graph_label    []string    = ['', '', ''] 								// g_lbl
+	graph_data     [][]int     = [[0, 0, 0]] 								// g_dat
+	graph_names    []string    = ['']										// g_nam
 	graph_color    []gx.Color  = [gx.Color{
 		r: 255
 		g: 255
 		b: 255
-	}] // g_clr
+	}] 																		// g_clr
 	background     gx.Color    = gx.Color{
 		r: 127
 		g: 127
 		b: 127
-	} // bg
-	value_map      ValueMap    = no_map // vlMap
-	latitude       f64 = 48.856613 //- => image
-	longitude      f64 = 2.352222 //- => image
-	zoom           int = 10 //- => image
-	vertical       bool   //= false									//vert
-	icon           bool   //= false									//icon
-	codefield      bool   //= false									//code
-	dialog         bool   //= false									//- => app.objects || app.dialog_objects
-	text_size      int = 20 // tSize
-	text_align     int = 1 // tAlin
-	text_multiline bool   //= false									//tMult
-	frame          string //= ""										//in
-	z_index        int    //= 0										//z_ind
+	} 																		// bg
+	value_map      ValueMap		= no_map									// vlMap
+	latitude       f64			= 48.856613									//- => image
+	longitude      f64			= 2.352222									//- => image
+	zoom           int			= 10										//- => image
+	vertical       bool			//= false									//vert
+	icon           bool			//= false									//icon
+	codefield      bool			//= false									//code
+	dialog         bool			//= false									//- => app.objects || app.dialog_objects
+	text_size      int = 20		// tSize
+	text_align     int = 1		// tAlin
+	text_multiline bool			//= false									//tMult
+	frame          string		//= ""										//in
+	z_index        int			//= 0										//z_ind
 }
 ```
-
-
-[[Return to contents]](#Contents)
 
 ## Window
 ```v
@@ -623,356 +315,15 @@ pub mut:
 	dialog_answer  string = .dialogs_null_answer
 	dialog_objects []map[string]WindowData // for dialogs
 	custom_widgets []CustomWidget
-	keybindings    map[string]WindowData = map[string]WindowData{}
+	keybindings     map[string]WindowData = map[string]WindowData{}
+	menubar_config  MenubarConfig
+	redraw_required bool = true
+	force_redraw    bool //= false
+	prefer_native   bool // TODO: Update it
+	native_focus    bool //=false
+	round_corners   int
 }
 ```
-
-
-[[Return to contents]](#Contents)
-
-## area_graph
-```v
-fn (mut app Window) area_graph(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## button
-```v
-fn (mut app Window) button(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## checkbox
-```v
-fn (mut app Window) checkbox(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## clear_dialog
-```v
-fn (mut app Window) clear_dialog()
-```
-
-
-[[Return to contents]](#Contents)
-
-## clear_values
-```v
-fn (mut app Window) clear_values(id []string)
-```
-
-
-[[Return to contents]](#Contents)
-
-## clone_app_objects
-```v
-fn (mut app Window) clone_app_objects() []map[string]WindowData
-```
-
-
-[[Return to contents]](#Contents)
-
-## create_dialog
-```v
-fn (mut app Window) create_dialog(dialog_data Modal)
-```
-
-
-[[Return to contents]](#Contents)
-
-## destroy
-```v
-fn (mut app Window) destroy()
-```
-
-
-[[Return to contents]](#Contents)
-
-## enable_scrollbar
-```v
-fn (mut app Window) enable_scrollbar(enable_scrollbar bool)
-```
-
-
-[[Return to contents]](#Contents)
-
-## frame
-```v
-fn (mut app Window) frame(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## get_dialog_object_by_id
-```v
-fn (mut app Window) get_dialog_object_by_id(id string) []map[string]WindowData
-```
-
-
-[[Return to contents]](#Contents)
-
-## get_next_dialog_object_by_id
-```v
-fn (mut app Window) get_next_dialog_object_by_id(id string) []map[string]WindowData
-```
-
-
-[[Return to contents]](#Contents)
-
-## get_next_object_by_id
-```v
-fn (mut app Window) get_next_object_by_id(id string) []map[string]WindowData
-```
-
-
-[[Return to contents]](#Contents)
-
-## get_object_by_id
-```v
-fn (mut app Window) get_object_by_id(id string) []map[string]WindowData
-```
-
-
-[[Return to contents]](#Contents)
-
-## get_previous_dialog_object_by_id
-```v
-fn (mut app Window) get_previous_dialog_object_by_id(id string) []map[string]WindowData
-```
-
-
-[[Return to contents]](#Contents)
-
-## get_previous_object_by_id
-```v
-fn (mut app Window) get_previous_object_by_id(id string) []map[string]WindowData
-```
-
-
-[[Return to contents]](#Contents)
-
-## group
-```v
-fn (mut app Window) group(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## image
-```v
-fn (mut app Window) image(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## label
-```v
-fn (mut app Window) label(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## line_graph
-```v
-fn (mut app Window) line_graph(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## link
-```v
-fn (mut app Window) link(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## load_app_objects
-```v
-fn (mut app Window) load_app_objects(app_objects []map[string]WindowData)
-```
-
-
-[[Return to contents]](#Contents)
-
-## map
-```v
-fn (mut app Window) map(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## password
-```v
-fn (mut app Window) password(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## progress
-```v
-fn (mut app Window) progress(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## radio
-```v
-fn (mut app Window) radio(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## rect
-```v
-fn (mut app Window) rect(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## remove_all_objects
-```v
-fn (mut app Window) remove_all_objects()
-```
-
-
-[[Return to contents]](#Contents)
-
-## remove_dialog_object_by_id
-```v
-fn (mut app Window) remove_dialog_object_by_id(id string)
-```
-
-
-[[Return to contents]](#Contents)
-
-## remove_object_by_id
-```v
-fn (mut app Window) remove_object_by_id(id string)
-```
-
-
-[[Return to contents]](#Contents)
-
-## run
-```v
-fn (mut app Window) run()
-```
-
-
-[[Return to contents]](#Contents)
-
-## run_dialog
-```v
-fn (mut app Window) run_dialog()
-```
-
-
-[[Return to contents]](#Contents)
-
-## scrollbar
-```v
-fn (mut app Window) scrollbar(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## selectbox
-```v
-fn (mut app Window) selectbox(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## set_viewarea
-```v
-fn (mut app Window) set_viewarea(x int, y int)
-```
-
-
-[[Return to contents]](#Contents)
-
-## slider
-```v
-fn (mut app Window) slider(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## sort_widgets_with_zindex
-```v
-fn (mut app Window) sort_widgets_with_zindex()
-```
-
-
-[[Return to contents]](#Contents)
-
-## switch
-```v
-fn (mut app Window) switch(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## tab_view
-```v
-fn (mut app Window) tab_view(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## table
-```v
-fn (mut app Window) table(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## textarea
-```v
-fn (mut app Window) textarea(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## textbox
-```v
-fn (mut app Window) textbox(args Widget)
-```
-
-
-[[Return to contents]](#Contents)
-
-## wait_and_get_answer
-```v
-fn (mut app Window) wait_and_get_answer() string
-```
-
-
-[[Return to contents]](#Contents)
 
 ## WindowConfig
 ```v
@@ -995,11 +346,10 @@ pub mut:
 	file_handler  OnEvent = empty_fn
 	ask_quit      bool //= false
 	quit_fn       OnEvent = empty_fn
+	prefer_native bool //= true // TODO: Update it
+	round_corners int = -1
 }
 ```
-
-
-[[Return to contents]](#Contents)
 
 ## WindowData
 ```v
@@ -1018,8 +368,3 @@ pub mut:
 	lst []map[string]WindowData
 }
 ```
-
-
-[[Return to contents]](#Contents)
-
-#### Powered by vdoc. Generated on: 17 Nov 2022 18:14:23

@@ -42,8 +42,8 @@ fn draw_password(app &Window, object map[string]WindowData){
 			hidden_text+=object["hc"].str
 		}
 
-		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
-		app.gg.draw_rect_filled(object["x"].num+2, object["y"].num+2, object["w"].num-4, object["h"].num-4, object["bfg"].clr)
+		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)
+		app.gg.draw_rounded_rect_filled(object["x"].num+2, object["y"].num+2, object["w"].num-4, object["h"].num-4, app.round_corners, object["bfg"].clr)
 
 		if app.focus!=object["id"].str{
 			app.gg.draw_text(object["x"].num+4, object["y"].num+object["h"].num/2, hidden_text.replace("\0",""), gx.TextCfg{

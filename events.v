@@ -7,12 +7,14 @@ import sokol.sapp
 
 [unsafe]
 fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
+	app.native_focus = false
 	unsafe{
 		if app.focus!="" && app.active_dialog=="" {
-			if get_object_by_id(app, app.focus)["type"].str=="selectbox" {
+			if get_object_by_id(app, app.focus)["type"].str=="selectbox" && $if windows { int(app.draw_mode)^1 == 0 } $else { true } {
 				mut old_focused_object:=get_object_by_id(app, app.focus)
 				app.focus=""
-				total_items:=old_focused_object["list"].str.split("\0").len
+				the_list := old_focused_object["list"].str.split("\0")
+				total_items:=the_list.len
 				list_x:=old_focused_object["x"].num
 				list_y:=old_focused_object["y"].num+old_focused_object["h"].num
 				list_height:=total_items*old_focused_object["h"].num
@@ -20,12 +22,12 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 				if list_x<x && list_x+list_width>x {
 					if list_y<y && list_y+list_height>y {
 						old_focused_object["s"]=WindowData{num:int((y-list_y)/(list_height/total_items))}
-						old_focused_object["text"]=WindowData{str:old_focused_object["list"].str.split("\0")[old_focused_object["s"].num]}
+						old_focused_object["text"]=WindowData{str:the_list[old_focused_object["s"].num]}
 						old_focused_object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",value:old_focused_object["text"].str,target_type:old_focused_object["type"].str,target_id:old_focused_object["id"].str},mut app, mut app.app_data)
 						return
 					}
 				}
-			}else if app.focus.starts_with("@menubar#") {
+			} else if app.focus.starts_with("@menubar#") && $if windows { int(app.draw_mode)^1 == 0 } $else { true } {
 				selected_item:=app.focus.replace("@menubar#","").int()
 				if x>=app.menubar_config.width*selected_item && x<=app.menubar_config.width*selected_item+app.menubar_config.sub_width {
 					menubar_sub_items_len:=app.menubar[selected_item]["items"].lst.len
@@ -590,6 +592,7 @@ fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
 		match c{
 			.tab {
 				unsafe {
+					app.native_focus = false
 					if app.active_dialog!=""{
 						if shift {
 							app.focus=app.get_previous_dialog_object_by_id(app.focus)[0]["id"].str

@@ -6,8 +6,37 @@ import os
 import math
 import sokol.sapp
 
+$if windows && tinyc {
+	#flag windows -isystem C:\winapi
+}
+
 pub fn create(args &WindowConfig) &Window {
-    color_scheme, light_mode := if args.color!=[-1,-1,-1] { create_gx_color_from_manuel_color(args.color) } else { create_gx_color_from_color_scheme() }
+    draw_mode := draw_mode_config(args.draw_mode)
+    color_scheme, light_mode, round_corner := if args.color!=[-1,-1,-1] { temp0, temp1:=create_gx_color_from_manuel_color(args.color) temp0, temp1, 0 } else {
+		if draw_mode == .cross_platform { // if drawing theme is not windows or cross_platform
+			temp0, temp1:=create_gx_color_from_color_scheme()
+			temp0, temp1, 0
+		} else {
+			if int(draw_mode)&8 == 8 { // If windows
+				drawing_theme:=if int(draw_mode)&2 == 2 { true } else if int(draw_mode)&4 == 4 { false } else { user_light_theme }
+				if drawing_theme {
+					theme_windows_light.color_scheme, true, theme_windows_light.round_corner
+				} else {
+					theme_windows_dark.color_scheme, false, theme_windows_dark.round_corner
+				}
+			} else if int(draw_mode)&16 == 16 { // If linux
+				drawing_theme:=if int(draw_mode)&2 == 2 { true } else if int(draw_mode)&4 == 4 { false } else { user_light_theme }
+				if drawing_theme {
+					theme_linux_light.color_scheme, true, theme_linux_light.round_corner
+				} else {
+					theme_linux_dark.color_scheme, false, theme_linux_dark.round_corner
+				}
+			} else { // Else
+				temp0, temp1:=create_gx_color_from_color_scheme()
+				temp0, temp1, 0
+			}
+		}
+	}
     mut app := &Window{
         objects: []
         focus: ""
@@ -28,6 +57,8 @@ pub fn create(args &WindowConfig) &Window {
         quit_fn: args.quit_fn
         resized_fn: args.resized_fn
         menubar_config: args.menubar_config
+        draw_mode: draw_mode
+        round_corners: if args.round_corners==-1 { round_corner } else { args.round_corners }
     }
 
     mut emoji_font:=args.font
@@ -71,8 +102,7 @@ pub fn create(args &WindowConfig) &Window {
 	}
 
 	app.scrollbar(Widget{ id:"@scrollbar:horizontal", x:"!& 0", y:"!&# 0", width:"! 100%x -15", height:"! 15", value_max:args.view_area[0]+app.x_offset+app.xn_offset, size_thumb:args.width, onchange: update_scroll_hor, z_index:999999, hidden:!app.scrollbar})
-	app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y -15", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true, z_index:999999, hidden:!app.scrollbar})
-	app.rect(Widget{ id:"@scrollbar:extra", x:"!&# 0", y:"!&# 0", width:"15", height:"15", background: app.color_scheme[1], z_index:999999, hidden:!app.scrollbar})
+	app.scrollbar(Widget{ id:"@scrollbar:vertical", x:"!&# 0", y:"!& 0", width:"! 15", height:"! 100%y", value_max:args.view_area[1]+app.y_offset+app.yn_offset, size_thumb:args.height, onchange: update_scroll_ver, vertical:true, z_index:999999, hidden:!app.scrollbar})
 
 	if args.toolbar != 0 {
 		menubar_height := if args.menubar!=[]map["string"]WindowData{} { args.menubar_config.height } else { 0 }

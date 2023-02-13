@@ -24,7 +24,7 @@ fn add_user(event_details m.EventDetails, mut app &m.Window, mut app_data voidpt
 	}
 }
 
-mut app:=m.create(m.WindowConfig{ title:"MUI Demo"})
+mut app:=m.create(m.WindowConfig{ title:"MUI Demo" })
 
 app.rect(m.Widget{ id:"back", x:"# 0", y:"# 0", width:"100%x -300", height:"100%y", background:app.color_scheme[1]})
 

@@ -28,7 +28,7 @@ fn about_dialog(event_details m.EventDetails, mut app &m.Window, mut app_data vo
 	m.messagebox("MUI Demo","A User System Created for MUI Examples","ok","info")
 }
 
-mut app:=m.create(m.WindowConfig{ title:"MUI Demo",
+mut app:=m.create(m.WindowConfig{ title:"MUI Demo", 
 	menubar: [
 		{"text":m.WindowData{str:"Edit"}, "items":m.WindowData{lst:[
 			{"text":m.WindowData{str:"Add User"}, "fn": m.WindowData{fun:add_user}}

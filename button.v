@@ -32,7 +32,7 @@ pub fn add_button(mut app &Window, text string, id string, x IntOrString, y IntO
 [unsafe]
 fn draw_button(app &Window, object map[string]WindowData){
 	unsafe{
-		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)
+		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)
 		app.gg.draw_text(object["x"].num+object["w"].num/2, object["y"].num+object["h"].num/2, object["text"].str, gx.TextCfg{
 			color: object["fg"].clr
 			size: object["tSize"].num

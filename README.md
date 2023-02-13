@@ -172,8 +172,9 @@ For Windows;
 ## How to use TCC on Windows?
 
 * If you're using webview sub-module, TCC never works. But you can still use TCC for Windows to compile faster.
-* You need full winapi for TCC. [winapi-full-for-0.9.27.zip at download-mirror.savannah.gnu.org](https://download-mirror.savannah.gnu.org/releases/tinycc/) Download it and extract to somewhere that not include spaces.
-* ```v -cc tcc -cflags "-isystem path\to\winapi-full-for-0.9.27\include\winapi" run example.v```
+* You need full winapi for TCC. [winapi-full-for-0.9.27.zip at download-mirror.savannah.gnu.org](https://download-mirror.savannah.gnu.org/releases/tinycc/) Download it and extract.
+* Move ```path\to\winapi-full-for-0.9.27\include\winapi``` to ```C:\winapi```.
+* ```v -cc tcc run example.v```
 * And it's works like a charm.
 
 ## Suggestions
