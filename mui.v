@@ -193,21 +193,21 @@ fn frame_fn(app &Window) {
 						}"password"{
 							draw_password(app, object)
 						}"checkbox"{
-							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 200, object["h"].num) } }
+							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num) } }
 							draw_checkbox(app, object)
 						}"switch"{
-							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 200, object["h"].num) } }
+							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num) } }
 							draw_switch(app, object)
 						}"selectbox"{
 							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num, object["h"].num+800) } }
 							draw_selectbox(app, object)
 						}"slider"{
-							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 200, object["h"].num + 200) } }
+							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num + 300) } }
 							draw_slider(app, object)
 						}"link"{
 							draw_link(app, object)
 						}"radio"{
-							$if !dont_clip ? { if object["in"].str=="" {  app.gg.scissor_rect(object["x"].num-1, object["y"].num-1, object["w"].num + 200, object["h"].num+2) } }
+							$if !dont_clip ? { if object["in"].str=="" {  app.gg.scissor_rect(object["x"].num-1, object["y"].num-1, object["w"].num + 300, object["h"].num+2) } }
 							draw_radio(app, object)
 						}"group"{
 							draw_group(app, object)
