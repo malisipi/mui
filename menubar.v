@@ -27,7 +27,7 @@ fn draw_menubar(mut app &Window, size &gg.Size){
             	$if windows {
 		        if int(app.draw_mode)&1 == 1 {
 		            if !app.native_focus {
-		                selected:=app.create_popup_menu(items["items"].lst.map(it["text"].str), app.menubar_config.width * which_item, window_titlebar_height + app.menubar_config.height)
+		                selected:=app.create_popup_menu(items["items"].lst.map(it["text"].str), int((app.menubar_config.width * which_item)*app.gg.scale), int((window_titlebar_height + app.menubar_config.height)*app.gg.scale))
 		                if selected != -1 {
 		                    app.menubar[which_item]["items"].lst[selected]["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",value:"true",target_type:"menubar",target_id:"menubar"},mut app, mut app.app_data)
 		                }

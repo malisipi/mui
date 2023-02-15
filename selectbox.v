@@ -52,7 +52,7 @@ fn draw_selectbox(app &Window, object map[string]WindowData){
 				if int(app.draw_mode)&1 == 1 {
 					if !app.native_focus {
 						the_list := object["list"].str.split("\0")
-						selected := app.create_popup_menu(the_list, object["x"].num, window_titlebar_height+object["y"].num+object["h"].num)
+						selected := app.create_popup_menu(the_list, int(object["x"].num*app.gg.scale), int((window_titlebar_height+object["y"].num+object["h"].num)*app.gg.scale))
 						if selected != -1 {
 							object["s"]=WindowData{num:selected}
 							object["text"]=WindowData{str:the_list[object["s"].num]}
