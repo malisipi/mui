@@ -16,11 +16,23 @@
 
 Program tries solve Travelling Salesman Problem in a few seconds.
 
+### VInstall - [Source Code](https://github.com/malisipi/VInstall)
+
+![VInstall](./pictures/vinstall.png "VInstall")
+
+A cross-platform installer creator
+
 ### V-Player - [Source Code](https://github.com/malisipi/v-player)
 
 ![V-Player](./pictures/vplayer.png "V-Player")
 
-A media player powered with V and MUI.
+A media player powered with V and MUI
+
+### VRoom - [Source Code](https://github.com/malisipi/vroom)
+
+![V-Room](./pictures/vroom.png "V-Room")
+
+A program to build the smallest Vlang executable possible.
 
 > If you have any application that uses MUI, please let me know.
 
