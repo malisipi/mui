@@ -171,14 +171,17 @@ For Windows;
 
 ## FAQ
 
-### How to use TCC on Windows
+<details><summary><b>How to use TCC on Windows</b></summary>
+
 * If you're using webview sub-module, TCC never works. Also some functions will be ignored with TCC. But you can still use TCC for Windows to compile faster.
 * You need full winapi for TCC. [winapi-full-for-0.9.27.zip at download-mirror.savannah.gnu.org](https://download-mirror.savannah.gnu.org/releases/tinycc/) Download it and extract.
 * Move ```path\to\winapi-full-for-0.9.27\include\winapi``` to ```C:\winapi```.
 * ```v -cc tcc run example.v```
 * And it's works like a charm.
 
-### MUI is freezing with blank window and crashing with `gg error: WGL: ARB_create_context_profile required!` error (For Windows OS)
+</details>
+
+<details><summary><b>MUI is freezing with blank window and crashing with `gg error: WGL: ARB_create_context_profile required!` error (For Windows OS)</b></summary>
 
 >  Probably, it's a issue about your drivers. You will need to ensure that you have downloaded and installed a recent driver for your graphics hardware. If your system does not contain a GPU, or the GPU vendor delivers graphics drivers providing OpenGL support that's so old as to be useless to you, you might want to consider installing the Mesa3D OpenGL library on your system.
 
@@ -186,7 +189,9 @@ For Windows;
 
 [Also you can download pre-built library from here](https://fdossena.com/?p=mesa/index.frag)
 
-### MUI not working with old-V versions
+</details>
+
+<details><summary><b>MUI not working with old-V versions</b></summary>
 
 > V is still beta and MUI require to break support of V's old versions to supporting latest.
 
@@ -196,12 +201,17 @@ or
 
 * If you need specific V edition, look up commit history and use a commit that released with similar times.
 
-### What is operating system of test devices?
+</details>
+
+<details><summary><b>What is operating system of test devices?</b></summary>
+
 * Windows 11
 * Arch Linux
 * Android 12
 * Windows 7/10 (Sometimes)
 * Wine 8.x (Sometimes)
+
+</details>
 
 ## Suggestions
 
