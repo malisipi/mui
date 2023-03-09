@@ -32,6 +32,7 @@ pub mut:
 	lcr []gx.Color
 	vmp ValueMap
 	lst []map[string]WindowData
+	vpt voidptr
 }
 
 pub struct CustomWidget {
@@ -125,7 +126,6 @@ pub mut:
 	width			int				= 80
 	text_size		int				= 20
 }
-
 
 pub struct Widget {
 pub mut:

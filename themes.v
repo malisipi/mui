@@ -9,6 +9,7 @@ pub const (
 	theme_dark=[40,40,40]
 	theme_light=[225,225,225]
 	user_light_theme=is_light_theme()
+	user_accent_color=theme_accent_color()
 )
 
 const (
@@ -43,10 +44,9 @@ fn is_light_theme() bool{
 		}
 
 	} $else $if windows {
+            is_light := unsafe { string_from_wide(C.mui_get_regedit_dword("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize".to_wide(), "AppsUseLightTheme".to_wide())) }
 
-		output:=os.execute("REG QUERY HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize /v AppsUseLightTheme")
-
-		return output.output.replace("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize","").replace("AppsUseLightTheme","").replace("REG_DWORD","").replace("\n","").replace("\r","").replace(" ","").replace("x","").int()==1
+		return is_light=="1"
 
 	} $else $if linux {
 
@@ -69,10 +69,10 @@ fn is_light_theme() bool{
 
 fn theme_accent_color() []int{
 	$if windows {
+		accent_color := unsafe { string_from_wide(C.mui_get_regedit_dword("Software\\Microsoft\\Windows\\DWM".to_wide(), "AccentColor".to_wide())) }
+		println(accent_color)
 
-		output:=os.execute("REG QUERY HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\DWM /v AccentColor")
-
-		return hex_to_rgb(output.output.replace("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\DWM","").replace("REG_DWORD","").replace("AccentColor","").replace(" ","").replace("\n","").replace("\r","").replace("0x","")[0..8])
+		return hex_to_rgb(accent_color)
 
 	} $else $if linux {
 
@@ -108,7 +108,7 @@ fn create_color_scheme_from_accent_color(accent_color []int) ([][]int, bool) {
 }
 
 fn create_color_scheme() ([][]int, bool) {
-	accent_color:=theme_accent_color()
+	accent_color:=user_accent_color.clone()
 
 	if accent_color!=[-1,-1,-1] {
 		return create_color_scheme_from_accent_color(accent_color)

@@ -18,11 +18,13 @@ fn check_screen_reader() bool {
 		return output.output.replace("\n","").replace("\r","").replace("'","")=="true"
 
     } $else $if windows {
-        tlist:=os.execute("tasklist")
-        tlist.output.index("Narrator.exe") or {return false}
-
-        os.write_file(narrator_vbs ,"if WScript.Arguments.Count = 1 then CreateObject(\"sapi.spvoice\").Speak WScript.Arguments(0)") or {return false}
-        return true
+        $if !tinyc {
+            if C.mui_does_narrator_alive() {
+	          os.write_file(narrator_vbs ,"if WScript.Arguments.Count = 1 then CreateObject(\"sapi.spvoice\").Speak WScript.Arguments(0)") or {return false}
+      	    return true
+            } else { return false }
+        }
+        return false
     } $else {
         return false
     }

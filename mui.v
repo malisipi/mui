@@ -120,7 +120,7 @@ fn frame_fn(app &Window) {
 	unsafe{
 		app.gg.begin()
 		mut objects:=app.objects.clone()
-		if app.focus!="" { objects << get_object_by_id(app, app.focus) }
+		//if app.focus!="" { objects << get_object_by_id(app, app.focus) }
 		real_size:=app.gg.window_size()
 		window_info:=[real_size.width-app.x_offset-app.xn_offset,real_size.height-app.y_offset-app.yn_offset,real_size.width,real_size.height,app.scroll_x,app.scroll_y].clone()
 		$if !dont_clip ? { app.gg.scissor_rect(0, 0, real_size.width, real_size.height) }

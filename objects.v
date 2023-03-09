@@ -97,7 +97,10 @@ fn get_previous_object_by_id(app &Window, _id string) map[string]WindowData{
 		mut previous_object:=null_object.clone()
 		for object in app.objects{
 			if object["id"].str==id {
-				if previous_object["realT"].str=="radio"{
+				if previous_object==null_object {
+					continue
+				}
+				if previous_object["type"].str=="hidden" && previous_object["realT"].str=="radio"{
 					return app.get_object_by_id(previous_object["id"].str+"_"+previous_object["s"].num.str())[0]
 				}
 				return previous_object
@@ -108,7 +111,7 @@ fn get_previous_object_by_id(app &Window, _id string) map[string]WindowData{
 			}
 		}
 
-		if previous_object["realT"].str=="radio"{
+		if previous_object["type"].str=="hidden" && previous_object["realT"].str=="radio"{
 			return app.get_object_by_id(previous_object["id"].str+"_"+previous_object["s"].num.str())[0]
 		}
 		return previous_object
@@ -126,7 +129,10 @@ fn get_previous_dialog_object_by_id(app &Window, _id string) map[string]WindowDa
 		mut previous_object:=null_object.clone()
 		for object in app.dialog_objects{
 			if object["id"].str==id {
-				if previous_object["realT"].str=="radio"{
+				if previous_object==null_object {
+					continue
+				}
+				if previous_object["type"].str=="hidden" && previous_object["realT"].str=="radio"{
 					return app.get_dialog_object_by_id(previous_object["id"].str+"_"+previous_object["s"].num.str())[0]
 				}
 				return previous_object
@@ -137,7 +143,7 @@ fn get_previous_dialog_object_by_id(app &Window, _id string) map[string]WindowDa
 			}
 		}
 
-		if previous_object["realT"].str=="radio"{
+		if previous_object["type"].str=="hidden" && previous_object["realT"].str=="radio"{
 			return app.get_dialog_object_by_id(previous_object["id"].str+"_"+previous_object["s"].num.str())[0]
 		}
 		return previous_object
@@ -150,7 +156,7 @@ fn get_next_object_by_id(app &Window, id string) map[string]WindowData{
 		for object in app.objects{
 			if temp{
 				if object["type"].str!="rect" && object["type"].str!="group" && object["type"].str!="table" && object["type"].str!="radio"{
-					if object["realT"].str=="radio"{
+					if object["type"].str=="hidden" && object["realT"].str=="radio"{
 						return app.get_object_by_id(object["id"].str+"_"+object["s"].num.str())[0]
 					}
 					return object
@@ -170,7 +176,7 @@ fn get_next_dialog_object_by_id(app &Window, id string) map[string]WindowData{
 		for object in app.dialog_objects{
 			if temp{
 				if object["type"].str!="rect" && object["type"].str!="group" && object["type"].str!="table" && object["type"].str!="radio"{
-					if object["realT"].str=="radio"{
+					if object["type"].str=="hidden" && object["realT"].str=="radio"{
 						return app.get_object_by_id(object["id"].str+"_"+object["s"].num.str())[0]
 					}
 					return object
