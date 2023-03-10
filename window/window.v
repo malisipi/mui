@@ -17,7 +17,15 @@ pub fn prefer_x11(){ // only linux (if display server is wayland, try to use x11
 
 pub fn prefer_dark_titlebar(window voidptr, dark bool){ // only windows
 	$if windows {
-		C.prefer_dark_titlebar(window, dark)
+		C.mui_prefer_dark_titlebar(window, dark)
+	}
+}
+
+pub fn set_opacity(window voidptr, per int){
+	$if windows && !tinyc {
+		C.SetWindowLong(window, C.GWL_EXSTYLE,
+                  C.GetWindowLong(window, C.GWL_EXSTYLE) | C.WS_EX_LAYERED)
+		C.SetLayeredWindowAttributes(window, 0, 255*per/100, C.LWA_ALPHA)
 	}
 }
 

@@ -91,7 +91,7 @@ Thanks for contributions, bug corrections & thorough testing to:
 #endif /* _WIN32 */
 
 #include "tinyfiledialogs.h"
-
+#define TINYFD_GET_CONSOLE_WINDOW_CHECK TRUE
 #define MAX_PATH_OR_CMD 1024 /* _MAX_PATH or MAX_PATH */
 
 #ifndef MAX_MULTIPLE_FILES
@@ -2716,7 +2716,7 @@ int tinyfd_messageBox(
 	if (tfd_quoteDetected(aTitle)) return tinyfd_messageBox("INVALID TITLE WITH QUOTES", aMessage, aDialogType, aIconType, aDefaultButton);
 	if (tfd_quoteDetected(aMessage)) return tinyfd_messageBox(aTitle, "INVALID MESSAGE WITH QUOTES", aDialogType, aIconType, aDefaultButton);
 
-	if ((!tinyfd_forceConsole || !(GetConsoleWindow() || dialogPresent()))
+	if ((!tinyfd_forceConsole || !(TINYFD_GET_CONSOLE_WINDOW_CHECK || dialogPresent()))
 		&& (!getenv("SSH_CLIENT") || getenvDISPLAY()))
 	{
 		if (aTitle&&!strcmp(aTitle, "tinyfd_query")){ strcpy(tinyfd_response, "windows"); return 1; }
@@ -2832,7 +2832,7 @@ int tinyfd_notifyPopup(
 	if (tfd_quoteDetected(aMessage)) return tinyfd_notifyPopup(aTitle, "INVALID MESSAGE WITH QUOTES", aIconType);
 
     if ( powershellPresent() && (!tinyfd_forceConsole || !(
-            GetConsoleWindow() ||
+            TINYFD_GET_CONSOLE_WINDOW_CHECK ||
             dialogPresent()))
 			&& (!getenv("SSH_CLIENT") || getenvDISPLAY()))
     {
@@ -2874,7 +2874,7 @@ char * tinyfd_inputBox(
     hStdin = GetStdHandle(STD_INPUT_HANDLE);
 
     if ((!tinyfd_forceConsole || !(
-            GetConsoleWindow() ||
+            TINYFD_GET_CONSOLE_WINDOW_CHECK ||
             dialogPresent()))
 			&& (!getenv("SSH_CLIENT") || getenvDISPLAY()))
     {
@@ -3007,7 +3007,7 @@ char * tinyfd_saveFileDialog(
 		}
 
 
-		if ( ( !tinyfd_forceConsole || !( GetConsoleWindow() || dialogPresent() ) )
+		if ( ( !tinyfd_forceConsole || !( TINYFD_GET_CONSOLE_WINDOW_CHECK || dialogPresent() ) )
 			&& (!getenv("SSH_CLIENT") || getenvDISPLAY()))
         {
             if (aTitle&&!strcmp(aTitle,"tinyfd_query")){strcpy(tinyfd_response,"windows");return (char *)1;}
@@ -3074,7 +3074,7 @@ char * tinyfd_openFileDialog(
 		if (tfd_quoteDetected(aFilterPatterns[i])) return tinyfd_openFileDialog("INVALID FILTER_PATTERN WITH QUOTES", aDefaultPathAndFile, 0, NULL, NULL, aAllowMultipleSelects);
 	}
 
-    if ( ( !tinyfd_forceConsole || !( GetConsoleWindow() || dialogPresent() ) )
+    if ( ( !tinyfd_forceConsole || !( TINYFD_GET_CONSOLE_WINDOW_CHECK || dialogPresent() ) )
 		&& (!getenv("SSH_CLIENT") || getenvDISPLAY()))
         {
                 if (aTitle&&!strcmp(aTitle,"tinyfd_query")){strcpy(tinyfd_response,"windows");return (char *)1;}
@@ -3128,7 +3128,7 @@ char * tinyfd_selectFolderDialog(
 	if (tfd_quoteDetected(aTitle)) return tinyfd_selectFolderDialog("INVALID TITLE WITH QUOTES", aDefaultPath);
 	if (tfd_quoteDetected(aDefaultPath)) return tinyfd_selectFolderDialog(aTitle, "INVALID DEFAULT_PATH WITH QUOTES");
 
-    if ( ( !tinyfd_forceConsole || !( GetConsoleWindow() || dialogPresent() ) )
+    if ( ( !tinyfd_forceConsole || !( TINYFD_GET_CONSOLE_WINDOW_CHECK || dialogPresent() ) )
 		&& (!getenv("SSH_CLIENT") || getenvDISPLAY()))
         {
                 if (aTitle&&!strcmp(aTitle,"tinyfd_query")){strcpy(tinyfd_response,"windows");return (char *)1;}
@@ -3183,7 +3183,7 @@ char * tinyfd_colorChooser(
 	if (tfd_quoteDetected(aTitle)) return tinyfd_colorChooser("INVALID TITLE WITH QUOTES", aDefaultHexRGB, aDefaultRGB, aoResultRGB);
 	if (tfd_quoteDetected(aDefaultHexRGB)) return tinyfd_colorChooser(aTitle, "INVALID DEFAULT_HEX_RGB WITH QUOTES", aDefaultRGB, aoResultRGB);
 
-    if ( (!tinyfd_forceConsole || !( GetConsoleWindow() || dialogPresent()) )
+    if ( (!tinyfd_forceConsole || !( TINYFD_GET_CONSOLE_WINDOW_CHECK || dialogPresent()) )
 		&& (!getenv("SSH_CLIENT") || getenvDISPLAY()))
     {
 		if (aTitle&&!strcmp(aTitle,"tinyfd_query")){strcpy(tinyfd_response,"windows");return (char *)1;}

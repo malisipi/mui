@@ -70,7 +70,6 @@ fn is_light_theme() bool{
 fn theme_accent_color() []int{
 	$if windows {
 		accent_color := unsafe { string_from_wide(C.mui_get_regedit_dword("Software\\Microsoft\\Windows\\DWM".to_wide(), "AccentColor".to_wide())) }
-		println(accent_color)
 
 		return hex_to_rgb(accent_color)
 

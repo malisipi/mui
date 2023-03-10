@@ -4,6 +4,6 @@
 // <dwmapi.h>
 HRESULT DwmSetWindowAttribute(HWND hWnd, int attr, int* isDarkMode, int size);
 
-void prefer_dark_titlebar (HWND hWnd, BOOL dark){
+void mui_prefer_dark_titlebar (HWND hWnd, BOOL dark){
 	DwmSetWindowAttribute(hWnd, DWMWA_USE_IMMERSIVE_DARK_MODE, &dark, sizeof(dark));
 }
