@@ -17,7 +17,7 @@ mut:
 }
 
 fn map_play_time(the_time int) string{
-    return (the_time/60).str()+":"+(the_time%60).str()
+    return "${the_time/60:02}:${the_time%60:02}"
 }
 
 fn move_play_slider(mut app &mui.Window, mut app_data &AppData){
