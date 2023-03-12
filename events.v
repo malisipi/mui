@@ -10,7 +10,8 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 	app.native_focus = false
 	unsafe{
 		if app.focus!="" && app.active_dialog=="" {
-			if get_object_by_id(app, app.focus)["type"].str=="selectbox" && $if windows { int(app.draw_mode)&1 == 0 } $else { true } {
+			object := get_object_by_id(app, app.focus)
+			if object != null_object && object["type"].str=="selectbox" && $if windows { int(app.draw_mode)&1 == 0 } $else { true } {
 				mut old_focused_object:=get_object_by_id(app, app.focus)
 				app.focus=""
 				the_list := old_focused_object["list"].str.split("\0")
@@ -163,7 +164,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									group["s"].num=which_item
 									group["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:which_item.str()},mut app, mut app.app_data)
 								} "list" {
-									object["s"].num = int(y-object["y"].num+object["schsl"].num) / int(if object["row_h"].num==-1 { object["height"].num / object["table"].tbl[0].len } else {object["row_h"].num})
+									object["s"].num = int(y-object["y"].num+object["schsl"].num) / int(if object["row_h"].num==-1 { object["h"].num / object["table"].tbl.len } else {object["row_h"].num})
 									object["fnchg"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["s"].num.str()},mut app, mut app.app_data)
 								} "image", "map" {
 									object["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
@@ -220,40 +221,41 @@ fn move_fn(x f32, y f32, mut app &Window){
 			}
 		}
 		if !changed_cursor { sapp.set_mouse_cursor(.default) }
-
 		if !(app.focus==""){
 			mut object:=get_object_by_id(app,app.focus)
-			if app.active_dialog!=""{
-				object=get_dialog_object_by_id(app,app.focus)
-			}
-			if object["type"].str=="slider"{
-				if object["click"].bol {
-					if !object["vert"].bol {
-						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(x-object["x"].num,0),object["w"].num))/f32(object["w"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
-					} else {
-						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
-					}
-					object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
-					$if power_save ? {
-						app.redraw_required = true
-					}
+			if object != null_object {
+				if app.active_dialog!=""{
+					object=get_dialog_object_by_id(app,app.focus)
 				}
-			} else if object["type"].str=="scrollbar"{
-				if object["click"].bol {
-					if !object["vert"].bol {
-						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(x-object["x"].num,0),object["w"].num))/f32(object["w"].num/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num-object["sThum"].num)}
-					} else {
-						object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num-object["sThum"].num)}
+				if object["type"].str=="slider"{
+					if object["click"].bol {
+						if !object["vert"].bol {
+							object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(x-object["x"].num,0),object["w"].num))/f32(object["w"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
+						} else {
+							object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num)}
+						}
+						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
+						$if power_save ? {
+							app.redraw_required = true
+						}
 					}
-					object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
-					$if power_save ? {
-						app.redraw_required = true
+				} else if object["type"].str=="scrollbar"{
+					if object["click"].bol {
+						if !object["vert"].bol {
+							object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(x-object["x"].num,0),object["w"].num))/f32(object["w"].num/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num-object["sThum"].num)}
+						} else {
+							object["val"]=WindowData{num:math.min(int(math.round(f32(math.min(math.max(y-object["y"].num,0),object["h"].num))/f32(object["h"].num/(f32(object["vlMax"].num-object["sThum"].num-object["vlMin"].num)/object["vStep"].num))))*object["vStep"].num+object["vlMin"].num,object["vlMax"].num-object["sThum"].num)}
+						}
+						object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["val"].num.str()},mut app, mut app.app_data)
+						$if power_save ? {
+							app.redraw_required = true
+						}
 					}
-				}
-			} else {
-				for widget in app.custom_widgets{
-					if object["type"].str==widget.typ{
-						widget.move_fn(x, y, mut object, app)
+				} else {
+					for widget in app.custom_widgets{
+						if object["type"].str==widget.typ{
+							widget.move_fn(x, y, mut object, app)
+						}
 					}
 				}
 			}
@@ -266,16 +268,18 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 	unsafe{
 		if !(app.focus==""){
 			mut object:=get_object_by_id(app,app.focus)
-			if app.active_dialog!=""{
-				object=get_dialog_object_by_id(app,app.focus)
-			}
-			if object["type"].str=="slider" || object["type"].str=="scrollbar"{
-				object["click"]=WindowData{bol:false}
-				object["fnucl"].fun(EventDetails{event:"unclick",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()},mut app, mut app.app_data)
-			}
-			for widget in app.custom_widgets{
-				if object["type"].str==widget.typ{
-					widget.unclick_fn(x, y, mut object, app)
+			if object != null_object {
+				if app.active_dialog!=""{
+					object=get_dialog_object_by_id(app,app.focus)
+				}
+				if object["type"].str=="slider" || object["type"].str=="scrollbar"{
+					object["click"]=WindowData{bol:false}
+					object["fnucl"].fun(EventDetails{event:"unclick",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()},mut app, mut app.app_data)
+				}
+				for widget in app.custom_widgets{
+					if object["type"].str==widget.typ{
+						widget.unclick_fn(x, y, mut object, app)
+					}
 				}
 			}
 		}
