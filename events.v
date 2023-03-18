@@ -109,7 +109,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									object["fnclk"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:true.str()},mut app, mut app.app_data)
 								} "link"{
 									object["fnclk"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:true.str()},mut app, mut app.app_data)
-									os.open_uri(object["link"].str) or {}
+									go os.open_uri(object["link"].str)
 								} "textbox", "password", "spinner" {
 									if object["type"].str == "spinner" {
 										if x-object["x"].num-object["w"].num > -16 {
