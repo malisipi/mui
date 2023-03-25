@@ -31,9 +31,13 @@ const (
 	}
 )
 
-fn hex_to_rgb(clr string) []int {
-
-	return [ int(strconv.parse_int(clr[6..8],16,0) or {return [-1,-1,-1]}) , int(strconv.parse_int(clr[4..6],16,0) or {return [-1,-1,-1]}) , int(strconv.parse_int(clr[2..4],16,0) or {return [-1,-1,-1]}) ]
+fn hex_to_rgb(color string) []int {
+	clr:=color.replace("#","")
+	mut @return := []int{}
+	for i in 0..3 {
+		@return << int(strconv.parse_int(clr[2*i..2*i+2],16,0) or {return [0,0,0]})
+	}
+	return @return
 }
 
 fn is_light_theme() bool{

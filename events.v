@@ -363,7 +363,7 @@ fn char_fn(chr u32, mut app &Window){
 	}
 }
 
-[unsafe]
+[autofree_bug; manualfree; unsafe]
 fn keyboard_fn(chr U32OrString, mut app &Window){
 	unsafe{
 		if app.focus!="" {

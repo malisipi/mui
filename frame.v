@@ -3,6 +3,7 @@ module mui
 import gg
 import gx
 
+[autofree_bug; manualfree]
 pub fn add_frame(mut app &Window, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, dialog bool, frame string, zindex int, view_area []int){
     widget:= {
         "type": WindowData{str:"frame"},
