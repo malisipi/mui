@@ -38,15 +38,15 @@ pub fn add_map(mut app &Window, zoom int, lat f64, lon f64, id string, x IntOrSt
         "id":   WindowData{str:id},
         "in":   WindowData{str:frame},
         "z_ind":WindowData{num:zindex},
-		"image":WindowData{img:app.gg.create_image(map_download(zoom, map_x_tile, map_y_tile))}
+	"image":WindowData{img:app.gg.create_image(map_download(zoom, map_x_tile, map_y_tile)) or { app.gg.create_image_from_byte_array([u8(0)]) or { panic("Image creation was failed") } } }
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},
         "w":    WindowData{num:0},
         "h":    WindowData{num:0},
-		"x_raw":WindowData{str: match x{ int{ x.str() } string{ x } } },
-		"y_raw":WindowData{str: match y{ int{ y.str() } string{ y } } },
-		"w_raw":WindowData{str: match w{ int{ w.str() } string{ w } } },
-		"h_raw":WindowData{str: match h{ int{ h.str() } string{ h } } },
+	"x_raw":WindowData{str: match x{ int{ x.str() } string{ x } } },
+	"y_raw":WindowData{str: match y{ int{ y.str() } string{ y } } },
+	"w_raw":WindowData{str: match w{ int{ w.str() } string{ w } } },
+	"h_raw":WindowData{str: match h{ int{ h.str() } string{ h } } },
         "hi":	WindowData{bol:hi},
         "fn":   WindowData{fun:fun}
     }

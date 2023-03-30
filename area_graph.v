@@ -5,6 +5,7 @@ import gx
 import math
 import math.stats
 
+[autofree_bug; manualfree]
 pub fn add_area_graph(mut app &Window, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, title string, label []string, data [][]int, colors []gx.Color, names []string, bg gx.Color, fg gx.Color, frame string, zindex int){
     app.objects << {
         "type": WindowData{str:"area_graph"},

@@ -3,6 +3,7 @@ module mui
 import gg
 import gx
 
+[autofree_bug; manualfree]
 pub fn add_label(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, fg gx.Color, fnclk OnEvent, dialog bool, tSize int, tAlin int, tMult bool, frame string, zindex int){
     widget:= {
         "type": WindowData{str:"label"},

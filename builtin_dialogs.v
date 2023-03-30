@@ -2,7 +2,6 @@ module mui
 
 import time
 import gx
-import strconv
 
 const (
     dialogs_null_answer = "@mui_answer_null"
@@ -65,8 +64,7 @@ fn dialogs_color_update(event_details EventDetails, mut app &Window, mut app_dat
 }
 
 pub fn color_code_to_rgb(color string) []int {
-	clr:=color.replace("#","")
-	return [ int(strconv.parse_int(clr[0..2],16,0) or {return [0,0,0]}) , int(strconv.parse_int(clr[2..4],16,0) or {return [0,0,0]}) , int(strconv.parse_int(clr[4..6],16,0) or {return [0,0,0]}) ]
+	return hex_to_rgb(color)
 }
 
 pub fn rgb_to_color_code(color []int) string {

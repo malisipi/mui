@@ -3,6 +3,7 @@ module mui
 import gg
 import gx
 
+[autofree_bug; manualfree]
 pub fn add_link(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, underline bool, link string, fg gx.Color, fnclk OnEvent, frame string, zindex int){
     app.objects << {
         "type": WindowData{str:"link"},

@@ -9,6 +9,7 @@ pub const (
 	theme_dark=[40,40,40]
 	theme_light=[225,225,225]
 	user_light_theme=is_light_theme()
+	user_accent_color=theme_accent_color()
 )
 
 const (
@@ -30,9 +31,13 @@ const (
 	}
 )
 
-fn hex_to_rgb(clr string) []int {
-
-	return [ int(strconv.parse_int(clr[6..8],16,0) or {return [-1,-1,-1]}) , int(strconv.parse_int(clr[4..6],16,0) or {return [-1,-1,-1]}) , int(strconv.parse_int(clr[2..4],16,0) or {return [-1,-1,-1]}) ]
+fn hex_to_rgb(color string) []int {
+	clr:=color.replace("#","")
+	mut @return := []int{}
+	for i in 0..3 {
+		@return << int(strconv.parse_int(clr[2*i..2*i+2],16,0) or {return [0,0,0]})
+	}
+	return @return
 }
 
 fn is_light_theme() bool{
@@ -43,10 +48,9 @@ fn is_light_theme() bool{
 		}
 
 	} $else $if windows {
+            is_light := unsafe { string_from_wide(C.mui_get_regedit_dword("Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize".to_wide(), "AppsUseLightTheme".to_wide())) }
 
-		output:=os.execute("REG QUERY HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize /v AppsUseLightTheme")
-
-		return output.output.replace("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize","").replace("AppsUseLightTheme","").replace("REG_DWORD","").replace("\n","").replace("\r","").replace(" ","").replace("x","").int()==1
+		return is_light!="0"
 
 	} $else $if linux {
 
@@ -69,10 +73,11 @@ fn is_light_theme() bool{
 
 fn theme_accent_color() []int{
 	$if windows {
-
-		output:=os.execute("REG QUERY HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\DWM /v AccentColor")
-
-		return hex_to_rgb(output.output.replace("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\DWM","").replace("REG_DWORD","").replace("AccentColor","").replace(" ","").replace("\n","").replace("\r","").replace("0x","")[0..8])
+		accent_color := unsafe { string_from_wide(C.mui_get_regedit_dword("Software\\Microsoft\\Windows\\DWM".to_wide(), "AccentColor".to_wide())) }
+		if accent_color.len > 7 {
+			return hex_to_rgb(accent_color)
+		}
+		return [-1,-1,-1]
 
 	} $else $if linux {
 
@@ -108,7 +113,7 @@ fn create_color_scheme_from_accent_color(accent_color []int) ([][]int, bool) {
 }
 
 fn create_color_scheme() ([][]int, bool) {
-	accent_color:=theme_accent_color()
+	accent_color:=user_accent_color.clone()
 
 	if accent_color!=[-1,-1,-1] {
 		return create_color_scheme_from_accent_color(accent_color)

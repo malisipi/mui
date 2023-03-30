@@ -120,7 +120,7 @@ fn frame_fn(app &Window) {
 	unsafe{
 		app.gg.begin()
 		mut objects:=app.objects.clone()
-		if app.focus!="" { objects << get_object_by_id(app, app.focus) }
+		//if app.focus!="" { objects << get_object_by_id(app, app.focus) }
 		real_size:=app.gg.window_size()
 		window_info:=[real_size.width-app.x_offset-app.xn_offset,real_size.height-app.y_offset-app.yn_offset,real_size.width,real_size.height,app.scroll_x,app.scroll_y].clone()
 		$if !dont_clip ? { app.gg.scissor_rect(0, 0, real_size.width, real_size.height) }
@@ -240,6 +240,11 @@ fn frame_fn(app &Window) {
 			}
 		}
 		$if !dont_clip ? { app.gg.scissor_rect(0, 0, real_size.width, real_size.height) }
+		mut focused_object := app.get_object_by_id(app.focus)[0]
+		if focused_object!=null_object && focused_object["type"].str == "selectbox" { // will removed when splitted popup code from selectbox
+			$if !dont_clip ? { if focused_object["in"].str=="" { app.gg.scissor_rect(focused_object["x"].num, focused_object["y"].num, focused_object["w"].num, focused_object["h"].num+800) } }
+			draw_selectbox(app, focused_object)
+		}
 		draw_focus(mut app)
 		if app.menubar!=[]map["string"]WindowData{} {
 			draw_menubar(mut app, real_size)

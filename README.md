@@ -109,6 +109,12 @@ app.run()
     * Improve Documentation
     * Support Other languages except V like Python and C
 
+## Thirdparty Widgets/Plugins
+
+You can make your MUI applications more powerful with plugins.
+
+> Browse [MUI plugin list](./plugins.md)
+
 ## Installation
 
 > To install, run `v install https://github.com/malisipi/mui`

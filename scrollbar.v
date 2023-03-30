@@ -21,6 +21,7 @@ fn update_scroll_ver(event_details EventDetails, mut app &Window, mut app_data v
     }
 }
 
+[autofree_bug; manualfree]
 pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, frame string, zindex int, connected_object map[string]WindowData){
     app.objects << {
         "type": WindowData{str:"scrollbar"},

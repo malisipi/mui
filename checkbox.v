@@ -3,6 +3,7 @@ module mui
 import gg
 import gx
 
+[autofree_bug; manualfree]
 pub fn add_checkbox(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int, tSize int){
     app.objects << {
         "type": WindowData{str:"checkbox"},
