@@ -38,7 +38,7 @@ pub fn add_map(mut app &Window, zoom int, lat f64, lon f64, id string, x IntOrSt
         "id":   WindowData{str:id},
         "in":   WindowData{str:frame},
         "z_ind":WindowData{num:zindex},
-	"image":WindowData{img:app.gg.create_image(map_download(zoom, map_x_tile, map_y_tile)) or { app.gg.create_image_from_byte_array([u8(0)]) or { panic("Image creation was failed") } } }
+	"image":WindowData{img:app.gg.create_image(map_download(zoom, map_x_tile, map_y_tile))  or { gg.Image{} } }
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},
         "w":    WindowData{num:0},

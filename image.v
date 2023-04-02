@@ -9,7 +9,7 @@ pub fn add_image(mut app &Window, path string, id string, x IntOrString, y IntOr
         "id":   WindowData{str:id},
         "in":   WindowData{str:frame},
         "z_ind":WindowData{num:zindex},
-	"image":WindowData{img:app.gg.create_image(path) or { app.gg.create_image_from_byte_array([u8(0)]) or { panic("Image creation was failed") } } }
+	"image":WindowData{img:app.gg.create_image(path) or { gg.Image{} }}
         "x":    WindowData{num:0},
         "y":    WindowData{num:0},
         "w":    WindowData{num:0},
