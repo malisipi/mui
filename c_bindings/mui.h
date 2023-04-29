@@ -57,6 +57,8 @@ void mui_label(mui_window* window, char* config, void (*onclk)(mui_event_details
 void mui_textbox(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
 void mui_textarea(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
 void mui_password(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
+void mui_image(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
+void mui_link(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
 void mui_scrollbar(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**), void (*onchg)(mui_event_details, mui_window*, void**), void (*onunclk)(mui_event_details, mui_window*, void**), mui_object*);
 void mui_run(mui_window* window);
 void mui_change_object_property(mui_window* window, struct mui_object* object, char* config);
@@ -70,6 +72,7 @@ struct mui_object* mui_get_object_by_id(mui_window* window, char* id);
 
 /*
 ### Not Implemented Yet ###
+
 
 void mui_sort_widgets_with_zindex();
 void mui_notifypopup();

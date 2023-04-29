@@ -49,6 +49,9 @@ fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEve
 		if jconf["height"].type_name() == "string" { wconf.height = jconf["height"] as string }
 		if jconf["text"].type_name() == "string" { wconf.text = jconf["text"] as string }
 		if jconf["vertical"].type_name() == "string" { wconf.vertical = (jconf["vertical"] as string) == "true" }
+		if jconf["icon"].type_name() == "string" { wconf.icon = (jconf["icon"] as string) == "true" }
+		if jconf["path"].type_name() == "string" { wconf.path = jconf["path"] as string }
+		if jconf["link"].type_name() == "string" { wconf.link = jconf["link"] as string }
 		wconf.onclick = onclk
 		wconf.onchange = onchg
 		wconf.onunclick = onucl
@@ -69,8 +72,12 @@ fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEve
 				window.password(wconf)
 			} "scrollbar" {
 				window.scrollbar(wconf)
+			} "image" {
+				window.image(wconf)
+			} "link" {
+				window.link(wconf)
 			} else {
-				println(":: Invalid/Unsupported widget type")
+				println(":: Invalid/Unsupported widget type -> ${_type}")
 			}
 		}
 
@@ -100,6 +107,16 @@ fn mui_textarea(mut window &mui.Window, pconf &char, onchg mui.OnEvent){
 [export: "mui_password"]
 fn mui_password(mut window &mui.Window, pconf &char, onchg mui.OnEvent){
 	mui_widget("password", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn, &mui.null_object)
+}
+
+[export: "mui_link"]
+fn mui_link(mut window &mui.Window, pconf &char, onchg mui.OnEvent){
+	mui_widget("link", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn, &mui.null_object)
+}
+
+[export: "mui_image"]
+fn mui_image(mut window &mui.Window, pconf &char, onclk mui.OnEvent){
+	mui_widget("image", mut window, pconf, onclk, mui.empty_fn, mui.empty_fn, &mui.null_object)
 }
 
 [export: "mui_scrollbar"]
