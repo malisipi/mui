@@ -28,7 +28,6 @@ gcc test.c mui.dll -o test.exe
     * Area Graph
 * Menubar
 * Map (Desktop Only)
-* Switch
 * Codefield
 * Frames & Nested-Frames
 * List View
