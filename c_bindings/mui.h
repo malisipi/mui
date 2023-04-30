@@ -58,6 +58,7 @@ void mui_textarea(mui_window* window, char* config, void (*onchg)(mui_event_deta
 void mui_password(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
 void mui_image(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
 void mui_link(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
+void mui_checkbox(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
 void mui_scrollbar(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**), void (*onchg)(mui_event_details, mui_window*, void**), void (*onunclk)(mui_event_details, mui_window*, void**), mui_object*);
 
 mui_window* mui_create(char* config, void**);

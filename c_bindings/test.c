@@ -30,6 +30,13 @@ void image_event_handler(mui_event_details details, mui_window* window, void** a
   mui_set_object_property_char (window, image1, "path", file_path);
 }
 
+void checkbox_event_handler(mui_event_details details, mui_window* window, void** app_data){
+  struct mui_parsed_event_details parsed_details = mui_parse_event_details(details);
+  if(!strcmp(parsed_details.value, "true")){
+    mui_messagebox("Why?", "Why? Can you explain?", MUI_WARNING, MUI_INFO);
+  }
+}
+
 int main(int argc, char** argv){
   struct AppData app_data;
   app_data.count = 0;
@@ -43,6 +50,7 @@ int main(int argc, char** argv){
   mui_textarea(window, "{\"id\":\"textarea1\", \"x\":\"10%x\", \"y\":\"130\", \"width\":\"80%x -20\", \"height\":\"100\", \"text\": \"This is a textarea\"}", *mui_empty_fn);
   mui_image(window, "{\"id\":\"image1\", \"x\":\"10%x\", \"y\":\"250\", \"width\":\"64\", \"height\":\"64\", \"path\": \"../examples/v-logo.png\"}", *image_event_handler);
   mui_link(window, "{\"id\":\"link1\", \"x\":\"10%x +80\", \"y\":\"250\", \"width\":\"120\", \"link\": \"https://example.com\", \"text\":\"example.com\"}", *mui_empty_fn);
+  mui_checkbox(window, "{\"id\":\"checkbox1\", \"x\":\"10%x +80\", \"y\":\"280\", \"width\":\"20\", \"text\":\"Do not check it!\"}", *checkbox_event_handler);
   mui_object* textarea1 = mui_get_object_by_id (window, "textarea1");
   mui_scrollbar(window, "{\"id\":\"scrollbar1\", \"x\":\"# 10%x\", \"y\":\"130\", \"width\":\"20\", \"height\":\"100\", \"vertical\":\"true\"}", *mui_empty_fn, *mui_empty_fn, *mui_empty_fn, textarea1);
   mui_run(window);

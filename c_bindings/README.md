@@ -21,7 +21,6 @@ gcc test.c mui.dll -o test.exe
 * Rect
 * Progress
 * Radio Button
-* Checkbox
 * Selectbox
 * Table
 * Graphs
@@ -31,7 +30,6 @@ gcc test.c mui.dll -o test.exe
 * Map (Desktop Only)
 * Switch
 * Codefield
-* Scrollbar (Verical & Horizontal)
 * Frames & Nested-Frames
 * List View
 * Spinner (aka UpDown)

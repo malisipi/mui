@@ -124,6 +124,8 @@ fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEve
 				window.image(wconf)
 			} "link" {
 				window.link(wconf)
+			} "checkbox" {
+				window.checkbox(wconf)
 			} else {
 				println(":: Invalid/Unsupported widget type -> ${_type}")
 			}
@@ -140,6 +142,11 @@ fn mui_button(mut window &mui.Window, pconf &char, onclk mui.OnEvent){
 [export: "mui_label"]
 fn mui_label(mut window &mui.Window, pconf &char, onclk mui.OnEvent){
 	mui_widget("label", mut window, pconf, onclk, mui.empty_fn, mui.empty_fn, &mui.null_object)
+}
+
+[export: "mui_checkbox"]
+fn mui_checkbox(mut window &mui.Window, pconf &char, onchg mui.OnEvent){
+	mui_widget("checkbox", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn, &mui.null_object)
 }
 
 [export: "mui_textbox"]
