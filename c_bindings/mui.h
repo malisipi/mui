@@ -51,7 +51,6 @@ void mui_init(int argc, char** argv){
   mui_null_object = mui_get_null_object();
 };
 
-mui_window* mui_create(char* config, void**);
 void mui_button(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
 void mui_label(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
 void mui_textbox(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
@@ -60,15 +59,26 @@ void mui_password(mui_window* window, char* config, void (*onchg)(mui_event_deta
 void mui_image(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
 void mui_link(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
 void mui_scrollbar(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**), void (*onchg)(mui_event_details, mui_window*, void**), void (*onunclk)(mui_event_details, mui_window*, void**), mui_object*);
+
+mui_window* mui_create(char* config, void**);
 void mui_run(mui_window* window);
-void mui_change_object_property(mui_window* window, struct mui_object* object, char* config);
+void mui_destroy(mui_window* window);
+
+struct mui_object* mui_get_object_by_id(mui_window* window, char* id);
 struct mui_parsed_event_details mui_parse_event_details(mui_event_details);
 void mui_empty_fn(mui_event_details details, mui_window* window, void** app_data){}
-void mui_destroy(mui_window* window);
+
+int mui_get_object_property_int(mui_window* window, struct mui_object* object, char* property);
+char* mui_get_object_property_char(mui_window* window, struct mui_object* object, char* property);
+_Bool mui_get_object_property_bool(mui_window* window, struct mui_object* object, char* property);
+void mui_set_object_property_int(mui_window* window, struct mui_object* object, char* property, int value);
+void mui_set_object_property_char(mui_window* window, struct mui_object* object, char* property, char* value);
+void mui_set_object_property_bool(mui_window* window, struct mui_object* object, char* property, _Bool value);
+
 int mui_messagebox(char* title, char* message, char* typ, char* icon);
 void mui_beep();
 char* mui_inputbox(char* title, char* text, char* default_text);
-struct mui_object* mui_get_object_by_id(mui_window* window, char* id);
+char* mui_openfiledialog(char* title);
 
 /*
 ### Not Implemented Yet ###
@@ -76,7 +86,6 @@ struct mui_object* mui_get_object_by_id(mui_window* window, char* id);
 
 void mui_sort_widgets_with_zindex();
 void mui_notifypopup();
-void mui_openfiledialog();
 void mui_passwordbox();
 void mui_savefiledialog();
 void mui_selectfolderdialog();

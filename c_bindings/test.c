@@ -20,12 +20,14 @@ void button2_event_handler(mui_event_details details, mui_window* window, void**
 void textbox_event_handler(mui_event_details details, mui_window* window, void** app_data){
   printf("%d\n",++((struct AppData*)app_data)->count);
   struct mui_parsed_event_details parsed_details = mui_parse_event_details(details);
-  char str[256] = "{\"property\":\"text\",\"value\":\"";
-  strcat(str, parsed_details.value);
-  strcat(str, "\"}");
-  mui_change_object_property(window,
-    mui_get_object_by_id(window, "label1"),
-    str);
+  mui_set_object_property_char(window, mui_get_object_by_id(window, "label1"), "text", parsed_details.value);
+}
+
+void image_event_handler(mui_event_details details, mui_window* window, void** app_data){
+  struct mui_parsed_event_details parsed_details = mui_parse_event_details(details);
+  mui_object* image1 = mui_get_object_by_id(window, parsed_details.target_id);
+  char* file_path = mui_openfiledialog("Choose a image to view");
+  mui_set_object_property_char (window, image1, "path", file_path);
 }
 
 int main(int argc, char** argv){
@@ -39,7 +41,7 @@ int main(int argc, char** argv){
   mui_label(window, "{\"id\":\"label1\", \"x\":\"10%x\", \"y\":\"50\", \"width\":\"80%x\", \"text\": \"This is a label\"}", *mui_empty_fn);
   mui_textbox(window, "{\"id\":\"textbox1\", \"x\":\"10%x\", \"y\":\"90\", \"width\":\"80%x\", \"text\": \"This is a textbox\"}", *textbox_event_handler);
   mui_textarea(window, "{\"id\":\"textarea1\", \"x\":\"10%x\", \"y\":\"130\", \"width\":\"80%x -20\", \"height\":\"100\", \"text\": \"This is a textarea\"}", *mui_empty_fn);
-  mui_image(window, "{\"id\":\"image1\", \"x\":\"10%x\", \"y\":\"250\", \"width\":\"64\", \"height\":\"64\", \"path\": \"../examples/v-logo.png\"}", *mui_empty_fn);
+  mui_image(window, "{\"id\":\"image1\", \"x\":\"10%x\", \"y\":\"250\", \"width\":\"64\", \"height\":\"64\", \"path\": \"../examples/v-logo.png\"}", *image_event_handler);
   mui_link(window, "{\"id\":\"link1\", \"x\":\"10%x +80\", \"y\":\"250\", \"width\":\"120\", \"link\": \"https://example.com\", \"text\":\"example.com\"}", *mui_empty_fn);
   mui_object* textarea1 = mui_get_object_by_id (window, "textarea1");
   mui_scrollbar(window, "{\"id\":\"scrollbar1\", \"x\":\"# 10%x\", \"y\":\"130\", \"width\":\"20\", \"height\":\"100\", \"vertical\":\"true\"}", *mui_empty_fn, *mui_empty_fn, *mui_empty_fn, textarea1);

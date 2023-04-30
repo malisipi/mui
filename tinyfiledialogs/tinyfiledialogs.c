@@ -4804,7 +4804,7 @@ my \\$notificationsObject = \\$notificationsService->get_object('/org/freedeskto
                                         printf("\n%s\n",aMessage);
                                 }
                                 printf("y/n: "); fflush(stdout);
-                                lChar = tolower( getchar() ) ;
+                                lChar = (char) tolower( getchar() ) ;
                                 printf("\n\n");
                         }
                         while ( lChar != 'y' && lChar != 'n' );
@@ -4819,7 +4819,7 @@ my \\$notificationsObject = \\$notificationsService->get_object('/org/freedeskto
                                         printf("\n%s\n",aMessage);
                                 }
                                 printf("[O]kay/[C]ancel: "); fflush(stdout);
-                                lChar = tolower( getchar() ) ;
+                                lChar = (char) tolower( getchar() ) ;
                                 printf("\n\n");
                         }
                         while ( lChar != 'o' && lChar != 'c' );
@@ -4834,7 +4834,7 @@ my \\$notificationsObject = \\$notificationsService->get_object('/org/freedeskto
                                         printf("\n%s\n",aMessage);
                                 }
                                 printf("[Y]es/[N]o/[C]ancel: "); fflush(stdout);
-                                lChar = tolower( getchar() ) ;
+                                lChar = (char) tolower( getchar() ) ;
                                 printf("\n\n");
                         }
                         while ( lChar != 'y' && lChar != 'n' && lChar != 'c' );
@@ -5839,7 +5839,7 @@ char * tinyfd_saveFileDialog(
         else if (tfd_yadPresent())
         {
            if (aTitle && !strcmp(aTitle, "tinyfd_query")) { strcpy(tinyfd_response, "yad"); return (char*)1; }
-           strcpy(lDialogString, "yad --file-selection --save --confirm-overwrite");
+           strcpy(lDialogString, "yad --file --save --confirm-overwrite");
            if (aTitle && strlen(aTitle))
            {
               strcat(lDialogString, " --title=\"");
@@ -6357,7 +6357,7 @@ char * tinyfd_openFileDialog(
         else if (tfd_yadPresent())
         {
            if (aTitle && !strcmp(aTitle, "tinyfd_query")) { strcpy(tinyfd_response, "yad"); return (char*)1; }
-           strcpy(lDialogString, "yad --file-selection");
+           strcpy(lDialogString, "yad --file");
            if (aAllowMultipleSelects)
            {
               strcat(lDialogString, " --multiple");
@@ -6791,7 +6791,7 @@ char * tinyfd_selectFolderDialog(
         else if (tfd_yadPresent())
         {
            if (aTitle && !strcmp(aTitle, "tinyfd_query")) { strcpy(tinyfd_response, "yad"); return (char*)1; }
-           strcpy(lDialogString, "yad --file-selection --directory");
+           strcpy(lDialogString, "yad --file --directory");
            if (aTitle && strlen(aTitle))
            {
               strcat(lDialogString, " --title=\"");

@@ -1,5 +1,6 @@
 import malisipi.mui
 import json
+import gg
 
 type IntString = int | string
 
@@ -19,7 +20,7 @@ fn mui_get_null_object() &map[string]mui.WindowData {
 fn mui_create(pconf &char, app_data voidptr) &mui.Window {
 	unsafe {
 		jconf := json.decode(map[string]IntString, pconf.vstring()) or {println("Crashed -> json") exit(0)}
-		mut wconf := mui.WindowConfig{app_data: app_data}
+		mut wconf := mui.WindowConfig{app_data: app_data, draw_mode:.system_native}
 		if jconf["title"].type_name() == "string" { wconf.title = jconf["title"] as string }
 		if jconf["width"].type_name() == "int" { wconf.width = jconf["width"] as int }
 		if jconf["height"].type_name() == "int" { wconf.height = jconf["height"] as int }
@@ -27,13 +28,60 @@ fn mui_create(pconf &char, app_data voidptr) &mui.Window {
 	}
 }
 
-[export: "mui_change_object_property"]
-fn mui_change_object_property(mut window &mui.Window, object &map[string]mui.WindowData, pconf &char){
+[export: "mui_set_object_property_char"]
+fn mui_set_object_property_char(mut window &mui.Window, object &map[string]mui.WindowData, property &char, value &char){
 	unsafe {
-		jconf := json.decode(map[string]string, pconf.vstring()) or {println("Crashed -> json") exit(0)}
-		property := jconf["property"]
-		value := jconf["value"]
-		object[property] = mui.WindowData{str: value}
+		v_property := property.vstring()
+		v_value := value.vstring()
+		match v_property {
+			"path" {
+				object["image"] = mui.WindowData{img: window.gg.create_image(v_value) or { gg.Image{} }}
+			} else {
+				object[property.vstring()] = mui.WindowData{str: v_value}
+			}
+		}
+	}
+}
+
+[export: "mui_set_object_property_int"]
+fn mui_set_object_property_int(mut window &mui.Window, object &map[string]mui.WindowData, property &char, value int){
+	unsafe {
+		object[property.vstring()] = mui.WindowData{num: value}
+	}
+}
+
+[export: "mui_set_object_property_bool"]
+fn mui_set_object_property_bool(mut window &mui.Window, object &map[string]mui.WindowData, property &char, value bool){
+	unsafe {
+		object[property.vstring()] = mui.WindowData{bol: value}
+	}
+}
+
+[export: "mui_get_object_property_char"]
+fn mui_get_object_property_char(mut window &mui.Window, object &map[string]mui.WindowData, property &char, value &char) &char {
+	unsafe {
+		v_property := property.vstring()
+		match v_property {
+			"path" {
+				return c""
+			} else {
+				return &char(object[v_property].str.str)
+			}
+		}
+	}
+}
+
+[export: "mui_get_object_property_int"]
+fn mui_get_object_property_int(mut window &mui.Window, object &map[string]mui.WindowData, property &char, value int) int {
+	unsafe {
+		return object[property.vstring()].num
+	}
+}
+
+[export: "mui_get_object_property_bool"]
+fn mui_get_object_property_bool(mut window &mui.Window, object &map[string]mui.WindowData, property &char, value bool) bool {
+	unsafe {
+		return object[property.vstring()].bol
 	}
 }
 
@@ -167,6 +215,14 @@ fn mui_messagebox(title &char, message &char, _type &char, icon &char) int {
 		)
 	}
 	return 0
+}
+
+[export: "mui_openfiledialog"]
+fn mui_openfiledialog(title &char) &char {
+	unsafe {
+		return &char(mui.openfiledialog(title.vstring()).str)
+	}
+	return c""
 }
 
 [export: "mui_inputbox"]
