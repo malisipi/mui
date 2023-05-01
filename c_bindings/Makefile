@@ -3,9 +3,15 @@ all: lib crun
 lib:
 	v -cc tcc -d no_backtrace mui.v -shared -o mui.so
 
+lib_prod:
+	v -cc gcc -prod -d power_save -skip-unused -shared mui.v -cflags "-s" -o mui.so
+
+lib_mini:
+	v -cc gcc -prod -d no_emoji -d power_save -skip-unused -shared mui.v -cflags "-Os -s -fno-ident -fno-asynchronous-unwind-tables" -o mui.so
+
 crun:
-	clang test.c mui.so -o test.out
+	clang test.c mui.so -Wl,-rpath . -o test.out
 	$(MAKE) run
 
 run:
-	LD_LIBRARY_PATH=. ./test.out
+	./test.out

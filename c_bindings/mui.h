@@ -61,6 +61,7 @@ void mui_link(mui_window* window, char* config, void (*onclk)(mui_event_details,
 void mui_checkbox(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
 void mui_switch(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
 void mui_scrollbar(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**), void (*onchg)(mui_event_details, mui_window*, void**), void (*onunclk)(mui_event_details, mui_window*, void**), mui_object*);
+void mui_slider(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**), void (*onchg)(mui_event_details, mui_window*, void**), void (*onunclk)(mui_event_details, mui_window*, void**));
 
 mui_window* mui_create(char* config, void**);
 void mui_run(mui_window* window);

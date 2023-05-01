@@ -16,7 +16,6 @@ gcc test.c mui.dll -o test.exe
 
 ## Unsupported Widgets:
 
-* Slider (Verical & Horizontal)
 * Group
 * Rect
 * Progress

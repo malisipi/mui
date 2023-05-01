@@ -35,9 +35,9 @@ fn mui_set_object_property_char(mut window &mui.Window, object &map[string]mui.W
 		v_value := value.vstring()
 		match v_property {
 			"path" {
-				object["image"] = mui.WindowData{img: window.gg.create_image(v_value) or { gg.Image{} }}
+				object["image"] = mui.WindowData{img: window.gg.create_image(v_value.clone()) or { gg.Image{} }}
 			} else {
-				object[property.vstring()] = mui.WindowData{str: v_value}
+				object[property.vstring()] = mui.WindowData{str: v_value.clone()}
 			}
 		}
 	}
@@ -120,6 +120,8 @@ fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEve
 				window.password(wconf)
 			} "scrollbar" {
 				window.scrollbar(wconf)
+			} "slider" {
+				window.slider(wconf)
 			} "image" {
 				window.image(wconf)
 			} "link" {
@@ -184,6 +186,11 @@ fn mui_image(mut window &mui.Window, pconf &char, onclk mui.OnEvent){
 [export: "mui_scrollbar"]
 fn mui_scrollbar(mut window &mui.Window, pconf &char, onclk mui.OnEvent, onchg mui.OnEvent, onunclk mui.OnEvent, connected_object &map[string]mui.WindowData){
 	mui_widget("scrollbar", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn, connected_object)
+}
+
+[export: "mui_slider"]
+fn mui_slider(mut window &mui.Window, pconf &char, onclk mui.OnEvent, onchg mui.OnEvent, onunclk mui.OnEvent,){
+	mui_widget("slider", mut window, pconf, mui.empty_fn, onchg, mui.empty_fn, &mui.null_object)
 }
 
 [export: "mui_get_object_by_id"]
