@@ -10,6 +10,12 @@
 
 ## Real World Examples
 
+### Keylogger Blocker - [Source Code](https://github.com/malisipi/KeyloggerBlocker)
+
+![Keylogger Blocker](./pictures/keylogger_blocker.png "Keylogger Blocker")
+
+An anti-keylogger
+
 ### Gezgin Satıcı - [Source Code](https://github.com/malisipi/gezgin-satici)
 
 ![Gezgin Satıcı](./pictures/gezgin-satici.png "Gezgin Satıcı")
