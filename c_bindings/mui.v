@@ -1,3 +1,5 @@
+module main
+
 import malisipi.mui
 import json
 import gg
@@ -17,10 +19,10 @@ fn mui_get_null_object() &map[string]mui.WindowData {
 }
 
 [export: "mui_create"]
-fn mui_create(pconf &char, app_data voidptr) &mui.Window {
+fn mui_create(pconf &char, app_data voidptr, oninit mui.OnEvent) &mui.Window {
 	unsafe {
 		jconf := json.decode(map[string]IntString, pconf.vstring()) or {println("Crashed -> json") exit(0)}
-		mut wconf := mui.WindowConfig{app_data: app_data, draw_mode:.system_native}
+		mut wconf := mui.WindowConfig{app_data: app_data, draw_mode:.system_native, init_fn: oninit}
 		if jconf["title"].type_name() == "string" { wconf.title = jconf["title"] as string }
 		if jconf["width"].type_name() == "int" { wconf.width = jconf["width"] as int }
 		if jconf["height"].type_name() == "int" { wconf.height = jconf["height"] as int }

@@ -1,3 +1,6 @@
+#ifndef MUI_ALREADY
+#define MUI_ALREADY
+
 #warning "The API is unstable and a lot of thing will be changed in future. Please don't use in real-world application before stable-release."
 
 #define MUI_OK "ok"
@@ -63,7 +66,7 @@ void mui_switch(mui_window* window, char* config, void (*onchg)(mui_event_detail
 void mui_scrollbar(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**), void (*onchg)(mui_event_details, mui_window*, void**), void (*onunclk)(mui_event_details, mui_window*, void**), mui_object*);
 void mui_slider(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**), void (*onchg)(mui_event_details, mui_window*, void**), void (*onunclk)(mui_event_details, mui_window*, void**));
 
-mui_window* mui_create(char* config, void**);
+mui_window* mui_create(char* config, void**, void (*oninit)(mui_event_details, mui_window*, void**));
 void mui_run(mui_window* window);
 void mui_destroy(mui_window* window);
 
@@ -82,6 +85,8 @@ int mui_messagebox(char* title, char* message, char* typ, char* icon);
 void mui_beep();
 char* mui_inputbox(char* title, char* text, char* default_text);
 char* mui_openfiledialog(char* title);
+
+#endif
 
 /*
 ### Not Implemented Yet ###

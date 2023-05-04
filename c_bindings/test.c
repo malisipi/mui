@@ -48,12 +48,16 @@ void slider_event_handler(mui_event_details details, mui_window* window, void** 
   mui_set_object_property_char(window, image, "w_raw", size);
 }
 
+void init_handler(mui_event_details details, mui_window* window, void** app_data){
+  printf("%s\n","Hi!");
+}
+
 int main(int argc, char** argv){
   struct AppData app_data;
   app_data.count = 0;
   
   mui_init(argc, argv);
-  mui_window* window = mui_create("{\"title\":\"Hello World\", \"width\":450, \"height\":450}", (void*)&app_data);
+  mui_window* window = mui_create("{\"title\":\"Hello World\", \"width\":450, \"height\":450}", (void*)&app_data, *init_handler);
   mui_button(window, "{\"id\":\"button1\", \"x\":\"10%x\", \"y\":\"10\", \"width\":\"80%x\", \"text\": \"Destroy the window\"}", *button_event_handler);
   mui_button(window, "{\"id\":\"button2\", \"x\":\"10\", \"y\":\"10\", \"width\":\"20\", \"height\":\"20\", \"icon\":\"true\", \"text\": \"✨️\"}", *button2_event_handler);
   mui_label(window, "{\"id\":\"label1\", \"x\":\"10%x\", \"y\":\"50\", \"width\":\"80%x\", \"text\": \"This is a label\"}", *mui_empty_fn);
