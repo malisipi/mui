@@ -85,29 +85,7 @@ app.run()
 * Keybindings (Ctrl+Key Combinations for now) _Will be ignored pressed keys/key combinations that used by widgets if the assigned function to the key/key combination._
 * Japanese Input Support (Experimental)
 
-## To-Do List
-
-* Widgets:
-    * Treeview
-    * Status Bar
-    * Editable Label
-    * Bar Chart
-    * Pie Chart
-    * Column Chart
-    * Gauge chart
-    * Split View
-    * Grid View
-* Themes:
-    * Custom Colors for Widgets (except Themes)
-    * Improve Light Theme
-* Other:
-    * Context Menu
-    * Syntax Highlighting For Codefield
-    * Hot Code Reloading
-    * Disable Status (for Buttons, Checkboxs, Selectboxs, etc.)
-    * Load UI from External XML/JSON File
-    * Improve Documentation
-    * Support Other languages except V like Python and C
+> To see all created and planned features, look up [To-Do List](https://github.com/malisipi/mui/issues/22)
 
 ## Thirdparty Widgets/Plugins
 
