@@ -85,6 +85,8 @@ int mui_messagebox(char* title, char* message, char* typ, char* icon);
 void mui_beep();
 char* mui_inputbox(char* title, char* text, char* default_text);
 char* mui_openfiledialog(char* title);
+char* mui_savefiledialog(char* title);
+char* mui_selectfolderdialog(char* title);
 
 #endif
 
@@ -95,8 +97,6 @@ char* mui_openfiledialog(char* title);
 void mui_sort_widgets_with_zindex();
 void mui_notifypopup();
 void mui_passwordbox();
-void mui_savefiledialog();
-void mui_selectfolderdialog();
 void mui_inputbox();
 void mui_colorchooser();
 */

@@ -248,6 +248,22 @@ fn mui_openfiledialog(title &char) &char {
 	return c""
 }
 
+[export: "mui_savefiledialog"]
+fn mui_savefiledialog(title &char) &char {
+	unsafe {
+		return &char(mui.savefiledialog(title.vstring()).str)
+	}
+	return c""
+}
+
+[export: "mui_selectfolderdialog"]
+fn mui_selectfolderdialog(title &char) &char {
+	unsafe {
+		return &char(mui.selectfolderdialog(title.vstring()).str)
+	}
+	return c""
+}
+
 [export: "mui_inputbox"]
 fn mui_inputbox(title &char, text &char, default_text &char) &char {
 	unsafe {
