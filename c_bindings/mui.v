@@ -102,6 +102,7 @@ fn mui_widget(_type string, mut window &mui.Window, pconf &char, onclk mui.OnEve
 		if jconf["icon"].type_name() == "string" { wconf.icon = (jconf["icon"] as string) == "true" }
 		if jconf["path"].type_name() == "string" { wconf.path = jconf["path"] as string }
 		if jconf["link"].type_name() == "string" { wconf.link = jconf["link"] as string }
+		if jconf["codefield"].type_name() == "string" { wconf.codefield = (jconf["codefield"] as string) == "true" }
 		wconf.onclick = onclk
 		wconf.onchange = onchg
 		wconf.onunclick = onucl
