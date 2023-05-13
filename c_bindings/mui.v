@@ -11,6 +11,7 @@ __global (
 	event_onclick mui.OnEvent
 	event_onchange mui.OnEvent
 	event_onunclick mui.OnEvent
+	event_onresize mui.OnEvent
 )
 
 type IntString = int | string
@@ -32,7 +33,7 @@ fn mui_get_null_object() &map[string]mui.WindowData {
 fn mui_create(pconf &char, app_data voidptr) &mui.Window {
 	unsafe {
 		jconf := json.decode(map[string]IntString, pconf.vstring()) or {println("Crashed -> json") exit(0)}
-		mut wconf := mui.WindowConfig{app_data: app_data, draw_mode:.system_native, init_fn: event_init, quit_fn: event_quit}
+		mut wconf := mui.WindowConfig{app_data: app_data, draw_mode:.system_native, init_fn: event_init, quit_fn: event_quit, resized_fn: event_onresize}
 		if jconf["title"].type_name() == "string" { wconf.title = jconf["title"] as string }
 		if jconf["width"].type_name() == "int" { wconf.width = jconf["width"] as int }
 		if jconf["height"].type_name() == "int" { wconf.height = jconf["height"] as int }
@@ -313,8 +314,10 @@ fn mui_register_fn(typ &char, evt mui.OnEvent){
 				event_onunclick = evt
 			} "change" {
 				event_onchange = evt
+			} "resize" {
+				event_onresize = evt
 			} else {
-				println(":: Unsupported Event Type -> ${typ}")
+				println(":: Unsupported Event Type -> ${_type}")
 			}
 		}
 	}
@@ -326,4 +329,5 @@ fn mui_clear_registered_events(){
 	event_onclick = mui.empty_fn
 	event_onunclick = mui.empty_fn
 	event_onchange = mui.empty_fn
+	event_onresize = mui.empty_fn
 }

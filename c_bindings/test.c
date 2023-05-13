@@ -56,6 +56,11 @@ void quit_handler(mui_event_details details, mui_window* window, void** app_data
   printf("%s\n","Good Bye!");
 }
 
+void resize_handler(mui_event_details details, mui_window* window, void** app_data){
+  struct mui_parsed_event_details parsed_details = mui_parse_event_details(details);
+  printf("%s\n", parsed_details.value);
+}
+
 int main(int argc, char** argv){
   struct AppData app_data;
   app_data.count = 0;
@@ -63,6 +68,7 @@ int main(int argc, char** argv){
   mui_init(argc, argv);
   mui_register_fn ("init", *init_handler);
   mui_register_fn ("quit", *quit_handler);
+  mui_register_fn ("resize", *resize_handler);
   mui_window* window = mui_create("{\"title\":\"Hello World\", \"width\":450, \"height\":450}", (void*)&app_data);
 
   mui_register_fn("click", *button_event_handler);
