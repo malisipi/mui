@@ -54,25 +54,26 @@ void mui_init(int argc, char** argv){
   mui_null_object = mui_get_null_object();
 };
 
-void mui_button(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
-void mui_label(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
-void mui_textbox(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
-void mui_textarea(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
-void mui_password(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
-void mui_image(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
-void mui_link(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**));
-void mui_checkbox(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
-void mui_switch(mui_window* window, char* config, void (*onchg)(mui_event_details, mui_window*, void**));
-void mui_scrollbar(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**), void (*onchg)(mui_event_details, mui_window*, void**), void (*onunclk)(mui_event_details, mui_window*, void**), mui_object*);
-void mui_slider(mui_window* window, char* config, void (*onclk)(mui_event_details, mui_window*, void**), void (*onchg)(mui_event_details, mui_window*, void**), void (*onunclk)(mui_event_details, mui_window*, void**));
+void mui_button(mui_window* window, char* config);
+void mui_label(mui_window* window, char* config);
+void mui_textbox(mui_window* window, char* config);
+void mui_textarea(mui_window* window, char* config);
+void mui_password(mui_window* window, char* config);
+void mui_image(mui_window* window, char* config);
+void mui_link(mui_window* window, char* config);
+void mui_checkbox(mui_window* window, char* config);
+void mui_switch(mui_window* window, char* config);
+void mui_scrollbar(mui_window* window, char* config, mui_object* object);
+void mui_slider(mui_window* window, char* config);
 
-mui_window* mui_create(char* config, void**, void (*oninit)(mui_event_details, mui_window*, void**));
+mui_window* mui_create(char* config, void**);
 void mui_run(mui_window* window);
 void mui_destroy(mui_window* window);
 
 struct mui_object* mui_get_object_by_id(mui_window* window, char* id);
 struct mui_parsed_event_details mui_parse_event_details(mui_event_details);
 void mui_empty_fn(mui_event_details details, mui_window* window, void** app_data){}
+void mui_register_fn(char* type, void (*event_handler)(mui_event_details, mui_window*, void**));
 
 int mui_get_object_property_int(mui_window* window, struct mui_object* object, char* property);
 char* mui_get_object_property_char(mui_window* window, struct mui_object* object, char* property);
