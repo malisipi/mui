@@ -1,7 +1,7 @@
 module mui
 
-#include "@VMODROOT/tinyfiledialogs/tinyfiledialogs.h"
-#flag @VMODROOT/tinyfiledialogs/tinyfiledialogs.c
+#include "@VMODROOT/clibs/tinyfiledialogs/tinyfiledialogs.h"
+#flag @VMODROOT/clibs/tinyfiledialogs/tinyfiledialogs.c
 #flag windows -lole32
 #flag windows -lcomdlg32
 $if tinyc {

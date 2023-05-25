@@ -222,7 +222,8 @@ or
 ## License
 
 * **This project licensed by [Apache License 2.0](./LICENSE).**
-* [Tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/) (`./tinyfiledialogs/`) (Patched) licensed by Zlib License.
+* [Tinyfiledialogs](https://sourceforge.net/projects/tinyfiledialogs/) (`./clib/tinyfiledialogs/`) (Patched) licensed by Zlib License.
+* [Tray.h](https://gist.github.com/malisipi/ec70678d9b1c931130902ab97ac68938) (`./clib/tray.h`) licensed by MIT License.
 * [Noto Emoji Font](https://fonts.google.com/noto/specimen/Noto+Emoji) (`./noto_emoji_font/`) licensed by OFL License.
 * [Noto Font](https://fonts.google.com/noto/specimen/Noto+Sans) (`./assets/noto.ttf`) licensed by OFL License.
 * [Noto (Japanese) Font](https://fonts.google.com/noto/specimen/Noto+Sans+JP) (`./assets/noto_jp.ttf`) licensed by OFL License.

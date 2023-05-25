@@ -1,7 +1,7 @@
 module mui
 
-#include "@VMODROOT/tinyfiledialogs/tinyfiledialogs.h"
-#flag @VMODROOT/tinyfiledialogs/tinyfiledialogs.c
+#include "@VMODROOT/clibs/tinyfiledialogs/tinyfiledialogs.h"
+#flag @VMODROOT/clibs/tinyfiledialogs/tinyfiledialogs.c
 
 fn C.tinyfd_messageBox(a &char, b &char, c &char, d &char, e int) int
 
