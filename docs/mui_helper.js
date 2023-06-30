@@ -4,9 +4,6 @@ window.mui = {
     module: null,
     latest_file: null,
     task_result: "0",
-    results: {
-        open_file_dialog: "2"
-    },
     open_file_dialog: async () => {
         let input = document.createElement("input");
         input.type = "file";
@@ -19,7 +16,7 @@ window.mui = {
             });
             input.click();
         });
-        mui.task_result = mui.results.open_file_dialog;
+        mui.task_result = "1";
         return mui.latest_file.name;
     },
     set trigger(val){

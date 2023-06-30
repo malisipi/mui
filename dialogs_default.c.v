@@ -19,6 +19,14 @@ pub fn passwordbox(title string, text string) string {
 
 pub fn openfiledialog(title string) string {
     unsafe {
+        C.emscripten_run_script(c"mui.trigger = \"openfiledialog\"")
+        for ;C.emscripten_run_script_string(c"mui.task_result").vstring() != "1"; {
+            C.emscripten_sleep(500)
+        }
+        C.emscripten_run_script(c"mui.task_result = \"0\"")
+        return C.emscripten_run_script_string(c"mui.latest_file.name").vstring()
+
+        /*
         if C.emscripten_run_script_string(c"mui.task_result").vstring() == "2" {
             C.emscripten_run_script(c"mui.task_result = \"0\"")
             return C.emscripten_run_script_string(c"mui.latest_file.name").vstring()
@@ -26,6 +34,7 @@ pub fn openfiledialog(title string) string {
             C.emscripten_run_script(c"mui.trigger = \"openfiledialog\"")
         }
         return ""
+        */
     }
 }
 
