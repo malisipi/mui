@@ -53,4 +53,6 @@ pub fn notifypopup(title string, text string, icon_type string){
     C.emscripten_run_script(cstr("alert('"+title+"\\n"+text+"')"))
 }
 
-pub fn beep(){}
+pub fn beep(){
+    C.emscripten_run_script(c"mui.trigger = \"beep\"")
+}

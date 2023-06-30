@@ -52,6 +52,17 @@ window.mui = {
             }
         }, 500);
     },
+    beep: () => {
+        var context = new AudioContext();
+        var oscillator = context.createOscillator();
+        oscillator.type = "sine";
+        oscillator.frequency.value = 400;
+        oscillator.connect(context.destination);
+        oscillator.start(); 
+        setTimeout(function () {
+            oscillator.stop();
+        }, 150);        
+    },
     set trigger(val){
         if (val == "openfiledialog"){
             mui.open_file_dialog();
@@ -63,6 +74,8 @@ window.mui = {
         } else if (val == "keyboard-show"){
             document.getElementById("canvas").focus();
             navigator.virtualKeyboard.show();
+        } else if (val == "beep") {
+            mui.beep();
         }
     }
 };
