@@ -3,6 +3,7 @@ import loadWASM from "./app.js";
 window.mui = {
     module: null,
     latest_file: null,
+    canvas: null,
     task_result: "0",
     open_file_dialog: async () => {
         let input = document.createElement("input");
@@ -33,7 +34,6 @@ window.mui = {
         });
         let url = window.URL.createObjectURL(blob);
         let downloader = document.createElement("a");
-        //document.body.append(downloader);
         downloader.href = url;
         downloader.download = filename;
         downloader.click();
@@ -63,23 +63,108 @@ window.mui = {
             oscillator.stop();
         }, 150);        
     },
+    ext_keyboard_keys: {
+        left: [10001, "←"],
+        up: [10002, "↑"],
+        right: [10003, "→"],
+        down: [10004, "↓"],
+        backspace: [8, "⌫"]
+    },
+    send_keys: (keycode) => {
+        var e = document.createEventObject ? document.createEventObject() : document.createEvent("Events");
+        if (e.initEvent) e.initEvent("keypress", true, true);
+
+        e.keyCode = keycode;
+        e.which = keycode;
+        e.charCode = keycode;
+        mui.module.JSEvents.eventHandlers.filter(e => e.eventTypeString == "keypress")[0].handlerFunc(e);
+    },
     set trigger(val){
         if (val == "openfiledialog"){
             mui.open_file_dialog();
         } else if (val == "savefiledialog"){
             mui.save_file_dialog();
         } else if (val == "keyboard-hide"){
-            document.getElementById("canvas").focus();
-            navigator.virtualKeyboard.hide();
+            mui.canvas.focus();
+            navigator.virtualKeyboard?.hide();
         } else if (val == "keyboard-show"){
-            document.getElementById("canvas").focus();
-            navigator.virtualKeyboard.show();
+            mui.canvas.focus();
+            navigator.virtualKeyboard?.show();
         } else if (val == "beep") {
             mui.beep();
+        };
+    },
+    init_control_helpers: () => {
+        let mui_styles = document.createElement("style");
+        mui_styles.innerHTML = `
+        #canvas{
+			position:fixed;
+			top:0;
+			left:0;
+			width:100%;
+			height:100%;
+		}
+
+        .keyboard_helper {
+            position: fixed;
+            bottom: -1000px;
+            right: 10px;
+            background: #222;
+            padding: 5px;
+            border-radius: 5px;
+            display: flex;
+            gap: 5px;
         }
+
+        .keyboard_helper[show_ext] {
+            bottom: calc(env(keyboard-inset-height, 0px) + 10px);
+        }
+
+        .keyboard_helper > button {
+            border-radius: 4px;
+            padding: 10px;
+            border: none;
+            color: #fff;
+            background: #111;
+            width: 40px;
+            height: 40px;
+        }
+        `;
+        document.head.append(mui_styles);
+        let keyboard_helper = document.createElement("div");
+        navigator.virtualKeyboard?.addEventListener("geometrychange", (e, _keyboard_helper = keyboard_helper) => {
+            if(navigator.virtualKeyboard?.boundingRect.height > 0){
+                _keyboard_helper.setAttribute("show_ext", true);
+            } else {
+                if(_keyboard_helper.hasAttribute("show_ext")){
+                    _keyboard_helper.removeAttribute("show_ext");
+                };
+            }
+        });
+
+        if(!!navigator?.userAgentData?.mobile){
+            keyboard_helper.className = "keyboard_helper";
+            document.body.append(keyboard_helper);
+            
+            for(let key_index in mui.ext_keyboard_keys){
+                let key_info = mui.ext_keyboard_keys[key_index];
+                let the_key = document.createElement("button");
+                the_key.addEventListener("click", (e, inf=key_info[0]) => {
+                    e.target.blur();
+                    mui.send_keys(inf);
+                });
+                the_key.innerText = key_info[1];
+                keyboard_helper.append(the_key);
+            }
+        };
     }
 };
 
-(async () => {
+document.addEventListener("DOMContentLoaded", async () => {
+    if(navigator.virtualKeyboard || navigator.virtualKeyboard.overlaysContent){
+        navigator.virtualKeyboard.overlaysContent = true;
+    };
+    mui.init_control_helpers();
+    mui.canvas = document.getElementById("canvas");
     mui.module = await loadWASM();
-})();
+});

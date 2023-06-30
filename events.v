@@ -365,7 +365,7 @@ fn char_fn(chr u32, mut app &Window){
 
 [autofree_bug; manualfree; unsafe]
 fn keyboard_fn(chr U32OrString, mut app &Window){
-	unsafe{
+	unsafe {
 		if app.focus!="" {
 			mut object:=get_object_by_id(app,app.focus)
 			if app.active_dialog!=""{
@@ -374,10 +374,30 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 
 			mut key:=""
 			match chr{
-				u32{
+				u32 {
 					key=utf32_to_str(chr)
+					$if emscripten? {
+						match chr {
+							13 {
+								key = "enter"
+							} 10001 {
+								key = "left"
+							} 10002 {
+								key = "__up"
+							} 10003 {
+								key = "right"
+							} 10004 {
+								key = "down"
+							} else {}
+						}
+					}
 				} string {
 					key=chr
+					$if emscripten? {
+						if chr == "enter" {
+							return
+						}
+					}
 				}
 			}
 
@@ -432,7 +452,7 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 						}
 					}
 				} "textarea" {
-					if key.runes().len<2 || key=="enter"{
+					if key.runes().len<2 || key=="enter" {
 						if key=="enter" { key="\n" }
 						the_text:=object["text"].str
 						the_text_part1,the_text_part2:=the_text.split("\0")[0],the_text.split("\0")[1]
