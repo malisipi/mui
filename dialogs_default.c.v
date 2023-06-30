@@ -25,21 +25,18 @@ pub fn openfiledialog(title string) string {
         }
         C.emscripten_run_script(c"mui.task_result = \"0\"")
         return C.emscripten_run_script_string(c"mui.latest_file.name").vstring()
-
-        /*
-        if C.emscripten_run_script_string(c"mui.task_result").vstring() == "2" {
-            C.emscripten_run_script(c"mui.task_result = \"0\"")
-            return C.emscripten_run_script_string(c"mui.latest_file.name").vstring()
-        } else {
-            C.emscripten_run_script(c"mui.trigger = \"openfiledialog\"")
-        }
-        return ""
-        */
     }
 }
 
 pub fn savefiledialog(title string) string {
-    return ""
+    unsafe {
+        C.emscripten_run_script(c"mui.trigger = \"savefiledialog\"")
+        for ;C.emscripten_run_script_string(c"mui.task_result").vstring() != "1"; {
+            C.emscripten_sleep(500)
+        }
+        C.emscripten_run_script(c"mui.task_result = \"0\"")
+        return C.emscripten_run_script_string(c"mui.latest_file.name").vstring()
+    }
 }
 
 pub fn selectfolderdialog(title string) string {
