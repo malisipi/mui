@@ -67,10 +67,9 @@ window.mui = {
         left: [10001, "←"],
         up: [10002, "↑"],
         right: [10003, "→"],
-        down: [10004, "↓"],
-        backspace: [8, "⌫"]
+        down: [10004, "↓"]
     },
-    send_keys: (keycode) => {
+    send_key: (keycode) => {
         var e = document.createEventObject ? document.createEventObject() : document.createEvent("Events");
         if (e.initEvent) e.initEvent("keypress", true, true);
 
@@ -142,6 +141,13 @@ window.mui = {
             }
         });
 
+        document.addEventListener("keydown", e => {
+            console.log(e);
+            if(e.key == "Backspace" && e.code == ""){
+                mui.send_key(8);
+            }
+        })
+
         if(!!navigator?.userAgentData?.mobile){
             keyboard_helper.className = "keyboard_helper";
             document.body.append(keyboard_helper);
@@ -151,7 +157,7 @@ window.mui = {
                 let the_key = document.createElement("button");
                 the_key.addEventListener("click", (e, inf=key_info[0]) => {
                     e.target.blur();
-                    mui.send_keys(inf);
+                    mui.send_key(inf);
                 });
                 the_key.innerText = key_info[1];
                 keyboard_helper.append(the_key);
