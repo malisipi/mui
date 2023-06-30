@@ -72,7 +72,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 							if object["type"].str!="rect" {
 								app.focus=object["id"].str
 							}
-							$if android{
+							$if android || emscripten? {
 								match object["type"].str{
 									"textbox", "password", "textarea" {
 										show_keyboard(true)

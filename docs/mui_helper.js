@@ -55,8 +55,14 @@ window.mui = {
     set trigger(val){
         if (val == "openfiledialog"){
             mui.open_file_dialog();
-        } else if (val =="savefiledialog"){
+        } else if (val == "savefiledialog"){
             mui.save_file_dialog();
+        } else if (val == "keyboard-hide"){
+            document.getElementById("canvas").focus();
+            navigator.virtualKeyboard.hide();
+        } else if (val == "keyboard-show"){
+            document.getElementById("canvas").focus();
+            navigator.virtualKeyboard.show();
         }
     }
 };
