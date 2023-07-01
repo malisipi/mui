@@ -149,10 +149,10 @@ window.mui = {
         })
 
         if(!!navigator?.userAgentData?.mobile){
-            if(!!navigator.virtualKeyboard?.overlaysContent){
+            if(navigator.virtualKeyboard?.overlaysContent != undefined){
                 navigator.virtualKeyboard.overlaysContent = true;
             };
-            
+
             keyboard_helper.className = "keyboard_helper";
             document.body.append(keyboard_helper);
             
