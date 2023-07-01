@@ -149,6 +149,10 @@ window.mui = {
         })
 
         if(!!navigator?.userAgentData?.mobile){
+            if(!!navigator.virtualKeyboard?.overlaysContent){
+                navigator.virtualKeyboard.overlaysContent = true;
+            };
+            
             keyboard_helper.className = "keyboard_helper";
             document.body.append(keyboard_helper);
             
@@ -167,9 +171,6 @@ window.mui = {
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
-    if(navigator.virtualKeyboard || navigator.virtualKeyboard.overlaysContent){
-        navigator.virtualKeyboard.overlaysContent = true;
-    };
     mui.init_control_helpers();
     mui.canvas = document.getElementById("canvas");
     mui.module = await loadWASM();
