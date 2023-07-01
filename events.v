@@ -393,11 +393,6 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 					}
 				} string {
 					key=chr
-					$if emscripten? {
-						if chr == "enter" {
-							return
-						}
-					}
 				}
 			}
 
