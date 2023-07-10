@@ -5,7 +5,7 @@ pub fn (mut app Window) rect ( args Widget ){
 }
 
 pub fn (mut app Window) frame ( args Widget ){
-	add_frame (mut app, args.id, args.x, args.y, args.width, args.height, args.hidden, args.background, args.dialog, args.frame, args.z_index, args.view_area, args.draggable)
+	add_frame (mut app, args.id, args.x, args.y, args.width, args.height, args.hidden, args.background, args.dialog, args.frame, args.z_index, args.view_area, args.draggable, args.click_events)
 }
 
 pub fn (mut app Window) line_graph ( args Widget ){ //dialog support not done

@@ -57,19 +57,23 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 				objects=app.dialog_objects.clone().reverse()
 			}
 			for mut object in objects{
-				if !object["hi"].bol && object["type"].str!="rect" && (object["type"].str=="frame" && object["drag"].bol) && object["type"].str!="group" && object["type"].str!="table"{
+				if !object["hi"].bol && object["type"].str!="rect" && (object["type"].str!="frame" || (object["type"].str=="frame" && object["drag"].bol)) && object["type"].str!="group" && object["type"].str!="table"{
 					if object["x"].num<x && object["x"].num+object["w"].num>x{
 						if object["y"].num<y && object["y"].num+object["h"].num>y{
 							if object["in"].str != "" {
-								frame_x:=app.get_object_by_id(object["in"].str)[0]["x"].num
-								frame_y:=app.get_object_by_id(object["in"].str)[0]["y"].num
-								frame_w:=app.get_object_by_id(object["in"].str)[0]["w"].num
-								frame_h:=app.get_object_by_id(object["in"].str)[0]["h"].num
+								the_frame := app.get_object_by_id(object["in"].str)
+								if !the_frame[0]["sclke"].bol {
+									continue
+								}
+								frame_x:=the_frame[0]["x"].num
+								frame_y:=the_frame[0]["y"].num
+								frame_w:=the_frame[0]["w"].num
+								frame_h:=the_frame[0]["h"].num
 								if frame_x > x || frame_x + frame_w < x || frame_y > y || frame_y + frame_h < y {
 									continue
 								}
 							}
-							if object["type"].str!="rect" && object["type"].str!="frame" {
+							if object["type"].str!="rect" {
 								app.focus=object["id"].str
 							}
 							$if android || emscripten? {

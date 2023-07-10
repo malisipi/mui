@@ -4,7 +4,7 @@ import gg
 import gx
 
 [autofree_bug; manualfree]
-pub fn add_frame(mut app &Window, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, dialog bool, frame string, zindex int, view_area []int, draggable bool){
+pub fn add_frame(mut app &Window, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, dialog bool, frame string, zindex int, view_area []int, draggable bool, click_events bool){
     widget:= {
         "type": WindowData{str:"frame"},
         "id":   WindowData{str:id},
@@ -28,7 +28,8 @@ pub fn add_frame(mut app &Window, id string, x IntOrString, y IntOrString, w Int
         "scwvl":WindowData{num:0},
         "scwsl":WindowData{num:0},
         "viewA":WindowData{dat:[view_area]},
-		"drag":	WindowData{bol: draggable}
+		"drag":	WindowData{bol: draggable},
+	    "sclke":WindowData{bol:click_events},
     }
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
