@@ -173,8 +173,8 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 								} "image", "map" {
 									object["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
 								} "frame" {
-									app.drag_x = x
-									app.drag_y = y
+									app.drag_x = object["x"].num-x
+									app.drag_y = object["y"].num-y
 								} else {
 									for widget in app.custom_widgets{
 										if object["type"].str==widget.typ{
@@ -263,10 +263,8 @@ fn move_fn(x f32, y f32, mut app &Window){
 						}
 					}
 				} else if object["type"].str=="frame"{
-					object["x_raw"].str = int(x-app.drag_x+object["x"].num).str()
-					object["y_raw"].str = int(y-app.drag_y+object["y"].num).str()
-					app.drag_x = x
-					app.drag_y = y
+					object["x_raw"].str = int(app.drag_x+x).str()
+					object["y_raw"].str = int(app.drag_y+y).str()
 				} else {
 					for widget in app.custom_widgets{
 						if object["type"].str==widget.typ{
