@@ -241,7 +241,7 @@ fn frame_fn(app &Window) {
 		}
 		$if !dont_clip ? { app.gg.scissor_rect(0, 0, real_size.width, real_size.height) }
 		mut focused_object := app.get_object_by_id(app.focus)[0]
-		if focused_object!=null_object && focused_object["type"].str == "selectbox" { // will removed when splitted popup code from selectbox
+		if !is_null_object(focused_object) && focused_object["type"].str == "selectbox" { // will removed when splitted popup code from selectbox		
 			$if !dont_clip ? { if focused_object["in"].str=="" { app.gg.scissor_rect(focused_object["x"].num, focused_object["y"].num, focused_object["w"].num, focused_object["h"].num+800) } }
 			draw_selectbox(app, focused_object)
 		}

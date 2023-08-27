@@ -97,7 +97,7 @@ fn get_previous_object_by_id(app &Window, _id string) map[string]WindowData{
 		mut previous_object:=null_object.clone()
 		for object in app.objects{
 			if object["id"].str==id {
-				if previous_object==null_object {
+				if is_null_object(previous_object) {
 					continue
 				}
 				if previous_object["type"].str=="hidden" && previous_object["realT"].str=="radio"{
@@ -129,7 +129,7 @@ fn get_previous_dialog_object_by_id(app &Window, _id string) map[string]WindowDa
 		mut previous_object:=null_object.clone()
 		for object in app.dialog_objects{
 			if object["id"].str==id {
-				if previous_object==null_object {
+				if is_null_object(previous_object) {
 					continue
 				}
 				if previous_object["type"].str=="hidden" && previous_object["realT"].str=="radio"{

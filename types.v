@@ -25,12 +25,12 @@ pub mut:
 	str string
 	clr gx.Color
 	bol bool
-	fun OnEvent
+	fun OnEvent			= unsafe { nil }
 	img gg.Image
 	tbl [][]string
 	dat [][]int
 	lcr []gx.Color
-	vmp ValueMap
+	vmp ValueMap		= unsafe { nil }
 	lst []map[string]WindowData
 	vpt voidptr
 }
@@ -100,11 +100,11 @@ pub mut:
 	scrollbar			bool
 	scroll_x			int
 	scroll_y			int
-	file_handler			OnEvent
+	file_handler			OnEvent			= empty_fn
 	ask_quit			bool
-	quit_fn				OnEvent
-	init_fn				OnEvent
-	resized_fn			OnEvent
+	quit_fn				OnEvent				= empty_fn
+	init_fn				OnEvent				= empty_fn
+	resized_fn			OnEvent				= empty_fn
 	active_dialog			string			//= "" //messagebox, input, password, progress, color, date, notification, openfile, savefile, openfolder, custom
 	dialog_answer			string			= dialogs_null_answer
 	dialog_objects			[]map[string]WindowData // for dialogs
@@ -187,6 +187,12 @@ pub struct Modal {
 	typ			string		= "messagebox"
 	file_ext		string		= "*"
 	default_entry		string		//= ""
+}
+
+pub fn is_null_object(object map[string]WindowData) bool {
+	unsafe {
+		return object["id"].str == ""
+	}
 }
 
 pub enum DrawingMode as int { // OOOOO TT N

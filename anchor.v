@@ -47,7 +47,7 @@ fn calc_size(window_info []int, w IntOrString, h IntOrString) (int, int){
 fn calc_x_y(window_info []int, x IntOrString, y IntOrString, size []int) (int, int){
 	mut data:=[]int{}
 	for w, r in [x,y].clone(){
-		mut x_y_scroll:=window_info#[-2..]
+		mut x_y_scroll:=window_info#[-2..].clone()
 		match r{
 			int{
 				data << r-if w==0{x_y_scroll[0]} else {x_y_scroll[1]}
