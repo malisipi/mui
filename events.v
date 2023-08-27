@@ -11,7 +11,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 	unsafe{
 		if app.focus!="" && app.active_dialog=="" {
 			object := get_object_by_id(app, app.focus)
-			if object != null_object && object["type"].str=="selectbox" && $if windows { int(app.draw_mode)&1 == 0 } $else { true } {
+			if !is_null_object(object) && object["type"].str=="selectbox" && $if windows { int(app.draw_mode)&1 == 0 } $else { true } {
 				mut old_focused_object:=get_object_by_id(app, app.focus)
 				app.focus=""
 				the_list := old_focused_object["list"].str.split("\0")
@@ -234,7 +234,7 @@ fn move_fn(x f32, y f32, mut app &Window){
 		if !changed_cursor { sapp.set_mouse_cursor(.default) }
 		if !(app.focus==""){
 			mut object:=get_object_by_id(app,app.focus)
-			if object != null_object {
+			if !is_null_object(object) {
 				if app.active_dialog!=""{
 					object=get_dialog_object_by_id(app,app.focus)
 				}
@@ -284,7 +284,7 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 	unsafe{
 		if !(app.focus==""){
 			mut object:=get_object_by_id(app,app.focus)
-			if object != null_object {
+			if !is_null_object(object) {
 				if app.active_dialog!=""{
 					object=get_dialog_object_by_id(app,app.focus)
 				}
