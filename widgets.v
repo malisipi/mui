@@ -33,7 +33,7 @@ pub fn (mut app Window) label ( args Widget ){
 }
 
 pub fn (mut app Window) button ( args Widget ){
-	add_button (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[3], args.onclick, args.icon, args.dialog, args.frame, args.z_index, args.text_size)
+	add_button (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[1], app.color_scheme[3], args.onclick, args.onunclick, args.icon, args.dialog, args.frame, args.z_index, args.text_size)
 }
 
 pub fn (mut app Window) image ( args Widget ){ //dialog support not done

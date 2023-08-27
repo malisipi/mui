@@ -4,7 +4,7 @@ import gg
 import gx
 
 [autofree_bug; manualfree]
-pub fn add_button(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, fg gx.Color, fun OnEvent, icon bool, dialog bool, frame string, zindex int, tSize int){
+pub fn add_button(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, fg gx.Color, fnclk OnEvent, fnucl OnEvent, icon bool, dialog bool, frame string, zindex int, tSize int){
     widget:={
         "type": WindowData{str:"button"},
         "id":   WindowData{str:id},
@@ -22,7 +22,8 @@ pub fn add_button(mut app &Window, text string, id string, x IntOrString, y IntO
         "hi":	WindowData{bol:hi},
         "bg":   WindowData{clr:bg},
         "fg":   WindowData{clr:fg},
-        "fn":   WindowData{fun:fun},
+        "fnclk":WindowData{fun:fnclk},
+        "fnucl":WindowData{fun:fnucl},
         "icon": WindowData{bol:icon},
         "tSize":WindowData{num:tSize},
         "tabvw":WindowData{str:""}, // for tabbed view

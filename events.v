@@ -83,7 +83,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 							}
 							match object["type"].str{
 								"button" {
-									object["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:true.str()},mut app, mut app.app_data)
+									object["fnclk"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:true.str()},mut app, mut app.app_data)
 								} "checkbox", "switch" {
 									object["c"]=WindowData{bol:!object["c"].bol}
 									object["fnchg"].fun(EventDetails{event:"value_change",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["c"].bol.str()},mut app, mut app.app_data)
@@ -275,6 +275,9 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 				if object["type"].str=="slider" || object["type"].str=="scrollbar"{
 					object["click"]=WindowData{bol:false}
 					object["fnucl"].fun(EventDetails{event:"unclick",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:object["val"].num.str()},mut app, mut app.app_data)
+				}
+				if object["type"].str=="button" {
+					object["fnucl"].fun(EventDetails{event:"unclick",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str, value:true.str()},mut app, mut app.app_data)
 				}
 				for widget in app.custom_widgets{
 					if object["type"].str==widget.typ{
@@ -513,7 +516,7 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 					}
 				} "button" {
 					if key=="enter" || key==" " {
-						object["fn"].fun(EventDetails{event:"keypress",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
+						object["fnclk"].fun(EventDetails{event:"keypress",trigger:"keyboard",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
 					}
 				} "checkbox", "switch" {
 					if key=="enter" || key==" " {
