@@ -104,6 +104,7 @@ You can make your MUI applications more powerful with plugins.
 | Flags                      | Description                                               |
 |----------------------------|-----------------------------------------------------------|
 | `-d show_fps`              | Show FPS of the window                                    |
+| `-d rtl`                   | Forces to use RTL (Right-to-Left) Layout                  |
 | `-d no_emoji`              | Disable emoji support and font embedding                  |
 | `-d emscripten`            | Compile for emscripten (use with `-os wasm32-emscripten`) |
 | `-d dont_clip`             | For debugging purposes, it disables clipping the widgets area. (Not recommend) |
@@ -191,9 +192,10 @@ or
 
 * Windows 11
 * Arch Linux
-* Android 12
+* Android 12 (Sometimes)
 * Windows 7/10 (Sometimes)
 * Wine 8.x (Sometimes)
+* Chrome Latest (Sometimes)
 
 </details>
 

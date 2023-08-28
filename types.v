@@ -71,6 +71,7 @@ pub mut:
 	statusbar		int							//= 0
 	draw_mode		DrawingMode						= .cross_platform
 	round_corners		int							= -1
+	rtl_layout		bool							//= false
 }
 
 pub struct EventDetails{
@@ -116,6 +117,7 @@ pub mut:
 	draw_mode			DrawingMode
 	native_focus			bool			//=false
 	round_corners			int
+	rtl_layout				bool			//=false
 }
 
 pub struct MenubarConfig {
