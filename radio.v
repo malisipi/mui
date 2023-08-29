@@ -52,11 +52,21 @@ fn draw_radio(app &Window, object map[string]WindowData){
 		if object["c"].bol{
 			app.gg.draw_rounded_rect_filled(object["x"].num+2, object["y"].num+2, object["w"].num-4, object["w"].num-4, app.round_corners, group["bfg"].clr)
 		}
-		app.gg.draw_text(object["x"].num+object["w"].num+4, object["y"].num+object["h"].num/2, object["text"].str, gx.TextCfg{
-			color: group["fg"].clr
-			size: object["tSize"].num
-			align: .left
-			vertical_align: .middle
-		})
+
+		if !app.rtl_layout { // LTR
+			app.gg.draw_text(object["x"].num+object["w"].num+4, object["y"].num+object["h"].num/2, object["text"].str, gx.TextCfg{
+				color: group["fg"].clr
+				size: object["tSize"].num
+				align: .left
+				vertical_align: .middle
+			})
+		} else { // RTL
+			app.gg.draw_text(object["x"].num-4, object["y"].num+object["h"].num/2, object["text"].str, gx.TextCfg{
+				color: group["fg"].clr
+				size: object["tSize"].num
+				align: .right
+				vertical_align: .middle
+			})
+		}
 	}
 }

@@ -194,10 +194,22 @@ fn frame_fn(app &Window) {
 						}"password"{
 							draw_password(app, object)
 						}"checkbox"{
-							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num) } }
+							$if !dont_clip ? { if object["in"].str=="" {
+								if !app.rtl_layout { // LTR
+									app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num)
+								} else { // RTL
+									app.gg.scissor_rect(object["x"].num - 300, object["y"].num, object["w"].num + 300, object["h"].num)
+								}
+							} }
 							draw_checkbox(app, object)
 						}"switch"{
-							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num) } }
+							$if !dont_clip ? { if object["in"].str=="" {
+								if !app.rtl_layout { // LTR
+									app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num)
+								} else { // RTL
+									app.gg.scissor_rect(object["x"].num - 300, object["y"].num, object["w"].num + 300, object["h"].num)
+								}
+							} }
 							draw_switch(app, object)
 						}"selectbox"{
 							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num, object["h"].num+800) } }
@@ -208,7 +220,13 @@ fn frame_fn(app &Window) {
 						}"link"{
 							draw_link(app, object)
 						}"radio"{
-							$if !dont_clip ? { if object["in"].str=="" {  app.gg.scissor_rect(object["x"].num-1, object["y"].num-1, object["w"].num + 300, object["h"].num+2) } }
+							$if !dont_clip ? { if object["in"].str=="" {
+								if !app.rtl_layout { // LTR
+									app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num)
+								} else { // RTL
+									app.gg.scissor_rect(object["x"].num - 300, object["y"].num, object["w"].num + 300, object["h"].num)
+								}
+							} }
 							draw_radio(app, object)
 						}"group"{
 							draw_group(app, object)
