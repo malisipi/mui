@@ -33,9 +33,18 @@ pub fn add_table(mut app &Window, table [][]string, id string, x IntOrString, y 
 [unsafe]
 fn draw_table(app &Window, object map[string]WindowData){
 	unsafe{
-		table:=object["table"].tbl
+		mut table:=object["table"].tbl // LTR
 		table_y:=table.len
 		table_x:=table[0].len
+
+		if app.rtl_layout { // RTL
+			mut new_table := [][]string{}
+			for row:=0; row<table_y; row++ {
+				new_table << table[row].reverse()
+			}
+			table = new_table
+		}
+
 		fit_inside_viewarea := object["row_h"].num==-1
 		per_cell:=[object["w"].num/table_x,if fit_inside_viewarea {object["h"].num/table_y} else {object["row_h"].num}]
 

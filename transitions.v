@@ -20,8 +20,8 @@ pub fn move_object(mut app &Window, object_id string, new_pos []IntOrString, mov
             real_size:=app.gg.window_size()
             window_info:=[real_size.width-app.x_offset-app.xn_offset,real_size.height-app.y_offset-app.yn_offset,real_size.width,real_size.height,app.scroll_x,app.scroll_y].clone()
 
-            calc_old_pos:=calc_points(window_info,old_x_raw,old_y_raw,object["w"].num,object["h"].num)
-            calc_new_pos:=calc_points(window_info,new_pos[0],new_pos[1],object["w"].num,object["h"].num)
+            calc_old_pos:=calc_points(window_info,old_x_raw,old_y_raw,object["w"].num,object["h"].num, app.rtl_layout)
+            calc_new_pos:=calc_points(window_info,new_pos[0],new_pos[1],object["w"].num,object["h"].num, app.rtl_layout)
             object["x_raw"].str=int(calc_old_pos[0]+f32(calc_new_pos[0]-calc_old_pos[0])/total_step*now_step).str()
             object["y_raw"].str=int(calc_old_pos[1]+f32(calc_new_pos[1]-calc_old_pos[1])/total_step*now_step).str()
             time.sleep(transition_time*time.second)

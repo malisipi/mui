@@ -59,6 +59,7 @@ pub fn create(args &WindowConfig) &Window {
         menubar_config: args.menubar_config
         draw_mode: draw_mode
         round_corners: if args.round_corners==-1 { round_corner } else { args.round_corners }
+		rtl_layout: $if rtl? { true } $else { args.rtl_layout }
     }
 
     mut emoji_font:=args.font
@@ -133,7 +134,7 @@ fn frame_fn(app &Window) {
 			if !object["hi"].bol && object["type"].str!="hidden"{
 				if $if power_save ? { app.redraw_required || app.force_redraw } $else { true } {
 					if object["in"].str == "" {
-						points:=calc_points(window_info,object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
+						points:=calc_points(window_info,object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str, app.rtl_layout)
 						object["x"]=WindowData{num:points[0]+ if !object["x_raw"].str.starts_with("!") || app.active_dialog!="" {app.x_offset} else {0} }
 						object["y"]=WindowData{num:points[1]+ if !object["y_raw"].str.starts_with("!") || app.active_dialog!="" {app.y_offset} else {0} }
 						object["w"]=WindowData{num:points[2]}
@@ -147,7 +148,7 @@ fn frame_fn(app &Window) {
 							object["h"]=WindowData{num:0}
 						} else {
             points:=calc_points([frame["w"].num,frame["h"].num,frame["w"].num,frame["h"].num,0,0],
-                      object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str)
+                      object["x_raw"].str,object["y_raw"].str,object["w_raw"].str,object["h_raw"].str, app.rtl_layout)
             object["x"]=WindowData{num:points[0]+frame["x"].num-frame["scwsl"].num}
             object["y"]=WindowData{num:points[1]+frame["y"].num-frame["schsl"].num}
             object["w"]=WindowData{num:points[2]}
@@ -193,10 +194,22 @@ fn frame_fn(app &Window) {
 						}"password"{
 							draw_password(app, object)
 						}"checkbox"{
-							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num) } }
+							$if !dont_clip ? { if object["in"].str=="" {
+								if !app.rtl_layout { // LTR
+									app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num)
+								} else { // RTL
+									app.gg.scissor_rect(object["x"].num - 300, object["y"].num, object["w"].num + 300, object["h"].num)
+								}
+							} }
 							draw_checkbox(app, object)
 						}"switch"{
-							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num) } }
+							$if !dont_clip ? { if object["in"].str=="" {
+								if !app.rtl_layout { // LTR
+									app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num)
+								} else { // RTL
+									app.gg.scissor_rect(object["x"].num - 300, object["y"].num, object["w"].num + 300, object["h"].num)
+								}
+							} }
 							draw_switch(app, object)
 						}"selectbox"{
 							$if !dont_clip ? { if object["in"].str=="" { app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num, object["h"].num+800) } }
@@ -207,7 +220,13 @@ fn frame_fn(app &Window) {
 						}"link"{
 							draw_link(app, object)
 						}"radio"{
-							$if !dont_clip ? { if object["in"].str=="" {  app.gg.scissor_rect(object["x"].num-1, object["y"].num-1, object["w"].num + 300, object["h"].num+2) } }
+							$if !dont_clip ? { if object["in"].str=="" {
+								if !app.rtl_layout { // LTR
+									app.gg.scissor_rect(object["x"].num, object["y"].num, object["w"].num + 300, object["h"].num)
+								} else { // RTL
+									app.gg.scissor_rect(object["x"].num - 300, object["y"].num, object["w"].num + 300, object["h"].num)
+								}
+							} }
 							draw_radio(app, object)
 						}"group"{
 							draw_group(app, object)
