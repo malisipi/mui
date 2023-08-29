@@ -84,6 +84,9 @@ pub mut:
 
 [heap]
 pub struct Window {
+mut:
+	drag_x				f32
+	drag_y				f32
 pub mut:
 	objects     			[]map[string]WindowData
 	focus       			string
@@ -175,6 +178,8 @@ pub mut:
 	text_align		int			= 1										//tAlin
 	text_multiline		bool			//= false									//tMult
 	frame			string			//= ""										//in
+	draggable		bool			//=false									//drag
+	click_events	bool			= true										//sclke
 	z_index			int			//= 0										//z_ind
 	connected_widget	map[string]WindowData	= null_object									//cnObj
 	row_height		int			= -1										//row_h
@@ -211,7 +216,7 @@ pub enum DrawingMode as int { // OOOOO TT N
 	system_dark    = 252  // 11111 10 0
 }
 
-struct PredefinedTheme{
+struct PredefinedTheme {
 	color_scheme		[]gx.Color
 	round_corner		int
 }

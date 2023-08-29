@@ -57,14 +57,18 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 				objects=app.dialog_objects.clone().reverse()
 			}
 			for mut object in objects{
-				if !object["hi"].bol && object["type"].str!="rect" && object["type"].str!="frame" && object["type"].str!="group" && object["type"].str!="table"{
+				if !object["hi"].bol && object["type"].str!="rect" && (object["type"].str!="frame" || (object["type"].str=="frame" && object["drag"].bol)) && object["type"].str!="group" && object["type"].str!="table"{
 					if object["x"].num<x && object["x"].num+object["w"].num>x{
 						if object["y"].num<y && object["y"].num+object["h"].num>y{
 							if object["in"].str != "" {
-								frame_x:=app.get_object_by_id(object["in"].str)[0]["x"].num
-								frame_y:=app.get_object_by_id(object["in"].str)[0]["y"].num
-								frame_w:=app.get_object_by_id(object["in"].str)[0]["w"].num
-								frame_h:=app.get_object_by_id(object["in"].str)[0]["h"].num
+								the_frame := app.get_object_by_id(object["in"].str)
+								if !the_frame[0]["sclke"].bol {
+									continue
+								}
+								frame_x:=the_frame[0]["x"].num
+								frame_y:=the_frame[0]["y"].num
+								frame_w:=the_frame[0]["w"].num
+								frame_h:=the_frame[0]["h"].num
 								if frame_x > x || frame_x + frame_w < x || frame_y > y || frame_y + frame_h < y {
 									continue
 								}
@@ -168,6 +172,9 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 									object["fnchg"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:object["s"].num.str()},mut app, mut app.app_data)
 								} "image", "map" {
 									object["fn"].fun(EventDetails{event:"click",trigger:"mouse_left",target_type:object["type"].str,target_id:object["id"].str,value:true.str()},mut app, mut app.app_data)
+								} "frame" {
+									app.drag_x = object["x"].num-x
+									app.drag_y = object["y"].num-y
 								} else {
 									for widget in app.custom_widgets{
 										if object["type"].str==widget.typ{
@@ -210,7 +217,24 @@ fn move_fn(x f32, y f32, mut app &Window){
 								sapp.set_mouse_cursor(.pointing_hand)
 								changed_cursor=true
 								break
+							} "frame" {
+								if object["drag"].bol {
+									sapp.set_mouse_cursor(.resize_all)
+									changed_cursor=true
+								}
+								break
 							} else {
+								mut will_skip := false
+								for ;object["in"].str != ""; {
+									object = app.get_object_by_id(object["in"].str)[0]
+									if !object["sclke"].bol {
+										will_skip = true
+										break
+									}
+								}
+								if will_skip {
+									continue
+								}
 								sapp.set_mouse_cursor(.default)
 								changed_cursor=true
 								break
@@ -251,6 +275,9 @@ fn move_fn(x f32, y f32, mut app &Window){
 							app.redraw_required = true
 						}
 					}
+				} else if object["type"].str=="frame"{
+					object["x_raw"].str = int(app.drag_x+x).str()
+					object["y_raw"].str = int(app.drag_y+y).str()
 				} else {
 					for widget in app.custom_widgets{
 						if object["type"].str==widget.typ{
@@ -283,6 +310,9 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 					if object["type"].str==widget.typ{
 						widget.unclick_fn(x, y, mut object, app)
 					}
+				}
+				if object["type"].str=="frame" {
+					app.focus = ""
 				}
 			}
 		}
