@@ -218,10 +218,23 @@ fn move_fn(x f32, y f32, mut app &Window){
 								changed_cursor=true
 								break
 							} "frame" {
-								sapp.set_mouse_cursor(.crosshair)
-								changed_cursor=true
+								if object["drag"].bol {
+									sapp.set_mouse_cursor(.resize_all)
+									changed_cursor=true
+								}
 								break
 							} else {
+								mut will_skip := false
+								for ;object["in"].str != ""; {
+									object = app.get_object_by_id(object["in"].str)[0]
+									if !object["sclke"].bol {
+										will_skip = true
+										break
+									}
+								}
+								if will_skip {
+									continue
+								}
 								sapp.set_mouse_cursor(.default)
 								changed_cursor=true
 								break
