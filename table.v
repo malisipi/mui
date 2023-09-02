@@ -1,6 +1,6 @@
 module mui
 
-import mfb as gg
+import malisipi.mfb as gg
 import gx
 
 pub fn add_table(mut app &Window, table [][]string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int, tSize int, row_h int){

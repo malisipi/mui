@@ -1,6 +1,6 @@
 module mui
 
-import mfb as gg
+import malisipi.mfb as gg
 import gx
 
 pub fn add_textarea(mut app &Window, text string, id string, placeholder string, phsa bool, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, codefield bool, tSize int, frame string, zindex int){

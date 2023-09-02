@@ -3,7 +3,7 @@ module main
 
 import malisipi.mui
 import json
-import mfb as gg
+import malisipi.mfb as gg
 
 __global (
 	event_init mui.OnEvent

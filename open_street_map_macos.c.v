@@ -3,7 +3,7 @@ module mui
 import math
 import net.http
 import os
-import mfb as gg
+import malisipi.mfb as gg
 import gx
 
 const (
