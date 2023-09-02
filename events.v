@@ -324,11 +324,11 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 
 [unsafe]
 fn event_fn(event &gg.Event, mut app &Window){
-	if event.typ == sapp.EventType.files_droped{
+	if event.typ == .files_dropped{
 		for q in 0..dropped_files_len(){
 			app.file_handler(EventDetails{event:"files_drop",trigger:"mouse_left", value:dropped_file_path(q)},mut app, mut app.app_data)
 		}
-	} else if event.typ == sapp.EventType.quit_requested {
+	} else if event.typ == .quit_requested {
 		$if !android {
 			sapp.cancel_quit()
 			if app.ask_quit {
@@ -339,15 +339,15 @@ fn event_fn(event &gg.Event, mut app &Window){
 			app.quit_fn(EventDetails{event:"quit",trigger:"quit",value:"true"},mut app, mut app.app_data)
 			sapp.quit()
 		}
-	} else if event.typ == sapp.EventType.touches_began {
+	} else if event.typ == .touches_began {
 		unsafe {
 			click_fn(event.touches[0].pos_x/app.gg.scale,event.touches[0].pos_y/app.gg.scale, gg.MouseButton.left, mut app)
 		}
-	} else if event.typ == sapp.EventType.touches_moved {
+	} else if event.typ == .touches_moved {
 		unsafe {
 			move_fn(event.touches[0].pos_x/app.gg.scale,event.touches[0].pos_y/app.gg.scale, mut app)
 		}
-	} else if event.typ == sapp.EventType.touches_ended {
+	} else if event.typ == .touches_ended {
 		unsafe {
 			unclick_fn(event.touches[0].pos_x/app.gg.scale,event.touches[0].pos_y/app.gg.scale, gg.MouseButton.left, mut app)
 		}
