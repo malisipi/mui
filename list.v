@@ -1,6 +1,6 @@
 module mui
 
-import gg
+import mfb as gg
 import gx
 
 pub fn add_list(mut app &Window, table [][]string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int, fnchg OnEvent, selected int, tSize int, row_h int){

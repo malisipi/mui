@@ -1,6 +1,6 @@
 module mui
 
-import gg
+import mfb as gg
 
 [autofree_bug; manualfree]
 pub fn add_image(mut app &Window, path string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, fun OnEvent, frame string, zindex int){

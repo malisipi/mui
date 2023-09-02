@@ -1,6 +1,6 @@
 module mui
 
-import gg
+import mfb as gg
 import gx
 import os
 import math

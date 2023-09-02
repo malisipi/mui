@@ -1,6 +1,6 @@
 module custom_widget
 
-import gg
+import mfb as gg
 import gx
 import malisipi.mui
 

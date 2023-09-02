@@ -1,6 +1,6 @@
 module mui
 
-import gg
+import mfb as gg
 import math
 import os
 import sokol.sapp
