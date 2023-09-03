@@ -37,7 +37,9 @@ fn draw_list(app &Window, object map[string]WindowData){
 	unsafe{
 		table:=object["table"].tbl
 		table_y:=table.len
+		if table_y == 0 { return }
 		table_x:=table[0].len
+		if table_x == 0 { return }
 		fit_inside_viewarea := object["row_h"].num==-1
 		per_cell:=[object["w"].num/table_x,if fit_inside_viewarea {object["h"].num/table_y} else {object["row_h"].num}]
 
