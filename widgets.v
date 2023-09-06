@@ -25,7 +25,7 @@ pub fn (mut app Window) list ( args Widget ){ //dialog support not done
 }
 
 pub fn (mut app Window) group ( args Widget ){ //dialog support not done
-	add_group (mut app, args.id, args.text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[0], app.color_scheme[2], app.color_scheme[3], args.frame, args.z_index-1)
+	add_group (mut app, args.id, args.text, args.x, args.y, args.width, args.height, args.hidden, app.color_scheme[0], app.color_scheme[2], app.color_scheme[3], args.frame, args.z_index-1, args.text_size)
 }
 
 pub fn (mut app Window) label ( args Widget ){
@@ -89,7 +89,7 @@ pub fn (mut app Window) scrollbar ( args Widget ){ //dialog support not done
 }
 
 pub fn (mut app Window) link ( args Widget ){ //dialog support not done
-	add_link (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, args.link_underline, args.link, app.color_scheme[2], args.onclick, args.frame, args.z_index)
+	add_link (mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.hidden, args.link_underline, args.link, app.color_scheme[2], args.onclick, args.frame, args.z_index, args.text_size)
 }
 
 pub fn (mut app Window) tab_view ( args Widget ){

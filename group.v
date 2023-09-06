@@ -4,7 +4,7 @@ import malisipi.mfb as gg
 import gx
 
 [autofree_bug; manualfree]
-pub fn add_group(mut app &Window, id string, text string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int){
+pub fn add_group(mut app &Window, id string, text string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int, tSize int){
     app.objects << {
         "type": WindowData{str:"group"},
         "id":   WindowData{str:id},
@@ -23,12 +23,14 @@ pub fn add_group(mut app &Window, id string, text string, x IntOrString, y IntOr
         "bg":   WindowData{clr:bg},
         "bfg":  WindowData{clr:bfg},
         "fg":   WindowData{clr:fg},
+		"tSize":WindowData{num:tSize}
     }
 }
 
 [unsafe]
 fn draw_group(app &Window, object map[string]WindowData){
 	unsafe{
+		app.gg.set_text_cfg(size:object["tSize"].num)
 		text_width, text_height:=app.gg.text_size(object["text"].str)
 		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)
 		app.gg.draw_rounded_rect_empty(object["x"].num+10, object["y"].num+10, object["w"].num-20, object["h"].num-20, app.round_corners, object["bfg"].clr)
@@ -36,7 +38,7 @@ fn draw_group(app &Window, object map[string]WindowData){
 
 		app.gg.draw_text(object["x"].num+22, object["y"].num+text_height/2+2, object["text"].str, gx.TextCfg{
 			color: object["fg"].clr
-			size: 20
+			size: object["tSize"].num
 			align: .left
 			vertical_align: .middle
 		})
