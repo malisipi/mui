@@ -47,7 +47,6 @@ fn button_handler(event_details m.EventDetails, mut active_window &m.Window, mut
 			app.wm.active_ui = "main_page"
 			app.wm.uis["main_page"].get_object_by_id("username")[0]["text"].str = "Your username: " + active_window.get_object_by_id("username")[0]["text"].str.replace("\0","")
 			app.wm.uis["main_page"].get_object_by_id("password")[0]["text"].str = "Your password: " + active_window.get_object_by_id("password")[0]["text"].str.replace("\0","")
-			app.wm.uis["main_page"].get_object_by_id("image")[0]["image"].img = app.wm.uis["main_page"].gg.create_image("v-logo.png") or { gg.Image{} }
 		} 
 		else {
 			app.wm.active_ui = "logon_ui"
