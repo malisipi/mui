@@ -248,7 +248,6 @@ fn move_fn(x f32, y f32, mut app &Window){
 		if !changed_cursor {
 			app.gg.set_cursor(.default)
 		}
-		//*/
 		if !(app.focus==""){
 			mut object:=get_object_by_id(app,app.focus)
 			if !is_null_object(object) {
