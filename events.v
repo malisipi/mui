@@ -200,7 +200,6 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 [unsafe]
 fn move_fn(x f32, y f32, mut app &Window){
 	unsafe{
-		/* Cursor changing is not supported atm
 		mut objects:=app.objects.clone().reverse()
 		if app.active_dialog!=""{
 			objects=app.dialog_objects.clone().reverse()
@@ -212,16 +211,16 @@ fn move_fn(x f32, y f32, mut app &Window){
 					if object["y"].num<y && object["y"].num+object["h"].num>y{
 						match object["type"].str {
 							"textbox", "password", "textarea"{
-								// use .ibeam cursor
+								app.gg.set_cursor(.text)
 								changed_cursor=true
 								break
 							} "link" {
-								// use .pointing_hand cursor
+								app.gg.set_cursor(.pointer)
 								changed_cursor=true
 								break
 							} "frame" {
 								if object["drag"].bol {
-									// use .resize_all cursor
+									app.gg.set_cursor(.move)
 									changed_cursor=true
 								}
 								break
@@ -237,7 +236,7 @@ fn move_fn(x f32, y f32, mut app &Window){
 								if will_skip {
 									continue
 								}
-								// use .default cursor
+								app.gg.set_cursor(.default)
 								changed_cursor=true
 								break
 							}
@@ -247,9 +246,9 @@ fn move_fn(x f32, y f32, mut app &Window){
 			}
 		} 
 		if !changed_cursor {
-			// use .default cursor
+			app.gg.set_cursor(.default)
 		}
-		*/
+		//*/
 		if !(app.focus==""){
 			mut object:=get_object_by_id(app,app.focus)
 			if !is_null_object(object) {
