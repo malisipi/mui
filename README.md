@@ -197,6 +197,12 @@ or
 
 </details>
 
+<details><summary><b>Can I have tray library for MUI?</b></summary>
+
+> [VTray](https://github.com/Ouri028/VTray) library is created for this goal. So we don't require an built-in tray library for MUI. If you see any issue about MUI interoperability with this library, please report it to fix it.
+
+</details>
+
 ## Suggestions
 
 * You should run processes that required more time than 0.2s as concurrent. If you don't, app couldn't response until finish processes.
