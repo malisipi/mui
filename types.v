@@ -184,6 +184,7 @@ pub mut:
 	connected_widget	map[string]WindowData	= null_object									//cnObj
 	row_height		int			= -1										//row_h
 	view_area		[]int			= [-1,-1]									//viewA
+	show_value_as_label int		= -1										//svlal
 }
 
 pub struct Modal {
