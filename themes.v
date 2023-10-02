@@ -106,7 +106,7 @@ fn create_color_scheme_from_accent_color(accent_color []int) ([][]int, bool) {
 
 	return [
 		[accent_color[0]/3,accent_color[1]/3,accent_color[2]/3],
-		accent_color,
+		[accent_color[0]*2/3,accent_color[1]*2/3,accent_color[2]*2/3],
 		[accent_color[0]*5/3,accent_color[1]*5/3,accent_color[2]*5/3]
 		font_color
 	], font_color == [0, 0, 0]
