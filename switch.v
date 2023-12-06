@@ -29,7 +29,7 @@ pub fn add_switch(mut app &Window, text string, id string, x IntOrString, y IntO
     }
 }
 
-[unsafe]
+@[unsafe]
 fn draw_switch(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)

@@ -5,7 +5,7 @@ import math
 import os
 import sokol.sapp
 
-[unsafe]
+@[unsafe]
 fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 	app.native_focus = false
 	unsafe{
@@ -197,7 +197,7 @@ fn click_fn(x f32, y f32, mb gg.MouseButton, mut app &Window) {
 	}
 }
 
-[unsafe]
+@[unsafe]
 fn move_fn(x f32, y f32, mut app &Window){
 	unsafe{
 		mut objects:=app.objects.clone().reverse()
@@ -292,7 +292,7 @@ fn move_fn(x f32, y f32, mut app &Window){
 	}
 }
 
-[unsafe]
+@[unsafe]
 fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 	unsafe{
 		if !(app.focus==""){
@@ -324,7 +324,7 @@ fn unclick_fn(x f32, y f32, mb gg.MouseButton, mut app &Window){
 	}
 }
 
-[unsafe]
+@[unsafe]
 fn event_fn(event &gg.Event, mut app &Window){
 	if event.typ == .files_dropped{
 		for q in 0..dropped_files_len(){
@@ -360,7 +360,7 @@ fn init_fn(mut app &Window){
 	app.init_fn(EventDetails{event:"init",trigger:"init",value:"true"},mut app, mut app.app_data)
 }
 
-[unsafe]
+@[unsafe]
 fn scroll_fn(event &gg.Event, mut app &Window){
 	unsafe{
 		if app.scrollbar {
@@ -381,7 +381,7 @@ fn scroll_fn(event &gg.Event, mut app &Window){
 	}
 }
 
-[unsafe]
+@[unsafe]
 fn char_fn(chr u32, mut app &Window){
 	unsafe {
 		$if android{
@@ -398,7 +398,7 @@ fn char_fn(chr u32, mut app &Window){
 	}
 }
 
-[autofree_bug; manualfree; unsafe]
+@[autofree_bug; manualfree; unsafe]
 fn keyboard_fn(chr U32OrString, mut app &Window){
 	unsafe {
 		if app.focus!="" {
@@ -623,7 +623,7 @@ fn keyboard_fn(chr U32OrString, mut app &Window){
 	}
 }
 
-[unsafe]
+@[unsafe]
 fn resized_fn(event &gg.Event, mut app &Window){
 	unsafe{
 		app.resized_fn(EventDetails{event:"resize",trigger:"mouse_left",value:event.window_width.str()+","+event.window_height.str()},mut app, mut app.app_data)
@@ -635,7 +635,7 @@ fn resized_fn(event &gg.Event, mut app &Window){
 	}
 }
 
-[unsafe]
+@[unsafe]
 fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
 	//super := m == .super
 	shift := m == .shift

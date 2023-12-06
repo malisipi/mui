@@ -10,7 +10,7 @@ fn raw_map_string_into_map(raw_list string) map[string]int {
     return list
 }
 
-[unsafe]
+@[unsafe]
 fn sort_widgets_with_zindex_fn(a &map[string]WindowData, b &map[string]WindowData) int {
     unsafe {
         mut static frame_list_raw := "" // maps not supported by static, but string supports "frame|14#frame2|25" => {"frame":14, "frame2":25}

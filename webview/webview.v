@@ -26,7 +26,7 @@ fn C.webview_eval(w Webview_t, code &char)
 fn C.webview_init(w Webview_t, code &char)
 fn C.webview_dispatch(w Webview_t, funct fn(w Webview_t, args voidptr), args voidptr)
 
-[unsafe]
+@[unsafe]
 fn init() {
 	mut static does_init:=false
 	if !does_init {

@@ -82,7 +82,7 @@ pub mut:
 	target_id		string		//= ""
 }
 
-[heap]
+@[heap]
 pub struct Window {
 mut:
 	drag_x				f32

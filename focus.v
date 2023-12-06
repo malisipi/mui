@@ -1,6 +1,6 @@
 module mui
 
-[unsafe]
+@[unsafe]
 fn draw_focus(mut app Window){
     if app.focus!="" {
         unsafe{

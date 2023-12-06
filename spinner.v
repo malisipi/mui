@@ -30,7 +30,7 @@ pub fn add_spinner(mut app &Window, text string, id string, placeholder string, 
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
-[unsafe]
+@[unsafe]
 fn draw_spinner(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)

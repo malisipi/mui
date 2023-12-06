@@ -27,7 +27,7 @@ pub fn add_progress(mut app &Window, percent int, id string, x IntOrString, y In
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
-[unsafe]
+@[unsafe]
 fn draw_progress(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)

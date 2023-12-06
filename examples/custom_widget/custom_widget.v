@@ -23,7 +23,7 @@ pub fn new(mut app mui.Window, args mui.Widget){
     }
 }
 
-[unsafe]
+@[unsafe]
 fn draw_my_custom_widget(app &mui.Window, object map[string]mui.WindowData){
 	unsafe{
 		app.gg.draw_rect_filled(object["x"].num+object["d_x"].num, object["y"].num+object["d_y"].num, object["w"].num-object["d_x"].num, object["h"].num-object["d_y"].num, gx.Color{r: 255, g:255, b:255})
@@ -36,12 +36,12 @@ fn draw_my_custom_widget(app &mui.Window, object map[string]mui.WindowData){
 	}
 }
 
-[unsafe]
+@[unsafe]
 fn click_my_custom_widget(x f32, y f32, mut object map[string]mui.WindowData, mut app &mui.Window){
     print([f32(1),x,y])
 }
 
-[unsafe]
+@[unsafe]
 fn move_my_custom_widget(x f32, y f32, mut object map[string]mui.WindowData, mut app &mui.Window){
     unsafe {
         object["d_x"].num=int(x)-object["x"].num
@@ -49,7 +49,7 @@ fn move_my_custom_widget(x f32, y f32, mut object map[string]mui.WindowData, mut
     }
 }
 
-[unsafe]
+@[unsafe]
 fn unclick_my_custom_widget(x f32, y f32, mut object map[string]mui.WindowData, mut app &mui.Window){
     print([f32(2),x,y])
     app.focus=""

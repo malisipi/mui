@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-[autofree_bug; manualfree]
+@[autofree_bug; manualfree]
 pub fn add_group(mut app &Window, id string, text string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, frame string, zindex int, tSize int){
     app.objects << {
         "type": WindowData{str:"group"},
@@ -27,7 +27,7 @@ pub fn add_group(mut app &Window, id string, text string, x IntOrString, y IntOr
     }
 }
 
-[unsafe]
+@[unsafe]
 fn draw_group(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.set_text_cfg(size:object["tSize"].num)

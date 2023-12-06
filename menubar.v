@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-[unsafe]
+@[unsafe]
 fn draw_menubar(mut app &Window, size &gg.Size){
 	unsafe{
         mut clicked_item:=-1

@@ -4,7 +4,7 @@ tabs:[
     ["Test Tab","test_tab"]
 ]
 */
-[unsafe]
+@[unsafe]
 fn tabbed_view_button_onclick(event_details EventDetails, mut app &Window, mut app_data voidptr){
     unsafe {
         mut button:=app.get_object_by_id(event_details.target_id)[0]
@@ -17,7 +17,7 @@ fn tabbed_view_button_onclick(event_details EventDetails, mut app &Window, mut a
     }
 }
 
-[unsafe]
+@[unsafe]
 pub fn add_tabbed_view(mut app &Window, id string, tabs [][]string, hidden bool, x IntOrString, y IntOrString, w IntOrString, h IntOrString,  frame string, zindex int, active_tab string){
     unsafe {
         app.frame( Widget{ id:id, x:x, y:y, width:w, height:h, hidden:hidden, frame:frame, z_index:zindex })

@@ -33,7 +33,7 @@ pub fn add_textarea(mut app &Window, text string, id string, placeholder string,
     }
 }
 
-[unsafe]
+@[unsafe]
 fn draw_textarea(app &Window, object map[string]WindowData){
 	unsafe{
 		line_count := object["text"].str.count("\n") + 1

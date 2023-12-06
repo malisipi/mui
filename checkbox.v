@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-[autofree_bug; manualfree]
+@[autofree_bug; manualfree]
 pub fn add_checkbox(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int, tSize int, show_value_as_label int){
     app.objects << {
         "type": WindowData{str:"checkbox"},
@@ -30,7 +30,7 @@ pub fn add_checkbox(mut app &Window, text string, id string, x IntOrString, y In
     }
 }
 
-[unsafe]
+@[unsafe]
 fn draw_checkbox(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)

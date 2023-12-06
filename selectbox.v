@@ -3,7 +3,7 @@ module mui
 import gg
 import gx
 
-[autofree_bug; manualfree]
+@[autofree_bug; manualfree]
 pub fn add_selectbox(mut app &Window, text string, list []string, selected int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int){
     app.objects << {
         "type": WindowData{str:"selectbox"},
@@ -29,7 +29,7 @@ pub fn add_selectbox(mut app &Window, text string, list []string, selected int, 
     }
 }
 
-[unsafe]
+@[unsafe]
 fn draw_selectbox(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)

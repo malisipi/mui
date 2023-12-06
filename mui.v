@@ -42,7 +42,7 @@ pub fn create(args &WindowConfig) &Window {
         focus: ""
         color_scheme: color_scheme
         light_mode: light_mode
-        gg: 0
+        gg: unsafe { 0 }
         menubar: args.menubar
         scrollbar: args.scrollbar
         x_offset: 0 + args.x_offset
@@ -115,7 +115,7 @@ pub fn create(args &WindowConfig) &Window {
 	return app
 }
 
-[unsafe]
+@[unsafe]
 fn frame_fn(app &Window) {
 	unsafe{
 		app.gg.begin()

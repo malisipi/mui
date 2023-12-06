@@ -30,7 +30,7 @@ pub fn add_password(mut app &Window, text string, hider_char string, id string, 
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
-[unsafe]
+@[unsafe]
 fn draw_password(app &Window, object map[string]WindowData){
 	unsafe{
 		mut hidden_text:=""

@@ -37,7 +37,7 @@ pub fn add_slider(mut app &Window, val int, min int, max int, step int, id strin
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
-[unsafe]
+@[unsafe]
 fn draw_slider(app &Window, object map[string]WindowData){
 	unsafe{
         if !object["vert"].bol {
