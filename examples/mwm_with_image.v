@@ -24,7 +24,9 @@ fn main() {
 
 	/* main page */
 	mut main_page := m.create(title:"Main Page (MWM) - MUI Example", height:150, width:400, app_data: &app, init_fn: fn (e m.EventDetails, mut app m.Window, mut _ voidptr) {
-		app.get_object_by_id("image")[0]["image"].img = app.gg.create_image("v-logo.png") or { gg.Image{} }
+		unsafe {
+			app.get_object_by_id("image")[0]["image"].img = app.gg.create_image("v-logo.png") or { gg.Image{} }
+		}
 	})
 
 	// added an image to the example (image in same directory)

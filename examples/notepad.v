@@ -66,8 +66,10 @@ menubar:=[
 
 mut app:=m.create(m.WindowConfig{ title:"Notepad - MUI Examples", width:400, height: 300, menubar:menubar, file_handler:load_file, ask_quit:true, app_data:&AppData{}, toolbar:25, statusbar:25, draw_mode:.system_native })
 
-app.get_object_by_id("@toolbar")[0]["bg"].clr = app.color_scheme[0]
-app.get_object_by_id("@statusbar")[0]["bg"].clr = app.color_scheme[0]
+unsafe {
+    app.get_object_by_id("@toolbar")[0]["bg"].clr = app.color_scheme[0]
+    app.get_object_by_id("@statusbar")[0]["bg"].clr = app.color_scheme[0]
+}
 
 app.button(id:"open", x:0, y:0 width:25, height:25, text:open_file_emoji, onclick:load_file, icon:true, frame:"@toolbar")
 app.button(id:"save", x:30, y:0 width:25, height:25, text:save_file_emoji, onclick:save_file, icon:true, frame:"@toolbar")

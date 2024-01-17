@@ -303,6 +303,8 @@ pub fn (mut app Window) enable_scrollbar (enable_scrollbar bool) {
 }
 
 pub fn (mut app Window) set_viewarea (x int, y int) {
-	app.get_object_by_id("@scrollbar:horizontal")[0]["vlMax"].num=x+app.x_offset+app.xn_offset
-	app.get_object_by_id("@scrollbar:vertical")[0]["vlMax"].num=y+app.y_offset+app.yn_offset
+	unsafe {
+		app.get_object_by_id("@scrollbar:horizontal")[0]["vlMax"].num=x+app.x_offset+app.xn_offset
+		app.get_object_by_id("@scrollbar:vertical")[0]["vlMax"].num=y+app.y_offset+app.yn_offset
+	}
 }
