@@ -387,11 +387,15 @@ fn char_fn(chr u32, mut app &Window){
 		$if android{
 			return
 		}
-		if app.gg.key_modifiers==.ctrl {
-			chr_keybinding:="ctrl|"+utf32_to_str(chr).to_lower()
-			if app.keybindings[chr_keybinding].num > 120 {
-				app.keybindings[chr_keybinding].fun(EventDetails{event:"keypress",trigger:"keyboard",value:chr_keybinding}, mut app, mut app.app_data)
-			}
+		is_ctrl_pressed := app.gg.key_modifiers&.ctrl==.ctrl;
+		is_shift_pressed := app.gg.key_modifiers&.shift==.shift;
+		is_alt_pressed := app.gg.key_modifiers&.alt==.alt;
+		chr_keybinding := if is_ctrl_pressed {"ctrl|"} else {""} +
+							if is_shift_pressed {"shift|"} else {""} +
+							if is_alt_pressed {"alt|"} else {""} + utf32_to_str(chr).to_lower()
+
+		if app.keybindings[chr_keybinding].num > 120 {
+			app.keybindings[chr_keybinding].fun(EventDetails{event:"keypress",trigger:"keyboard",value:chr_keybinding}, mut app, mut app.app_data)
 		} else {
 			keyboard_fn(chr, mut app)
 		}

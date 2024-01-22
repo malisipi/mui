@@ -84,7 +84,7 @@ app.run()
 * File Drag-n-Drop (Desktop Only)
 * Z-Index Support
 * Ask Quit Dialog & Quit Function (Desktop Only)
-* Keybindings (Ctrl+Key Combinations for now) _Will be ignored pressed keys/key combinations that used by widgets if the assigned function to the key/key combination._
+* Keybindings _Will be ignored pressed keys/key combinations that used by widgets if the assigned function to the key/key combination._
 * Japanese Input Support (Experimental)
 
 > To see all created and planned features, look up [To-Do List](https://github.com/malisipi/mui/issues/22)
