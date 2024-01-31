@@ -382,21 +382,33 @@ fn scroll_fn(event &gg.Event, mut app &Window){
 }
 
 @[unsafe]
+fn shortcut_checker(chr string, is_shift bool, is_alt bool, is_ctrl bool, mut app &Window) bool {
+	unsafe {
+		chr_keybinding := if is_ctrl {"ctrl|"} else {""} +
+							if is_shift {"shift|"} else {""} +
+							if is_alt {"alt|"} else {""} + chr.to_lower()
+
+		if app.keybindings[chr_keybinding].num > 120 {
+			app.keybindings[chr_keybinding].fun(EventDetails{event:"keypress",trigger:"keyboard",value:chr_keybinding}, mut app, mut app.app_data)
+		} else {
+			return false
+		}
+		return true
+	}
+}
+
+@[unsafe]
 fn char_fn(chr u32, mut app &Window){
 	unsafe {
 		$if android{
 			return
 		}
+
 		is_ctrl_pressed := app.gg.key_modifiers&.ctrl==.ctrl;
 		is_shift_pressed := app.gg.key_modifiers&.shift==.shift;
 		is_alt_pressed := app.gg.key_modifiers&.alt==.alt;
-		chr_keybinding := if is_ctrl_pressed {"ctrl|"} else {""} +
-							if is_shift_pressed {"shift|"} else {""} +
-							if is_alt_pressed {"alt|"} else {""} + utf32_to_str(chr).to_lower()
 
-		if app.keybindings[chr_keybinding].num > 120 {
-			app.keybindings[chr_keybinding].fun(EventDetails{event:"keypress",trigger:"keyboard",value:chr_keybinding}, mut app, mut app.app_data)
-		} else {
+		if !shortcut_checker(utf32_to_str(chr), is_shift_pressed, is_alt_pressed, is_ctrl_pressed, mut app) {
 			keyboard_fn(chr, mut app)
 		}
 	}
@@ -641,11 +653,10 @@ fn resized_fn(event &gg.Event, mut app &Window){
 
 @[unsafe]
 fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
-	//super := m == .super
-	shift := m == .shift
-	//alt   := m == .alt
-	//ctrl  := m == .ctrl
-	mut key:=""
+	shift := m &.shift == .shift
+	alt   := m & .alt  == .alt
+	ctrl  := m & .ctrl == .ctrl
+	mut key := ""
 	$if !android {
 		match c{
 			.tab {
@@ -681,9 +692,16 @@ fn keydown_fn(c gg.KeyCode, m gg.Modifier, mut app &Window){
 			.delete{key="\1"}
 			else {}
 		}
-		if key!=""{
+		should_continune := $if windows {
 			unsafe {
-				keyboard_fn(key,mut app)
+				(!(shift && !alt && !ctrl) && !shortcut_checker(c.str(), shift, alt, ctrl, mut app))
+			}
+		} $else {
+			true
+		}
+		if should_continune && key!="" {
+			unsafe {
+				keyboard_fn(key, mut app)
 			}
 		}
 	} $else {
