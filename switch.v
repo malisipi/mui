@@ -3,7 +3,7 @@ module mui
 import malisipi.mfb as gg
 import gx
 
-pub fn add_switch(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int, tSize int){
+pub fn add_switch(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, checked bool, hi bool, bg gx.Color, bfg gx.Color, fg gx.Color, fnchg OnEvent, frame string, zindex int, tSize int, show_value_as_label int){
     app.objects << {
         "type": WindowData{str:"switch"},
         "id":   WindowData{str:id},
@@ -25,10 +25,11 @@ pub fn add_switch(mut app &Window, text string, id string, x IntOrString, y IntO
         "hi":	WindowData{bol:hi},
         "fnchg":WindowData{fun:fnchg},
         "tSize":WindowData{num:tSize}
+		"svlal":WindowData{bol:show_value_as_label==1}
     }
 }
 
-[unsafe]
+@[unsafe]
 fn draw_switch(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)
@@ -37,11 +38,14 @@ fn draw_switch(app &Window, object map[string]WindowData){
 		} else {
 			app.gg.draw_rounded_rect_filled(object["x"].num+2+(object["w"].num-4)/2, object["y"].num+2, (object["w"].num-4)/2, object["h"].num-4, app.round_corners, object["bfg"].clr)
 		}
-		app.gg.draw_text(object["x"].num+object["w"].num+4, object["y"].num+object["h"].num/2, object["text"].str, gx.TextCfg{
-			color: object["fg"].clr
-			size: object["tSize"].num
-			align: .left
-			vertical_align: .middle
-		})
+		app.gg.draw_text(object["x"].num+object["w"].num+4, object["y"].num+object["h"].num/2, 
+			if object["svlal"].bol { if object["c"].bol {"On | " + object["text"].str } else {"Off | " + object["text"].str } } else { object["text"].str }
+			, gx.TextCfg{
+				color: object["fg"].clr
+				size: object["tSize"].num
+				align: .left
+				vertical_align: .middle
+			}
+		)
 	}
 }

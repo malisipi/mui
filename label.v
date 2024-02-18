@@ -3,7 +3,7 @@ module mui
 import malisipi.mfb as gg
 import gx
 
-[autofree_bug; manualfree]
+@[autofree_bug; manualfree]
 pub fn add_label(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, fg gx.Color, fnclk OnEvent, dialog bool, tSize int, tAlin int, tMult bool, frame string, zindex int){
     widget:= {
         "type": WindowData{str:"label"},
@@ -29,7 +29,7 @@ pub fn add_label(mut app &Window, text string, id string, x IntOrString, y IntOr
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
-[unsafe]
+@[unsafe]
 fn draw_label(app &Window, object map[string]WindowData){
     unsafe {
         if !object["tMult"].bol {

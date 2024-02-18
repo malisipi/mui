@@ -42,7 +42,7 @@ pub fn create(args &WindowConfig) &Window {
         focus: ""
         color_scheme: color_scheme
         light_mode: light_mode
-        gg: 0
+        gg: unsafe { 0 }
         menubar: args.menubar
         scrollbar: args.scrollbar
         x_offset: 0 + args.x_offset
@@ -115,7 +115,7 @@ pub fn create(args &WindowConfig) &Window {
 	return app
 }
 
-[unsafe]
+@[unsafe]
 fn frame_fn(app &Window) {
 	unsafe{
 		app.gg.begin()
@@ -303,6 +303,8 @@ pub fn (mut app Window) enable_scrollbar (enable_scrollbar bool) {
 }
 
 pub fn (mut app Window) set_viewarea (x int, y int) {
-	app.get_object_by_id("@scrollbar:horizontal")[0]["vlMax"].num=x+app.x_offset+app.xn_offset
-	app.get_object_by_id("@scrollbar:vertical")[0]["vlMax"].num=y+app.y_offset+app.yn_offset
+	unsafe {
+		app.get_object_by_id("@scrollbar:horizontal")[0]["vlMax"].num=x+app.x_offset+app.xn_offset
+		app.get_object_by_id("@scrollbar:vertical")[0]["vlMax"].num=y+app.y_offset+app.yn_offset
+	}
 }

@@ -3,7 +3,7 @@ module mui
 import malisipi.mfb as gg
 import gx
 
-[autofree_bug; manualfree]
+@[autofree_bug; manualfree]
 pub fn add_link(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, underline bool, link string, fg gx.Color, fnclk OnEvent, frame string, zindex int, tSize int){
     app.objects << {
         "type": WindowData{str:"link"},
@@ -28,7 +28,7 @@ pub fn add_link(mut app &Window, text string, id string, x IntOrString, y IntOrS
     }
 }
 
-[unsafe]
+@[unsafe]
 fn draw_link(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.set_text_cfg(size:object["tSize"].num)

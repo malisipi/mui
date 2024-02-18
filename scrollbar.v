@@ -7,21 +7,21 @@ pub const (
     scrollbar_size=15
 )
 
-[unsafe]
+@[unsafe]
 fn update_scroll_hor(event_details EventDetails, mut app &Window, mut app_data voidptr){
     unsafe{
         app.scroll_x=event_details.value.int()
     }
 }
 
-[unsafe]
+@[unsafe]
 fn update_scroll_ver(event_details EventDetails, mut app &Window, mut app_data voidptr){
     unsafe{
         app.scroll_y=event_details.value.int()
     }
 }
 
-[autofree_bug; manualfree]
+@[autofree_bug; manualfree]
 pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, frame string, zindex int, connected_object map[string]WindowData){
     unsafe {
         app.objects << {
@@ -56,7 +56,7 @@ pub fn add_scrollbar(mut app &Window, val int, min int, max int, step int, sthum
     }
 }
 
-[unsafe]
+@[unsafe]
 fn change_connected_object_viewarea(event_details EventDetails, mut window &Window, mut app_data voidptr){
 	unsafe {
 		mut scrollbar := window.get_object_by_id(event_details.target_id)[0]
@@ -70,7 +70,7 @@ fn change_connected_object_viewarea(event_details EventDetails, mut window &Wind
 	}
 }
 
-[unsafe]
+@[unsafe]
 fn draw_scrollbar(app &Window, object map[string]WindowData){
 	unsafe{
         if !object["vert"].bol {

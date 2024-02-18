@@ -23,7 +23,7 @@ pub fn add_rect(mut app &Window, id string, x IntOrString, y IntOrString, w IntO
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
-[unsafe]
+@[unsafe]
 fn draw_rect(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.draw_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["bg"].clr)

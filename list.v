@@ -32,7 +32,7 @@ pub fn add_list(mut app &Window, table [][]string, id string, x IntOrString, y I
     }
 }
 
-[unsafe]
+@[unsafe]
 fn draw_list(app &Window, object map[string]WindowData){
 	unsafe{
 		table:=object["table"].tbl

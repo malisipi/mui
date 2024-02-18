@@ -3,7 +3,7 @@ module mui
 import malisipi.mfb as gg
 import gx
 
-[autofree_bug; manualfree]
+@[autofree_bug; manualfree]
 pub fn add_button(mut app &Window, text string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, fg gx.Color, fnclk OnEvent, fnucl OnEvent, icon bool, dialog bool, frame string, zindex int, tSize int){
     widget:={
         "type": WindowData{str:"button"},
@@ -31,7 +31,7 @@ pub fn add_button(mut app &Window, text string, id string, x IntOrString, y IntO
     if dialog {app.dialog_objects << widget.clone()} else {app.objects << widget.clone()}
 }
 
-[unsafe]
+@[unsafe]
 fn draw_button(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.draw_rounded_rect_filled(object["x"].num, object["y"].num, object["w"].num, object["h"].num, app.round_corners, object["bg"].clr)

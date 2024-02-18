@@ -52,7 +52,7 @@ pub fn add_map(mut app &Window, zoom int, lat f64, lon f64, id string, x IntOrSt
     }
 }
 
-[unsafe]
+@[unsafe]
 fn draw_map(app &Window, object map[string]WindowData){
     unsafe{
         draw_image(app, object)

@@ -44,7 +44,7 @@ pub fn add_radio(mut app &Window, list []string, group_id string, x IntOrString,
 	}
 }
 
-[unsafe]
+@[unsafe]
 fn draw_radio(app &Window, object map[string]WindowData){
 	unsafe{
 		group:=get_object_by_id(app, object["id"].str.split("_")#[0..-1].join("_"))

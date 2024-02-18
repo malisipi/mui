@@ -65,11 +65,11 @@ pub fn (mut app Window) password ( args Widget ){
 }
 
 pub fn (mut app Window) checkbox ( args Widget ){ //dialog support not done
-	add_checkbox(mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.checked , args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onchange, args.frame, args.z_index, args.text_size)
+	add_checkbox(mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.checked , args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onchange, args.frame, args.z_index, args.text_size, args.show_value_as_label)
 }
 
 pub fn (mut app Window) switch ( args Widget ){ //dialog support not done
-	add_switch(mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.checked , args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onchange, args.frame, args.z_index, args.text_size)
+	add_switch(mut app, args.text, args.id, args.x, args.y, args.width, args.height, args.checked , args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onchange, args.frame, args.z_index, args.text_size, args.show_value_as_label)
 }
 
 pub fn (mut app Window) radio ( args Widget ){ //dialog support not done
@@ -81,7 +81,7 @@ pub fn (mut app Window) selectbox ( args Widget ){ //dialog support not done
 }
 
 pub fn (mut app Window) slider ( args Widget ){
-	add_slider(mut app, args.value, args.value_min, args.value_max, args.step, args.id, args.x, args.y, args.width, args.height, args.vertical, args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onclick, args.onchange, args.onunclick, args.value_map, args.dialog, args.frame, args.z_index, args.text_size)
+	add_slider(mut app, args.value, args.value_min, args.value_max, args.step, args.id, args.x, args.y, args.width, args.height, args.vertical, args.hidden, app.color_scheme[1], app.color_scheme[2], app.color_scheme[3], args.onclick, args.onchange, args.onunclick, args.value_map, args.dialog, args.frame, args.z_index, args.text_size, args.show_value_as_label)
 }
 
 pub fn (mut app Window) scrollbar ( args Widget ){ //dialog support not done

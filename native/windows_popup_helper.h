@@ -4,7 +4,7 @@
 #include <shellapi.h>
 #include <winuser.h>
 
-static MENUITEMINFO mui_popup_menu_MENUITEMINFO (int id, bool def, bool disabled, bool checked, wchar_t* text) {
+static void mui_popup_menu_MENUITEMINFO (HMENU hmenu, int id, bool def, bool disabled, bool checked, wchar_t* text) {
       MENUITEMINFO item;
       item.cbSize = sizeof(MENUITEMINFO);
       item.fMask = MIIM_ID | MIIM_TYPE | MIIM_STATE | MIIM_DATA;
@@ -21,5 +21,5 @@ static MENUITEMINFO mui_popup_menu_MENUITEMINFO (int id, bool def, bool disabled
       }
       item.wID = id;
       item.dwTypeData = text;
-      return item;
+      InsertMenuItem(hmenu, id, true, &item);
 }

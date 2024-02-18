@@ -82,7 +82,7 @@ pub mut:
 	target_id		string		//= ""
 }
 
-[heap]
+@[heap]
 pub struct Window {
 mut:
 	drag_x				f32
@@ -181,9 +181,10 @@ pub mut:
 	draggable		bool			//=false									//drag
 	click_events	bool			= true										//sclke
 	z_index			int			//= 0										//z_ind
-	connected_widget	map[string]WindowData	= null_object									//cnObj
+	connected_widget	map[string]WindowData	= unsafe { null_object }									//cnObj
 	row_height		int			= -1										//row_h
 	view_area		[]int			= [-1,-1]									//viewA
+	show_value_as_label int		= -1										//svlal
 }
 
 pub struct Modal {

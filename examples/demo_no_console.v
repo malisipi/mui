@@ -6,7 +6,7 @@ const (
 )
 
 
-[unsafe]
+@[unsafe]
 fn add_user(event_details m.EventDetails, mut app &m.Window, mut app_data voidptr){
 	unsafe{
 		if app.get_object_by_id("progress")[0]["perc"].num<100{

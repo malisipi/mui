@@ -54,7 +54,7 @@ fn screen_reader_read(text string){
     }
 }
 
-[unsafe]
+@[unsafe]
 fn (mut app Window) screen_reader_parse_text(object_id string) string{
     unsafe {
         if object_id!=""{

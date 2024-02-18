@@ -2,7 +2,7 @@ module mui
 
 import malisipi.mfb as gg
 
-[autofree_bug; manualfree]
+@[autofree_bug; manualfree]
 pub fn add_image(mut app &Window, path string, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, fun OnEvent, frame string, zindex int){
     app.objects << {
         "type": WindowData{str:"image"},
@@ -23,7 +23,7 @@ pub fn add_image(mut app &Window, path string, id string, x IntOrString, y IntOr
     }
 }
 
-[unsafe]
+@[unsafe]
 fn draw_image(app &Window, object map[string]WindowData){
 	unsafe{
 		app.gg.draw_image(object["x"].num, object["y"].num, object["w"].num, object["h"].num, object["image"].img)
