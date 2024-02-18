@@ -1,6 +1,6 @@
 module mui
 
-import gg
+import malisipi.mfb as gg
 import gx
 
 pub fn add_textbox(mut app &Window, text string, id string, placeholder string, phsa bool, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, dialog bool, frame string, zindex int, tSize int){

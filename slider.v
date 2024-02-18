@@ -1,6 +1,6 @@
 module mui
 
-import gg
+import malisipi.mfb as gg
 import gx
 
 pub fn add_slider(mut app &Window, val int, min int, max int, step int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, vert bool, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, fnclk OnEvent, fnchg OnEvent, fnucl OnEvent, value_map ValueMap, dialog bool, frame string, zindex int, tSize int, show_value_as_label int){

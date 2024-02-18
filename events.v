@@ -1,6 +1,6 @@
 module mui
 
-import gg
+import malisipi.mfb as gg
 import math
 import os
 import sokol.sapp
@@ -204,7 +204,6 @@ fn move_fn(x f32, y f32, mut app &Window){
 		if app.active_dialog!=""{
 			objects=app.dialog_objects.clone().reverse()
 		}
-
 		mut changed_cursor:=false
 		for mut object in objects{
 			if !object["hi"].bol && object["type"].str!="rect" && object["type"].str!="group" && object["type"].str!="table"{
@@ -212,16 +211,16 @@ fn move_fn(x f32, y f32, mut app &Window){
 					if object["y"].num<y && object["y"].num+object["h"].num>y{
 						match object["type"].str {
 							"textbox", "password", "textarea"{
-								sapp.set_mouse_cursor(.ibeam)
+								app.gg.set_cursor(.text)
 								changed_cursor=true
 								break
 							} "link" {
-								sapp.set_mouse_cursor(.pointing_hand)
+								app.gg.set_cursor(.pointer)
 								changed_cursor=true
 								break
 							} "frame" {
 								if object["drag"].bol {
-									sapp.set_mouse_cursor(.resize_all)
+									app.gg.set_cursor(.move)
 									changed_cursor=true
 								}
 								break
@@ -237,7 +236,7 @@ fn move_fn(x f32, y f32, mut app &Window){
 								if will_skip {
 									continue
 								}
-								sapp.set_mouse_cursor(.default)
+								app.gg.set_cursor(.default)
 								changed_cursor=true
 								break
 							}
@@ -245,8 +244,10 @@ fn move_fn(x f32, y f32, mut app &Window){
 					}
 				}
 			}
+		} 
+		if !changed_cursor {
+			app.gg.set_cursor(.default)
 		}
-		if !changed_cursor { sapp.set_mouse_cursor(.default) }
 		if !(app.focus==""){
 			mut object:=get_object_by_id(app,app.focus)
 			if !is_null_object(object) {

@@ -1,6 +1,6 @@
 module mui
 
-import gg
+import malisipi.mfb as gg
 import gx
 
 @[unsafe]
