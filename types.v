@@ -3,10 +3,8 @@ module mui
 import gg
 import gx
 
-pub const (
-	null_object={"id":WindowData{str:""}}
-	window_titlebar_height = 30
-)
+pub const null_object={"id":WindowData{str:""}}
+pub const window_titlebar_height = 30
 
 pub type IntOrString=int|string
 pub type U32OrString=u32|string

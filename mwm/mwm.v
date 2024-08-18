@@ -1,9 +1,7 @@
 module mwm
 import malisipi.mui
 
-pub const (
-	destroy = "@MUI_DESTROY" 
-)
+pub const destroy = "@MUI_DESTROY" 
 
 pub struct MuiWindowManager{
 pub mut:

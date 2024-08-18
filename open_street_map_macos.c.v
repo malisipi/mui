@@ -6,9 +6,7 @@ import os
 import gg
 import gx
 
-const (
-    map_source="© OpenStreetMap"
-)
+const map_source="© OpenStreetMap"
 
 // https://wiki.openstreetmap.org/w/index.php?title=Slippy_map_tilenames&oldid=2309797
 // Python - Lon./lat. to tile numbers

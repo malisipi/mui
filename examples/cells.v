@@ -1,11 +1,10 @@
 import malisipi.mui as m
 
-const (
-    cols=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-    rows=100
-    cell_size=[80,25]
-    view_area=[(cols.len+1)*cell_size[0],(rows+1)*cell_size[1]]
-)
+const cols=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+const rows=100
+const cell_size=[80,25]
+const view_area=[(cols.len+1)*cell_size[0],(rows+1)*cell_size[1]]
+
 fn is_this_number(value string) bool { return value.int() != 0 || (value.int()==0 && value.replace("0","").len==0) }
 
 fn calculate_cell(mut app &m.Window, value string) int {

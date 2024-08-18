@@ -1,8 +1,6 @@
 import malisipi.mui as m
 
-const (
-	countries=["United States","Canada","United Kingdom", "Australia"]
-)
+const countries=["United States","Canada","United Kingdom", "Australia"]
 
 @[unsafe]
 fn add_user(event_details m.EventDetails, mut app &m.Window, mut app_data voidptr){

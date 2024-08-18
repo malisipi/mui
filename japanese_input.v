@@ -1,7 +1,6 @@
 module mui
 
-const (
-	hiragana_list={
+const hiragana_list={
 		"んあ":"な", //fix na/ni/nu/ne/no letters
 		"んい":"に",
 		"んう":"ぬ",
@@ -116,9 +115,8 @@ const (
 		"pya":"ぴゃ",
 		"pyu":"ぴゅ",
 		"pyo":"ぴょ"
-	}
-	hiragana_keys=unsafe { hiragana_list.keys().clone().reverse() }
-)
+}    
+const hiragana_keys=unsafe { hiragana_list.keys().clone().reverse() }
 
 fn replace_romanji_with_hiragana (romanji string) string {
 	mut hiragana := romanji.clone()

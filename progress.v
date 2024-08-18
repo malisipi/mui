@@ -1,6 +1,5 @@
 module mui
 
-import gg
 import gx
 
 pub fn add_progress(mut app &Window, percent int, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color, dialog bool, frame string, zindex int, tSize int){

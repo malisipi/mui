@@ -1,11 +1,8 @@
 module mui
 
-import gg
 import gx
 
-pub const (
-    scrollbar_size=15
-)
+pub const scrollbar_size=15
 
 @[unsafe]
 fn update_scroll_hor(event_details EventDetails, mut app &Window, mut app_data voidptr){
