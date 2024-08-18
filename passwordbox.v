@@ -1,6 +1,5 @@
 module mui
 
-import gg
 import gx
 
 pub fn add_password(mut app &Window, text string, hider_char string, id string, placeholder string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color,  bfg gx.Color, fg gx.Color,  fnchg OnEvent, dialog bool, frame string, zindex int, tSize int){

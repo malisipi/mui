@@ -3,11 +3,9 @@ import miniaudio as ma // v install https://github.com/malisipi/miniaudio
 import math
 import time
 
-const (
-    open_file_emoji="⤵"
-    play_emoji="▶️"
-    pause_emoji="⏸️"
-)
+const open_file_emoji="⤵"
+const play_emoji="▶️"
+const pause_emoji="⏸️"
 
 struct AppData{
 mut:

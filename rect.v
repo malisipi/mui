@@ -1,6 +1,5 @@
 module mui
 
-import gg
 import gx
 
 pub fn add_rect(mut app &Window, id string, x IntOrString, y IntOrString, w IntOrString, h IntOrString, hi bool, bg gx.Color, dialog bool, frame string, zindex int){

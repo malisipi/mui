@@ -1,6 +1,5 @@
 module mui
 
-import gg
 import gx
 
 @[autofree_bug; manualfree]

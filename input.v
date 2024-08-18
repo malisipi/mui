@@ -1,8 +1,6 @@
 module mui
 
-const (
-	is_japanese = is_system_language_japanese_checker()
-)
+const is_japanese = is_system_language_japanese_checker()
 
 fn is_system_language_japanese_checker () bool {
 	return $if support_japanese_input? {

@@ -2,10 +2,8 @@ module mui
 
 import time
 
-const (
-    transition_fps=60
-    transition_time=f64(1)/transition_fps
-)
+const transition_fps=60
+const transition_time=f64(1)/transition_fps
 
 pub fn move_object(mut app &Window, object_id string, new_pos []IntOrString, move_time f64){
     unsafe {

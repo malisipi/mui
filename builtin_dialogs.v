@@ -3,11 +3,9 @@ module mui
 import time
 import gx
 
-const (
-    dialogs_null_answer = "@mui_answer_null"
-    dialogs_wait_time   = 200
-    hex_chars           = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"]
-)
+const dialogs_null_answer = "@mui_answer_null"
+const dialogs_wait_time   = 200
+const hex_chars           = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"]
 
 fn dialogs_messagebox_cancel(event_details EventDetails, mut app &Window, mut app_data voidptr){
     app.clear_dialog()

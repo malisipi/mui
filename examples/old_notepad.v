@@ -1,10 +1,8 @@
 import malisipi.mui as m
 import os
 
-const (
-    open_file_emoji="⤵"
-    save_file_emoji="💾"
-)
+const open_file_emoji="⤵"
+const save_file_emoji="💾"
 
 struct AppData {
 mut:
